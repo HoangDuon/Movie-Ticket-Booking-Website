@@ -1,0 +1,33 @@
+body {
+    background-color: #121212;
+    color: white;
+    background: url('../image/BG-detail.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+.movie-poster {
+    width: 100%;
+}
+.highlight {
+    background-color: yellow;
+    color: black;
+    padding: 3px 6px;
+    border-radius: 5px;
+}
+.schedule-box {
+    background-color: #1e1e1e;
+    padding: 15px;
+    border-radius: 10px;
+}
+.time-slot {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin: 3px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.time-slot:hover {
+    background-color: #ffc107;
+    color: black;
+}
