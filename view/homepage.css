@@ -7,26 +7,85 @@ html {
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-size: 1.6rem;
     margin: 0;
     padding: 0;
     background-color: #938686;
     color: white;
-    background: url('../image/BG-detail.jpg') no-repeat center center fixed;
+    background: url('../img/BG-detail.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 
 header {
-    background: #0f172a;
-    padding: 15px;
+    background-color: rgba(255, 255, 255, 0);
 }
 
 .header-top {
     display: flex;
+    align-items: center;
+    /* justify-content: center; */
     margin-bottom: 10px;
     padding: 15px;
     border-bottom: #cfcfcf 1px solid;
+}
+
+.hd-logo {
+
+}
+
+.hd-logo img {
+    width: 50%;
+}
+
+.hd-action {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.hd-action a {
+    font-weight: 600;
+    padding: 1.4rem 2rem;
+    border-radius: 1rem;
+    text-decoration: none;
+    color: #f8fafc;
+    background-color: #663399;
+}
+
+.hd-log {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.hd-log a {
+    text-decoration: none;
+    color: #f8fafc;
+    font-size: 2rem;
+}
+
+.hd-log a:hover {
+    color:#fff700;
+}
+
+.hd-log a i {
+    font-size: 3rem;
+}
+
+.hd-searchbar {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.form-control {
+    font-size: 1.6rem;
+    border-radius: 100rem;
 }
 
 .header-bottom {
@@ -106,19 +165,29 @@ header {
 .main-slide {
     margin-bottom: 4rem;
 }
-
-.container {
-    margin: 0 auto;
-    height: 100%;
-    width: 100%;
-
+.filter-heading {
+    display: flex;
+    align-items: center;
 }
 
-.filter-heading {
+.filter-heading h1 {
+    font-size: 3rem;
     color: #4c4545;
     font-weight: bold;
 }
 
+#heading-dropdown {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.dropdown-menu {
+    padding: 1.4rem;
+}
+
+.dropdown-menu li {
+    font-size: 2rem;
+}
 
 .filter-film {
     display: flex;
@@ -132,11 +201,12 @@ header {
     display: flex;
     flex: 1;
     justify-content: flex-end;
-    column-gap: 8px;
+    column-gap: 2rem;
 }
 
 #filter-btn {
-    padding: 10px;
+    padding: 1rem 1.4rem;
+    border-radius: 1rem;
     background-color: #fff;
     color: #663399;
     font-weight: bold;
@@ -149,14 +219,25 @@ header {
     background-color: #663399;
     justify-content: center;
     align-items: center;
-    font-weight: bolder;
+}
+
+.btn-order #order-now {
+    font-weight: bold;
+    text-decoration: none;
+    color: #f8fafc;
+    padding: 1.4rem 1rem;
 }
 
 .heading-phim {
     display: flex;
-    margin-top: 40px;
-    margin-bottom: 10px;
+    margin-top: 8rem;
+    margin-bottom: 4rem;
     justify-content: center;
+}
+
+.heading-phim h1 {
+    font-size: 4rem;
+    font-weight: 600;
 }
 
 #movie-poster {
@@ -184,6 +265,16 @@ header {
 
 }
 
+.movie-info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 1.6rem;
+    margin-top: 1rem;
+    text-align: center;
+    width: 100%;
+}
+
 .btn-primary {
     display: flex;
     justify-content: center;
@@ -204,25 +295,63 @@ header {
     margin-bottom: 0;
 }
 
-.card-title {
+.movie-title {
     font-size: 1.8rem;
     color: #f8fafc;
     font-weight: 600;
+    min-height: 60px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-align: center;
 }
 
 .card-bottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: auto;
 }
 
-footer {
-    background: #1a1a1a;
-    text-align: center;
-    padding: 10px;
-    margin-top: 20px;
+#card-img-sales {
+    object-fit: cover;
+    object-position: center;
 }
 
-.carousel-indicators{
-    top: 102%
+.normal-members .card {
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
 }
+
+.normal-members .card .card-body h5 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #f8fafc;
+}
+
+.normal-members .card .card-body p {
+    font-size: 1.4rem;
+    color: #f8fafc;
+}
+
+.vip-members .card {
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+}
+
+.vip-members .card .card-body h5 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #f8fafc;}
+
+.vip-members .card .card-body p {
+    font-size: 1.4rem;
+    color: #f8fafc;
+}
+
+.card-body a {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
