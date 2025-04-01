@@ -1,0 +1,102 @@
+CREATE DATABASE movie_ticket_booking;
+USE movie_ticket_booking;
+
+-- Bảng Người dùng
+CREATE TABLE users (
+    user_id     INT AUTO_INCREMENT PRIMARY KEY,
+    full_name   VARCHAR(100) NOT NULL,
+    email       VARCHAR(100) UNIQUE NOT NULL,
+    password    VARCHAR(255) NOT NULL,
+    phone       VARCHAR(20) UNIQUE NOT NULL,
+    role        ENUM('Customer', 'Admin') DEFAULT 'Customer',
+    member      ENUM('None', 'Silver', 'Gold', 'Diamond') DEFAULT 'None',
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Bảng Phim
+CREATE TABLE movies (
+    movie_id    INT AUTO_INCREMENT PRIMARY KEY,
+    title       VARCHAR(255) NOT NULL,
+    genre       VARCHAR(100),
+    duration    INT NOT NULL,
+    director    VARCHAR(255),
+    cast        TEXT,
+    language    VARCHAR(50),
+    release_date DATE,
+    description TEXT,
+    poster_url  VARCHAR(255),
+    trailer_url VARCHAR(255),
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Bảng Rạp chiếu
+CREATE TABLE cinemas (
+    cinema_id   INT AUTO_INCREMENT PRIMARY KEY,
+    name        VARCHAR(255) NOT NULL,
+    location    VARCHAR(255) NOT NULL,
+    phone       VARCHAR(20),
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Bảng Phòng chiếu
+CREATE TABLE rooms (
+    room_id     INT AUTO_INCREMENT PRIMARY KEY,
+    cinema_id   INT NOT NULL,
+    name        VARCHAR(100) NOT NULL,
+    seat_count  INT NOT NULL,
+    FOREIGN KEY (cinema_id) REFERENCES cinemas(cinema_id) ON DELETE CASCADE
+);
+
+-- Bảng Suất chiếu
+CREATE TABLE showtimes (
+    showtime_id INT AUTO_INCREMENT PRIMARY KEY,
+    movie_id    INT NOT NULL,
+    room_id     INT NOT NULL,
+    start_time  DATETIME NOT NULL,
+    price       DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (movie_id) REFERENCES movies(movie_id) ON DELETE CASCADE,
+    FOREIGN KEY (room_id) REFERENCES rooms(room_id) ON DELETE CASCADE
+);
+
+-- Bảng Ghế ngồi
+CREATE TABLE seats (
+    seat_id     INT AUTO_INCREMENT PRIMARY KEY,
+    room_id     INT NOT NULL,
+    seat_number VARCHAR(10) NOT NULL,
+    seat_type   ENUM('Standard', 'Vip', 'Couple') DEFAULT 'Standard',
+    FOREIGN KEY (room_id) REFERENCES rooms(room_id) ON DELETE CASCADE
+);
+
+-- Bảng Đặt vé
+CREATE TABLE bookings (
+    booking_id  INT AUTO_INCREMENT PRIMARY KEY,
+    user_id     INT NOT NULL,
+    showtime_id INT NOT NULL,
+    booking_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status      ENUM('Pending', 'Paid', 'Cancelled') DEFAULT 'Pending',
+    total_price DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (showtime_id) REFERENCES showtimes(showtime_id) ON DELETE CASCADE
+);
+
+-- Bảng Chi tiết đặt vé
+CREATE TABLE booking_details (
+    detail_id   INT AUTO_INCREMENT PRIMARY KEY,
+    booking_id  INT NOT NULL,
+    seat_id     INT NOT NULL,
+    FOREIGN KEY (booking_id) REFERENCES bookings(booking_id) ON DELETE CASCADE,
+    FOREIGN KEY (seat_id) REFERENCES seats(seat_id) ON DELETE CASCADE
+);
+
+-- Bảng Thanh toán
+CREATE TABLE payments (
+    payment_id  INT AUTO_INCREMENT PRIMARY KEY,
+    booking_id  INT NOT NULL,
+    user_id     INT NOT NULL,
+    amount      DECIMAL(10,2) NOT NULL,
+    payment_method ENUM('Credit_card', 'Paypal', 'Momo', 'Zalopay') NOT NULL,
+    payment_status ENUM('Success', 'Failed', 'Pending') DEFAULT 'Pending',
+    payment_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (booking_id) REFERENCES bookings(booking_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
