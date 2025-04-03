@@ -1,7 +1,7 @@
 body {
     background-color: #121212;
     color: white;
-    background: url('../image/BG-detail.jpg') no-repeat center center fixed;
+    background: url('../img/BG-detail.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 .movie-poster {
