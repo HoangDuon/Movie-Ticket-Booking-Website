@@ -1,108 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cinestar Cinema</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/homepage.css">
-    <link rel="stylesheet" href="homepage.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/ef3e2ec704.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</head>
-<body>
-    <div class="container">
-
-        <div class="row">
-
-            <div class="col">
-
-            </div>
-            <div class="col-12">
-                <header>
-                    <div class="header-top">
-                        <div class="hd-logo">
-                            <a href="/">
-                                <img src="../img/cinestar_logo.webp" alt="logo of Cinestar">
-                            </a>
-                        </div>
-                
-                        <div class="hd-action">
-                            <a href="#">
-                                <img src="https://cinestar.com.vn/assets/images/ic-ticket.svg" alt="">
-                                ĐẶT VÉ NGAY
-                            </a>
-                            <a href="#">
-                                <img src="https://cinestar.com.vn/assets/images/ic-cor.svg" alt="">
-                                ĐẶT BẮP NƯỚC
-                            </a>
-                        </div>
-            
-                        <div class="hd-searchbar">
-                            <form class="d-flex" role="search">
-                                <input class="form-control me-2" type="search" placeholder="Tìm phim, rạp" aria-label="Search" style="padding: 1rem 2rem;">
-                                <button class="btn btn-outline-secondary" type="submit" style="border-radius: 100rem;">
-                                    <i class="fa-solid fa-magnifying-glass" style="color: #ced2da;"></i>
-                                </button>
-                            </form>
-                        </div>
-            
-                        <div class="hd-log">
-                            <div class="login-ic">
-                                <a href="#">
-                                    <i class="fa-regular fa-circle-user"></i>
-                                </a>
-                            </div>
-                            <div class="login">    
-                                <a href="#">
-                                    Đăng nhập
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="header-bottom">
-            
-                        <div class="hd-bottom-action">
-                            <div class="pick-location">
-                                <i class="fa-solid fa-location-dot"></i>
-                                <a href="#">
-                                    <h6>Chọn rạp</h6>
-                                </a>
-                            </div>
-                            <div class="calendar">
-                                <i class="fa-solid fa-calendar"></i>
-                                <a href="#">
-                                    <h6>Lịch chiếu</h6>
-                                </a>
-                            </div>
-                        </div>
-            
-                        <div class="hd-bottom-information">
-                            <ul>
-                                <li>
-                                    <a href="#">Khuyến mãi</a>
-                                </li>
-                                <li>
-                                    <a href="#">Thuê sự kiện</a>
-                                </li>
-                                <li>
-                                    <a href="#">Tất cả các giải trí</a>
-                                </li>
-                                <li>
-                                    <a href="#">Giới thiệu</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </header>
-                
-                <div>
-            
-                    <div class="main-slide">
+<div class="main-slide">
                         <div id="carouselExample" class="carousel slide">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
@@ -203,7 +99,7 @@
                                             <div class="col">
                                                 <div id="movie-poster" class="card">
                                                     <a href="#">
-                                                        <img src="../img/quy-nhap-trang-image.webp" class="card-img-top" alt="...">
+                                                        <img src="./img/quy-nhap-trang-image.webp" class="card-img-top" alt="...">
                                                     </a>
                                                     <div class="movie-info">
                                                         <div class="card-body">
@@ -225,7 +121,7 @@
                                             <div class="col">
                                                 <div id="movie-poster" class="card">
                                                     <a href="#">
-                                                        <img src="../img/sat-thu-vo-cung-cuc-image.webp" class="card-img-top" alt="...">
+                                                        <img src="./img/sat-thu-vo-cung-cuc-image.webp" class="card-img-top" alt="...">
                                                     </a>
                                                     <div class="movie-info">
                                                         <div class="card-body">
@@ -247,7 +143,7 @@
                                             <div class="col">
                                                 <div id="movie-poster" class="card">
                                                     <a href="#">
-                                                        <img src="../img/mickey-17-image.webp" class="card-img-top" alt="...">
+                                                        <img src="./img/mickey-17-image.webp" class="card-img-top" alt="...">
                                                     </a>
                                                     <div class="movie-info">
                                                         <div class="card-body">
@@ -269,7 +165,7 @@
                                             <div class="col">
                                                 <div id="movie-poster" class="card">
                                                     <a href="#">
-                                                        <img src="../img/tieng-vong-kinh-hoang-image.webp" class="card-img-top" alt="...">
+                                                        <img src="./img/tieng-vong-kinh-hoang-image.webp" class="card-img-top" alt="...">
                                                     </a>
                                                     <div class="movie-info">
                                                         <div class="card-body">
@@ -297,7 +193,7 @@
                                             <div class="col">
                                                 <div id="movie-poster" class="card">
                                                     <a href="#">
-                                                        <img src="../img/anh-khong-dau-image.webp" class="card-img-top" alt="...">
+                                                        <img src="./img/anh-khong-dau-image.webp" class="card-img-top" alt="...">
                                                     </a>
                                                     <div class="movie-info">
                                                         <div class="card-body">
@@ -319,7 +215,7 @@
                                             <div class="col">
                                                 <div id="movie-poster" class="card">
                                                     <a href="#">
-                                                        <img src="../img/nha-gia-tien-image.webp" class="card-img-top" alt="...">
+                                                        <img src="./img/nha-gia-tien-image.webp" class="card-img-top" alt="...">
                                                     </a>
                                                     <div class="movie-info">
                                                         <div class="card-body">
@@ -341,7 +237,7 @@
                                             <div class="col">
                                                 <div id="movie-poster" class="card">
                                                     <a href="#">
-                                                        <img src="../img/lac-troi-image.webp" class="card-img-top" alt="...">
+                                                        <img src="./img/lac-troi-image.webp" class="card-img-top" alt="...">
                                                     </a>
                                                     <div class="movie-info">
                                                         <div class="card-body">
@@ -363,7 +259,7 @@
                                             <div class="col">
                                                 <div id="movie-poster" class="card">
                                                     <a href="#">
-                                                        <img src="../img//little-emma-image.webp" class="card-img-top" alt="...">
+                                                        <img src="./img//little-emma-image.webp" class="card-img-top" alt="...">
                                                     </a>
                                                     <div class="movie-info">
                                                         <div class="card-body">
@@ -391,7 +287,7 @@
                                             <div class="col">
                                                 <div id="movie-poster" class="card">
                                                     <a href="#">
-                                                        <img src="../img/dao-cuong-sat-image.webp" class="card-img-top" alt="...">
+                                                        <img src="./img/dao-cuong-sat-image.webp" class="card-img-top" alt="...">
                                                     </a>
                                                     <div class="movie-info">
                                                         <div class="card-body">
@@ -413,7 +309,7 @@
                                             <div class="col">
                                                 <div id="movie-poster" class="card">
                                                     <a href="#">
-                                                        <img src="../img/ky-nguyen-moi-image.webp" class="card-img-top" alt="...">
+                                                        <img src="./img/ky-nguyen-moi-image.webp" class="card-img-top" alt="...">
                                                     </a>
                                                     <div class="movie-info">
                                                         <div class="card-body">
@@ -435,7 +331,7 @@
                                             <div class="col">
                                                 <div id="movie-poster" class="card">
                                                     <a href="#">
-                                                        <img src="../img/hoang-thuy-linh-concert-image.webp" class="card-img-top" alt="...">
+                                                        <img src="./img/hoang-thuy-linh-concert-image.webp" class="card-img-top" alt="...">
                                                     </a>
                                                     <div class="movie-info">
                                                         <div class="card-body">
@@ -457,7 +353,7 @@
                                             <div class="col">
                                                 <div id="movie-poster" class="card">
                                                     <a href="#">
-                                                        <img src="../img/hien-me-cho-quy-image.webp" class="card-img-top" alt="...">
+                                                        <img src="./img/hien-me-cho-quy-image.webp" class="card-img-top" alt="...">
                                                     </a>
                                                     <div class="movie-info">
                                                         <div class="card-body">
@@ -510,7 +406,7 @@
                                             <div class="col">
                                                 <div id="movie-poster" class="card">
                                                     <a href="#">
-                                                        <img src="../img/thieu-nu-anh-trang-image.webp" class="card-img-top" alt="...">
+                                                        <img src="./img/thieu-nu-anh-trang-image.webp" class="card-img-top" alt="...">
                                                     </a>
                                                     <div class="movie-info">
                                                         <div class="card-body">
@@ -532,7 +428,7 @@
                                             <div class="col">
                                                 <div id="movie-poster" class="card">
                                                     <a href="#">
-                                                        <img src="../img/giai-cuu-quan-su-image.webp" class="card-img-top" alt="...">
+                                                        <img src="./img/giai-cuu-quan-su-image.webp" class="card-img-top" alt="...">
                                                     </a>
                                                     <div class="movie-info">
                                                         <div class="card-body">
@@ -554,7 +450,7 @@
                                             <div class="col">
                                                 <div id="movie-poster" class="card">
                                                     <a href="#">
-                                                        <img src="../img/cuoc-xe-kinh-hoang-image.webp" class="card-img-top" alt="...">
+                                                        <img src="./img/cuoc-xe-kinh-hoang-image.webp" class="card-img-top" alt="...">
                                                     </a>
                                                     <div class="movie-info">
                                                         <div class="card-body">
@@ -576,7 +472,7 @@
                                             <div class="col">
                                                 <div id="movie-poster" class="card">
                                                     <a href="#">
-                                                        <img src="../img/gau-yeu-cua-anh-image.webp" class="card-img-top" alt="...">
+                                                        <img src="./img/gau-yeu-cua-anh-image.webp" class="card-img-top" alt="...">
                                                     </a>
                                                     <div class="movie-info">
                                                         <div class="card-body">
@@ -604,7 +500,7 @@
                                             <div class="col">
                                                 <div id="movie-poster" class="card">
                                                     <a href="#">
-                                                        <img src="../img/gau-yeu-cua-anh-image.webp" class="card-img-top" alt="...">
+                                                        <img src="./img/gau-yeu-cua-anh-image.webp" class="card-img-top" alt="...">
                                                     </a>
                                                     <div class="movie-info">
                                                         <div class="card-body">
@@ -626,7 +522,7 @@
                                             <div class="col">
                                                 <div id="movie-poster" class="card">
                                                     <a href="#">
-                                                        <img src="../img/minecraft-image.webp" class="card-img-top" alt="...">
+                                                        <img src="./img/minecraft-image.webp" class="card-img-top" alt="...">
                                                     </a>
                                                     <div class="movie-info">
                                                         <div class="card-body">
@@ -648,7 +544,7 @@
                                             <div class="col">
                                                 <div id="movie-poster" class="card">
                                                     <a href="#">
-                                                        <img src="../img/lac-troi-image.webp" class="card-img-top" alt="...">
+                                                        <img src="./img/lac-troi-image.webp" class="card-img-top" alt="...">
                                                     </a>
                                                     <div class="movie-info">
                                                         <div class="card-body">
@@ -670,7 +566,7 @@
                                             <div class="col">
                                                 <div id="movie-poster" class="card">
                                                     <a href="#">
-                                                        <img src="../img//little-emma-image.webp" class="card-img-top" alt="...">
+                                                        <img src="./img//little-emma-image.webp" class="card-img-top" alt="...">
                                                     </a>
                                                     <div class="movie-info">
                                                         <div class="card-body">
@@ -698,7 +594,7 @@
                                             <div class="col">
                                                 <div id="movie-poster" class="card">
                                                     <a href="#">
-                                                        <img src="../img/dao-cuong-sat-image.webp" class="card-img-top" alt="...">
+                                                        <img src="./img/dao-cuong-sat-image.webp" class="card-img-top" alt="...">
                                                     </a>
                                                     <div class="movie-info">
                                                         <div class="card-body">
@@ -720,7 +616,7 @@
                                             <div class="col">
                                                 <div id="movie-poster" class="card">
                                                     <a href="#">
-                                                        <img src="../img/ky-nguyen-moi-image.webp" class="card-img-top" alt="...">
+                                                        <img src="./img/ky-nguyen-moi-image.webp" class="card-img-top" alt="...">
                                                     </a>
                                                     <div class="movie-info">
                                                         <div class="card-body">
@@ -742,7 +638,7 @@
                                             <div class="col">
                                                 <div id="movie-poster" class="card">
                                                     <a href="#">
-                                                        <img src="../img/hoang-thuy-linh-concert-image.webp" class="card-img-top" alt="...">
+                                                        <img src="./img/hoang-thuy-linh-concert-image.webp" class="card-img-top" alt="...">
                                                     </a>
                                                     <div class="movie-info">
                                                         <div class="card-body">
@@ -764,7 +660,7 @@
                                             <div class="col">
                                                 <div id="movie-poster" class="card">
                                                     <a href="#">
-                                                        <img src="../img/hien-me-cho-quy-image.webp" class="card-img-top" alt="...">
+                                                        <img src="./img/hien-me-cho-quy-image.webp" class="card-img-top" alt="...">
                                                     </a>
                                                     <div class="movie-info">
                                                         <div class="card-body">
@@ -797,109 +693,3 @@
                             </button>
                         </div>
                     </div>
-            
-                    <div class="heading-phim khuyen-mai">
-                        <h1>KHUYẾN MÃI</h1>
-                    </div>
-            
-                    <div class="sales">
-                        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-            
-                                    <div class="row row-cols-1 row-cols-md-3 g-4">
-                                        <div class="col">
-                                            <div class="card h-100">
-                                                <img src="../img/sales-1.webp" id="card-img-sales" class="card-img-top" alt="...">
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="card h-100">
-                                                <img src="../img/sales-2.webp" id="card-img-sales" class="card-img-top" alt="...">
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="card h-100">
-                                                <img src="../img/sales-3.webp" id="card-img-sales" class="card-img-top" alt="...">
-                                            </div>
-                                        </div>
-            
-                                      </div>
-                                </div>
-                                <div class="carousel-item">
-            
-                                    <div class="row row-cols-1 row-cols-md-3 g-4">
-                                        <div class="col">
-                                            <div class="card h-100">
-                                                <img src="../img/sales-3.webp" id="card-img-sales" class="card-img-top" alt="...">
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="card h-100">
-                                                <img src="../img/sales-2.webp" id="card-img-sales" class="card-img-top" alt="...">
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="card h-100">
-                                                <img src="../img/sales-1.webp" id="card-img-sales" class="card-img-top" alt="...">
-                                            </div>
-                                        </div>
-            
-                                </div>
-            
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                    </div>
-            
-                    <div class="heading-phim members">
-                        <h1>CHƯƠNG TRÌNH THÀNH VIÊN</h1>
-                    </div>
-            
-                    <div class="members-info">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="normal-members">
-                                        <div class="card">
-                                            <img src="../img/c'vip.webp" class="card-img-top" alt="..." style="box-shadow: 0 12px 48px 0 rgba(243,234,40,.5);">
-                                            <div class="card-body">
-                                                <h5 class="card-title">THÀNH VIÊN C'VIP</h5>
-                                                <p class="card-text">Thẻ C'Friend nhiều ưu đãi dành cho thành viên mới.</p>
-                                                <a href="#" class="btn btn-primary">TÌM HIỂU NGAY</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-        
-                                <div class="col">
-                                    <div class="vip-members">
-                                        <div class="card">
-                                            <img src="../img/c'friend.webp" class="card-img-top" alt="..." style="box-shadow: 0 12px 48px 0 rgba(243,234,40,.5)">
-                                            <div class="card-body">
-                                                <h5 class="card-title">THÀNH VIÊN C'FRIEND</h5>
-                                                <p class="card-text">Thẻ VIP mang đến nhiều ưu đãi độc quyền.</p>
-                                                <a href="#" class="btn btn-primary">TÌM HIỂU NGAY</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-            
-            </div>
-        </div>
-
-    </div>
-
-</body>
-</html>

@@ -10,7 +10,20 @@ CREATE TABLE users (
     phone       VARCHAR(20) UNIQUE NOT NULL,
     role        ENUM('Customer', 'Admin') DEFAULT 'Customer',
     member      ENUM('None', 'Silver', 'Gold', 'Diamond') DEFAULT 'None',
-    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    link        VARCHAR(255), -- Thêm link
+    hide        BOOLEAN DEFAULT FALSE, -- Thêm hide
+    order_index     INT -- Thêm order
+);
+
+-- Bảng Hạng thành viên & mức giảm giá
+CREATE TABLE membership_discounts (
+    member_type ENUM('None', 'Silver', 'Gold', 'Diamond') PRIMARY KEY,
+    discount_percent DECIMAL(5,2) NOT NULL CHECK (discount_percent BETWEEN 0 AND 100),
+    link        VARCHAR(255), -- Thêm link
+    hide        BOOLEAN DEFAULT FALSE, -- Thêm hide
+    order_index     INT, -- Thêm order
+    created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Thêm ngày tạo
 );
 
 -- Bảng Phim
@@ -26,7 +39,10 @@ CREATE TABLE movies (
     description TEXT,
     poster_url  VARCHAR(255),
     trailer_url VARCHAR(255),
-    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    link        VARCHAR(255), -- Thêm link
+    hide        BOOLEAN DEFAULT FALSE, -- Thêm hide
+    order_index     INT -- Thêm order
 );
 
 -- Bảng Rạp chiếu
@@ -35,7 +51,10 @@ CREATE TABLE cinemas (
     name        VARCHAR(255) NOT NULL,
     location    VARCHAR(255) NOT NULL,
     phone       VARCHAR(20),
-    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    link        VARCHAR(255), -- Thêm link
+    hide        BOOLEAN DEFAULT FALSE, -- Thêm hide
+   order_index     INT -- Thêm order
 );
 
 -- Bảng Phòng chiếu
@@ -44,7 +63,11 @@ CREATE TABLE rooms (
     cinema_id   INT NOT NULL,
     name        VARCHAR(100) NOT NULL,
     seat_count  INT NOT NULL,
-    FOREIGN KEY (cinema_id) REFERENCES cinemas(cinema_id) ON DELETE CASCADE
+    FOREIGN KEY (cinema_id) REFERENCES cinemas(cinema_id) ON DELETE CASCADE,
+    link        VARCHAR(255), -- Thêm link
+    hide        BOOLEAN DEFAULT FALSE, -- Thêm hide
+    order_index     INT, -- Thêm order
+    created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Thêm ngày tạo
 );
 
 -- Bảng Suất chiếu
@@ -55,16 +78,36 @@ CREATE TABLE showtimes (
     start_time  DATETIME NOT NULL,
     price       DECIMAL(10,2) NOT NULL,
     FOREIGN KEY (movie_id) REFERENCES movies(movie_id) ON DELETE CASCADE,
-    FOREIGN KEY (room_id) REFERENCES rooms(room_id) ON DELETE CASCADE
+    FOREIGN KEY (room_id) REFERENCES rooms(room_id) ON DELETE CASCADE,
+    link        VARCHAR(255), -- Thêm link
+    hide        BOOLEAN DEFAULT FALSE, -- Thêm hide
+    order_index    INT, -- Thêm order
+    created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Thêm ngày tạo
 );
 
--- Bảng Ghế ngồi
+-- Bảng Ghế ngồi (Có giá vé riêng theo loại chỗ)
 CREATE TABLE seats (
     seat_id     INT AUTO_INCREMENT PRIMARY KEY,
     room_id     INT NOT NULL,
     seat_number VARCHAR(10) NOT NULL,
     seat_type   ENUM('Standard', 'Vip', 'Couple') DEFAULT 'Standard',
-    FOREIGN KEY (room_id) REFERENCES rooms(room_id) ON DELETE CASCADE
+    extra_price DECIMAL(10,2) DEFAULT 0, -- Phụ phí theo loại ghế
+    FOREIGN KEY (room_id) REFERENCES rooms(room_id) ON DELETE CASCADE,
+    link        VARCHAR(255), -- Thêm link
+    hide        BOOLEAN DEFAULT FALSE, -- Thêm hide
+    order_index     INT, -- Thêm order
+    created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Thêm ngày tạo
+);
+
+-- Bảng Đồ ăn / Nước uống
+CREATE TABLE concessions (
+    concession_id  INT AUTO_INCREMENT PRIMARY KEY,
+    name           VARCHAR(100) NOT NULL,
+    price          DECIMAL(10,2) NOT NULL,
+    link           VARCHAR(255), -- Thêm link
+    hide           BOOLEAN DEFAULT FALSE, -- Thêm hide
+    order_index        INT, -- Thêm order
+    created_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Thêm ngày tạo
 );
 
 -- Bảng Đặt vé
@@ -76,16 +119,39 @@ CREATE TABLE bookings (
     status      ENUM('Pending', 'Paid', 'Cancelled') DEFAULT 'Pending',
     total_price DECIMAL(10,2) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (showtime_id) REFERENCES showtimes(showtime_id) ON DELETE CASCADE
+    FOREIGN KEY (showtime_id) REFERENCES showtimes(showtime_id) ON DELETE CASCADE,
+    link        VARCHAR(255), -- Thêm link
+    hide        BOOLEAN DEFAULT FALSE, -- Thêm hide
+    order_index     INT -- Thêm order
 );
 
--- Bảng Chi tiết đặt vé
+-- Bảng Chi tiết đặt vé (Bao gồm loại ghế)
 CREATE TABLE booking_details (
     detail_id   INT AUTO_INCREMENT PRIMARY KEY,
     booking_id  INT NOT NULL,
     seat_id     INT NOT NULL,
+    price       DECIMAL(10,2) NOT NULL, -- Giá vé sau khi tính phụ phí ghế + giảm giá hạng thành viên
     FOREIGN KEY (booking_id) REFERENCES bookings(booking_id) ON DELETE CASCADE,
-    FOREIGN KEY (seat_id) REFERENCES seats(seat_id) ON DELETE CASCADE
+    FOREIGN KEY (seat_id) REFERENCES seats(seat_id) ON DELETE CASCADE,
+    link        VARCHAR(255), -- Thêm link
+    hide        BOOLEAN DEFAULT FALSE, -- Thêm hide
+    order_index     INT, -- Thêm order
+    created_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Thêm ngày tạo
+);
+
+-- Bảng Đặt bắp nước
+CREATE TABLE booking_concessions (
+    id              INT AUTO_INCREMENT PRIMARY KEY,
+    booking_id      INT NOT NULL,
+    concession_id   INT NOT NULL,
+    quantity        INT NOT NULL CHECK (quantity > 0),
+    total_price     DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (booking_id) REFERENCES bookings(booking_id) ON DELETE CASCADE,
+    FOREIGN KEY (concession_id) REFERENCES concessions(concession_id) ON DELETE CASCADE,
+    link            VARCHAR(255), -- Thêm link
+    hide            BOOLEAN DEFAULT FALSE, -- Thêm hide
+    order_index         INT, -- Thêm order
+    created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Thêm ngày tạo
 );
 
 -- Bảng Thanh toán
@@ -93,10 +159,13 @@ CREATE TABLE payments (
     payment_id  INT AUTO_INCREMENT PRIMARY KEY,
     booking_id  INT NOT NULL,
     user_id     INT NOT NULL,
-    amount      DECIMAL(10,2) NOT NULL,
+    price       DECIMAL(10,2) NOT NULL,
     payment_method ENUM('Credit_card', 'Paypal', 'Momo', 'Zalopay') NOT NULL,
     payment_status ENUM('Success', 'Failed', 'Pending') DEFAULT 'Pending',
     payment_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (booking_id) REFERENCES bookings(booking_id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    link        VARCHAR(255), -- Thêm link
+    hide        BOOLEAN DEFAULT FALSE, -- Thêm hide
+    order_index     INT -- Thêm order
 );
