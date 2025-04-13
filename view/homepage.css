@@ -6,6 +6,30 @@ html {
     font-size: 62.5%;
 }
 
+/* --------------------Scroll bar------------------- */
+
+/* width */
+::-webkit-scrollbar {
+    width: 0.6rem;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #663399;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #301848;
+  }
+
+/* ------------------------------------------------ */
+
 body {
     font-family: "Montserrat", sans-serif;
     font-size: 1.6rem;
@@ -18,7 +42,7 @@ body {
 }
 
 header {
-    background-color: rgba(255, 255, 255, 0);
+    background-color: #0f172a
 }
 
 .header-top {
@@ -47,14 +71,86 @@ header {
 }
 
 .hd-action a {
-    font-weight: 600;
-    padding: 1.4rem 2rem;
-    border-radius: 1rem;
-    text-decoration: none;
-    color: #f8fafc;
-    background-color: #663399;
+    font-weight: 700;
 }
 
+/* ------------------------- HOVER BTN ---------------------- */
+#dat-ve {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #000; /* Màu chữ trên nền vàng cho dễ đọc */
+    background: #f3ea28; /* Màu nền mặc định */
+    padding: 1rem 1.4rem;
+    border-radius: 5px;
+    font-weight: bold;
+    position: relative;
+    overflow: hidden;
+    z-index: 1; /* Đảm bảo nút nằm trên */
+}
+
+#dat-ve::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%; /* Gradient bắt đầu từ ngoài trái */
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(106deg, #639, #36c 102.69%);
+    transition: left 0.5s ease; /* Chuyển động mượt mà */
+    z-index: -1; /* Gradient nằm dưới chữ */
+}
+
+#dat-ve:hover::after {
+    left: 0; /* Gradient di chuyển vào */
+}
+
+#dat-ve:hover {
+    color: #fff; /* Màu chữ khi hover */
+}
+
+#dat-ve img {
+    margin-right: 10px; /* Khoảng cách icon và text */
+}
+/* ---------------------------------------------------------------- */
+#dat-bapnuoc {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #fff; /* Màu chữ trên nền vàng cho dễ đọc */
+    background: #639; /* Màu nền mặc định */
+    padding: 1rem 1.4rem;
+    border-radius: 5px;
+    font-weight: bold;
+    position: relative;
+    overflow: hidden;
+    z-index: 1; /* Đảm bảo nút nằm trên */
+}
+
+#dat-bapnuoc::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%; /* Gradient bắt đầu từ ngoài trái */
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,#ff6d00,#ffc107);
+    transition: left 0.5s ease; /* Chuyển động mượt mà */
+    z-index: -1; /* Gradient nằm dưới chữ */
+}
+
+#dat-bapnuoc:hover::after {
+    left: 0; /* Gradient di chuyển vào */
+}
+
+#dat-bapnuoc:hover {
+    color: #fff; /* Màu chữ khi hover */
+}
+
+#dat-bapnuoc img {
+    margin-right: 10px; /* Khoảng cách icon và text */
+}
+/* ---------------------------------------------------------------- */
 .hd-log {
     display: flex;
     align-items: center;
@@ -96,7 +192,7 @@ header {
 .header-bottom .hd-bottom-action {
     display: flex;
     padding: 15px;
-    column-gap: 22px;
+    column-gap: 1rem;
 }
 
 .pick-location a {
@@ -126,7 +222,7 @@ header {
 .header-bottom .hd-bottom-information ul {
     display: flex;
     padding: 15px;
-    column-gap: 8px;
+    column-gap: 2rem;
 }
 .header-bottom .hd-bottom-information ul li {
     list-style: none;
@@ -355,3 +451,119 @@ header {
     font-weight: 600;
 }
 
+/* ----------------Footer--------------- */
+footer {
+    padding-top: 100px;
+    background: linear-gradient(135deg, #483D8B, #6A5ACD, #8470FF);
+}
+
+.ft-btn {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 1rem;
+    justify-content: flex-start;
+}
+
+.ft-btn a {
+    font-weight: 600;
+    padding: 1.4rem 2rem;
+    border-radius: 1rem;
+    text-decoration: none;
+
+    display: inline-flex; /* Đảm bảo nội dung bên trong căn giữa */
+    align-items: center;
+    justify-content: center;
+    width: 150px; /* Chiều rộng cố định để hai nút bằng nhau */
+    height: 40px; /* Chiều cao cố định */
+    font-size: 14px;
+}
+
+.ft-text, .ft-logo {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.ft-body-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem 0;
+}
+
+
+.ft-item-bot {
+    margin-top: 4.8rem;
+}
+
+.ft-hotline-socials .list {
+    display: flex;
+    list-style: none;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0 1.2rem;
+}
+
+.text {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 2.4rem;
+}
+
+.menu-list {
+    display: flex;
+    padding-left: 0;
+    flex-direction: column;
+    gap: 1.6rem 0
+}
+
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+    justify-content: center;
+    text-align: center;
+}
+
+.menu-item a {
+    text-decoration: none;
+    color:#f8fafc;
+    transition: all .3s;
+}
+
+.menu-item a:hover {
+    animation: shine 1s infinite;
+    color: #f3ea28;
+    -webkit-mask-image: linear-gradient(-75deg, rgba(243, 234, 40, .6) 30%, #f3ea28 50%, rgba(243, 234, 40, .6) 70%);
+    -webkit-mask-size: 200%;
+}
+
+.ft-bottom {
+    display: flex;
+    border-top: .1rem solid #f8fafc;
+    justify-content: space-between;
+    padding-top: 2.4rem;
+}
+
+.ft-bottom .menu-list {
+    display: flex;
+    flex-direction: row;
+    gap: 0 2.4rem;
+    flex-wrap: nowrap;
+}
+/* -------------------------------------- */
+
+
+@keyframes shine {
+    0% {
+        -webkit-mask-position: 150%;
+        mask-position: 150%
+    }
+
+    to {
+        -webkit-mask-position: -50%;
+        mask-position: -50%
+    }
+}

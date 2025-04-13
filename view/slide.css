@@ -1,0 +1,85 @@
+/* Đảm bảo carousel full width nhưng nội dung căn giữa */
+.showing-movie-slide {
+    width: 100%;
+    overflow: hidden; /* Đảm bảo không tràn nội dung */
+}
+
+/* Điều chỉnh container để căn giữa và giới hạn chiều rộng */
+.carousel-inner .container {
+    max-width: 1200px; /* Giới hạn chiều rộng tối đa */
+    margin: 0 auto; /* Căn giữa */
+    padding: 0 15px; /* Padding mặc định của Bootstrap */
+}
+
+/* Căn chỉnh row chứa các cột phim */
+.carousel-inner .row {
+    display: flex;
+    justify-content: center; /* Căn giữa các cột */
+    flex-wrap: nowrap; /* Giữ các cột trên cùng một hàng */
+    margin: 0 -15px; /* Offset padding của container */
+}
+
+/* Điều chỉnh mỗi cột phim */
+.carousel-inner .col {
+    flex: 0 0 25%; /* Mỗi cột chiếm 25% (4 cột) */
+    max-width: 25%;
+    padding: 0 15px; /* Khoảng cách giữa các cột */
+}
+
+/* Style cho card phim */
+#movie-poster.card {
+    width: 100%;
+    border: none; /* Bỏ viền mặc định nếu muốn */
+    background: transparent; /* Nền trong suốt nếu cần */
+}
+
+/* Đảm bảo hình ảnh poster responsive */
+#movie-poster.card img {
+    width: 100%;
+    /* height: auto; */
+    object-fit: cover;
+}
+
+/* Điều chỉnh nút prev/next */
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%; /* Giới hạn chiều rộng nút */
+    z-index: 1; /* Đảm bảo nút nằm trên nội dung */
+    opacity: 0.8; /* Mờ nhẹ khi không hover */
+    transition: opacity 0.3s ease;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    opacity: 1; /* Đậm hơn khi hover */
+}
+
+/* Icon của nút prev/next */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-size: 50%; /* Thu nhỏ icon cho đẹp */
+}
+
+/* Responsive cho mobile */
+@media (max-width: 768px) {
+    .carousel-inner .col {
+        flex: 0 0 50%; /* 2 cột trên mobile */
+        max-width: 50%;
+    }
+}
+
+@media (max-width: 576px) {
+    .carousel-inner .col {
+        flex: 0 0 100%; /* 1 cột trên màn nhỏ */
+        max-width: 100%;
+    }
+
+    .carousel-inner .row {
+        flex-wrap: wrap; /* Cho phép xuống dòng */
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 10%; /* Tăng chiều rộng nút trên mobile */
+    }
+}
