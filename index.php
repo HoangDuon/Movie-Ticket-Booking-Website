@@ -1,4 +1,4 @@
-<?php include("app/view/partials/header.php"); ?>
+<?php include("app/view/header.php"); ?>
 <div id="main-content">
     <?php
         $page = $_GET['page'] ?? 'home';
@@ -15,5 +15,5 @@
         }
     ?>
 </div>
-<?php include("app/view/partials/footer.php"); ?>
+<?php include("app/view/footer.php"); ?>
 

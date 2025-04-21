@@ -29,7 +29,7 @@
                 <header>
                     <div class="header-top">
                         <div class="hd-logo">
-                            <a href="/">
+                            <a href="index.php?page=home">
                                 <img src="../img/cinestar_logo.webp" alt="logo of Cinestar">
                             </a>
                         </div>

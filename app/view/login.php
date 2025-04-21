@@ -13,9 +13,12 @@
             <!-- Tab Content -->
             <div class="tab-content mt-3" id="authTabsContent">
 
+            <?php
+
+            ?>
                 <!-- Form Đăng Nhập -->
                 <div class="tab-pane fade show active" id="login" aria-labelledby="login-tab">
-                    <form id="loginForm">
+                    <form id="loginForm" action="" method="post">
 
                         <!-- Tài khoản -->
                         <div class="mb-3">
@@ -44,13 +47,58 @@
                         </div>
                         
                         <!-- Đăng Nhập -->
-                        <button type="submit" class="btn-warning"><span>ĐĂNG NHẬP</span></button>
+                        <button type="submit" class="btn-warning" name="action" value="login"><span>ĐĂNG NHẬP</span></button>
+                        <input type="hidden" name="action" value="login">
                     </form>
                 </div>
 
+                <?php
+                include "../LTW/app/controler/user_services.php";
+
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    var_dump($_POST);
+                    if (isset($_POST['action'])) {
+                        $action = $_POST['action'];
+
+                        $user = new user_services();
+
+                        if ($action === 'login') {
+                            $email = $_POST['username'];
+                            $password = $_POST['password'];
+
+                            $user_info = $user->login($email, $password);
+
+                            if ($user_info) {
+                                $_SESSION['user'] = $user_info;
+
+                                if ($user_info['role'] === 'admin') {
+                                    header("Location: ../LTW/app/view/admin.php");
+                                } else {
+                                    header("Location: ../LTW/index.php?page=home");
+                                }
+                                exit();
+                            } else {
+                                echo "Email hoặc mật khẩu không đúng!";
+                            }
+
+                        } elseif ($action === 'register') {
+                            $full_name = $_POST['fullName'];
+                            $dob = $_POST['dob'];
+                            $phone = $_POST['phone'];
+                            $email = $_POST['email'];
+                            $password = $_POST['password'];
+                            $user->add_User($full_name, $dob, $phone, $email, $password);
+                        }
+                    } else {
+                        echo 'Không có action trong POST';
+                    }
+                }
+                ?>
+
+
                 <!-- Form Đăng Ký -->
                 <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                    <form id="registerForm">
+                    <form id="registerForm" action="" method="post">
                         
                         <!-- Họ và Tên -->
                         <div class="mb-3">
@@ -73,19 +121,6 @@
                             <span class="error" id="phoneError">Vui lòng nhập số điện thoại.</span>
                         </div>
 
-                        <!-- Tên Đăng Nhập -->
-                        <div class="mb-3">
-                            <label for="usernameReg" class="form-label">Tên đăng nhập <span style="color: red;">*</span></label>
-                            <input type="text" class="form-control" id="usernameReg" name="usernameReg" required>
-                            <span class="error" id="usernameRegError">Vui lòng nhập tên đăng nhập.</span>
-                        </div>
-
-                        <!-- CCCD/CMND-->
-                        <div class="mb-3">
-                            <label for="cccd" class="form-label">CCCD/CMND <span style="color: red;">*</span></label>
-                            <input type="text" class="form-control" id="cccd" name="cccd" required>
-                            <span class="error" id="cccdError">Vui lòng nhập CCCD/CMND.</span>
-                        </div>
 
                         <!-- Email -->
                         <div class="mb-3">
@@ -104,15 +139,15 @@
 
                         <!-- Xác Thực Mật Khẩu -->
                         <div class="mb-3">
-                            <label for="password" class="form-label">Mật khẩu <span style="color: red;">*</span></label>
-                            <input type="password" name="password" id="passwordCon" class="form-control" required>
+                            <label for="password" class="form-label">Nhập lại mật khẩu <span style="color: red;">*</span></label>
+                            <input type="password" name="passwordAgain" id="passwordCon" class="form-control" required>
                             <i class="bi bi-eye-slash" id="togglePasswordCon"></i>
                             <span class="error" id="confirmPasswordError">Mật khẩu xác thực không khớp.</span>
                         </div>
 
                         <!-- Điều Khoản -->
                         <div class>
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#myModal" class="details">Bấm vào để xem nội dung</a>
+                            <a href="#" data-bs-toggle="modal" d    ata-bs-target="#myModal" class="details">Bấm vào để xem nội dung</a>
                             <div class="modal fade" id="myModal">
                                 <div class="modal-dialog">
                                   <div class="modal-content">
@@ -138,10 +173,11 @@
                             <label class="form-check-label" for="terms">Khách hàng đã đồng ý các điều khoản.</label>
                             <span class="error" id="termsError">Bạn cần đồng ý với chính sách bảo mật.</span>
                         </div>
-                        <button type="submit" class="btn-warning"><span>ĐĂNG KÝ</span></button>
+                        <button type="submit" class="btn-warning" name="action" value="register"><span>ĐĂNG KÝ</span></button>
                         <div>
                             <p style="margin-top: 10px; text-align: center;">Bạn đã có tài khoản? <a href="login.html" class="login-tab">Đăng nhập</a></p>
                         </div>
+                        <input type="hidden" name="action" value="register">
                     </form>
                 </div>
             </div>
