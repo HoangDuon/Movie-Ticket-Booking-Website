@@ -1,5 +1,5 @@
 <?php
-include "../LTW/app/model/pdo.php";
+include_once "../model/pdo.php";
 
 class user_services{
     public function __construct() {
@@ -25,8 +25,8 @@ class user_services{
     public function login($email,$password){
     $sql = "SELECT * FROM users WHERE email = ?";
     $user = pdo_query_one($sql, $email);
-
-    if ($user && password_verify($password, $user['password'])) {
+    // password_verify($password, $user['password'])
+    if ($user && $password === $user['password']) {
         return [
             'id' => $user['id'],
             'full_name' => $user['full_name'],
@@ -46,6 +46,11 @@ class user_services{
     public function isPhoneExists($phone) {
         $sql = "SELECT COUNT(*) FROM users WHERE phone = ?";
         return pdo_query_value($sql, $phone) > 0;
+    }
+
+    public function ShowUser(){
+        $sql = "SELECT * FROM users ORDER BY user_id DESC";
+        return pdo_query($sql);
     }
 }
 

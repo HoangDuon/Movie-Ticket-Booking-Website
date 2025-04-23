@@ -87,6 +87,13 @@
     </div>
 </div>
 
+<?php
+include "../controler/user_services.php";
+
+$service = new user_services();
+$users = $service->ShowUser();
+?>
+
 <script>
     const pages = {
         dashboard: `<h2>Dashboard</h2><p>Chào mừng bạn đến với hệ thống quản lý.</p>`,
@@ -98,22 +105,34 @@
                         <th>STT</th>
                         <th>Họ và tên</th>
                         <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>Sinh nhật</th>
+                        <th>Thành viên</th>
                         <th>Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <?php foreach ($users as $user): ?>
                     <tr>
-                        <td>1</td>
-                        <td>Nguyễn Văn A</td>
-                        <td>nguyena@gmail.com</td>
-                        <td><button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
+                        <td><?= $user['user_id'] ?></td>
+                        <td><?= $user['full_name'] ?></td>
+                        <td><?= $user['email'] ?></td>
+                        <td><?= $user['phone'] ?></td>
+                        <td><?= $user['birthday'] ?></td>
+                        <td><?= $user['role'] ?></td>
+                        <td>
+                            <a href="edit_user.php?id=<?= $user['user_id'] ?>" class="btn btn-warning btn-sm">
+                                <i class="bi bi-pencil-square"></i> Sửa
+                            </a>
+                            <a href="delete_user.php?id=<?= $user['user_id'] ?>" 
+                            onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này?')" 
+                            class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash-fill"></i> Xóa
+                            </a>
+
+                        </td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Trần Thị B</td>
-                        <td>tranb@gmail.com</td>
-                        <td><button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
-                    </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         `,

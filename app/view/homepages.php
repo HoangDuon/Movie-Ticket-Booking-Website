@@ -105,19 +105,19 @@
                                                     <img src="../img/quy-nhap-trang-image.webp" class="card-img-top" alt="...">
                                                 </a>
                                                 <div class="movie-info">
-                                                    <div class="card-body">
-                                                        <h5 class="movie-title">QUỶ NHẬP TRÀNG (T18)</h5>
-                                                    </div>
-                                                    <div class="card-bottom">
-                                                        <p class="card-text">
-                                                            <a href="#">
-                                                                <i class="fa-solid fa-video" style="color: #ffffff;"></i>
-                                                                Xem Trailer</a>
-                                                        </p>
-                                                        <a href="#" class="btn btn-primary">
-                                                            <p class="btn-datve">ĐẶT VÉ</p>
-                                                        </a>
-                                                    </div>
+                                                        <div class="card-body">
+                                                            <h5 class="movie-title">QUỶ NHẬP TRÀNG (T18)</h5>
+                                                        </div>
+                                                        <div class="card-bottom">
+                                                            <p class="card-text">
+                                                                <a href="#">
+                                                                    <i class="fa-solid fa-video" style="color: #ffffff;"></i>
+                                                                    Xem Trailer</a>
+                                                            </p>
+                                                            <a href="#" class="btn btn-primary">
+                                                                <p class="btn-datve">ĐẶT VÉ</p>
+                                                            </a>
+                                                        </div>
                                                 </div>
                                             </div>
                                         </div>

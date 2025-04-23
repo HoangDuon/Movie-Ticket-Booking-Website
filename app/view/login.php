@@ -18,7 +18,7 @@
             ?>
                 <!-- Form Đăng Nhập -->
                 <div class="tab-pane fade show active" id="login" aria-labelledby="login-tab">
-                    <form id="loginForm" action="" method="post">
+                    <form id="loginForm" action="/LTW/app/controler/login.php" method="post">
 
                         <!-- Tài khoản -->
                         <div class="mb-3">
@@ -47,58 +47,13 @@
                         </div>
                         
                         <!-- Đăng Nhập -->
-                        <button type="submit" class="btn-warning" name="action" value="login"><span>ĐĂNG NHẬP</span></button>
-                        <input type="hidden" name="action" value="login">
+                        <button type="submit" class="btn-warning" name="btn_log"><span>ĐĂNG NHẬP</span></button>
                     </form>
                 </div>
 
-                <?php
-                include "../LTW/app/controler/user_services.php";
-
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    var_dump($_POST);
-                    if (isset($_POST['action'])) {
-                        $action = $_POST['action'];
-
-                        $user = new user_services();
-
-                        if ($action === 'login') {
-                            $email = $_POST['username'];
-                            $password = $_POST['password'];
-
-                            $user_info = $user->login($email, $password);
-
-                            if ($user_info) {
-                                $_SESSION['user'] = $user_info;
-
-                                if ($user_info['role'] === 'admin') {
-                                    header("Location: ../LTW/app/view/admin.php");
-                                } else {
-                                    header("Location: ../LTW/index.php?page=home");
-                                }
-                                exit();
-                            } else {
-                                echo "Email hoặc mật khẩu không đúng!";
-                            }
-
-                        } elseif ($action === 'register') {
-                            $full_name = $_POST['fullName'];
-                            $dob = $_POST['dob'];
-                            $phone = $_POST['phone'];
-                            $email = $_POST['email'];
-                            $password = $_POST['password'];
-                            $user->add_User($full_name, $dob, $phone, $email, $password);
-                        }
-                    } else {
-                        echo 'Không có action trong POST';
-                    }
-                }
-                ?>
-
-
                 <!-- Form Đăng Ký -->
                 <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                    <form id="registerForm" action="" method="post">
+                    <form id="registerForm" action="/LTW/app/controler/register.php" method="post">
                         
                         <!-- Họ và Tên -->
                         <div class="mb-3">
@@ -173,11 +128,10 @@
                             <label class="form-check-label" for="terms">Khách hàng đã đồng ý các điều khoản.</label>
                             <span class="error" id="termsError">Bạn cần đồng ý với chính sách bảo mật.</span>
                         </div>
-                        <button type="submit" class="btn-warning" name="action" value="register"><span>ĐĂNG KÝ</span></button>
+                        <button type="submit" class="btn-warning" name="btn_reg">ĐĂNG KÝ</button>
                         <div>
-                            <p style="margin-top: 10px; text-align: center;">Bạn đã có tài khoản? <a href="login.html" class="login-tab">Đăng nhập</a></p>
-                        </div>
-                        <input type="hidden" name="action" value="register">
+                            <p style="margin-top: 10px; text-align: center;">Bạn đã có tài khoản? <a href="index.php?page=login" class="login-tab">Đăng nhập</a></p>
+                        </div>  
                     </form>
                 </div>
             </div>
