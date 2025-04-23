@@ -1,0 +1,164 @@
+-- Thêm dữ liệu vào bảng Người dùng
+INSERT INTO users (full_name, email, password, phone, birthday, role, member, link, hide, order_index) 
+VALUES 
+('Nguyen Thi Mai', 'mai@example.com', 'password123', '0123456789', '1990-05-20', 'Customer', 'Gold', 'https://link.example.com', FALSE, 1),
+('Tran Minh Tu', 'tu@example.com', 'password456', '0987654321', '1985-08-15', 'Admin', 'Silver', 'https://link.example.com', FALSE, 2),
+('Le Thi Lan', 'lan@example.com', 'password789', '0912345678', '1988-01-20', 'Customer', 'Silver', 'https://link.example.com', FALSE, 3),
+('Hoang Minh Hieu', 'hieu@example.com', 'password321', '0945678901', '1992-10-05', 'Customer', 'Gold', 'https://link.example.com', FALSE, 4),
+('Nguyen Hoang Nam', 'nam@example.com', 'password123', '09123456782', '1994-02-11', 'Admin', 'None', 'https://link.example.com', FALSE, 5),
+('Pham Minh Hoang', 'hoang@example.com', 'password111', '0971234567', '1991-06-30', 'Customer', 'Diamond', 'https://link.example.com', FALSE, 6),
+('Tran Thi Thanh', 'thanh@example.com', 'password222', '0903456789', '1993-03-25', 'Customer', 'Silver', 'https://link.example.com', FALSE, 7),
+('Le Thi Mai', 'mai2@example.com', 'password333', '0967654321', '1995-11-15', 'Customer', 'Gold', 'https://link.example.com', FALSE, 8),
+('Nguyen Bao Han', 'han@example.com', 'password444', '0982345678', '1990-07-22', 'Admin', 'Gold', 'https://link.example.com', FALSE, 9),
+('Phan Thi Lan', 'lan2@example.com', 'password555', '0934345678', '1987-12-10', 'Customer', 'None', 'https://link.example.com', FALSE, 10);
+
+-- Thêm dữ liệu vào bảng Hạng thành viên & mức giảm giá
+INSERT INTO membership_discounts (member_type, discount_percent, link, hide, order_index, created_at) 
+VALUES 
+('None', 0, 'https://link.example.com', FALSE, 1, NOW()),
+('Silver', 5, 'https://link.example.com', FALSE, 2, NOW()),
+('Gold', 10, 'https://link.example.com', FALSE, 3, NOW()),
+('Diamond', 15, 'https://link.example.com', FALSE, 4, NOW());
+
+-- Thêm dữ liệu vào bảng Phim
+INSERT INTO movies (title, genre, duration, director, cast, language, release_date, description, poster_url, trailer_url, banner_url, link, hide, order_index) 
+VALUES 
+('Avengers: Endgame', 'Action', 181, 'Anthony Russo', 'Robert Downey Jr., Chris Hemsworth', 'English', '2019-04-26', 'Epic conclusion of the Avengers saga', 'https://poster.example.com', 'https://trailer.example.com', 'https://banner.example.com', 'https://link.example.com', FALSE, 1),
+('The Lion King', 'Animation', 118, 'Jon Favreau', 'Donald Glover, Beyoncé', 'English', '2019-07-19', 'A young lion prince overcomes adversity to reclaim his throne', 'https://poster.example.com', 'https://trailer.example.com', 'https://banner.example.com', 'https://link.example.com', FALSE, 2),
+('Frozen 2', 'Animation', 103, 'Chris Buck', 'Idina Menzel, Kristen Bell', 'English', '2019-11-22', 'Elsa and Anna’s journey to discover the origins of Elsa’s magical powers', 'https://poster.example.com', 'https://trailer.example.com', 'https://banner.example.com', 'https://link.example.com', FALSE, 3),
+('Joker', 'Drama', 122, 'Todd Phillips', 'Joaquin Phoenix, Robert De Niro', 'English', '2019-10-04', 'A gritty character study of Arthur Fleck, a man disregarded by society', 'https://poster.example.com', 'https://trailer.example.com', 'https://banner.example.com', 'https://link.example.com', FALSE, 4),
+('Toy Story 4', 'Animation', 100, 'Josh Cooley', 'Tom Hanks, Tim Allen', 'English', '2019-06-21', 'Woody, Buzz, and the gang set out on an adventure with a new friend, Forky', 'https://poster.example.com', 'https://trailer.example.com', 'https://banner.example.com', 'https://link.example.com', FALSE, 5),
+('The Matrix 4', 'Action', 148, 'Lana Wachowski', 'Keanu Reeves, Carrie-Anne Moss', 'English', '2021-12-22', 'Neo and Trinity’s return to a new Matrix', 'https://poster.example.com', 'https://trailer.example.com', 'https://banner.example.com', 'https://link.example.com', FALSE, 6),
+('Spider-Man: No Way Home', 'Action', 148, 'Jon Watts', 'Tom Holland, Zendaya', 'English', '2021-12-17', 'Peter Parker deals with the fallout from the events of Far From Home', 'https://poster.example.com', 'https://trailer.example.com', 'https://banner.example.com', 'https://link.example.com', FALSE, 7),
+('The Godfather', 'Crime', 175, 'Francis Ford Coppola', 'Marlon Brando, Al Pacino', 'English', '1972-03-24', 'The epic story of a crime family in New York', 'https://poster.example.com', 'https://trailer.example.com', 'https://banner.example.com', 'https://link.example.com', FALSE, 8),
+('Titanic', 'Romance', 195, 'James Cameron', 'Leonardo DiCaprio, Kate Winslet', 'English', '1997-12-19', 'A young couple fall in love aboard the ill-fated ship Titanic', 'https://poster.example.com', 'https://trailer.example.com', 'https://banner.example.com', 'https://link.example.com', FALSE, 9),
+('Inception', 'Sci-Fi', 148, 'Christopher Nolan', 'Leonardo DiCaprio, Joseph Gordon-Levitt', 'English', '2010-07-16', 'A thief who steals corporate secrets is given the chance to erase his criminal record', 'https://poster.example.com', 'https://trailer.example.com', 'https://banner.example.com', 'https://link.example.com', FALSE, 10);
+
+-- Thêm dữ liệu vào bảng Rạp chiếu
+INSERT INTO cinemas (name, location, phone, link, hide, order_index) 
+VALUES 
+('Cineplex 1', 'Hanoi, Vietnam', '0241234567', 'https://link.example.com', FALSE, 1),
+('Galaxy Cinema', 'Ho Chi Minh City, Vietnam', '0289876543', 'https://link.example.com', FALSE, 2),
+('Lotte Cinema', 'Da Nang, Vietnam', '0236456789', 'https://link.example.com', FALSE, 3),
+('CGV', 'Hanoi, Vietnam', '0243456789', 'https://link.example.com', FALSE, 4),
+('Megastar Cinema', 'Ho Chi Minh City, Vietnam', '0287654321', 'https://link.example.com', FALSE, 5),
+('BHD Star Cineplex', 'Da Nang, Vietnam', '0236123456', 'https://link.example.com', FALSE, 6),
+('Cineworld', 'Hanoi, Vietnam', '0241230000', 'https://link.example.com', FALSE, 7),
+('Galaxy Mega', 'Ho Chi Minh City, Vietnam', '0289988776', 'https://link.example.com', FALSE, 8),
+('CGV Landmark', 'Ho Chi Minh City, Vietnam', '0289988777', 'https://link.example.com', FALSE, 9),
+('Lotte Cinema Bitexco', 'Ho Chi Minh City, Vietnam', '0289977665', 'https://link.example.com', FALSE, 10);
+
+-- Thêm dữ liệu vào bảng Phòng chiếu
+INSERT INTO rooms (cinema_id, name, seat_count, link, hide, order_index) 
+VALUES 
+(1, 'Room 1', 100, 'https://link.example.com', FALSE, 1),
+(2, 'Room 2', 100, 'https://link.example.com', FALSE, 1),
+(3, 'Room 3', 100, 'https://link.example.com', FALSE, 1),
+(1, 'Room 1', 100, 'https://link.example.com', FALSE, 1),
+(2, 'Room 2', 120, 'https://link.example.com', FALSE, 2),
+(3, 'Room 3', 150, 'https://link.example.com', FALSE, 3),
+(4, 'Room 4', 200, 'https://link.example.com', FALSE, 4),
+(5, 'Room 5', 180, 'https://link.example.com', FALSE, 5),
+(6, 'Room 6', 220, 'https://link.example.com', FALSE, 6),
+(7, 'Room 7', 130, 'https://link.example.com', FALSE, 7),
+(8, 'Room 8', 170, 'https://link.example.com', FALSE, 8),
+(9, 'Room 9', 160, 'https://link.example.com', FALSE, 9),
+(10, 'Room 10', 140, 'https://link.example.com', FALSE, 10);
+
+-- Thêm dữ liệu vào bảng Suất chiếu
+INSERT INTO showtimes (movie_id, room_id, start_time,end_time, price, link, hide, order_index) 
+VALUES 
+(1, 1, '2025-05-01 10:00:00','2025-05-01 13:00:00', 150000, 'https://link.example.com', FALSE, 1),
+(2, 2, '2025-05-01 14:00:00','2025-05-01 17:00:00', 120000, 'https://link.example.com', FALSE, 2),
+(3, 3, '2025-05-02 10:30:00','2025-05-02 15:00:00', 100000, 'https://link.example.com', FALSE, 3),
+(4, 4, '2025-05-02 15:00:00','2025-05-02 18:00:00', 130000, 'https://link.example.com', FALSE, 4),
+(5, 5, '2025-05-03 11:00:00','2025-05-03 14:00:00', 110000, 'https://link.example.com', FALSE, 5),
+(6, 6, '2025-05-03 14:30:00','2025-05-03 18:00:00', 140000, 'https://link.example.com', FALSE, 6),
+(7, 7, '2025-05-04 16:00:00','2025-05-04 20:00:00', 150000, 'https://link.example.com', FALSE, 7),
+(8, 8, '2025-05-04 18:30:00','2025-05-04 21:00:00', 120000, 'https://link.example.com', FALSE, 8),
+(9, 9, '2025-05-05 10:00:00','2025-05-05 13:00:00', 110000, 'https://link.example.com', FALSE, 9),
+(10, 10, '2025-05-05 13:00:00','2025-05-05 17:00:00', 160000, 'https://link.example.com', FALSE, 10);
+
+-- Thêm dữ liệu vào bảng Ghế ngồi
+INSERT INTO seats (room_id, seat_number, seat_type, extra_price, status, link, hide, order_index) 
+VALUES 
+(1, 'A1', 'Standard', 0, 'Available', 'https://link.example.com', FALSE, 1),
+(1, 'A2', 'Vip', 50000, 'Available', 'https://link.example.com', FALSE, 2),
+(2, 'B1', 'Couple', 100000, 'Available', 'https://link.example.com', FALSE, 3),
+(3, 'C1', 'Standard', 0, 'Available', 'https://link.example.com', FALSE, 4),
+(4, 'D1', 'Vip', 50000, 'Available', 'https://link.example.com', FALSE, 5),
+(5, 'E1', 'Couple', 100000, 'Available', 'https://link.example.com', FALSE, 6),
+(6, 'F1', 'Standard', 0, 'Available', 'https://link.example.com', FALSE, 7),
+(7, 'G1', 'Vip', 50000, 'Available', 'https://link.example.com', FALSE, 8),
+(8, 'H1', 'Couple', 100000, 'Available', 'https://link.example.com', FALSE, 9),
+(9, 'I1', 'Standard', 0, 'Available', 'https://link.example.com', FALSE, 10);
+
+-- Thêm dữ liệu vào bảng Đồ ăn / Nước uống
+INSERT INTO concessions (name, price, link, picture_link,hide, order_index, created_at) 
+VALUES 
+('Popcorn', 30000,'https://link.example.com', 'https://link.example.com', FALSE, 1, NOW()),
+('Soda', 20000,'https://link.example.com', 'https://link.example.com', FALSE, 2, NOW()),
+('Nachos', 25000,'https://link.example.com', 'https://link.example.com', FALSE, 3, NOW()),
+('Candy', 15000,'https://link.example.com', 'https://link.example.com', FALSE, 4, NOW()),
+('Water', 10000,'https://link.example.com', 'https://link.example.com', FALSE, 5, NOW()),
+('Ice Cream', 35000,'https://link.example.com', 'https://link.example.com', FALSE, 6, NOW()),
+('Hot Dog', 30000,'https://link.example.com', 'https://link.example.com', FALSE, 7, NOW()),
+('Chocolate', 20000,'https://link.example.com', 'https://link.example.com', FALSE, 8, NOW()),
+('Tea', 15000,'https://link.example.com', 'https://link.example.com', FALSE, 9, NOW()),
+('Juice', 18000,'https://link.example.com', 'https://link.example.com', FALSE, 10, NOW());
+
+-- Thêm dữ liệu vào bảng Đặt vé
+INSERT INTO bookings (user_id, showtime_id, total_price, link, hide, order_index) 
+VALUES 
+(1, 1, 300000, 'https://link.example.com', FALSE, 1),
+(2, 2, 240000, 'https://link.example.com', FALSE, 2),
+(3, 3, 220000, 'https://link.example.com', FALSE, 3),
+(4, 4, 260000, 'https://link.example.com', FALSE, 4),
+(5, 5, 230000, 'https://link.example.com', FALSE, 5),
+(6, 6, 280000, 'https://link.example.com', FALSE, 6),
+(7, 7, 310000, 'https://link.example.com', FALSE, 7),
+(8, 8, 270000, 'https://link.example.com', FALSE, 8),
+(9, 9, 250000, 'https://link.example.com', FALSE, 9),
+(10, 10, 320000, 'https://link.example.com', FALSE, 10);
+
+-- Thêm dữ liệu vào bảng Chi tiết đặt vé
+INSERT INTO booking_details (booking_id, seat_id, price, link, hide, order_index, created_at) 
+VALUES 
+(1, 1, 150000, 'https://link.example.com', FALSE, 1, NOW()),
+(2, 2, 220000, 'https://link.example.com', FALSE, 2, NOW()),
+(3, 3, 200000, 'https://link.example.com', FALSE, 3, NOW()),
+(4, 4, 240000, 'https://link.example.com', FALSE, 4, NOW()),
+(5, 5, 210000, 'https://link.example.com', FALSE, 5, NOW()),
+(6, 6, 270000, 'https://link.example.com', FALSE, 6, NOW()),
+(7, 7, 300000, 'https://link.example.com', FALSE, 7, NOW()),
+(8, 8, 260000, 'https://link.example.com', FALSE, 8, NOW()),
+(9, 9, 240000, 'https://link.example.com', FALSE, 9, NOW()),
+(10, 10, 310000, 'https://link.example.com', FALSE, 10, NOW());
+
+-- Thêm dữ liệu vào bảng Đặt bắp nước
+INSERT INTO booking_concessions (booking_id, concession_id, quantity, total_price, link, hide, order_index, created_at) 
+VALUES 
+(1, 1, 2, 60000, 'https://link.example.com', FALSE, 1, NOW()),
+(2, 2, 3, 60000, 'https://link.example.com', FALSE, 2, NOW()),
+(3, 3, 2, 50000, 'https://link.example.com', FALSE, 3, NOW()),
+(4, 4, 3, 75000, 'https://link.example.com', FALSE, 4, NOW()),
+(5, 5, 1, 10000, 'https://link.example.com', FALSE, 5, NOW()),
+(6, 6, 4, 140000, 'https://link.example.com', FALSE, 6, NOW()),
+(7, 7, 2, 60000, 'https://link.example.com', FALSE, 7, NOW()),
+(8, 8, 3, 90000, 'https://link.example.com', FALSE, 8, NOW()),
+(9, 9, 1, 15000, 'https://link.example.com', FALSE, 9, NOW()),
+(10, 10, 5, 175000, 'https://link.example.com', FALSE, 10, NOW());
+
+-- Thêm dữ liệu vào bảng Thanh toán
+INSERT INTO payments (booking_id, user_id, price, payment_method, payment_status, payment_time, link, hide, order_index) 
+VALUES 
+(1, 1, 360000, 'Credit_card', 'Success', NOW(), 'https://link.example.com', FALSE, 1),
+(2, 2, 300000, 'Paypal', 'Pending', NOW(), 'https://link.example.com', FALSE, 2),
+(3, 3, 330000, 'Credit_card', 'Success', NOW(), 'https://link.example.com', FALSE, 3),
+(4, 4, 360000, 'Paypal', 'Failed', NOW(), 'https://link.example.com', FALSE, 4),
+(5, 5, 320000, 'Credit_card', 'Pending', NOW(), 'https://link.example.com', FALSE, 5),
+(6, 6, 380000, 'Credit_card', 'Success', NOW(), 'https://link.example.com', FALSE, 6),
+(7, 7, 400000, 'Paypal', 'Success', NOW(), 'https://link.example.com', FALSE, 7),
+(8, 8, 370000, 'Credit_card', 'Failed', NOW(), 'https://link.example.com', FALSE, 8),
+(9, 9, 380000, 'Paypal', 'Success', NOW(), 'https://link.example.com', FALSE, 9),
+(10, 10, 420000, 'Credit_card', 'Pending', NOW(), 'https://link.example.com', FALSE, 10);

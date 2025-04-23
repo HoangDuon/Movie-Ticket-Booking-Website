@@ -79,25 +79,11 @@
             }
         });
 
-        async function isEmailExists(email) {
-            const response = await fetch('../LTW/app/controler/check_users.php', {
-                method: 'POST',
-                body: new URLSearchParams({ type: 'email', value: email })
-            });
-            return await response.text() === 'exists';
-        }
 
-        async function isPhoneExists(phone) {
-            const response = await fetch('../LTW/app/controler/check_users.php', {
-                method: 'POST',
-                body: new URLSearchParams({ type: 'phone', value: phone })
-            });
-            return await response.text() === 'exists';
-        }
 
         // Xử lý form đăng ký
         const registerForm = document.querySelector('#registerForm');
-        registerForm.addEventListener('submit',async (e) => {
+        registerForm.addEventListener('submit', (e) => {
             e.preventDefault();
             let isCheck=true;
             console.log('Form đăng ký đang được gửi');
@@ -109,8 +95,6 @@
             const passwordReg = document.querySelector('#passwordReg').value;
             const passwordCon = document.querySelector('#passwordCon').value;
             const terms = document.querySelector('#terms').checked;
-            const emailCheck = await isEmailExists(email);
-            console.log('Kết quả kiểm tra email:', emailCheck)
 
             // Kiểm tra các trường và hiển thị thông báo lỗi
             if (fullName === '') {
@@ -134,10 +118,6 @@
                 document.querySelector('#phoneError').textContent = 'Số điện thoại không hợp lệ.';
                 document.querySelector('#phoneError').style.display = 'block';
                 isCheck=false;
-            } else if (await isPhoneExists(phone)) {
-                document.querySelector('#phoneError').textContent = 'Số điện thoại đã được sử dụng.';
-                document.querySelector('#phoneError').style.display = 'block';
-                isCheck=false;
             }
             else {
                 document.querySelector('#phoneError').style.display = 'none';
@@ -148,10 +128,6 @@
                 document.querySelector('#emailError').style.display = 'block';
             } else if (!validateEmail(email)) {
                 document.querySelector('#emailError').textContent = 'Email không hợp lệ.';
-                document.querySelector('#emailError').style.display = 'block';
-                isCheck=false;
-            } else if (await isEmailExists(email)) {
-                document.querySelector('#emailError').textContent = 'Email đã tồn tại.';
                 document.querySelector('#emailError').style.display = 'block';
                 isCheck=false;
             } else {

@@ -40,6 +40,7 @@ CREATE TABLE movies (
     description TEXT,
     poster_url  VARCHAR(255),
     trailer_url VARCHAR(255),
+    banner_url VARCHAR(255),
     created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     link        VARCHAR(255), -- Thêm link
     hide        BOOLEAN DEFAULT FALSE, -- Thêm hide
@@ -77,6 +78,7 @@ CREATE TABLE showtimes (
     movie_id    INT NOT NULL,
     room_id     INT NOT NULL,
     start_time  DATETIME NOT NULL,
+    end_time  DATETIME NOT NULL,
     price       DECIMAL(10,2) NOT NULL,
     FOREIGN KEY (movie_id) REFERENCES movies(movie_id) ON DELETE CASCADE,
     FOREIGN KEY (room_id) REFERENCES rooms(room_id) ON DELETE CASCADE,
@@ -94,6 +96,7 @@ CREATE TABLE seats (
     seat_type   ENUM('Standard', 'Vip', 'Couple') DEFAULT 'Standard',
     extra_price DECIMAL(10,2) DEFAULT 0, -- Phụ phí theo loại ghế
     FOREIGN KEY (room_id) REFERENCES rooms(room_id) ON DELETE CASCADE,
+     status      ENUM('Available', 'Booked') DEFAULT 'Available',
     link        VARCHAR(255), -- Thêm link
     hide        BOOLEAN DEFAULT FALSE, -- Thêm hide
     order_index     INT, -- Thêm order
@@ -105,6 +108,7 @@ CREATE TABLE concessions (
     concession_id  INT AUTO_INCREMENT PRIMARY KEY,
     name           VARCHAR(100) NOT NULL,
     price          DECIMAL(10,2) NOT NULL,
+    picture_link           VARCHAR(255), -- Thêm link
     link           VARCHAR(255), -- Thêm link
     hide           BOOLEAN DEFAULT FALSE, -- Thêm hide
     order_index        INT, -- Thêm order

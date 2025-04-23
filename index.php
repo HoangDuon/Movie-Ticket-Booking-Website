@@ -1,4 +1,9 @@
-<?php include("app/view/header.php"); ?>
+<?php 
+    include "app/view/header.php"; 
+    include "app/controler/film_services.php";
+    include_once "app/model/pdo.php";
+?>
+
 <div id="main-content">
     <?php
         $page = $_GET['page'] ?? 'home';

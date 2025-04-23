@@ -52,6 +52,11 @@ class user_services{
         $sql = "SELECT * FROM users ORDER BY user_id DESC";
         return pdo_query($sql);
     }
+
+    public function ShowMembership(){
+        $sql = "SELECT * FROM membership_discounts";
+        return pdo_query($sql);
+    }
 }
 
 ?>
