@@ -61,6 +61,76 @@
         }
     </style>
 </head>
+<?php
+include "../controler/user_services.php";
+include "../controler/film_services.php";
+
+$userservice = new user_services();
+$filmservice = new film_services();
+$users = $userservice->ShowUser();
+$films = $filmservice->ShowFilmAdmin();
+?>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý hệ thống</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .navbar-custom {
+            background-color: #212529;
+            height: 50px;
+        }
+        .navbar-custom .navbar-brand {
+            color: white;
+            font-weight: bold;
+        }
+        .navbar-custom .logout {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .navbar-custom .logout:hover {
+            color: #adb5bd;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: #343a40;
+            position: fixed;
+            top: 50px;
+            left: 0;
+            padding-top: 20px;
+        }
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 12px;
+            text-decoration: none;
+        }
+        .sidebar a:hover, .sidebar a.active {
+            background-color: #495057;
+        }
+        .content {
+            margin-top: 50px;
+            margin-left: 250px;
+            padding: 20px;
+        }
+            /* Đặt kích thước cho poster phim */
+    .movie-poster {
+        width: 100px;
+        height: auto;
+        border-radius: 5px;
+        object-fit: cover;
+    }
+    </style>
+</head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
@@ -81,72 +151,118 @@
 </div>
 
 <div class="content" id="content">
-    <div id="main-content">
+    <div id="page-dashboard">
         <h2>Dashboard</h2>
         <p>Chào mừng bạn đến với hệ thống quản lý.</p>
     </div>
+
+    <div id="page-users" style="display: none;">
+        <h2>Quản lý người dùng</h2>
+        <table class="table table-bordered mt-3">
+            <thead class="table-dark">
+                <tr>
+                    <th>STT</th>
+                    <th>Họ và tên</th>
+                    <th>Email</th>
+                    <th>Số điện thoại</th>
+                    <th>Sinh nhật</th>
+                    <th>Thành viên</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($users as $user): ?>
+                <tr>
+                    <td><?= $user['user_id'] ?></td>
+                    <td><?= $user['full_name'] ?></td>
+                    <td><?= $user['email'] ?></td>
+                    <td><?= $user['phone'] ?></td>
+                    <td><?= $user['birthday'] ?></td>
+                    <td><?= $user['role'] ?></td>
+                    <td>
+                        <a href="edit_user.php?id=<?= $user['user_id'] ?>" class="btn btn-warning btn-sm">
+                            <i class="bi bi-pencil-square"></i> Sửa
+                        </a>
+                        <a href="delete_user.php?id=<?= $user['user_id'] ?>" 
+                           onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này?')" 
+                           class="btn btn-danger btn-sm">
+                            <i class="bi bi-trash-fill"></i> Xóa
+                        </a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="page-movies" style="display: none;">
+        <h2>Quản lý phim</h2>
+        <table class="table table-bordered mt-3">
+            <thead class="table-dark">
+                <tr>
+                    <th>STT</th>
+                    <th>Poster</th>
+                    <th>Tên phim</th>
+                    <th>Thể loại</th>
+                    <th>Thời lượng</th>
+                    <th>Đạo diễn</th>
+                    <th>Diễn viên</th>
+                    <th>Ngôn ngữ</th>
+                    <th>Ngày phát hành</th>
+                    <th>Nội dung</th>
+                    <th>Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($films as $film): ?>
+                <tr>
+                    <td><?= $film['movie_id'] ?></td>
+                    <td><img src="<?= $film['poster_url']?>" class="movie-poster" alt=""> </td>
+                    <td><?= $film['title'] ?></td>
+                    <td><?= $film['genre'] ?></td>
+                    <td><?= $film['duration'] ?></td>
+                    <td><?= $film['director'] ?></td>
+                    <td><?= $film['cast'] ?></td>
+                    <td><?= $film['language'] ?></td>
+                    <td><?= $film['release_date'] ?></td>
+                    <td><?= $film['description'] ?></td>
+                    <td>
+                        <a href="#" class="btn btn-warning btn-sm">
+                            <i class="bi bi-pencil-square"></i> Sửa
+                        </a>
+                        <a href="#" 
+                           onclick="return confirm('Bạn có chắc chắn muốn xóa phim này?')" 
+                           class="btn btn-danger btn-sm">
+                            <i class="bi bi-trash-fill"></i> Xóa
+                        </a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="page-comments" style="display: none;">
+        <h2>Quản lý bình luận</h2>
+        <p>Danh sách bình luận từ người dùng.</p>
+    </div>
 </div>
 
-<?php
-include "../controler/user_services.php";
-
-$service = new user_services();
-$users = $service->ShowUser();
-?>
-
 <script>
-    const pages = {
-        dashboard: `<h2>Dashboard</h2><p>Chào mừng bạn đến với hệ thống quản lý.</p>`,
-        users: `
-            <h2>Quản lý người dùng</h2>
-            <table class="table table-bordered mt-3">
-                <thead class="table-dark">
-                    <tr>
-                        <th>STT</th>
-                        <th>Họ và tên</th>
-                        <th>Email</th>
-                        <th>Số điện thoại</th>
-                        <th>Sinh nhật</th>
-                        <th>Thành viên</th>
-                        <th>Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($users as $user): ?>
-                    <tr>
-                        <td><?= $user['user_id'] ?></td>
-                        <td><?= $user['full_name'] ?></td>
-                        <td><?= $user['email'] ?></td>
-                        <td><?= $user['phone'] ?></td>
-                        <td><?= $user['birthday'] ?></td>
-                        <td><?= $user['role'] ?></td>
-                        <td>
-                            <a href="edit_user.php?id=<?= $user['user_id'] ?>" class="btn btn-warning btn-sm">
-                                <i class="bi bi-pencil-square"></i> Sửa
-                            </a>
-                            <a href="delete_user.php?id=<?= $user['user_id'] ?>" 
-                            onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này?')" 
-                            class="btn btn-danger btn-sm">
-                                <i class="bi bi-trash-fill"></i> Xóa
-                            </a>
-
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        `,
-        movies: `<h2>Quản lý phim</h2><p>Danh sách phim đang cập nhật...</p>`,
-        comments: `<h2>Quản lý bình luận</h2><p>Danh sách bình luận từ người dùng.</p>`
-    };
+    const allPages = ["dashboard", "users", "movies", "comments"];
 
     document.querySelectorAll(".menu-item").forEach(item => {
-        item.addEventListener("click", function() {
+        item.addEventListener("click", function () {
+            const page = this.getAttribute("data-page");
+
             document.querySelectorAll(".menu-item").forEach(i => i.classList.remove("active"));
             this.classList.add("active");
 
-            const page = this.getAttribute("data-page");
-            document.getElementById("main-content").innerHTML = pages[page];
+            allPages.forEach(p => {
+                document.getElementById("page-" + p).style.display = "none";
+            });
+
+            document.getElementById("page-" + page).style.display = "block";
         });
     });
 </script>
