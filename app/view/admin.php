@@ -115,9 +115,10 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
         <p>Chào mừng bạn đến với hệ thống quản lý.</p>
     </div>
 
+    <!-- NGƯỜI DÙNG -->
     <div id="page-users" style="display: none;">
         <h2>Quản lý người dùng</h2>
-        <a href="#" class="btn btn-success btn-sm">
+        <a href="#" class="btn btn-success btn-sm" onclick="showAddUserForm()">
             <i class="bi bi-plus-circle"></i> Thêm
         </a>
         <table class="table table-bordered mt-3">
@@ -127,7 +128,7 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
                     <th>Họ và tên</th>
                     <th>Email</th>
                     <th>Số điện thoại</th>
-                    <th>Sinh nhật</th>
+                    <th>Ngày sinh</th>
                     <th>Thành viên</th>
                     <th>Thao tác</th>
                 </tr>
@@ -140,26 +141,103 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
                     <td><?= $user['email'] ?></td>
                     <td><?= $user['phone'] ?></td>
                     <td><?= $user['birthday'] ?></td>
-                    <td><?= $user['role'] ?></td>
+                    <td><?= $user['member'] ?></td>
                     <td>
-                        <a href="edit_user.php?id=<?= $user['user_id'] ?>" class="btn btn-warning btn-sm">
-                            <i class="bi bi-pencil-square"></i> Sửa
+                        <a href="#" class="btn btn-warning btn-sm"
+                            onclick="showEditUserForm(this)"
+                            data-id="<?= $user['user_id'] ?>"
+                            data-name="<?= htmlspecialchars($user['full_name'], ENT_QUOTES) ?>"
+                            data-email="<?= $user['email'] ?>"
+                            data-phone="<?= $user['phone'] ?>"
+                            data-birthday="<?= $user['birthday'] ?>"
+                            data-role="<?= $user['role'] ?>"
+                            data-member="<?= $user['member'] ?>"
+                            data-password="<?= $user['password'] ?>">
+                                <i class="bi bi-pencil-square"></i> Sửa
                         </a>
-                        <a href="delete_user.php?id=<?= $user['user_id'] ?>" 
-                           onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này?')" 
-                           class="btn btn-danger btn-sm">
-                            <i class="bi bi-trash-fill"></i> Xóa
-                        </a>
-                    </td>
+                    <a href="#" 
+                       onclick="showDeleteUserConfirm(<?= $user['user_id'] ?>)" 
+                       class="btn btn-danger btn-sm">
+                        <i class="bi bi-trash-fill"></i> Xóa
+                    </a>
+                </td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
 
+    <!-- FORM EDIT USER -->
+    <div id="editUserFormPanel" class="modal-overlay" style="display: none;">
+        <div class="modal-content edit-user-modal">
+            <span class="close-button" onclick="hideEditUserForm()">&times;</span>
+            <form id="editUserForm" action="../controler/add_update_user.php" method="post">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Họ và tên:</label>
+                        <input type="text" id="editUserName" name="full_name">
+                    </div>
+                    <div class="form-group">
+                        <label>Ngày sinh:</label>
+                        <input type="date" id="editUserBirthday" name="birthday">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="email" id="editUserEmail" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label>Số điện thoại:</label>
+                        <input type="text" id="editUserPhone" name="phone">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                    <label>Thành viên:</label>
+                    <select id="editUserMember" name="member">
+                    <?php foreach ($memberships as $option): ?>
+                        <option value="<?php echo $option['member_type'] ?>"><?php echo $option['member_type'];?></option>
+                    <?php endforeach; ?>
+                    </select>
+                    </div>
+                    <div class="form-group">
+                    <label>Vai trò:</label>
+                    <select id="editUserRole" name="role">
+                        <option value="Admin">Admin</option>
+                        <option value="Customer">Customer</option>
+                    </select>
+                    </div>
+                </div>
+
+                <label>Mật khẩu:</label>
+                <input type="text" id="editUserPassword" name="password">
+
+                <input type="hidden" id="editUserId" name="id">
+                <button type="submit">Lưu thay đổi</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FORM DELETE USER -->
+    <div id="deleteUserConfirmPanel" class="modal-overlay" style="display: none;">
+        <div class="modal-content delete-user-modal" style="text-align: center;">
+            <span class="close-button" onclick="hideDeleteUserConfirm()">&times;</span>
+            <h3>Bạn có chắc muốn xóa người dùng này không?</h3>
+            <form id="deleteUserForm" action="../controler/delete_user.php" method="post">
+                <input type="hidden" name="id" id="deleteUserId">
+                <button type="submit" style="background-color: #e74c3c; margin-right: 10px;">Xác nhận</button>
+                <button type="button" style="background-color:rgb(24, 181, 63); margin-right: 10px;" onclick="hideDeleteUserConfirm()">Hủy</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- PHIM -->
     <div id="page-movies" style="display: none;">
         <h2>Quản lý phim</h2>
-        <a href="#" class="btn btn-success btn-sm" onclick="showAddForm()">
+        <a href="#" class="btn btn-success btn-sm" onclick="showMovieAddForm()">
             <i class="bi bi-plus-circle"></i> Thêm
         </a>
         <table class="table table-bordered mt-3">
@@ -193,13 +271,14 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
                     <td><?= $film['description'] ?></td>
                     <td>
                         <a href="#" class="btn btn-warning btn-sm"
-                            onclick="showEditForm(this)"
+                            onclick="showMovieEditForm(this)"
                             data-id="<?= $film['movie_id'] ?>"
                             data-title="<?= htmlspecialchars($film['title'], ENT_QUOTES) ?>"
                             data-genre="<?= htmlspecialchars($film['genre'], ENT_QUOTES) ?>"
                             data-duration="<?= $film['duration'] ?>"
                             data-director="<?= htmlspecialchars($film['director'], ENT_QUOTES) ?>"
                             data-cast="<?= htmlspecialchars($film['cast'], ENT_QUOTES) ?>"
+                            data-trailer="<?= htmlspecialchars($film['trailer_url'], ENT_QUOTES) ?>"
                             data-language="<?= $film['language'] ?>"
                             data-release="<?= $film['release_date'] ?>"
                             data-description="<?= htmlspecialchars($film['description'], ENT_QUOTES) ?>"
@@ -207,7 +286,7 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
                             <i class="bi bi-pencil-square"></i> Sửa
                         </a>
                         <a href="#" 
-                           onclick="return confirm('Bạn có chắc chắn muốn xóa phim này?')" 
+                           onclick="showMovieDeleteConfirm(<?= $film['movie_id'] ?>)" 
                            class="btn btn-danger btn-sm">
                             <i class="bi bi-trash-fill"></i> Xóa
                         </a>
@@ -219,33 +298,49 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
     </div>
 
     <!-- FORM EDIT HIỂN NỔI LÊN -->
-    <div id="editFormPanel" class="modal-overlay" style="display: none;">
-    <div class="modal-content">
-        <span class="close-button" onclick="hideEditForm()">&times;</span>
-        <form id="editForm" action="../controler/add_update_movies.php" method="post" enctype="multipart/form-data">
+    <div id="editMovieFormPanel" class="modal-overlay" style="display: none;">
+    <div class="modal-content edit-movie-modal">
+        <span class="close-button" onclick="hideMovieEditForm()">&times;</span>
+        <form id="editMovieForm" action="../controler/add_update_movies.php" method="post" enctype="multipart/form-data">
         <label>Tiêu đề:</label>
         <input type="text" id="editTitle" name="title">
 
         <label>Thể loại:</label>
         <input type="text" id="editGenre" name="genre">
 
-        <label>Thời lượng:</label>
-        <input type="text" id="editDuration" name="duration">
+      <!-- Dòng: Đạo diễn & Thời lượng -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>Đạo diễn:</label>
+          <input type="text" id="editDirector" name="director">
+        </div>
+        <div class="form-group">
+          <label>Thời lượng:</label>
+          <input type="text" id="editDuration" name="duration">
+        </div>
+      </div>
 
-        <label>Đạo diễn:</label>
-        <input type="text" id="editDirector" name="director">
-
+      <!-- Dòng: Ngôn ngữ & Diễn viên -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>Ngôn ngữ:</label>
+          <input type="text" id="editLanguage" name="language">
+        </div>
+        <div class="form-group">
+        <label>Ngày phát hành:</label>
+        <input type="date" id="editReleaseDate" name="release_date">
+        </div>
+      </div>
+                    
         <label>Diễn viên:</label>
         <input type="text" id="editCast" name="cast">
 
-        <label>Ngôn ngữ:</label>
-        <input type="text" id="editLanguage" name="language">
-
-        <label>Ngày phát hành:</label>
-        <input type="date" id="editReleaseDate" name="release_date">
 
         <label>Mô tả:</label>
         <textarea id="editDescription" name="description"></textarea>
+
+        <label>URL Trailer:</label>
+        <input type="url" id="editTrailer" name="trailer"></input>
 
         <label>Poster phim:</label>
         <input type="file" id="editPoster" accept="image/*" name="poster">
@@ -259,6 +354,20 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
     </div>
     </div>
 
+    <!-- PANEL XÁC NHẬN XÓA -->
+    <div id="deleteMovieConfirmPanel" class="modal-overlay" style="display: none;">
+        <div class="modal-content delete-movie-modal" style="text-align: center;">
+            <span class="close-button" onclick="hideMovieDeleteConfirm()">&times;</span>
+            <h3>Bạn có chắc muốn xóa phim này không?</h3>
+            <form id="deleteMovieForm" action="../controler/delete_movie.php" method="post">
+            <input type="hidden" name="id" id="deleteMovieId">
+            <button type="submit" style="background-color: #e74c3c; margin-right: 10px;">Xác nhận</button>
+            <button type="button" style="background-color:rgb(24, 181, 63); margin-right: 10px;" onclick="hideMovieDeleteConfirm()">Hủy</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- RẠP -->               
     <div id="page-cinemas" style="display: none;">
         <h2>Quản lý rạp</h2>
         <a href="#" class="btn btn-success btn-sm">
@@ -301,9 +410,10 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
         </table>
     </div>
 
+    <!-- BẮP NƯỚC -->
     <div id="page-concessions" style="display: none;">
         <h2>Quản lý đồ ăn</h2>
-        <a href="#" class="btn btn-success btn-sm">
+        <a href="#" class="btn btn-success btn-sm" onclick="showAddConcessionsForm()">
             <i class="bi bi-plus-circle"></i> Thêm
         </a>
         <table class="table table-bordered mt-3">
@@ -322,13 +432,18 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
                     <td><?= $concession['concession_id'] ?></td>
                     <td><?= $concession['name'] ?></td>
                     <td><?= $concession['price'] ?></td>
-                    <td><img src="<?= $concession['picture_link']?>" class="movie-poster" alt=""> </td>
+                    <td><img src="../../<?= $concession['picture_link']?>" class="movie-poster" alt=""> </td>
                     <td>
-                        <a href="#" class="btn btn-warning btn-sm">
+                    <a href="#" class="btn btn-warning btn-sm"
+                            onclick="showEditConcessionsForm(this)"
+                            data-id="<?= $concession['concession_id'] ?>"
+                            data-name="<?= htmlspecialchars($concession['name'], ENT_QUOTES) ?>"
+                            data-price="<?= $concession['price'] ?>"
+                            >
                             <i class="bi bi-pencil-square"></i> Sửa
                         </a>
                         <a href="#" 
-                           onclick="return confirm('Bạn có chắc chắn muốn xóa phim này?')" 
+                           onclick="showDeleteConcessionsConfirm(<?= $concession['concession_id'] ?>)" 
                            class="btn btn-danger btn-sm">
                             <i class="bi bi-trash-fill"></i> Xóa
                         </a>
@@ -339,11 +454,53 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
         </table>
     </div>
 
+        <!-- FORM EDIT HIỂN NỔI LÊN -->
+    <div id="editConcessionsFormPanel" class="modal-overlay" style="display: none;">
+        <div class="modal-content edit-concessions-modal">
+            <span class="close-button" onclick="hideEditConcessionsForm()">&times;</span>
+            <form id="editConcessionsForm" action="../controler/add_update_concessions.php" method="post" enctype="multipart/form-data">
+
+        <!-- Dòng: -->
+        <div class="form-row">
+            <div class="form-group">
+                <label>Tên:</label>
+                <input type="text" id="editConcessionsName" name="name">
+            </div>
+            <div class="form-group">
+                <label>Giá:</label>
+                <input type="text" id="editConcessionsPrice" name="price">
+            </div>
+        </div>
+
+            <label>Hình ảnh</label>
+            <input type="file" id="editPicture" accept="image/*" name="picture">
+
+            <input type="hidden" id="editConcessionsId" name="id">
+
+            <button type="submit">Lưu thay đổi</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- PANEL XÁC NHẬN XÓA -->
+    <div id="deleteConcessionsConfirmPanel" class="modal-overlay" style="display: none;">
+        <div class="modal-content delete-concessions-modal" style="text-align: center;">
+            <span class="close-button" onclick="hideDeleteConcessionsConfirm()">&times;</span>
+            <h3>Bạn có chắc muốn xóa phần này không?</h3>
+            <form id="deleteConcessionsForm" action="../controler/delete_concessions.php" method="post">
+            <input type="hidden" name="id" id="deleteConcessionsId">
+            <button type="submit" style="background-color: #e74c3c; margin-right: 10px;">Xác nhận</button>
+            <button type="button" style="background-color:rgb(24, 181, 63); margin-right: 10px;" onclick="hideMovieDeleteConfirm()">Hủy</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- THÀNH VIÊN -->
     <div id="page-membership" style="display: none;">
         <h2>Quản lý Membership</h2>
-        <a href="#" class="btn btn-success btn-sm">
+        <!-- <a href="#" class="btn btn-success btn-sm" onclick="showAddMemberForm()"> 
             <i class="bi bi-plus-circle"></i> Thêm
-        </a>
+        </a> -->
         <table class="table table-bordered mt-3">
             <thead class="table-dark">
                 <tr>
@@ -358,11 +515,15 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
                     <td><?= $membership['member_type'] ?></td>
                     <td><?= $membership['discount_percent'] ?></td>
                     <td>
-                        <a href="#" class="btn btn-warning btn-sm">
+                    <a href="#" class="btn btn-warning btn-sm"
+                            onclick="showEditMemberForm(this)"
+                            data-member="<?= $membership['member_type']?>"
+                            data-discount="<?= $membership['discount_percent'] ?>"
+                            >
                             <i class="bi bi-pencil-square"></i> Sửa
                         </a>
                         <a href="#" 
-                           onclick="return confirm('Bạn có chắc chắn muốn xóa phim này?')" 
+                           onclick="showDeleteMemberConfirm('<?= $membership['member_type'] ?>')" 
                            class="btn btn-danger btn-sm">
                             <i class="bi bi-trash-fill"></i> Xóa
                         </a>
@@ -373,6 +534,40 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
         </table>
     </div>
 
+    <!-- FORM EDIT MEMBERSHIP -->
+    <div id="editMemberFormPanel" class="modal-overlay" style="display: none;">
+        <div class="modal-content edit-member-modal">
+            <span class="close-button" onclick="hideEditMemberForm()">&times;</span>
+            <form id="editMemberForm" action="../controler/add_update_member.php" method="post">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Thành viên:</label>
+                        <input type="text" id="editMemberMember" name="member" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Giảm giá (%):</label>
+                        <input type="text" id="editMemberDiscount" name="discount">
+                    </div>
+                </div>
+                <button type="submit">Lưu thay đổi</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FORM DELETE MEMEBERSHIP -->
+    <div id="deleteMemberConfirmPanel" class="modal-overlay" style="display: none;">
+        <div class="modal-content delete-member-modal" style="text-align: center;">
+            <span class="close-button" onclick="hideDeleteMemberConfirm()">&times;</span>
+            <h3>Bạn có chắc muốn xóa loại thành viên này không?</h3>
+            <form id="deleteMemberForm" action="../controler/delete_member.php" method="post">
+                <input type="hidden" name="id" id="deleteMemberId">
+                <button type="submit" style="background-color: #e74c3c; margin-right: 10px;">Xác nhận</button>
+                <button type="button" style="background-color:rgb(24, 181, 63); margin-right: 10px;" onclick="hideDeleteMemberConfirm()">Hủy</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- XUẤT CHIẾU -->
     <div id="page-showtime" style="display: none;">
         <h2>Quản lý xuất chiếu</h2>
         <a href="#" class="btn btn-success btn-sm">

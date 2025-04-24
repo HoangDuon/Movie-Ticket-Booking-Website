@@ -25,8 +25,7 @@ class user_services{
     public function login($email,$password){
     $sql = "SELECT * FROM users WHERE email = ?";
     $user = pdo_query_one($sql, $email);
-    // password_verify($password, $user['password'])
-    if ($user && $password === $user['password']) {
+    if ($user && password_verify($password, $user['password'])) {
         return [
             'id' => $user['id'],
             'full_name' => $user['full_name'],
@@ -49,13 +48,18 @@ class user_services{
     }
 
     public function ShowUser(){
-        $sql = "SELECT * FROM users ORDER BY user_id DESC";
+        $sql = "SELECT * FROM users WHERE hide=0 ORDER BY user_id DESC";
         return pdo_query($sql);
     }
 
     public function ShowMembership(){
-        $sql = "SELECT * FROM membership_discounts";
+        $sql = "SELECT * FROM membership_discounts Where hide=0";
         return pdo_query($sql);
+    }
+
+    public function ShowUserwithId($id){
+        $sql = "SELECT * FROM users WHERE hide=0 and user_id = ? ORDER BY user_id DESC";
+        return pdo_query($sql,$id);
     }
 }
 

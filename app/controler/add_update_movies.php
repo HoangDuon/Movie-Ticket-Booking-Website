@@ -8,6 +8,7 @@ $genre = $_POST['genre'];
 $duration = $_POST['duration'];
 $director = $_POST['director'];
 $cast = $_POST['cast'];
+$trailer = $_POST['trailer'];
 $language = $_POST['language'];
 $release_date = $_POST['release_date'];
 $description = $_POST['description'];
@@ -31,13 +32,13 @@ $banner = upload_file('banner');
 
 // Thêm mới
 if (empty($id)) {
-    $sql = "INSERT INTO movies (title, genre, duration, director, cast, language, release_date, description, poster_url, banner_url)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    pdo_execute($sql, $title, $genre, $duration, $director, $cast, $language, $release_date, $description, $poster, $banner);
+    $sql = "INSERT INTO movies (title, genre, duration, director, cast, language, release_date, description, poster_url,trailer_url, banner_url)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+    pdo_execute($sql, $title, $genre, $duration, $director, $cast, $language, $release_date, $description, $poster,$trailer, $banner);
 } else {
     // Cập nhật
-    $sql = "UPDATE movies SET title=?, genre=?, duration=?, director=?, cast=?, language=?, release_date=?, description=?";
-    $params = [$title, $genre, $duration, $director, $cast, $language, $release_date, $description];
+    $sql = "UPDATE movies SET title=?, genre=?, duration=?, director=?, cast=?, language=?, release_date=?, description=?,trailer_url=?";
+    $params = [$title, $genre, $duration, $director, $cast, $language, $release_date, $description, $trailer];
 
     if ($poster) {
         $sql .= ", poster_url=?";

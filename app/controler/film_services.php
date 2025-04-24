@@ -6,7 +6,7 @@ class film_services{
     }
 
     public function ShowFilmAdmin(){
-        $sql = "SELECT * FROM movies ORDER BY movie_id DESC";
+        $sql = "SELECT * FROM movies WHERE hide = 0 ORDER BY movie_id DESC";
         return pdo_query($sql);
     }
 

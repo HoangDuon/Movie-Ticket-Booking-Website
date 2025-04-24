@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 23, 2025 lúc 08:25 PM
+-- Thời gian đã tạo: Th4 24, 2025 lúc 07:47 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -178,15 +178,16 @@ CREATE TABLE `concessions` (
 
 INSERT INTO `concessions` (`concession_id`, `name`, `price`, `picture_link`, `link`, `hide`, `order_index`, `created_at`) VALUES
 (1, 'Popcorn', 30000.00, 'https://link.example.com', 'https://link.example.com', 0, 1, '2025-04-23 12:23:40'),
-(2, 'Soda', 20000.00, 'https://link.example.com', 'https://link.example.com', 0, 2, '2025-04-23 12:23:40'),
+(2, 'Soda', 20000.00, 'assets/img/soda.jpg', 'https://link.example.com', 0, 2, '2025-04-23 12:23:40'),
 (3, 'Nachos', 25000.00, 'https://link.example.com', 'https://link.example.com', 0, 3, '2025-04-23 12:23:40'),
 (4, 'Candy', 15000.00, 'https://link.example.com', 'https://link.example.com', 0, 4, '2025-04-23 12:23:40'),
 (5, 'Water', 10000.00, 'https://link.example.com', 'https://link.example.com', 0, 5, '2025-04-23 12:23:40'),
 (6, 'Ice Cream', 35000.00, 'https://link.example.com', 'https://link.example.com', 0, 6, '2025-04-23 12:23:40'),
-(7, 'Hot Dog', 30000.00, 'https://link.example.com', 'https://link.example.com', 0, 7, '2025-04-23 12:23:40'),
+(7, 'Hot Dog', 25000.00, 'assets/img/HotDog.jpg', 'https://link.example.com', 0, 7, '2025-04-23 12:23:40'),
 (8, 'Chocolate', 20000.00, 'https://link.example.com', 'https://link.example.com', 0, 8, '2025-04-23 12:23:40'),
-(9, 'Tea', 15000.00, 'https://link.example.com', 'https://link.example.com', 0, 9, '2025-04-23 12:23:40'),
-(10, 'Juice', 18000.00, 'https://link.example.com', 'https://link.example.com', 0, 10, '2025-04-23 12:23:40');
+(9, 'Tea', 15000.00, 'assets/img/tea.jpg', 'https://link.example.com', 0, 9, '2025-04-23 12:23:40'),
+(10, 'Juice', 18000.00, 'https://link.example.com', 'https://link.example.com', 0, 10, '2025-04-23 12:23:40'),
+(11, 'Coca', 20000.00, 'assets/img/coca.jpg', NULL, 0, NULL, '2025-04-24 17:45:00');
 
 -- --------------------------------------------------------
 
@@ -245,15 +246,15 @@ CREATE TABLE `movies` (
 INSERT INTO `movies` (`movie_id`, `title`, `genre`, `duration`, `director`, `cast`, `language`, `release_date`, `description`, `poster_url`, `trailer_url`, `banner_url`, `created_at`, `link`, `hide`, `order_index`) VALUES
 (1, 'Avengers: Endgame', 'Action', 181, 'Anthony Russo', 'Robert Downey Jr., Chris Hemsworth', 'English', '2019-04-26', 'Epic conclusion of the Avengers saga', 'assets/img/aendgame.jpg', 'https://trailer.example.com', 'https://banner.example.com', '2025-04-23 12:20:54', 'https://link.example.com', 0, 1),
 (2, 'The Lion King', 'Animation', 118, 'Jon Favreau', 'Donald Glover, Beyoncé', 'English', '2019-07-19', 'A young lion prince overcomes adversity to reclaim his throne', 'assets/img/lionking.jpg', 'https://trailer.example.com', 'https://banner.example.com', '2025-04-23 12:20:54', 'https://link.example.com', 0, 2),
-(3, 'Frozen 2', 'Animation', 103, 'Chris Buck', 'Idina Menzel, Kristen Bell', 'English', '2019-11-22', 'Elsa and Anna’s journey to discover the origins of Elsa’s magical powers', 'assets/img/frozen2.jpg', 'https://trailer.example.com', 'https://banner.example.com', '2025-04-23 12:20:54', 'https://link.example.com', 0, 3),
+(3, 'Frozen 2', 'Animation', 103, 'Chris Buck', 'Idina Menzel, Kristen Bell', 'English', '2019-11-22', 'Elsa and Anna’s journey to discover the origins of Elsa’s magical powers', 'assets/img/frozen2.jpg', 'https://trailer.example.com', 'https://banner.example.com', '2025-04-23 12:20:54', 'https://link.example.com', 1, 3),
 (4, 'Joker', 'Drama', 122, 'Todd Phillips', 'Joaquin Phoenix, Robert De Niro', 'English', '2019-10-04', 'A gritty character study of Arthur Fleck, a man disregarded by society', 'assets/img/joker.jpg', 'https://trailer.example.com', 'https://banner.example.com', '2025-04-23 12:20:54', 'https://link.example.com', 0, 4),
 (5, 'Toy Story 4', 'Animation', 100, 'Josh Cooley', 'Tom Hanks, Tim Allen', 'English', '2019-06-21', 'Woody, Buzz, and the gang set out on an adventure with a new friend, Forky', 'assets/img/toystory4.jpg', 'https://trailer.example.com', 'https://banner.example.com', '2025-04-23 12:20:54', 'https://link.example.com', 0, 5),
-(6, 'The Matrix 4', 'Action', 148, 'Lana Wachowski', 'Keanu Reeves, Carrie-Anne Moss', 'English', '2021-12-22', 'Neo and Trinity’s return to a new Matrix', 'assets/img/the-matrix4.jpg', 'https://trailer.example.com', 'https://banner.example.com', '2025-04-23 12:20:54', 'https://link.example.com', 0, 6),
+(6, 'The Matrix 4', 'Action', 148, 'Lana Wachowski', 'Keanu Reeves, Carrie-Anne Moss', 'English', '2021-12-22', 'Neo and Trinity’s return to a new Matrix', 'assets/img/the-matrix4.jpg', 'https://trailer.example.com', 'https://banner.example.com', '2025-04-23 12:20:54', 'https://link.example.com', 1, 6),
 (7, 'Spider-Man: No Way Home', 'Action', 148, 'Jon Watts', 'Tom Holland, Zendaya', 'English', '2021-12-17', 'Peter Parker deals with the fallout from the events of Far From Home', 'assets/img/spiderman-nowayhome.jpg', 'https://trailer.example.com', 'https://banner.example.com', '2025-04-23 12:20:54', 'https://link.example.com', 0, 7),
 (8, 'The Godfather', 'Crime', 175, 'Francis Ford Coppola', 'Marlon Brando, Al Pacino', 'English', '1972-03-24', 'The epic story of a crime family in New York', 'assets/img/godfather.jpg', 'https://trailer.example.com', 'https://banner.example.com', '2025-04-23 12:20:54', 'https://link.example.com', 0, 8),
 (9, 'Titanic', 'Romance', 195, 'James Cameron', 'Leonardo DiCaprio, Kate Winslet', 'English', '1997-12-19', 'A young couple fall in love aboard the ill-fated ship Titanic', 'assets/img/titanic.jpg', 'https://trailer.example.com', 'https://banner.example.com', '2025-04-23 12:20:54', 'https://link.example.com', 0, 9),
-(10, 'Inception', 'Sci-Fi', 148, 'Christopher Nolan', 'Leonardo DiCaprio, Joseph Gordon-Levitt', 'English', '2010-07-16', 'A thief who steals corporate secrets is given the chance to erase his criminal record', 'assets/img/inception.jpg', 'https://trailer.example.com', 'https://banner.example.com', '2025-04-23 12:20:54', 'https://link.example.com', 0, 10),
-(11, 'Mickey 17', 'Khoa học viễn tưởng, Phiêu lưu', 118, 'Bong Joon-ho', 'Robert Pattinson, Mark Ruffalo, Toni Collette', 'English', '2025-04-18', 'Mickey 17 là một bộ phim khoa học viễn tưởng do Bong Joon-ho đạo diễn, kể về một nhân vật có khả năng hồi sinh không ngừng, thực hiện một nhiệm vụ du hành ngoài vũ trụ đầy nguy hiểm. Phim hứa hẹn mang đến những trải nghiệm điện ảnh độc đáo và hấp dẫn .', 'assets/img/Mickey17.jpg', NULL, 'assets/img/Mickey17-banner.jpg', '2025-04-23 18:21:40', NULL, 0, NULL);
+(10, 'Inception', 'Sci-Fi', 148, 'Christopher Nolan', 'Leonardo DiCaprio, Joseph Gordon-Levitt', 'English', '2010-07-16', 'A thief who steals corporate secrets is given the chance to erase his criminal record', 'assets/img/inception.jpg', 'https://www.youtube.com/watch?v=y2TCjYiTGIo', 'https://banner.example.com', '2025-04-23 12:20:54', 'https://link.example.com', 0, 10),
+(11, 'Mickey 17', 'Khoa học viễn tưởng, Phiêu lưu', 118, 'Bong Joon-ho', 'Robert Pattinson, Mark Ruffalo, Toni Collette', 'English', '2025-04-18', 'Mickey 17 là một bộ phim khoa học viễn tưởng do Bong Joon-ho đạo diễn, kể về một nhân vật có khả năng hồi sinh không ngừng, thực hiện một nhiệm vụ du hành ngoài vũ trụ đầy nguy hiểm. Phim hứa hẹn mang đến những trải nghiệm điện ảnh độc đáo và hấp dẫn .', 'assets/img/Mickey17.jpg', 'https://www.youtube.com/watch?v=kFT4D0o9IZ4', 'assets/img/Mickey17-banner.jpg', '2025-04-23 18:21:40', NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -422,16 +423,18 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `full_name`, `email`, `password`, `phone`, `birthday`, `role`, `member`, `created_at`, `link`, `hide`, `order_index`) VALUES
-(1, 'Nguyen Thi Mai', 'mai@example.com', 'password123', '0123456789', '1990-05-20', 'Customer', 'Gold', '2025-04-23 12:20:54', 'https://link.example.com', 0, 1),
-(2, 'Tran Minh Tu', 'tu@example.com', 'password456', '0987654321', '1985-08-15', 'Admin', 'Silver', '2025-04-23 12:20:54', 'https://link.example.com', 0, 2),
-(3, 'Le Thi Lan', 'lan@example.com', 'password789', '0912345678', '1988-01-20', 'Customer', 'Silver', '2025-04-23 12:20:54', 'https://link.example.com', 0, 3),
-(4, 'Hoang Minh Hieu', 'hieu@example.com', 'password321', '0945678901', '1992-10-05', 'Customer', 'Gold', '2025-04-23 12:20:54', 'https://link.example.com', 0, 4),
-(5, 'Nguyen Hoang Nam', 'nam@example.com', 'password123', '09123456782', '1994-02-11', 'Admin', 'None', '2025-04-23 12:20:54', 'https://link.example.com', 0, 5),
-(6, 'Pham Minh Hoang', 'hoang@example.com', 'password111', '0971234567', '1991-06-30', 'Customer', 'Diamond', '2025-04-23 12:20:54', 'https://link.example.com', 0, 6),
-(7, 'Tran Thi Thanh', 'thanh@example.com', 'password222', '0903456789', '1993-03-25', 'Customer', 'Silver', '2025-04-23 12:20:54', 'https://link.example.com', 0, 7),
-(8, 'Le Thi Mai', 'mai2@example.com', 'password333', '0967654321', '1995-11-15', 'Customer', 'Gold', '2025-04-23 12:20:54', 'https://link.example.com', 0, 8),
-(9, 'Nguyen Bao Han', 'han@example.com', 'password444', '0982345678', '1990-07-22', 'Admin', 'Gold', '2025-04-23 12:20:54', 'https://link.example.com', 0, 9),
-(10, 'Phan Thi Lan', 'lan2@example.com', 'password555', '0934345678', '1987-12-10', 'Customer', 'None', '2025-04-23 12:20:54', 'https://link.example.com', 0, 10);
+(1, 'Nguyen Thi Mai', 'mai@example.com', '$2y$10$QIIRXoTcM4bPf.gf9zfQEuVsnH./1VaB3gRvoE195wsqDP/6cmVRa', '0123456789', '1990-05-20', 'Customer', 'Gold', '2025-04-23 12:20:54', 'https://link.example.com', 0, 1),
+(2, 'Tran Minh Tu', 'tu@example.com', '$2y$10$TWWviHalgk1her8DJa9cq.gTeeWezOWtifBK4RzsUyh7LAwqCQLTC', '0987654321', '1985-08-15', 'Admin', 'Silver', '2025-04-23 12:20:54', 'https://link.example.com', 0, 2),
+(3, 'Le Thi Lan', 'lan@example.com', '$2y$10$LXi.46cdyKkFSOg52ZBcrev..p.IdvvFVETUepLeSlMRM1arN0vwG', '0912345678', '1988-01-20', 'Customer', 'Silver', '2025-04-23 12:20:54', 'https://link.example.com', 0, 3),
+(4, 'Hoang Minh Hieu', 'hieu@example.com', '$2y$10$SLCvX3D3Ad3wdkj7vW8iPeJU0qJSVIKMELfMxo1ErcgdHHr9Pnydi', '0945678901', '1992-10-05', 'Customer', 'Gold', '2025-04-23 12:20:54', 'https://link.example.com', 0, 4),
+(5, 'Nguyen Hoang Nam', 'nam@example.com', '$2y$10$JQNWSLRgLXJ8auHaFZgoAuV1stgpS8VDy8LrvpAC0U1.s/UrqwlFy', '09123456782', '1994-02-11', 'Admin', 'None', '2025-04-23 12:20:54', 'https://link.example.com', 0, 5),
+(6, 'Pham Minh Hoang', 'hoang@example.com', '$2y$10$mJQEWw7gu95Z2S507LU/f.fEgo9SMAWMTJftltOQHJphq8bM7bn4W', '0971234567', '1991-06-30', 'Customer', 'Diamond', '2025-04-23 12:20:54', 'https://link.example.com', 0, 6),
+(7, 'Tran Thi Thanh', 'thanh@example.com', '$2y$10$K8lMnZC7F.4rNEGhshXIu.aN9RngQoVCKtJQrNFX55.UN65/yIKUW', '0903456789', '1993-03-25', 'Customer', 'Silver', '2025-04-23 12:20:54', 'https://link.example.com', 0, 7),
+(8, 'Le Thi Mai', 'mai2@example.com', '$2y$10$hQiqcoVKxeP2jJvy2o2DiOOyS9LEk1w68/wqTWINmNAMkp508I8MO', '0967654321', '1995-11-15', 'Customer', 'Gold', '2025-04-23 12:20:54', 'https://link.example.com', 0, 8),
+(9, 'Nguyen Bao Han', 'han@example.com', '$2y$10$UyynL5cbCpw9vjMK9Lukw.i3dsi7e9D8Mnj.h3/lAWWKY/yBG4S9e', '0982345678', '1990-07-22', 'Admin', 'Gold', '2025-04-23 12:20:54', 'https://link.example.com', 0, 9),
+(10, 'Phan Thi Lan', 'lan2@example.com', '$2y$10$grmByn5a6Mpe2/tOoTOT9ObqiAPv2AFELI69C50kQh867vLJsOase', '0934345678', '1987-12-10', 'Customer', 'None', '2025-04-23 12:20:54', 'https://link.example.com', 0, 10),
+(13, 'Duong Hoang', 'hd34227@gmail.com', '$2y$10$5619w.WL3ehiJIwbrgWdd.kP/lKHj2S9Ez9lbaz5AGZRaez7z4joO', '0928051363', '2025-04-07', 'Admin', 'Diamond', '2025-04-24 13:52:20', NULL, 1, NULL),
+(15, 'ADMIN', 'ADMIN@gmail.com', '$2y$10$FuTrTxDRLbrPRmSJ/Cdbd.YZmgaWfj6iZmeNuTQlub3xUyG0n3wz6', '0', '2025-04-01', 'Admin', 'Diamond', '2025-04-24 14:03:36', NULL, 0, NULL);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -555,7 +558,7 @@ ALTER TABLE `cinemas`
 -- AUTO_INCREMENT cho bảng `concessions`
 --
 ALTER TABLE `concessions`
-  MODIFY `concession_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `concession_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT cho bảng `movies`
@@ -591,7 +594,7 @@ ALTER TABLE `showtimes`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
