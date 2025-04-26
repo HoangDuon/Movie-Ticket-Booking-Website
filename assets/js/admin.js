@@ -145,3 +145,102 @@ function showDeleteConcessionsConfirm(movieId) {
 function hideDeleteConcessionsConfirm() {
   document.getElementById('deleteConcessionsConfirmPanel').style.display = 'none';
 }
+
+//JS phần thêm xóa sửa rạp phim
+function showEditCinemasForm(button, cinemaId) {
+  document.getElementById('editCinemasName').value = button.dataset.name;
+  document.getElementById('editCinemasLocation').value = button.dataset.location;
+  document.getElementById('editCinemasId').value = button.dataset.id;
+  document.getElementById('editCinemasPhone').value = button.dataset.phone;
+  document.getElementById('editCinemasRooms').value = button.dataset.rooms;
+  document.getElementById('editCinemasShowtimes').value = button.dataset.showtimes;
+
+  // Hiện form nổi
+  document.getElementById('editCinemasFormPanel').style.display = 'flex';
+
+  // Gán CinemaId vào hidden input
+  button.dataset.id = cinemaId;
+
+  // Gọi API lấy danh sách phòng theo cinemaId
+  fetch(`../../app/controler/get_rooms_by_cinema.php?cinema_id=${cinemaId}`)
+      .then(response => response.json())
+      .then(data => {
+          const roomsTableBody = document.getElementById('roomsTableBody');
+          roomsTableBody.innerHTML = '';
+          // Đổ danh sách phòng ra bảng
+          data.rooms.forEach((room, index) => {
+              const row = `
+                  <tr>
+                      <td style="padding: 8px; text-align: center;">${index + 1}</td>
+                      <td style="padding: 8px; text-align: center;">${room.name}</td>
+                      <td style="padding: 8px; text-align: center;">${room.seat_count}</td>
+                      <td style="padding: 8px; text-align: center;">
+                          <button type="button" onclick="showSeatMap(${room.room_id})">Xem chi tiết</button>
+                      </td>
+                  </tr>
+              `;
+              roomsTableBody.innerHTML += row;
+          });
+      })
+      .catch(error => {
+          console.error('Lỗi khi load phòng:', error);
+      });
+}
+
+function showSeatMap(roomId) {
+  fetch(`../../app/controler/get_seats_by_room.php?room_id=${roomId}`)
+  .then(response => response.json())
+  .then(data => { 
+      const seatContainer = document.querySelector('.seat-container');
+      document.getElementById('seatMapContainer').style.display = 'block';
+      seatContainer.innerHTML = ''; // Clear seats cũ
+      data.seats.forEach(seat => {
+          const seatDiv = document.createElement('div');
+          seatDiv.className = `seat ${seat.status === 'Booked' ? 'booked' : 'available'} ${seat.seat_type.toLowerCase()}`;
+          seatDiv.textContent = seat.seat_number;
+          seatDiv.onclick = function() {
+            handleSeatClick(seat);};
+          seatContainer.appendChild(seatDiv);
+          document.getElementById('editRoomName').value = seat.room_name;
+          document.getElementById('editStatus').value = seat.room_hide;
+      });
+  })
+  .catch(error => {
+      console.error('Error:', error);
+  });
+}
+
+function handleSeatClick(seat) {
+  console.log(seat)
+  document.getElementById('seatDetail').style.display = 'block';
+  document.getElementById('editSeatName').value = seat.seat_number;
+  document.getElementById('editSeatPrice').value = seat.extra_price;
+  document.getElementById('editSeatType').value = seat.seat_type;
+  document.getElementById('editSeatStatus').value = seat.status;
+  document.getElementById('editSeatHide').value = seat.hide;
+  document.getElementById('editSeatId').value = seat.seat_id;
+}
+
+function hideEditCinemasForm() {
+  document.getElementById('editCinemasFormPanel').style.display = 'none';
+  document.getElementById('seatMapContainer').style.display = 'none';
+  document.getElementById('seatDetail').style.display = 'none';
+}
+
+function showAddCinemasForm() {
+  document.getElementById('editCinemasForm').reset();
+
+  document.getElementById('editCinemasId').value = "";
+
+  document.getElementById('editCinemasFormPanel').style.display = 'flex';
+}
+
+
+function showDeleteCinemasConfirm(movieId) {
+  document.getElementById('deleteCinemasId').value = movieId;
+  document.getElementById('deleteCinemasConfirmPanel').style.display = 'flex';
+}
+
+function hideDeleteCinemasConfirm() {
+  document.getElementById('deleteCinemasConfirmPanel').style.display = 'none';
+}

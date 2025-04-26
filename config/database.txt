@@ -64,7 +64,6 @@ CREATE TABLE rooms (
     room_id     INT AUTO_INCREMENT PRIMARY KEY,
     cinema_id   INT NOT NULL,
     name        VARCHAR(100) NOT NULL,
-    seat_count  INT NOT NULL,
     FOREIGN KEY (cinema_id) REFERENCES cinemas(cinema_id) ON DELETE CASCADE,
     link        VARCHAR(255), -- Thêm link
     hide        BOOLEAN DEFAULT FALSE, -- Thêm hide
@@ -96,7 +95,7 @@ CREATE TABLE seats (
     seat_type   ENUM('Standard', 'Vip', 'Couple') DEFAULT 'Standard',
     extra_price DECIMAL(10,2) DEFAULT 0, -- Phụ phí theo loại ghế
     FOREIGN KEY (room_id) REFERENCES rooms(room_id) ON DELETE CASCADE,
-     status      ENUM('Available', 'Booked') DEFAULT 'Available',
+    status      ENUM('Available', 'Booked') DEFAULT 'Available',
     link        VARCHAR(255), -- Thêm link
     hide        BOOLEAN DEFAULT FALSE, -- Thêm hide
     order_index     INT, -- Thêm order

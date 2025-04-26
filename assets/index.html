@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Quản lý rạp - Chỉnh sửa</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    .edit-cinema-panel {
+      display: flex;
+      gap: 20px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .left-info, .right-rooms {
+      flex: 1;
+    }
+    .left-info h2, .right-rooms h2 {
+      margin-top: 0;
+    }
+    form label {
+      display: block;
+      margin-top: 10px;
+    }
+    form input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      padding: 8px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+    th {
+      background-color: #eee;
+    }
+    .btn {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn-detail {
+      background-color: #007bff;
+      color: white;
+    }
+    .room-seats-map {
+      margin-top: 20px;
+    }
+    .seats-grid {
+      display: grid;
+      grid-template-columns: repeat(10, 40px);
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .seat {
+      width: 40px;
+      height: 40px;
+      background-color: #ccc;
+      text-align: center;
+      line-height: 40px;
+      border-radius: 5px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .seat.booked {
+      background-color: #f00;
+      color: white;
+    }
+    .seat.available {
+      background-color: #0f0;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<div class="edit-cinema-panel">
+  <!-- Bên trái: Thông tin rạp -->
+  <div class="left-info">
+    <h2>Thông tin rạp</h2>
+    <form>
+      <label>Tên rạp:</label>
+      <input type="text" placeholder="Tên rạp">
+
+      <label>Vị trí:</label>
+      <input type="text" placeholder="Địa chỉ">
+
+      <label>Số điện thoại:</label>
+      <input type="text" placeholder="Số điện thoại">
+
+      <label>Số phòng:</label>
+      <input type="number" placeholder="Số phòng">
+
+      <label>Số suất chiếu:</label>
+      <input type="number" placeholder="Số suất chiếu">
+    </form>
+  </div>
+
+  <!-- Bên phải: Danh sách phòng -->
+  <div class="right-rooms">
+    <h2>Danh sách phòng</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Tên phòng</th>
+          <th>Chức năng</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Phòng 1</td>
+          <td><button class="btn btn-detail" onclick="showSeatMap()">Xem chi tiết</button></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Phòng 2</td>
+          <td><button class="btn btn-detail" onclick="showSeatMap()">Xem chi tiết</button></td>
+        </tr>
+        <!-- Có thể thêm nhiều phòng -->
+      </tbody>
+    </table>
+
+    <!-- Sơ đồ ghế -->
+    <div class="room-seats-map" id="seat-map-container" style="display: none;">
+      <h3>Sơ đồ ghế phòng</h3>
+      <div class="seats-grid">
+        <!-- Mẫu 10x5 ghế -->
+        <div class="seat available">A1</div>
+        <div class="seat booked">A2</div>
+        <div class="seat available">A3</div>
+        <div class="seat available">A4</div>
+        <div class="seat booked">A5</div>
+        <div class="seat available">B1</div>
+        <div class="seat booked">B2</div>
+        <div class="seat available">B3</div>
+        <div class="seat available">B4</div>
+        <div class="seat available">B5</div>
+        <!-- Thêm tiếp các ghế -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function showSeatMap() {
+  document.getElementById('seat-map-container').style.display = 'block';
+}
+</script>
+
+</body>
+</html>

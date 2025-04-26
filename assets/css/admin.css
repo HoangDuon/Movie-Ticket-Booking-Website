@@ -51,6 +51,13 @@ body {
 }
 
 /* CSS chung cho modal */
+
+.modal-content label {
+  font-weight: bold;
+  display: block;
+  margin-top: 10px;
+}
+
 .modal-overlay {
   display: none;
   position: fixed;
@@ -91,7 +98,6 @@ button {
   border: none !important;
   border-radius: 4px !important;
   cursor: pointer !important;
-  margin-top: 15px !important;
 }
 
 button:hover {
@@ -152,11 +158,6 @@ button[type="button"]:hover {
 }
 
 /* CSS cho FORM EDIT MOVIE */
-.edit-movie-modal label {
-  font-weight: bold;
-  display: block;
-  margin-top: 10px;
-}
 
 .edit-movie-modal input[type="text"],
 .edit-movie-modal input[type="email"],
@@ -244,6 +245,97 @@ textarea {
 .edit-concessions-modal .form-group {
   flex: 1;
 }
+
+/* CSS cho FORM EDIT CINEMAS */
+.edit-cinemas-modal input[type="text"],
+.edit-cinemas-modal select{
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.edit-cinemas-modal .form-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.edit-cinemas-modal .form-group {
+  flex: 1;
+}
+
+.select-hide {
+  width: 150px; /* hoặc % tùy bạn */
+  height: 45px; /* cao bằng ô input */
+  padding: 5px 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-left: 10px; /* cách label 1 chút */
+}
+
+.screen {
+  margin: 10px auto 10px;
+  width: 60%;
+  padding: 8px;
+  border-top: 6px solid rgb(0, 0, 0);
+  border-radius: 80%/20px;
+  text-align: center;
+}
+
+.seat-container {
+  display: grid;
+  grid-template-columns: repeat(14, 40px);
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 30px; 
+  text-align: center;
+}
+
+.seat {
+  width: 40px;
+  height: 35px;
+  border-radius: 6px;
+  line-height: 35px;
+  font-size: 12px;
+  background-color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+  color: black;
+}
+
+.seat.available.standard {
+  background-color: #7ed957;
+}
+
+.seat.available.vip {
+  background-color: #ccd957;
+}
+
+.seat.available.couple {
+  background-color: #d957bd;
+}
+
+.seat.booked {
+  background-color: #ff6b6b;
+}
+
+
+.edit-cinemas-modal {
+  background-color: white !important;  /* ép trắng */
+  padding: 20px 25px !important;
+  border-radius: 8px !important;
+  max-width: 1800px !important;
+  width: 100% !important;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out !important;
+  color: #333;           /* chữ tối cho contrast */
+}
+
 
 /* CSS cho các button trong modal */
 button[type="submit"] {

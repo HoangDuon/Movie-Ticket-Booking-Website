@@ -370,7 +370,7 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
     <!-- RẠP -->               
     <div id="page-cinemas" style="display: none;">
         <h2>Quản lý rạp</h2>
-        <a href="#" class="btn btn-success btn-sm">
+        <a href="#" class="btn btn-success btn-sm" onclick="showAddCinemasForm()">
             <i class="bi bi-plus-circle"></i> Thêm
         </a>
         <table class="table table-bordered mt-3">
@@ -395,11 +395,19 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
                     <td><?= $cinema['Số Phòng'] ?></td>
                     <td><?= $cinema['Số Suất Chiếu'] ?></td>
                     <td>
-                        <a href="#" class="btn btn-warning btn-sm">
+                    <a href="#" class="btn btn-warning btn-sm"
+                            onclick="showEditCinemasForm(this,<?= $cinema['cinema_id'] ?>)"
+                            data-id="<?= $cinema['cinema_id'] ?>"
+                            data-name="<?= htmlspecialchars($cinema['name'], ENT_QUOTES) ?>"
+                            data-location="<?= htmlspecialchars($cinema['location'], ENT_QUOTES) ?>"
+                            data-phone="<?= $cinema['phone'] ?>"
+                            data-rooms="<?= $cinema['Số Phòng'] ?>"
+                            data-showtimes="<?= $cinema['Số Suất Chiếu'] ?>"
+                            >
                             <i class="bi bi-pencil-square"></i> Sửa
                         </a>
                         <a href="#" 
-                           onclick="return confirm('Bạn có chắc chắn muốn xóa phim này?')" 
+                           onclick="showDeleteCinemasConfirm(<?= $concession['concession_id'] ?>)" 
                            class="btn btn-danger btn-sm">
                             <i class="bi bi-trash-fill"></i> Xóa
                         </a>
@@ -408,6 +416,142 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
                 <?php endforeach; ?>
             </tbody>
         </table>
+    </div>
+
+    <!-- FORM EDIT HIỂN NỔI LÊN -->
+    <div id="editCinemasFormPanel" class="modal-overlay" style="display: none;">
+        <div class="modal-content edit-cinemas-modal" style="width: 90%; max-width: 1200px; max-height: 95%;  overflow-y: auto;">
+        <span class="close-button" onclick="hideEditCinemasForm()">&times;</span>
+
+        <!-- Chia 2 cột: -->
+        <div style="display: flex; gap: 20px;">
+        <!-- Cột trái: Form thông tin rạp -->
+        <div style="flex: 4;">
+            <form id="editCinemasForm" action="../controler/add_update_cinemas.php" method="post" enctype="multipart/form-data">
+            <h2>Thông tin rạp</h2>
+            <label>Tên rạp:</label>
+            <input type="text" id="editCinemasName" name="name">
+
+            <div class="form-row" style="display: flex; gap: 10px;">
+                <div class="form-group" style="flex: 1;">
+                <label>Vị trí:</label>
+                <input type="text" id="editCinemasLocation" name="location">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                <label>Số điện thoại:</label>
+                <input type="text" id="editCinemasPhone" name="phone">
+                </div>
+            </div>
+
+            <div class="form-row" style="display: flex; gap: 10px;">
+                <div class="form-group" style="flex: 1;">
+                <label>Số phòng:</label>
+                <input type="text" id="editCinemasRooms" name="room" readonly>
+                </div>
+                <div class="form-group" style="flex: 1;">
+                <label>Xuất chiếu:</label>
+                <input type="text" id="editCinemasShowtimes" name="showtime" readonly>
+                </div>
+            </div>
+
+            <input type="hidden" id="editCinemasId" name="id">
+
+            <button type="submit" style="margin-top: 10px;">Lưu thay đổi</button>
+            </form>
+        </div>
+
+        <!-- Cột phải: Danh sách phòng -->
+        <div style="flex: 6;">
+                <h3 style="margin-top: 30px;">Danh sách phòng</h3>
+                <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background-color: #eee;">
+                    <th style="padding: 8px;">STT</th>
+                    <th style="padding: 8px;">Tên phòng</th>
+                    <th style="padding: 8px;">Số ghế</th>
+                    <th style="padding: 8px;">Chức năng</th>
+                    </tr>
+                </thead>    
+                <tbody id="roomsTableBody">
+                    <!-- Danh sách phòng -->
+                </tbody>
+                </table>
+                <form id="editSeatsForm" action="../controler/add_update_seats.php" method="post">
+                <!-- Sơ đồ ghế sẽ hiện ra ở đây -->
+                <div id="seatMapContainer" style="margin-top: 20px; display: none;">
+                    <h3>Sơ đồ phòng</h3>
+                    <div class="form-row" style="display: flex; gap: 10px;">
+                        <div class="form-group" style="flex: 1;">
+                            <label>Tên phòng: </label>
+                            <input type="text" id="editRoomName" name="roomname">
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label>Trạng thái:</label>
+                            <select id="editStatus" name="status" class="select-hide">
+                                <option value="0">Hoạt động</option>
+                                <option value="1">Ngừng Hoạt Động</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div id="seatDetail" style="display: none;">
+                    <div class="form-row" style="display: flex; gap: 10px;">
+                        <div class="form-group" style="flex: 1;">
+                            <label>Số ghế: </label>
+                            <input type="text" id="editSeatName" name="seatname">
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label>Giá:</label>
+                            <input type="text" id="editSeatPrice" name="price">
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label>Loại ghế:</label>
+                            <select id="editSeatType" name="type" class="select-hide">
+                                <option value="Standard">Standard</option>
+                                <option value="Vip">Vip</option>
+                                <option value="Couple">Couple</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label>Tình trạng:</label>
+                            <select id="editSeatStatus" name="seatstatus" class="select-hide">
+                                <option value="Available">Chưa đặt</option>
+                                <option value="Booked">Đã đặt</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label>Trạng thái:</label>
+                            <select id="editSeatHide" name="seathide" class="select-hide">
+                                <option value="0">Hoạt động</option>
+                                <option value="1">Không hoạt động</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="editSeatId" name="seatid">
+                <button type="submit" style="margin-top: 10px;">Lưu</button>
+                <div class="screen">Màn hình</div>
+                <div class="seat-container" id="seatMap">
+                    <!-- Mẫu ghế -->
+                </div>
+                </form>
+            </div>
+        </div>
+
+        </div>
+    </div>
+
+    <!-- PANEL XÁC NHẬN XÓA -->
+    <div id="deleteCinemasConfirmPanel" class="modal-overlay" style="display: none;">
+        <div class="modal-content delete-cinemas-modal" style="text-align: center;">
+            <span class="close-button" onclick="hideDeleteCinemasConfirm()">&times;</span>
+            <h3>Bạn có chắc muốn xóa phần này không?</h3>
+            <form id="deleteCinemasForm" action="../controler/delete_Cinemas.php" method="post">
+            <input type="hidden" name="id" id="deleteCinemasId">
+            <button type="submit" style="background-color: #e74c3c; margin-right: 10px;">Xác nhận</button>
+            <button type="button" style="background-color:rgb(24, 181, 63); margin-right: 10px;" onclick="hideMovieDeleteConfirm()">Hủy</button>
+            </form>
+        </div>
     </div>
 
     <!-- BẮP NƯỚC -->
@@ -454,7 +598,7 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
         </table>
     </div>
 
-        <!-- FORM EDIT HIỂN NỔI LÊN -->
+    <!-- FORM EDIT HIỂN NỔI LÊN -->
     <div id="editConcessionsFormPanel" class="modal-overlay" style="display: none;">
         <div class="modal-content edit-concessions-modal">
             <span class="close-button" onclick="hideEditConcessionsForm()">&times;</span>
