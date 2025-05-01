@@ -44,8 +44,12 @@ function showMovieAddForm() {
   document.getElementById('editMovieFormPanel').style.display = 'flex';
 }
 
-function showMovieDeleteConfirm(movieId) {
+function showMovieDeleteConfirm(movieId,hide) {
   document.getElementById('deleteMovieId').value = movieId;
+  const title = document.getElementById('titleMovie');
+  title.textContent = hide === 0
+      ? "Bạn có chắc muốn ẩn phim này không?"
+      : "Bạn có chắc muốn hiện phim này không?";
   document.getElementById('deleteMovieConfirmPanel').style.display = 'flex';
 }
 
@@ -83,8 +87,12 @@ function showAddUserForm() {
 }
 
 
-function showDeleteUserConfirm(movieId) {
+function showDeleteUserConfirm(movieId,hide) {
   document.getElementById('deleteUserId').value = movieId;
+  const title = document.getElementById('titleUser');
+  title.textContent = hide === 0
+      ? "Bạn có chắc muốn ẩn người dùng này không?"
+      : "Bạn có chắc muốn hiện người dùng này không?";
   document.getElementById('deleteUserConfirmPanel').style.display = 'flex';
 }
 
@@ -137,8 +145,14 @@ function showAddConcessionsForm() {
 }
 
 
-function showDeleteConcessionsConfirm(movieId) {
+function showDeleteConcessionsConfirm(movieId,hide) {
   document.getElementById('deleteConcessionsId').value = movieId;
+
+  const title = document.getElementById('titleConcession');
+  title.textContent = hide === 0
+      ? "Bạn có chắc muốn ẩn phần này không?"
+      : "Bạn có chắc muốn hiện phần này không?";
+
   document.getElementById('deleteConcessionsConfirmPanel').style.display = 'flex';
 }
 
@@ -203,6 +217,7 @@ function showSeatMap(roomId) {
           seatContainer.appendChild(seatDiv);
           document.getElementById('editRoomName').value = seat.room_name;
           document.getElementById('editStatus').value = seat.room_hide;
+          document.getElementById('editRoomId').value = roomId;
       });
   })
   .catch(error => {
@@ -236,11 +251,176 @@ function showAddCinemasForm() {
 }
 
 
-function showDeleteCinemasConfirm(movieId) {
+function showDeleteCinemasConfirm(movieId,hide) {
   document.getElementById('deleteCinemasId').value = movieId;
+
+  const title = document.getElementById('titleCinema');
+  title.textContent = hide === 0
+      ? "Bạn có chắc muốn ẩn rạp này không?"
+      : "Bạn có chắc muốn hiện rạp này không?";
+
   document.getElementById('deleteCinemasConfirmPanel').style.display = 'flex';
 }
 
 function hideDeleteCinemasConfirm() {
   document.getElementById('deleteCinemasConfirmPanel').style.display = 'none';
+}
+
+//JS phần thêm xóa sửa Xuất chiếu
+function showEditShowtimeForm(button) {
+  // Gán các trường đơn giản
+  document.getElementById('editShowtimeMovie').disabled = true;
+  document.getElementById('editShowtimeCinemas').disabled = true; 
+  document.getElementById('editShowtimeMovie').value = button.dataset.movieid;
+  document.getElementById('editMovieHidden').value = button.dataset.movieid;
+  
+  document.getElementById('editShowtimeCinemas').value = button.dataset.cinemaid;
+  document.getElementById('editCinemasHidden').value = button.dataset.cinemaid;
+  
+  document.getElementById('Price').value = button.dataset.price;
+  document.getElementById('StartTime').value = button.dataset.start;
+  document.getElementById('EndTime').value = button.dataset.end;
+  document.getElementById('editShowtimeId').value = button.dataset.id;
+
+  const cinemaId = button.dataset.cinemaid;
+  const selectedRoomId = button.dataset.roomid;
+  const roomsSelect = document.getElementById("editShowtimeRooms");
+
+  // Gọi lại getRoomsForCinema và set phòng sau khi fetch xong
+  fetch("../controler/get_rooms.php?cinema_id=" + encodeURIComponent(cinemaId))
+    .then(response => {
+      if (!response.ok) throw new Error("Lỗi khi lấy phòng chiếu");
+      return response.json();
+    })
+    .then(data => {
+      // Clear và gán các option
+      roomsSelect.innerHTML = "";
+      const defaultOption = document.createElement("option");
+      defaultOption.value = "";
+      defaultOption.textContent = "-- Chọn phòng --";
+      roomsSelect.appendChild(defaultOption);
+
+      data.rooms.forEach(room => {
+        const option = document.createElement("option");
+        option.value = room.room_id;
+        option.textContent = room.room_name;
+        roomsSelect.appendChild(option);
+      });
+
+      roomsSelect.value = selectedRoomId;
+
+      getShowtimeForRoom();
+
+      // Hiện các vùng thông tin bổ sung
+      document.getElementById('CostAndTime').style.display = 'block';
+      document.getElementById('ShowtimeList').style.display = 'block';
+    })
+    .catch(error => {
+      console.error("Fetch error:", error);
+    });
+
+  // Hiện form
+  document.getElementById('editShowtimeFormPanel').style.display = 'flex';
+}
+
+
+function getRoomsForCinema() {
+  const cinemaId = document.getElementById("editShowtimeCinemas").value;
+  const roomsSelect = document.getElementById("editShowtimeRooms");
+  // Xóa các tùy chọn cũ và thêm tùy chọn mặc định
+  roomsSelect.innerHTML = "";
+  const defaultOption = document.createElement("option");
+  defaultOption.value = "";
+  defaultOption.textContent = "-- Chọn phòng --";
+  roomsSelect.appendChild(defaultOption);
+  roomsSelect.value = "";
+  document.getElementById('ShowtimeList').style.display = 'none';
+  document.getElementById('CostAndTime').style.display = 'none';
+  if (!cinemaId){
+    return;
+  }
+  fetch("../controler/get_rooms.php?cinema_id=" + encodeURIComponent(cinemaId))
+    .then(response => {
+      if (!response.ok) throw new Error("Lỗi khi lấy phòng chiếu");
+      return response.json();
+    })
+    .then(data => {
+      const rooms = data.rooms; 
+      roomsSelect.innerHTML = "";
+      defaultOption.value = "";
+      defaultOption.textContent = "-- Chọn phòng --";
+      roomsSelect.appendChild(defaultOption);
+      rooms.forEach(room => {
+        const option = document.createElement("option");
+        option.value = room.room_id;
+        option.textContent = room.room_name;
+        roomsSelect.appendChild(option);
+      });
+    })
+    .catch(error => {
+      console.error("Fetch error:", error);
+    });
+}
+
+function getShowtimeForRoom() {
+  const roomId = document.getElementById('editShowtimeRooms').value;
+  if (!roomId) return;
+
+  document.getElementById('ShowtimeList').style.display = 'block';
+  document.getElementById('CostAndTime').style.display = 'block';
+
+  // Gửi AJAX đến server để lấy danh sách suất chiếu
+  fetch(`../controler/get_showtimes_by_room.php?room_id=${roomId}`)
+      .then(response => response.json())
+      .then(data => {
+          const tbody = document.getElementById('roomsShowtimeBody');
+          tbody.innerHTML = ''; // Xoá nội dung cũ
+          console.log(data)
+          data.forEach(showtime => {
+              const row = document.createElement('tr');
+              row.innerHTML = `
+                  <td style="padding: 8px;">${showtime.showtime_id}</td>
+                  <td style="padding: 8px;">${showtime.movie_title}</td>
+                  <td style="padding: 8px;">${showtime.start_time}</td>
+                  <td style="padding: 8px;">${showtime.end_time}</td>
+                  <td style="padding: 8px;">${showtime.price}</td>
+              `;
+              tbody.appendChild(row);
+          });
+      })
+      .catch(error => {
+          console.error("Lỗi khi lấy danh sách suất chiếu:", error);
+      });
+}
+
+
+function hideEditShowtimeForm() {
+  document.getElementById('editShowtimeFormPanel').style.display = 'none';
+}
+
+function showAddShowtimeForm() {
+  document.getElementById('editShowtimeForm').reset();
+  document.getElementById('ShowtimeList').style.display = 'none';
+  document.getElementById('CostAndTime').style.display = 'none';
+  // document.getElementById('editShowtimeId').value = "";
+  document.getElementById('editShowtimeMovie').disabled = false;
+  document.getElementById('editShowtimeCinemas').disabled = false; 
+  document.getElementById('editShowtimeFormPanel').style.display = 'flex';
+}
+
+
+function showDeleteShowtimeConfirm(movieId,hide) {
+  document.getElementById('deleteShowtimeId').value = movieId;
+
+  const title = document.getElementById('titleShowtime');
+  title.textContent = hide === 0
+      ? "Bạn có chắc muốn ẩn rạp này không?"
+      : "Bạn có chắc muốn hiện rạp này không?";
+
+
+  document.getElementById('deleteShowtimeConfirmPanel').style.display = 'flex';
+}
+
+function hideDeleteShowtimeConfirm() {
+  document.getElementById('deleteShowtimeConfirmPanel').style.display = 'none';
 }

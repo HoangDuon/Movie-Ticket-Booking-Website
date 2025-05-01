@@ -11,6 +11,7 @@ class cinemas_services{
             c.name,
             c.location ,
             c.phone , 
+            c.hide,
             COUNT(DISTINCT r.room_id) AS `Số Phòng`, 
             COUNT(DISTINCT CASE WHEN s.end_time > NOW() THEN s.showtime_id END) AS `Số Suất Chiếu` 
         FROM cinemas c 

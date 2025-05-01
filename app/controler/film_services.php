@@ -6,18 +6,42 @@ class film_services{
     }
 
     public function ShowFilmAdmin(){
-        $sql = "SELECT * FROM movies WHERE hide = 0 ORDER BY movie_id DESC";
+        $sql = "SELECT * FROM movies ORDER BY movie_id DESC";
         return pdo_query($sql);
     }
 
     public function ShowShowtimesFilmAdmin(){
-        $sql = "SELECT s.showtime_id, m.title AS movie_title, c.name AS cinema_name, r.name AS room_name, 
-                    s.start_time, s.end_time, s.price, s.hide
-                FROM showtimes s
-                JOIN movies m ON s.movie_id = m.movie_id
-                JOIN rooms r ON s.room_id = r.room_id
-                JOIN cinemas c ON r.cinema_id = c.cinema_id
-                ORDER BY s.start_time DESC";
+        // Cập nhật tất cả các suất chiếu đã kết thúc và thay đổi hide thành 1
+        $sql = "UPDATE showtimes
+            SET hide = 1
+            WHERE end_time < NOW() AND hide = 0"; // Kiểm tra những suất chiếu chưa bị ẩn và đã kết thúc
+        pdo_execute($sql);
+
+        $sql = "SELECT 
+                s.showtime_id, 
+                m.title AS movie_title, 
+                c.name AS cinema_name, 
+                r.name AS room_name, 
+                c.cinema_id as cinemas_id,
+                s.movie_id,
+                s.room_id, 
+                s.start_time, 
+                s.end_time, 
+                s.price, 
+                s.hide,
+                m.hide as movie_hide,
+                r.hide as room_hide,
+                c.hide as cinema_hide
+            FROM showtimes s
+            JOIN movies m 
+                ON s.movie_id = m.movie_id   -- Chỉ lấy phim không ẩn
+            JOIN rooms r 
+                ON s.room_id = r.room_id   -- Chỉ lấy phòng không ẩn
+            JOIN cinemas c 
+                ON r.cinema_id = c.cinema_id  -- Chỉ lấy rạp không ẩn 
+            ORDER BY s.start_time DESC;  -- Sắp xếp theo thời gian bắt đầu của suất chiếu
+            ";
+
         return pdo_query($sql);
     }
 

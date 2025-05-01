@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 26, 2025 lúc 07:36 PM
+-- Thời gian đã tạo: Th5 01, 2025 lúc 07:53 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -142,11 +142,11 @@ CREATE TABLE `cinemas` (
 --
 
 INSERT INTO `cinemas` (`cinema_id`, `name`, `location`, `phone`, `created_at`, `link`, `hide`, `order_index`) VALUES
-(1, 'Cineplex 1', 'Hanoi, Vietnam', '0241234567', '2025-04-23 12:20:54', 'https://link.example.com', 0, 1),
+(1, 'CineStar', 'TPHCM, Vietnam', '0241234567', '2025-04-23 12:20:54', 'https://link.example.com', 0, 1),
 (2, 'Galaxy Cinema', 'Ho Chi Minh City, Vietnam', '0289876543', '2025-04-23 12:20:54', 'https://link.example.com', 0, 2),
 (3, 'Lotte Cinema', 'Da Nang, Vietnam', '0236456789', '2025-04-23 12:20:54', 'https://link.example.com', 0, 3),
-(4, 'CGV', 'Hanoi, Vietnam', '0243456789', '2025-04-23 12:20:54', 'https://link.example.com', 0, 4),
-(5, 'Megastar Cinema', 'Ho Chi Minh City, Vietnam', '0287654321', '2025-04-23 12:20:54', 'https://link.example.com', 0, 5),
+(4, 'CGV', 'Hanoi, Vietnam', '0243456789', '2025-04-23 12:20:54', 'https://link.example.com', 1, 4),
+(5, 'Megastar Cinema', 'Ho Chi Minh City, Vietnam', '0287654321', '2025-04-23 12:20:54', 'https://link.example.com', 1, 5),
 (6, 'BHD Star Cineplex', 'Da Nang, Vietnam', '0236123456', '2025-04-23 12:20:54', 'https://link.example.com', 0, 6),
 (7, 'Cineworld', 'Hanoi, Vietnam', '0241230000', '2025-04-23 12:20:54', 'https://link.example.com', 0, 7),
 (8, 'Galaxy Mega', 'Ho Chi Minh City, Vietnam', '0289988776', '2025-04-23 12:20:54', 'https://link.example.com', 0, 8),
@@ -183,9 +183,9 @@ INSERT INTO `concessions` (`concession_id`, `name`, `price`, `picture_link`, `li
 (6, 'Ice Cream', 35000.00, 'https://link.example.com', 'https://link.example.com', 0, 6, '2025-04-23 12:23:40'),
 (7, 'Hot Dog', 25000.00, 'assets/img/HotDog.jpg', 'https://link.example.com', 0, 7, '2025-04-23 12:23:40'),
 (8, 'Chocolate', 20000.00, 'https://link.example.com', 'https://link.example.com', 0, 8, '2025-04-23 12:23:40'),
-(9, 'Tea', 15000.00, 'assets/img/tea.jpg', 'https://link.example.com', 0, 9, '2025-04-23 12:23:40'),
-(10, 'Juice', 18000.00, 'https://link.example.com', 'https://link.example.com', 0, 10, '2025-04-23 12:23:40'),
-(11, 'Coca', 20000.00, 'assets/img/coca.jpg', NULL, 0, NULL, '2025-04-24 17:45:00');
+(9, 'Tea', 15000.00, 'assets/img/tea.jpg', 'https://link.example.com', 1, 9, '2025-04-23 12:23:40'),
+(10, 'Juice', 18000.00, 'https://link.example.com', 'https://link.example.com', 1, 10, '2025-04-23 12:23:40'),
+(11, 'Coca', 20000.00, 'assets/img/coca.jpg', NULL, 1, NULL, '2025-04-24 17:45:00');
 
 -- --------------------------------------------------------
 
@@ -253,7 +253,8 @@ INSERT INTO `movies` (`movie_id`, `title`, `genre`, `duration`, `director`, `cas
 (9, 'Titanic', 'Romance', 195, 'James Cameron', 'Leonardo DiCaprio, Kate Winslet', 'English', '1997-12-19', 'A young couple fall in love aboard the ill-fated ship Titanic', 'assets/img/titanic.jpg', 'https://trailer.example.com', 'https://banner.example.com', '2025-04-23 12:20:54', 'https://link.example.com', 0, 9),
 (10, 'Inception', 'Sci-Fi', 148, 'Christopher Nolan', 'Leonardo DiCaprio, Joseph Gordon-Levitt', 'English', '2010-07-16', 'A thief who steals corporate secrets is given the chance to erase his criminal record', 'assets/img/inception.jpg', 'https://www.youtube.com/watch?v=y2TCjYiTGIo', 'https://banner.example.com', '2025-04-23 12:20:54', 'https://link.example.com', 0, 10),
 (11, 'Mickey 17', 'Khoa học viễn tưởng, Phiêu lưu', 118, 'Bong Joon-ho', 'Robert Pattinson, Mark Ruffalo, Toni Collette', 'English', '2025-04-18', 'Mickey 17 là một bộ phim khoa học viễn tưởng do Bong Joon-ho đạo diễn, kể về một nhân vật có khả năng hồi sinh không ngừng, thực hiện một nhiệm vụ du hành ngoài vũ trụ đầy nguy hiểm. Phim hứa hẹn mang đến những trải nghiệm điện ảnh độc đáo và hấp dẫn .', 'assets/img/Mickey17.jpg', 'https://www.youtube.com/watch?v=kFT4D0o9IZ4', 'assets/img/Mickey17-banner.jpg', '2025-04-23 18:21:40', NULL, 0, NULL),
-(12, 'Chiếm đoạt', 'Chính Kịch, Huyền Thoại', 190, 'Thắng Vũ', 'Miu Lê, KaZik', 'Tiếng Việt', '2023-11-24', 'Chuyện tình giữa My và Hoàng không liên quan nhiều đến tổng thể kịch bản. Ban đầu, My lợi dụng Hoàng như một quân cờ để giúp công việc của Sơn được thuận lợi. Về sau, phát hiện kế hoạch trả thù của My, anh vẫn đem lòng yêu cô, muốn sống chung dưới một mái nhà. Đạo diễn dàn dựng nhiều khoảnh khắc lãng mạn giữa My và Hoàng để dung hòa, giúp tác phẩm bớt màu u tối. Song, cách sắp xếp chưa mượt mà khiến tình tiết này lệch ra khỏi tổng thể phim.', 'assets/img/Chiemdoat.PNG', 'https://www.youtube.com/watch?v=vFJpPawJWjw', 'assets/img/chiemdoat banner.PNG', '2025-04-26 15:25:45', NULL, 0, NULL);
+(12, 'Chiếm đoạt', 'Chính Kịch, Huyền Thoại', 190, 'Thắng Vũ', 'Miu Lê, KaZik', 'Tiếng Việt', '2023-11-24', 'Chuyện tình giữa My và Hoàng không liên quan nhiều đến tổng thể kịch bản. Ban đầu, My lợi dụng Hoàng như một quân cờ để giúp công việc của Sơn được thuận lợi. Về sau, phát hiện kế hoạch trả thù của My, anh vẫn đem lòng yêu cô, muốn sống chung dưới một mái nhà. Đạo diễn dàn dựng nhiều khoảnh khắc lãng mạn giữa My và Hoàng để dung hòa, giúp tác phẩm bớt màu u tối. Song, cách sắp xếp chưa mượt mà khiến tình tiết này lệch ra khỏi tổng thể phim.', 'assets/img/Chiemdoat.PNG', 'https://www.youtube.com/watch?v=vFJpPawJWjw', 'assets/img/chiemdoat banner.PNG', '2025-04-26 15:25:45', NULL, 0, NULL),
+(13, 'MA DA', 'Kinh thánh', 95, 'Nguyễn Hữu Hoàng', 'Việt Hương, đứa bé con gái giả tưởng, đứa bé con gái không phải người việt, thằng béo oscar 10/10', 'Tiếng Việt', '2024-08-16', '\"Ma da\" kể về cuộc sống của bà Lệ (do Việt Hương thủ vai), một phụ nữ làm nghề vớt xác trên sông. Công việc của bà là đưa những người đã mất trở về với gia đình họ, giúp họ có một nơi an nghỉ cuối cùng. Một ngày nọ, bà Lệ vớt được xác của một thanh niên bí ẩn. Từ đó, bà bắt đầu gặp phải nhiều hiện tượng kỳ lạ và những dấu hiệu tai ương.', 'assets/img/madaposter.jpg', 'https://youtu.be/vC-KNlLNIso?si=DrJkPJXnR3demkmQ', 'assets/img/mada.jpg', '2025-04-29 16:25:28', NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -311,7 +312,7 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`room_id`, `cinema_id`, `name`, `link`, `hide`, `order_index`, `created_at`) VALUES
-(1, 1, 'Room 1', 'https://link.example.com', 0, 1, '2025-04-23 12:20:54'),
+(1, 1, 'Rạp 1', 'https://link.example.com', 0, 1, '2025-04-23 12:20:54'),
 (2, 2, 'Room 2', 'https://link.example.com', 0, 1, '2025-04-23 12:20:54'),
 (3, 3, 'Room 3', 'https://link.example.com', 0, 1, '2025-04-23 12:20:54'),
 (4, 1, 'Room 1', 'https://link.example.com', 0, 1, '2025-04-23 12:20:54'),
@@ -351,7 +352,7 @@ CREATE TABLE `seats` (
 INSERT INTO `seats` (`seat_id`, `room_id`, `seat_number`, `seat_type`, `extra_price`, `status`, `link`, `hide`, `order_index`, `created_at`) VALUES
 (3, 2, 'B1', 'Couple', 100000.00, 'Available', 'https://link.example.com', 0, 3, '2025-04-23 12:23:00'),
 (4, 3, 'C1', 'Standard', 0.00, 'Available', 'https://link.example.com', 0, 4, '2025-04-23 12:23:00'),
-(5, 4, 'D1', 'Vip', 50000.00, 'Available', 'https://link.example.com', 0, 5, '2025-04-23 12:23:00'),
+(5, 4, 'A1', 'Vip', 50000.00, 'Available', 'https://link.example.com', 0, 5, '2025-04-23 12:23:00'),
 (6, 5, 'E1', 'Couple', 100000.00, 'Available', 'https://link.example.com', 0, 6, '2025-04-23 12:23:00'),
 (7, 6, 'F1', 'Standard', 0.00, 'Available', 'https://link.example.com', 0, 7, '2025-04-23 12:23:00'),
 (8, 7, 'G1', 'Vip', 50000.00, 'Available', 'https://link.example.com', 0, 8, '2025-04-23 12:23:00'),
@@ -433,7 +434,7 @@ INSERT INTO `seats` (`seat_id`, `room_id`, `seat_number`, `seat_type`, `extra_pr
 (84, 1, 'F4', 'Couple', 50000.00, 'Available', NULL, 0, NULL, '2025-04-26 10:50:34'),
 (85, 1, 'F5', 'Standard', 0.00, 'Available', NULL, 0, NULL, '2025-04-26 10:50:34'),
 (86, 1, 'F6', 'Vip', 20000.00, 'Available', NULL, 0, NULL, '2025-04-26 10:50:34'),
-(87, 1, 'F7', 'Standard', 0.00, 'Available', NULL, 0, NULL, '2025-04-26 10:50:34'),
+(87, 1, 'F7', 'Standard', 0.00, 'Booked', NULL, 0, NULL, '2025-04-26 10:50:34'),
 (88, 1, 'F8', 'Couple', 50000.00, 'Available', NULL, 0, NULL, '2025-04-26 10:50:34'),
 (89, 1, 'F9', 'Couple', 50000.00, 'Available', NULL, 0, NULL, '2025-04-26 10:50:34'),
 (90, 1, 'F10', 'Vip', 20000.00, 'Available', NULL, 0, NULL, '2025-04-26 10:50:34'),
@@ -461,7 +462,7 @@ INSERT INTO `seats` (`seat_id`, `room_id`, `seat_number`, `seat_type`, `extra_pr
 (112, 1, 'H4', 'Couple', 50000.00, 'Available', NULL, 0, NULL, '2025-04-26 10:50:34'),
 (113, 1, 'H5', 'Vip', 20000.00, 'Available', NULL, 0, NULL, '2025-04-26 10:50:34'),
 (114, 1, 'H6', 'Vip', 20000.00, 'Available', NULL, 0, NULL, '2025-04-26 10:50:34'),
-(115, 1, 'H7', 'Standard', 0.00, 'Available', NULL, 0, NULL, '2025-04-26 10:50:34'),
+(115, 1, 'H7', 'Vip', 20000.00, 'Booked', NULL, 0, NULL, '2025-04-26 10:50:34'),
 (116, 1, 'H8', 'Vip', 20000.00, 'Available', NULL, 0, NULL, '2025-04-26 10:50:34'),
 (117, 1, 'H9', 'Vip', 20000.00, 'Available', NULL, 0, NULL, '2025-04-26 10:50:34'),
 (118, 1, 'H10', 'Standard', 0.00, 'Available', NULL, 0, NULL, '2025-04-26 10:50:34'),
@@ -578,16 +579,17 @@ CREATE TABLE `showtimes` (
 --
 
 INSERT INTO `showtimes` (`showtime_id`, `movie_id`, `room_id`, `start_time`, `end_time`, `price`, `link`, `hide`, `order_index`, `created_at`) VALUES
-(1, 1, 1, '2025-05-01 10:00:00', '2025-05-01 13:00:00', 150000.00, 'https://link.example.com', 0, 1, '2025-04-23 12:23:00'),
-(2, 2, 2, '2025-05-01 14:00:00', '2025-05-01 17:00:00', 120000.00, 'https://link.example.com', 0, 2, '2025-04-23 12:23:00'),
+(1, 1, 1, '2025-05-01 10:00:00', '2025-05-01 13:00:00', 150000.00, 'https://link.example.com', 1, 1, '2025-04-23 12:23:00'),
+(2, 2, 2, '2025-05-01 14:00:00', '2025-05-01 17:00:00', 120000.00, 'https://link.example.com', 1, 2, '2025-04-23 12:23:00'),
 (3, 3, 3, '2025-05-02 10:30:00', '2025-05-02 15:00:00', 100000.00, 'https://link.example.com', 0, 3, '2025-04-23 12:23:00'),
 (4, 4, 4, '2025-05-02 15:00:00', '2025-05-02 18:00:00', 130000.00, 'https://link.example.com', 0, 4, '2025-04-23 12:23:00'),
 (5, 5, 5, '2025-05-03 11:00:00', '2025-05-03 14:00:00', 110000.00, 'https://link.example.com', 0, 5, '2025-04-23 12:23:00'),
-(6, 6, 6, '2025-05-03 14:30:00', '2025-05-03 18:00:00', 140000.00, 'https://link.example.com', 0, 6, '2025-04-23 12:23:00'),
+(6, 6, 3, '2025-05-03 14:30:00', '2025-05-03 18:00:00', 200000.00, 'https://link.example.com', 0, 6, '2025-04-23 12:23:00'),
 (7, 7, 7, '2025-05-04 16:00:00', '2025-05-04 20:00:00', 150000.00, 'https://link.example.com', 0, 7, '2025-04-23 12:23:00'),
 (8, 8, 8, '2025-05-04 18:30:00', '2025-05-04 21:00:00', 120000.00, 'https://link.example.com', 0, 8, '2025-04-23 12:23:00'),
 (9, 9, 9, '2025-05-05 10:00:00', '2025-05-05 13:00:00', 110000.00, 'https://link.example.com', 0, 9, '2025-04-23 12:23:00'),
-(10, 10, 10, '2025-05-05 13:00:00', '2025-05-05 17:00:00', 160000.00, 'https://link.example.com', 0, 10, '2025-04-23 12:23:00');
+(10, 10, 10, '2025-05-05 13:00:00', '2025-05-05 17:00:00', 210000.00, 'https://link.example.com', 0, 10, '2025-04-23 12:23:00'),
+(29, 8, 7, '2025-04-29 21:30:00', '2025-04-30 21:30:00', 30000.00, NULL, 1, NULL, '2025-04-30 14:30:12');
 
 -- --------------------------------------------------------
 
@@ -624,7 +626,7 @@ INSERT INTO `users` (`user_id`, `full_name`, `email`, `password`, `phone`, `birt
 (7, 'Tran Thi Thanh', 'thanh@example.com', '$2y$10$K8lMnZC7F.4rNEGhshXIu.aN9RngQoVCKtJQrNFX55.UN65/yIKUW', '0903456789', '1993-03-25', 'Customer', 'Silver', '2025-04-23 12:20:54', 'https://link.example.com', 0, 7),
 (8, 'Le Thi Mai', 'mai2@example.com', '$2y$10$hQiqcoVKxeP2jJvy2o2DiOOyS9LEk1w68/wqTWINmNAMkp508I8MO', '0967654321', '1995-11-15', 'Customer', 'Gold', '2025-04-23 12:20:54', 'https://link.example.com', 0, 8),
 (9, 'Nguyen Bao Han', 'han@example.com', '$2y$10$UyynL5cbCpw9vjMK9Lukw.i3dsi7e9D8Mnj.h3/lAWWKY/yBG4S9e', '0982345678', '1990-07-22', 'Admin', 'Gold', '2025-04-23 12:20:54', 'https://link.example.com', 0, 9),
-(10, 'Phan Thi Lan', 'lan2@example.com', '$2y$10$grmByn5a6Mpe2/tOoTOT9ObqiAPv2AFELI69C50kQh867vLJsOase', '0934345678', '1987-12-10', 'Customer', 'None', '2025-04-23 12:20:54', 'https://link.example.com', 0, 10),
+(10, 'Phan Thi Lan', 'lan2@example.com', '$2y$10$grmByn5a6Mpe2/tOoTOT9ObqiAPv2AFELI69C50kQh867vLJsOase', '0934345678', '1987-12-10', 'Customer', 'None', '2025-04-23 12:20:54', 'https://link.example.com', 1, 10),
 (13, 'Duong Hoang', 'hd34227@gmail.com', '$2y$10$5619w.WL3ehiJIwbrgWdd.kP/lKHj2S9Ez9lbaz5AGZRaez7z4joO', '0928051363', '2025-04-07', 'Admin', 'Diamond', '2025-04-24 13:52:20', NULL, 1, NULL),
 (15, 'ADMIN', 'ADMIN@gmail.com', '$2y$10$FuTrTxDRLbrPRmSJ/Cdbd.YZmgaWfj6iZmeNuTQlub3xUyG0n3wz6', '0', '2025-04-01', 'Admin', 'Diamond', '2025-04-24 14:03:36', NULL, 0, NULL);
 
@@ -756,7 +758,7 @@ ALTER TABLE `concessions`
 -- AUTO_INCREMENT cho bảng `movies`
 --
 ALTER TABLE `movies`
-  MODIFY `movie_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `movie_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT cho bảng `payments`
@@ -780,7 +782,7 @@ ALTER TABLE `seats`
 -- AUTO_INCREMENT cho bảng `showtimes`
 --
 ALTER TABLE `showtimes`
-  MODIFY `showtime_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `showtime_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT cho bảng `users`

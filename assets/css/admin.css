@@ -52,6 +52,12 @@ body {
 
 /* CSS chung cho modal */
 
+.delete-modal h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
 .modal-content label {
   font-weight: bold;
   display: block;
@@ -143,11 +149,6 @@ button[type="button"]:hover {
 }
 
 /* CSS cho FORM DELETE USER */
-.delete-user-modal h3 {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
 
 .delete-user-modal button {
   margin-right: 10px;
@@ -348,6 +349,29 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
   background-color: #3498db;
+}
+
+/* CSS cho FORM EDIT showtime */
+.edit-showtime-modal input[type="text"],
+.edit-showtime-modal select,
+.edit-showtime-modal input[type="datetime-local"]{
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.edit-showtime-modal {
+  background-color: white !important;  /* ép trắng */
+  padding: 20px 25px !important;
+  border-radius: 8px !important;
+  max-width: 1800px !important;
+  width: 100% !important;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out !important;
+  color: #333;           /* chữ tối cho contrast */
 }
 
 /* Màn hình trong suốt và hiệu ứng hiển thị */

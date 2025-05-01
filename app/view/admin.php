@@ -136,7 +136,12 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
             <tbody>
                 <?php foreach ($users as $user): ?>
                 <tr>
-                    <td><?= $user['user_id'] ?></td>
+                    <td><?= $user['user_id'] ?>
+                        <?php if ($user['hide'] == 0): ?>
+                            <i class="bi bi-eye" style="color: green;" title="Đang hiển thị"></i>
+                        <?php else: ?>
+                            <i class="bi bi-eye-slash" style="color: gray;" title="Đang ẩn"></i>
+                        <?php endif; ?></td>
                     <td><?= $user['full_name'] ?></td>
                     <td><?= $user['email'] ?></td>
                     <td><?= $user['phone'] ?></td>
@@ -155,11 +160,19 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
                             data-password="<?= $user['password'] ?>">
                                 <i class="bi bi-pencil-square"></i> Sửa
                         </a>
-                    <a href="#" 
-                       onclick="showDeleteUserConfirm(<?= $user['user_id'] ?>)" 
-                       class="btn btn-danger btn-sm">
-                        <i class="bi bi-trash-fill"></i> Xóa
-                    </a>
+                    <?php if ($user['hide'] == 0): ?>
+                        <a href="#"
+                        onclick="showDeleteUserConfirm(<?= $user['user_id'] ?>,<?= $user['hide'] ?>)" 
+                        class="btn btn-danger btn-sm">
+                            <i class="bi bi-eye-slash"></i> Ẩn
+                        </a>
+                    <?php else: ?>
+                        <a href="#"
+                        onclick="showDeleteUserConfirm(<?= $user['user_id'] ?>,<?= $user['hide'] ?>)" 
+                        class="btn btn-success btn-sm">
+                            <i class="bi bi-eye"></i> Hiện
+                        </a>
+                    <?php endif; ?>
                 </td>
                 </tr>
                 <?php endforeach; ?>
@@ -223,13 +236,13 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
 
     <!-- FORM DELETE USER -->
     <div id="deleteUserConfirmPanel" class="modal-overlay" style="display: none;">
-        <div class="modal-content delete-user-modal" style="text-align: center;">
+        <div class="modal-content delete-modal delete-user-modal" style="text-align: center;">
             <span class="close-button" onclick="hideDeleteUserConfirm()">&times;</span>
-            <h3>Bạn có chắc muốn xóa người dùng này không?</h3>
+            <h3 id="titleUser">Bạn có chắc muốn ẩn người dùng này không?</h3>
             <form id="deleteUserForm" action="../controler/delete_user.php" method="post">
                 <input type="hidden" name="id" id="deleteUserId">
-                <button type="submit" style="background-color: #e74c3c; margin-right: 10px;">Xác nhận</button>
-                <button type="button" style="background-color:rgb(24, 181, 63); margin-right: 10px;" onclick="hideDeleteUserConfirm()">Hủy</button>
+                <button type="submit" style="background-color: rgb(24, 181, 63); margin-right: 10px;">Xác nhận</button>
+                <button type="button" style="background-color: #e74c3c; margin-right: 10px;" onclick="hideDeleteUserConfirm()">Hủy</button>
             </form>
         </div>
     </div>
@@ -259,7 +272,12 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
             <tbody>
                 <?php foreach ($films as $film): ?>
                 <tr>
-                    <td><?= $film['movie_id'] ?></td>
+                    <td><?= $film['movie_id'] ?>
+                        <?php if ($film['hide'] == 0): ?>
+                            <i class="bi bi-eye" style="color: green;" title="Đang hiển thị"></i>
+                        <?php else: ?>
+                            <i class="bi bi-eye-slash" style="color: gray;" title="Đang ẩn"></i>
+                        <?php endif; ?></td>
                     <td><img src="../../<?= $film['poster_url']?>" class="movie-poster" alt=""> </td>
                     <td><?= $film['title'] ?></td>
                     <td><?= $film['genre'] ?></td>
@@ -285,11 +303,19 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
                             >
                             <i class="bi bi-pencil-square"></i> Sửa
                         </a>
-                        <a href="#" 
-                           onclick="showMovieDeleteConfirm(<?= $film['movie_id'] ?>)" 
-                           class="btn btn-danger btn-sm">
-                            <i class="bi bi-trash-fill"></i> Xóa
+                    <?php if ($film['hide'] == 0): ?>
+                        <a href="#"
+                        onclick="showMovieDeleteConfirm(<?= $film['movie_id'] ?>,<?= $film['hide'] ?>)" 
+                        class="btn btn-danger btn-sm">
+                            <i class="bi bi-eye-slash"></i> Ẩn
                         </a>
+                    <?php else: ?>
+                        <a href="#"
+                        onclick="showMovieDeleteConfirm(<?= $film['movie_id'] ?>,<?= $film['hide'] ?>)" 
+                        class="btn btn-success btn-sm">
+                            <i class="bi bi-eye"></i> Hiện
+                        </a>
+                    <?php endif; ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -356,13 +382,13 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
 
     <!-- PANEL XÁC NHẬN XÓA -->
     <div id="deleteMovieConfirmPanel" class="modal-overlay" style="display: none;">
-        <div class="modal-content delete-movie-modal" style="text-align: center;">
+        <div class="modal-content delete-modal delete-movie-modal" style="text-align: center;">
             <span class="close-button" onclick="hideMovieDeleteConfirm()">&times;</span>
-            <h3>Bạn có chắc muốn xóa phim này không?</h3>
+            <h3 id="titleMovie">Bạn có chắc muốn ẩn phim này không?</h3>
             <form id="deleteMovieForm" action="../controler/delete_movie.php" method="post">
             <input type="hidden" name="id" id="deleteMovieId">
-            <button type="submit" style="background-color: #e74c3c; margin-right: 10px;">Xác nhận</button>
-            <button type="button" style="background-color:rgb(24, 181, 63); margin-right: 10px;" onclick="hideMovieDeleteConfirm()">Hủy</button>
+            <button type="submit" style="background-color: rgb(24, 181, 63); margin-right: 10px;">Xác nhận</button>
+            <button type="button" style="background-color:#e74c3c; margin-right: 10px;" onclick="hideMovieDeleteConfirm()">Hủy</button>
             </form>
         </div>
     </div>
@@ -370,8 +396,8 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
     <!-- RẠP -->               
     <div id="page-cinemas" style="display: none;">
         <h2>Quản lý rạp</h2>
-        <a href="#" class="btn btn-success btn-sm" onclick="showAddCinemasForm()">
-            <i class="bi bi-plus-circle"></i> Thêm
+        <!-- <a href="#" class="btn btn-success btn-sm" onclick="showAddCinemasForm()">
+            <i class="bi bi-plus-circle"></i> Thêm -->
         </a>
         <table class="table table-bordered mt-3">
             <thead class="table-dark">
@@ -388,7 +414,12 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
             <tbody>
                 <?php foreach ($cinemas as $cinema): ?>
                 <tr>
-                    <td><?= $cinema['cinema_id'] ?></td>
+                    <td><?= $cinema['cinema_id'] ?>
+                        <?php if ($cinema['hide'] == 0): ?>
+                            <i class="bi bi-eye" style="color: green;" title="Đang hiển thị"></i>
+                        <?php else: ?>
+                            <i class="bi bi-eye-slash" style="color: gray;" title="Đang ẩn"></i>
+                        <?php endif; ?></td>
                     <td><?= $cinema['name'] ?></td>
                     <td><?= $cinema['location'] ?></td>
                     <td><?= $cinema['phone'] ?></td>
@@ -406,11 +437,19 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
                             >
                             <i class="bi bi-pencil-square"></i> Sửa
                         </a>
-                        <a href="#" 
-                           onclick="showDeleteCinemasConfirm(<?= $concession['concession_id'] ?>)" 
-                           class="btn btn-danger btn-sm">
-                            <i class="bi bi-trash-fill"></i> Xóa
+                    <?php if ($cinema['hide'] == 0): ?>
+                        <a href="#"
+                        onclick="showDeleteCinemasConfirm(<?= $cinema['cinema_id'] ?>,<?= $cinema['hide'] ?>)" 
+                        class="btn btn-danger btn-sm">
+                            <i class="bi bi-eye-slash"></i> Ẩn
                         </a>
+                    <?php else: ?>
+                        <a href="#"
+                        onclick="showDeleteCinemasConfirm(<?= $cinema['cinema_id'] ?>,<?= $cinema['hide'] ?>)" 
+                        class="btn btn-success btn-sm">
+                            <i class="bi bi-eye"></i> Hiện
+                        </a>
+                    <?php endif; ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -493,8 +532,8 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
                             </select>
                         </div>
                     </div>
-                </div>
-                <div id="seatDetail" style="display: none;">
+                    <input type="hidden" id="editRoomId" name="roomid">
+                    <div id="seatDetail" style="display: none;">
                     <div class="form-row" style="display: flex; gap: 10px;">
                         <div class="form-group" style="flex: 1;">
                             <label>Số ghế: </label>
@@ -528,8 +567,9 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
                         </div>
                     </div>
                 </div>
+                    <button type="submit" style="margin-top: 10px;">Lưu</button>
+                </div>
                 <input type="hidden" id="editSeatId" name="seatid">
-                <button type="submit" style="margin-top: 10px;">Lưu</button>
                 <div class="screen">Màn hình</div>
                 <div class="seat-container" id="seatMap">
                     <!-- Mẫu ghế -->
@@ -543,13 +583,13 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
 
     <!-- PANEL XÁC NHẬN XÓA -->
     <div id="deleteCinemasConfirmPanel" class="modal-overlay" style="display: none;">
-        <div class="modal-content delete-cinemas-modal" style="text-align: center;">
+        <div class="modal-content delete-modal delete-cinemas-modal" style="text-align: center;">
             <span class="close-button" onclick="hideDeleteCinemasConfirm()">&times;</span>
-            <h3>Bạn có chắc muốn xóa phần này không?</h3>
-            <form id="deleteCinemasForm" action="../controler/delete_Cinemas.php" method="post">
+            <h3 id="titleCinema">Bạn có chắc muốn ẩn rạp này không?</h3>
+            <form id="deleteCinemasForm" action="../controler/delete_cinemas.php" method="post">
             <input type="hidden" name="id" id="deleteCinemasId">
-            <button type="submit" style="background-color: #e74c3c; margin-right: 10px;">Xác nhận</button>
-            <button type="button" style="background-color:rgb(24, 181, 63); margin-right: 10px;" onclick="hideMovieDeleteConfirm()">Hủy</button>
+            <button type="submit" style="background-color:  rgb(24, 181, 63); margin-right: 10px;">Xác nhận</button>
+            <button type="button" style="background-color: #e74c3c; margin-right: 10px;" onclick="hideDeleteCinemasConfirm()">Hủy</button>
             </form>
         </div>
     </div>
@@ -573,7 +613,12 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
             <tbody>
                 <?php foreach ($concessions as $concession): ?>
                 <tr>
-                    <td><?= $concession['concession_id'] ?></td>
+                    <td><?= $concession['concession_id'] ?>
+                        <?php if ($concession['hide'] == 0): ?>
+                            <i class="bi bi-eye" style="color: green;" title="Đang hiển thị"></i>
+                        <?php else: ?>
+                            <i class="bi bi-eye-slash" style="color: gray;" title="Đang ẩn"></i>
+                        <?php endif; ?></td>
                     <td><?= $concession['name'] ?></td>
                     <td><?= $concession['price'] ?></td>
                     <td><img src="../../<?= $concession['picture_link']?>" class="movie-poster" alt=""> </td>
@@ -586,11 +631,19 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
                             >
                             <i class="bi bi-pencil-square"></i> Sửa
                         </a>
-                        <a href="#" 
-                           onclick="showDeleteConcessionsConfirm(<?= $concession['concession_id'] ?>)" 
-                           class="btn btn-danger btn-sm">
-                            <i class="bi bi-trash-fill"></i> Xóa
+                        <?php if ($concession['hide'] == 0): ?>
+                        <a href="#"
+                        onclick="showDeleteConcessionsConfirm(<?= $concession['concession_id'] ?>,<?= $concession['hide'] ?>)" 
+                        class="btn btn-danger btn-sm">
+                            <i class="bi bi-eye-slash"></i> Ẩn
                         </a>
+                    <?php else: ?>
+                        <a href="#"
+                        onclick="showDeleteConcessionsConfirm(<?= $concession['concession_id'] ?>,<?= $concession['hide'] ?>)" 
+                        class="btn btn-success btn-sm">
+                            <i class="bi bi-eye"></i> Hiện
+                        </a>
+                    <?php endif; ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -628,14 +681,14 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
 
     <!-- PANEL XÁC NHẬN XÓA -->
     <div id="deleteConcessionsConfirmPanel" class="modal-overlay" style="display: none;">
-        <div class="modal-content delete-concessions-modal" style="text-align: center;">
+        <div class="modal-content delete-modal delete-concessions-modal" style="text-align: center;">
             <span class="close-button" onclick="hideDeleteConcessionsConfirm()">&times;</span>
-            <h3>Bạn có chắc muốn xóa phần này không?</h3>
+            <h3 id="titleConcession">Bạn có chắc muốn ẩn phần này không?</h3>
             <form id="deleteConcessionsForm" action="../controler/delete_concessions.php" method="post">
             <input type="hidden" name="id" id="deleteConcessionsId">
-            <button type="submit" style="background-color: #e74c3c; margin-right: 10px;">Xác nhận</button>
-            <button type="button" style="background-color:rgb(24, 181, 63); margin-right: 10px;" onclick="hideMovieDeleteConfirm()">Hủy</button>
-            </form>
+            <button type="submit" style="background-color: rgb(24, 181, 63); margin-right: 10px;">Xác nhận</button>
+            <button type="button" style="background-color: #e74c3c; margin-right: 10px;" onclick="hideMovieDeleteConfirm()">Hủy</button>
+            </form> 
         </div>
     </div>
 
@@ -666,11 +719,11 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
                             >
                             <i class="bi bi-pencil-square"></i> Sửa
                         </a>
-                        <a href="#" 
+                        <!-- <a href="#" 
                            onclick="showDeleteMemberConfirm('<?= $membership['member_type'] ?>')" 
                            class="btn btn-danger btn-sm">
-                            <i class="bi bi-trash-fill"></i> Xóa
-                        </a>
+                            <i class="bi bi-eye-slash"></i> Xóa
+                        </a> -->
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -700,13 +753,13 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
 
     <!-- FORM DELETE MEMEBERSHIP -->
     <div id="deleteMemberConfirmPanel" class="modal-overlay" style="display: none;">
-        <div class="modal-content delete-member-modal" style="text-align: center;">
+        <div class="modal-content delete-modal delete-member-modal" style="text-align: center;">
             <span class="close-button" onclick="hideDeleteMemberConfirm()">&times;</span>
             <h3>Bạn có chắc muốn xóa loại thành viên này không?</h3>
             <form id="deleteMemberForm" action="../controler/delete_member.php" method="post">
                 <input type="hidden" name="id" id="deleteMemberId">
-                <button type="submit" style="background-color: #e74c3c; margin-right: 10px;">Xác nhận</button>
-                <button type="button" style="background-color:rgb(24, 181, 63); margin-right: 10px;" onclick="hideDeleteMemberConfirm()">Hủy</button>
+                <button type="submit" style="background-color: rgb(24, 181, 63) ; margin-right: 10px;">Xác nhận</button>
+                <button type="button" style="background-color: #e74c3c; margin-right: 10px;" onclick="hideDeleteMemberConfirm()">Hủy</button>
             </form>
         </div>
     </div>
@@ -714,7 +767,7 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
     <!-- XUẤT CHIẾU -->
     <div id="page-showtime" style="display: none;">
         <h2>Quản lý xuất chiếu</h2>
-        <a href="#" class="btn btn-success btn-sm">
+        <a href="#" class="btn btn-success btn-sm" onclick="showAddShowtimeForm()">
             <i class="bi bi-plus-circle"></i> Thêm
         </a>
         <table class="table table-bordered mt-3">
@@ -733,7 +786,11 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
             <tbody>
                 <?php foreach ($showtimes as $showtime): ?>
                 <tr>
-                    <td><?= $showtime['showtime_id'] ?></td>
+                    <td><?= $showtime['showtime_id'] ?><?php if ($showtime['hide'] == 1 || $showtime['movie_hide'] == 1||$showtime['room_hide'] == 1 ||$showtime['cinema_hide'] == 1): ?>
+                        <i class="bi bi-eye-slash" style="color: gray;" title="Đang ẩn"></i>    
+                        <?php else: ?>
+                            <i class="bi bi-eye" style="color: green;" title="Đang hiển thị"></i>
+                        <?php endif; ?></td>
                     <td><?= $showtime['movie_title'] ?></td>
                     <td><?= $showtime['cinema_name'] ?></td>
                     <td><?= $showtime['room_name'] ?></td>
@@ -741,20 +798,131 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
                     <td><?= $showtime['end_time'] ?></td>
                     <td><?= $showtime['price'] ?></td>
                     <td>
-                        <a href="#" class="btn btn-warning btn-sm">
-                            <i class="bi bi-pencil-square"></i> Sửa
+                    <a href="#" class="btn btn-warning btn-sm" onclick="showEditShowtimeForm(this)" 
+                    data-id="<?= $showtime['showtime_id'] ?>"
+                        data-movietitle="<?= $showtime['movie_title'] ?>" 
+                        data-cinemaname="<?= $showtime['cinema_name'] ?>" 
+                        data-roomname="<?= $showtime['room_name'] ?>" 
+                        data-start="<?= $showtime['start_time']?>" 
+                        data-end="<?= $showtime['end_time'] ?>" 
+                        data-price="<?= $showtime['price']?>" 
+                        data-cinemaid="<?= $showtime['cinemas_id'] ?>"
+                        data-movieid="<?= $showtime['movie_id'] ?>"
+                        data-roomid="<?= $showtime['room_id'] ?>">
+                        <i class="bi bi-pencil-square"></i> Sửa
+                    </a>
+                    <?php if ($showtime['hide'] == 0): ?>
+                        <a href="#"
+                        onclick="showDeleteShowtimeConfirm(<?= $showtime['showtime_id'] ?>,<?= $showtime['hide'] ?>)" 
+                        class="btn btn-danger btn-sm">
+                            <i class="bi bi-eye-slash"></i> Ẩn
                         </a>
-                        <a href="#" 
-                           onclick="return confirm('Bạn có chắc chắn muốn xóa phim này?')" 
-                           class="btn btn-danger btn-sm">
-                            <i class="bi bi-trash-fill"></i> Xóa
+                    <?php else: ?>
+                        <a href="#"
+                        onclick="showDeleteShowtimeConfirm(<?= $showtime['showtime_id'] ?>,<?= $showtime['hide'] ?>)" 
+                        class="btn btn-success btn-sm">
+                            <i class="bi bi-eye"></i> Hiện
                         </a>
+                    <?php endif; ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
+
+    <!-- FORM EDIT SHOWTIMES -->
+    <div id="editShowtimeFormPanel" class="modal-overlay" style="display: none;">
+        <div class="modal-content edit-showtime-modal">
+            <!-- Chia 2 cột: -->
+            <div style="display: flex; gap: 20px;">
+            <!-- Cột trái: Form thông tin rạp -->
+            <div style="flex: 4;">
+                <span class="close-button" onclick="hideEditShowtimeForm()">&times;</span>
+                <form id="editShowtimeForm" action="../controler/add_update_showtime.php" method="post">
+                    <h2>Quản lý xuất chiếu</h2>
+                    <label>Phim:</label>
+                    <select id="editShowtimeMovie" name="movie">
+                    <option value="">-- Chọn phim --</option> 
+                    <?php foreach ($showtimes as $option): ?>
+                        <?php if ($option['movie_hide'] == 0): ?>
+                            <option value="<?php echo $option['movie_id']; ?>">
+                                <?php echo $option['movie_title']; ?>
+                            </option>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                    </select>
+                    <label>Rạp:</label>
+                    <select id="editShowtimeCinemas" name="cinemas" onchange="getRoomsForCinema()">
+                    <option value="">-- Chọn rạp --</option> 
+                    <?php foreach ($showtimes as $option): ?>
+                        <option value="<?php echo $option['cinemas_id'] ?>"><?php echo $option['cinema_name'];?></option>
+                    <?php endforeach; ?>
+                    </select>
+                    <label>Phòng chiếu:</label>
+                    <select id="editShowtimeRooms" name="rooms" onchange="getShowtimeForRoom()">
+                    <option value="">-- Chọn phòng --</option> 
+                    <!-- Các phòng chiếu sẽ được thêm vào đây sau khi chọn rạp -->
+                    </select>
+                    <div id="CostAndTime" style="display: none;">
+                        <div class="form-row" style="display: flex; gap: 10px;">
+                            <div class="form-group" style="flex: 1;">
+                                <label>Giờ chiếu: </label>
+                                <input type="datetime-local" id="StartTime" name="start">
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label>Giờ kết thúc:</label>
+                                <input type="datetime-local" id="EndTime" name="end">
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label>Giá:</label>
+                                <input type="text" id="Price" name="price">
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="editShowtimeId" name="id"> 
+                    <input type="hidden" id="editCinemasHidden" name="cinemasid">
+                    <input type="hidden" id="editRoomsId" name="roomsid"> 
+                    <input type="hidden" id="editMovieHidden" name="movieid"> 
+                    <button type="submit" style="margin-top: 10px;">Lưu thay đổi</button>
+            </div>
+
+            <!-- Cột phải: Danh sách phim đang chiếu -->
+            <div style="flex: 6; display: none;" id="ShowtimeList">
+            <h3>Các xuất chiếu hoạt động</h3>
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background-color: #eee;">
+                    <th style="padding: 8px;">STT</th>
+                    <th style="padding: 8px;">Tên phim</th>
+                    <th style="padding: 8px;">Giờ chiếu</th>
+                    <th style="padding: 8px;">Giờ kết thúc</th>
+                    <th style="padding: 8px;">Giá vé</th>
+                    </tr>
+                </thead>    
+                <tbody id="roomsShowtimeBody">
+                    <!-- Danh sách phòng -->
+                </tbody>
+                </table>
+            </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- FORM DELETE MEMEBERSHIP -->
+    <div id="deleteShowtimeConfirmPanel" class="modal-overlay" style="display: none;">
+        <div class="modal-content delete-modal delete-showtime-modal" style="text-align: center;">
+            <span class="close-button" onclick="hideDeleteShowtimeConfirm()">&times;</span>
+            <h3 id="titleShowtime">Bạn có chắc muốn ẩn xuất chiếu này không?</h3>
+            <form id="deleteShowtimeForm" action="../controler/delete_showtime.php" method="post">
+                <input type="hidden" name="id" id="deleteShowtimeId">
+                <button type="submit" style="background-color:rgb(24, 181, 63); margin-right: 10px;">Xác nhận</button>
+                <button type="button" style="background-color: #e74c3c; margin-right: 10px;" onclick="hideDeleteShowtimeConfirm()">Hủy</button>
+            </form>
+        </div>
+    </div>
+
 </div>
 <script src="../../assets/js/admin.js"></script>
 </body>

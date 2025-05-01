@@ -48,7 +48,7 @@ class user_services{
     }
 
     public function ShowUser(){
-        $sql = "SELECT * FROM users WHERE hide=0 ORDER BY user_id DESC";
+        $sql = "SELECT * FROM users ORDER BY user_id DESC";
         return pdo_query($sql);
     }
 
