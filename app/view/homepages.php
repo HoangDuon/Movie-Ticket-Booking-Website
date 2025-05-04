@@ -203,299 +203,120 @@
                 <div class="heading-phim sap-chieu">
                     <h1>PHIM SẮP CHIẾU</h1>
                 </div>
-            
+
                 <div class="slide-phimsapchieu">
                     <div id="carouselExampleIndicators1" class="carousel slide" style="padding-bottom: 5rem;">
+
+                        <?php
+                            // --- PHP Lấy và chuẩn bị dữ liệu ---
+                            try {
+                                $filmService = new film_services(); // Khởi tạo service
+
+                                // *** Sử dụng phương thức mới để lấy phim sắp chiếu ***
+                                $upcomingFilms = $filmService->getUpcomingMovies();
+
+                                // Chia mảng phim sắp chiếu thành các nhóm 4 phim
+                                $itemsPerSlide = 4;
+                                $upcomingFilmChunks = [];
+                                if (!empty($upcomingFilms)) {
+                                    $upcomingFilmChunks = array_chunk($upcomingFilms, $itemsPerSlide);
+                                }
+                                $totalSlides = count($upcomingFilmChunks); // Tổng số slide cần tạo
+
+                            } catch (Exception $e) {
+                                // Xử lý lỗi nếu có vấn đề khi lấy dữ liệu
+                                error_log("Lỗi khi lấy dữ liệu phim sắp chiếu: " . $e->getMessage());
+                                $upcomingFilmChunks = []; // Đảm bảo là mảng rỗng nếu lỗi
+                                $totalSlides = 0;
+                            }
+                        ?>
+
                         <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            <?php // Tạo indicators động dựa trên số slide
+                            if ($totalSlides > 0):
+                                for ($i = 0; $i < $totalSlides; $i++):
+                            ?>
+                                    <button type="button"
+                                            data-bs-target="#carouselExampleIndicators1"
+                                            data-bs-slide-to="<?= $i ?>"
+                                            class="<?= ($i == 0) ? 'active' : '' ?>"
+                                            aria-current="<?= ($i == 0) ? 'true' : 'false' ?>"
+                                            aria-label="Slide <?= $i + 1 ?>">
+                                    </button>
+                            <?php
+                                endfor;
+                            endif;
+                            ?>
                         </div>
-        
+
                         <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <div class="container text-center">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div id="movie-poster" class="card">
-                                                <a href="#">
-                                                    <img src="../img/thieu-nu-anh-trang-image.webp" class="card-img-top" alt="...">
-                                                </a>
-                                                <div class="movie-info">
-                                                    <div class="card-body">
-                                                        <h5 class="movie-title">THIẾU NỮ ÁNH TRĂNG</h5>
+                            <?php
+                            // Kiểm tra xem có dữ liệu phim sắp chiếu không
+                            if (!empty($upcomingFilmChunks)):
+                                // Lặp qua từng nhóm phim (mỗi nhóm là 1 slide)
+                                foreach ($upcomingFilmChunks as $index => $chunk):
+                                    $activeClass = ($index == 0) ? 'active' : ''; // Xác định slide active
+                            ?>
+                                    <div class="carousel-item <?= $activeClass ?>">
+                                        <div class="container text-center">
+                                            <div class="row row-cols-1 row-cols-md-4 g-4">
+                                                <?php
+                                                // Lặp qua từng phim trong nhóm hiện tại
+                                                foreach ($chunk as $film):
+                                                    // Định dạng ngày phát hành (tùy chọn)
+                                                    $releaseDateFormatted = 'N/A';
+                                                    if (!empty($film['release_date'])) {
+                                                        try {
+                                                            $dt = new DateTime($film['release_date']);
+                                                            $releaseDateFormatted = $dt->format('d/m/Y');
+                                                        } catch (Exception $e) { /* Bỏ qua lỗi ngày không hợp lệ */ }
+                                                    }
+                                                    // Tạo link chi tiết phim
+                                                    $detailLink = "index.php?page=movie-details&id=" . htmlspecialchars($film['movie_id'] ?? '');
+                                                ?>
+                                                <div class="col">
+                                                    <div id="movie-poster" name="movie-poster-<?= htmlspecialchars($film['movie_id'] ?? '') ?>" class="card h-100">
+                                                        <img src="<?= htmlspecialchars($film['poster_url'] ?? 'path/to/default/image.jpg') ?>" class="card-img-top" alt="<?= htmlspecialchars($film['title'] ?? 'Movie Poster') ?>">
+                                                        <div class="card-body d-flex flex-column">
+                                                            <h5 class="movie-title"><?= htmlspecialchars($film['title'] ?? 'Không có tiêu đề') ?></h5>
+                                                            <div class="card-bottom mt-auto">
+                                                                <p class="card-text">
+                                                                    <?php if(!empty($film['trailer_url'])): ?>
+                                                                        <a href="<?= htmlspecialchars($film['trailer_url']) ?>" target="_blank">
+                                                                            <i class="fa-solid fa-video" style="color: #ffffff;"></i>
+                                                                            Xem Trailer
+                                                                        </a>
+                                                                    <?php else: ?>
+                                                                        <span>&nbsp;</span>
+                                                                    <?php endif; ?>
+                                                                </p>
+                                                                <a href="index.php?page=movie-details&id=<?= htmlspecialchars($film['movie_id'] ?? '') ?>" class="btn btn-primary">
+                                                                    <p class="btn-datve">ĐẶT VÉ</p>
+                                                                </a>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="card-bottom">
-                                                        <p class="card-text">
-                                                            <a href="#">
-                                                                <i class="fa-solid fa-video" style="color: #ffffff;"></i>
-                                                                Xem Trailer</a>
-                                                        </p>
-                                                        <a href="#" class="btn btn-primary">
-                                                            <p class="btn-datve">ĐẶT VÉ</p>
-                                                        </a>
-                                                    </div>
-                                                </div>
+
+                                                <?php endforeach; // Kết thúc vòng lặp phim trong chunk ?>
                                             </div>
                                         </div>
-                                        <div class="col">
-                                            <div id="movie-poster" class="card">
-                                                <a href="#">
-                                                    <img src="../img/giai-cuu-quan-su-image.webp" class="card-img-top" alt="...">
-                                                </a>
-                                                <div class="movie-info">
-                                                    <div class="card-body">
-                                                        <h5 class="movie-title">NINJA RINTARO: GIẢI CỨU QUÂN SƯ</h5>
-                                                    </div>
-                                                    <div class="card-bottom">
-                                                        <p class="card-text">
-                                                            <a href="#">
-                                                                <i class="fa-solid fa-video" style="color: #ffffff;"></i>
-                                                                Xem Trailer</a>
-                                                        </p>
-                                                        <a href="#" class="btn btn-primary">
-                                                            <p class="btn-datve">ĐẶT VÉ</p>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div id="movie-poster" class="card">
-                                                <a href="#">
-                                                    <img src="../img/cuoc-xe-kinh-hoang-image.webp" class="card-img-top" alt="...">
-                                                </a>
-                                                <div class="movie-info">
-                                                    <div class="card-body">
-                                                        <h5 class="movie-title">CUỐC XE KINH HOÀNG</h5>
-                                                    </div>
-                                                    <div class="card-bottom">
-                                                        <p class="card-text">
-                                                            <a href="#">
-                                                                <i class="fa-solid fa-video" style="color: #ffffff;"></i>
-                                                                Xem Trailer</a>
-                                                        </p>
-                                                        <a href="#" class="btn btn-primary">
-                                                            <p class="btn-datve">ĐẶT VÉ</p>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div id="movie-poster" class="card">
-                                                <a href="#">
-                                                    <img src="../img/gau-yeu-cua-anh-image.webp" class="card-img-top" alt="...">
-                                                </a>
-                                                <div class="movie-info">
-                                                    <div class="card-body">
-                                                        <h5 class="movie-title">GẤU YÊU CỦA ANH</h5>
-                                                    </div>
-                                                    <div class="card-bottom">
-                                                        <p class="card-text">
-                                                            <a href="#">
-                                                                <i class="fa-solid fa-video" style="color: #ffffff;"></i>
-                                                                Xem Trailer</a>
-                                                        </p>
-                                                        <a href="#" class="btn btn-primary">
-                                                            <p class="btn-datve">ĐẶT VÉ</p>
-                                                        </a>
-                                                    </div>
-                                                </div>
+                                    </div>
+                            <?php
+                                endforeach; // Kết thúc vòng lặp qua các chunk
+                            else: // Trường hợp không có phim sắp chiếu nào
+                            ?>
+                                <div class="carousel-item active">
+                                    <div class="container text-center">
+                                        <div class="row">
+                                            <div class="col">
+                                                <p class="my-5">Chưa có thông tin phim sắp chiếu.</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="container text-center">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div id="movie-poster" class="card">
-                                                <a href="#">
-                                                    <img src="../img/gau-yeu-cua-anh-image.webp" class="card-img-top" alt="...">
-                                                </a>
-                                                <div class="movie-info">
-                                                    <div class="card-body">
-                                                        <h5 class="movie-title">GẤU YÊU CỦA ANH</h5>
-                                                    </div>
-                                                    <div class="card-bottom">
-                                                        <p class="card-text">
-                                                            <a href="#">
-                                                                <i class="fa-solid fa-video" style="color: #ffffff;"></i>
-                                                                Xem Trailer</a>
-                                                        </p>
-                                                        <a href="#" class="btn btn-primary">
-                                                            <p class="btn-datve">ĐẶT VÉ</p>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div id="movie-poster" class="card">
-                                                <a href="#">
-                                                    <img src="../img/minecraft-image.webp" class="card-img-top" alt="...">
-                                                </a>
-                                                <div class="movie-info">
-                                                    <div class="card-body">
-                                                        <h5 class="movie-title">MINECRAFT</h5>
-                                                    </div>
-                                                    <div class="card-bottom">
-                                                        <p class="card-text">
-                                                            <a href="#">
-                                                                <i class="fa-solid fa-video" style="color: #ffffff;"></i>
-                                                                Xem Trailer</a>
-                                                        </p>
-                                                        <a href="#" class="btn btn-primary">
-                                                            <p class="btn-datve">ĐẶT VÉ</p>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div id="movie-poster" class="card">
-                                                <a href="#">
-                                                    <img src="../img/lac-troi-image.webp" class="card-img-top" alt="...">
-                                                </a>
-                                                <div class="movie-info">
-                                                    <div class="card-body">
-                                                        <h5 class="movie-title">LẠC TRÔI (P)</h5>
-                                                    </div>
-                                                    <div class="card-bottom">
-                                                        <p class="card-text">
-                                                            <a href="#">
-                                                                <i class="fa-solid fa-video" style="color: #ffffff;"></i>
-                                                                Xem Trailer</a>
-                                                        </p>
-                                                        <a href="#" class="btn btn-primary">
-                                                            <p class="btn-datve">ĐẶT VÉ</p>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div id="movie-poster" class="card">
-                                                <a href="#">
-                                                    <img src="../img//little-emma-image.webp" class="card-img-top" alt="...">
-                                                </a>
-                                                <div class="movie-info">
-                                                    <div class="card-body">
-                                                        <h5 class="movie-title">EMMA VÀ VƯƠNG QUỐC TÍ HON (P)</h5>
-                                                    </div>
-                                                    <div class="card-bottom">
-                                                        <p class="card-text">
-                                                            <a href="#">
-                                                                <i class="fa-solid fa-video" style="color: #ffffff;"></i>
-                                                                Xem Trailer</a>
-                                                        </p>
-                                                        <a href="#" class="btn btn-primary">
-                                                            <p class="btn-datve">ĐẶT VÉ</p>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="container text-center">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div id="movie-poster" class="card">
-                                                <a href="#">
-                                                    <img src="../img/dao-cuong-sat-image.webp" class="card-img-top" alt="...">
-                                                </a>
-                                                <div class="movie-info">
-                                                    <div class="card-body">
-                                                        <h5 class="movie-title">MOBILE SUIT GUNDAM GQUUUUUUX -KỶ NGUYÊN MỚI</h5>
-                                                    </div>
-                                                    <div class="card-bottom">
-                                                        <p class="card-text">
-                                                            <a href="#">
-                                                                <i class="fa-solid fa-video" style="color: #ffffff;"></i>
-                                                                Xem Trailer</a>
-                                                        </p>
-                                                        <a href="#" class="btn btn-primary">
-                                                            <p class="btn-datve">ĐẶT VÉ</p>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div id="movie-poster" class="card">
-                                                <a href="#">
-                                                    <img src="../img/ky-nguyen-moi-image.webp" class="card-img-top" alt="...">
-                                                </a>
-                                                <div class="movie-info">
-                                                    <div class="card-body">
-                                                        <h5 class="movie-title">VIETNAMESE CONCERT FILM: CHÚNG TA LÀ NGƯỜI VIỆT NAM (P)</h5>
-                                                    </div>
-                                                    <div class="card-bottom">
-                                                        <p class="card-text">
-                                                            <a href="#">
-                                                                <i class="fa-solid fa-video" style="color: #ffffff;"></i>
-                                                                Xem Trailer</a>
-                                                        </p>
-                                                        <a href="#" class="btn btn-primary">
-                                                            <p class="btn-datve">ĐẶT VÉ</p>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div id="movie-poster" class="card">
-                                                <a href="#">
-                                                    <img src="../img/hoang-thuy-linh-concert-image.webp" class="card-img-top" alt="...">
-                                                </a>
-                                                <div class="movie-info">
-                                                    <div class="card-body">
-                                                        <h5 class="movie-title">ĐẢO CUỒNG SÁT (T18)</h5>
-                                                    </div>
-                                                    <div class="card-bottom">
-                                                        <p class="card-text">
-                                                            <a href="#">
-                                                                <i class="fa-solid fa-video" style="color: #ffffff;"></i>
-                                                                Xem Trailer</a>
-                                                        </p>
-                                                        <a href="#" class="btn btn-primary">
-                                                            <p class="btn-datve">ĐẶT VÉ</p>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div id="movie-poster" class="card">
-                                                <a href="#">
-                                                    <img src="../img/hien-me-cho-quy-image.webp" class="card-img-top" alt="...">
-                                                </a>
-                                                <div class="movie-info">
-                                                    <div class="card-body">
-                                                        <h5 class="movie-title">CƯỚI MA (T18)</h5>
-                                                    </div>
-                                                    <div class="card-bottom">
-                                                        <p class="card-text">
-                                                            <a href="#">
-                                                                <i class="fa-solid fa-video" style="color: #ffffff;"></i>
-                                                                Xem Trailer</a>
-                                                        </p>
-                                                        <a href="#" class="btn btn-primary">
-                                                            <p class="btn-datve">ĐẶT VÉ</p>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php endif;?>
                         </div>
+
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
@@ -506,7 +327,7 @@
                         </button>
                     </div>
                 </div>
-        
+
                 <div class="heading-phim khuyen-mai">
                     <h1>KHUYẾN MÃI</h1>
                 </div>
@@ -573,14 +394,29 @@
                 </div>
         
                 <div class="members-info">
+                <?php
+                    $membershipLinks = []; // Khởi tạo
+                    $defaultFriendImg = '../../';
+                    $defaultVipImg = '../img/default_cvip.webp';
+
+                    try {
+                        $membershipService = new film_services(); // Khởi tạo
+                        // Gọi phương thức đã được sửa đổi
+                        $membershipLinks = $membershipService->ShowMembership(); // Kết quả đã đúng định dạng mong muốn
+                    } catch (Throwable $e) {
+                        error_log("Lỗi khi lấy dữ liệu membership: " . $e->getMessage());
+                    }
+                ?>
+
                     <div class="container">
                         <div class="row">
                             <div class="col">
                                 <div class="normal-members">
                                     <div class="card">
-                                        <img src="../img/c'vip.webp" class="card-img-top" alt="..." style="box-shadow: 0 12px 48px 0 rgba(243,234,40,.5);">
+                                        <img src="<?= htmlspecialchars($membershipLinks['Silver'] ?? $defaultFriendImg) ?>"  class="card-img-top" alt="Thành viên C'Friend"
+                                        style="box-shadow: 0 12px 48px 0 rgba(243,234,40,.5);" >
                                         <div class="card-body">
-                                            <h5 class="card-title">THÀNH VIÊN C'VIP</h5>
+                                            <h5 class="card-title">THÀNH VIÊN C'Friend</h5>
                                             <p class="card-text">Thẻ C'Friend nhiều ưu đãi dành cho thành viên mới.</p>
                                             <a href="#" class="btn btn-primary">TÌM HIỂU NGAY</a>
                                         </div>
@@ -591,9 +427,10 @@
                             <div class="col">
                                 <div class="vip-members">
                                     <div class="card">
-                                        <img src="../img/c'friend.webp" class="card-img-top" alt="..." style="box-shadow: 0 12px 48px 0 rgba(243,234,40,.5)">
+                                        <img src="<?= htmlspecialchars($membershipLinks['Diamond'] ?? $defaultVipImg) ?>"  class="card-img-top" alt="Thành viên C'Friend"
+                                        style="box-shadow: 0 12px 48px 0 rgba(243,234,40,.5);" >
                                         <div class="card-body">
-                                            <h5 class="card-title">THÀNH VIÊN C'FRIEND</h5>
+                                            <h5 class="card-title">THÀNH VIÊN C'Vip</h5>
                                             <p class="card-text">Thẻ VIP mang đến nhiều ưu đãi độc quyền.</p>
                                             <a href="#" class="btn btn-primary">TÌM HIỂU NGAY</a>
                                         </div>
