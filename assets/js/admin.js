@@ -17,31 +17,53 @@ document.querySelectorAll(".menu-item").forEach(item => {
 
 //JS phần thêm xóa sửa phim
 function showMovieEditForm(button) {
-    document.getElementById('editTitle').value = button.dataset.title;
-    document.getElementById('editGenre').value = button.dataset.genre;
-    document.getElementById('editDuration').value = button.dataset.duration;
-    document.getElementById('editDirector').value = button.dataset.director;
-    document.getElementById('editCast').value = button.dataset.cast;
-    document.getElementById('editLanguage').value = button.dataset.language;
-    document.getElementById('editTrailer').value = button.dataset.trailer;
-    document.getElementById('editReleaseDate').value = button.dataset.release;
-    document.getElementById('editDescription').value = button.dataset.description;
-    document.getElementById('editId').value = button.dataset.id;
-  
-    // Hiện form nổi
-    document.getElementById('editMovieFormPanel').style.display = 'flex';
+  document.getElementById('editTitle').value = button.dataset.title;
+  document.getElementById('editGenre').value = button.dataset.genre;
+  document.getElementById('editDuration').value = button.dataset.duration;
+  document.getElementById('editDirector').value = button.dataset.director;
+  document.getElementById('editCast').value = button.dataset.cast;
+  document.getElementById('editLanguage').value = button.dataset.language;
+  document.getElementById('editTrailer').value = button.dataset.trailer;
+  document.getElementById('editReleaseDate').value = button.dataset.release;
+  document.getElementById('editId').value = button.dataset.id;
+
+  // Gán mô tả vào CKEditor
+  if (CKEDITOR.instances['editDescription']) {
+      CKEDITOR.instances['editDescription'].setData(button.dataset.description);
+  } else {
+      CKEDITOR.replace('editDescription', {
+          on: {
+              instanceReady: function () {
+                  this.setData(button.dataset.description);
+              }
+          }
+      });
+  }
+
+  // Hiện form nổi
+  document.getElementById('editMovieFormPanel').style.display = 'flex';
 }
-  
+
 function hideMovieEditForm() {
   document.getElementById('editMovieFormPanel').style.display = 'none';
 }
 
 function showMovieAddForm() {
   document.getElementById('editMovieForm').reset();
-
   document.getElementById('editId').value = "";
 
+  // Nếu đã có CKEditor thì xóa nội dung
+  if (CKEDITOR.instances['editDescription']) {
+      CKEDITOR.instances['editDescription'].setData('');
+  }
+
   document.getElementById('editMovieFormPanel').style.display = 'flex';
+}
+
+function updateCkEditorBeforeSubmit() {
+  for (let instance in CKEDITOR.instances) {
+      CKEDITOR.instances[instance].updateElement();
+  }
 }
 
 function showMovieDeleteConfirm(movieId,hide) {

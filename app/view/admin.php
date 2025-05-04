@@ -88,6 +88,7 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
     </style>
 </head>
 <body>
+<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
 
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
     <div class="container-fluid">
@@ -325,59 +326,62 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
 
     <!-- FORM EDIT HIỂN NỔI LÊN -->
     <div id="editMovieFormPanel" class="modal-overlay" style="display: none;">
-    <div class="modal-content edit-movie-modal">
-        <span class="close-button" onclick="hideMovieEditForm()">&times;</span>
-        <form id="editMovieForm" action="../controler/add_update_movies.php" method="post" enctype="multipart/form-data">
-        <label>Tiêu đề:</label>
-        <input type="text" id="editTitle" name="title">
+        <div class="modal-content edit-movie-modal">
+            <span class="close-button" onclick="hideMovieEditForm()">&times;</span>
+            <form id="editMovieForm" action="../controler/add_update_movies.php" method="post" enctype="multipart/form-data"onsubmit="updateCkEditorBeforeSubmit()">
+            <label>Tiêu đề:</label>
+            <input type="text" id="editTitle" name="title">
 
-        <label>Thể loại:</label>
-        <input type="text" id="editGenre" name="genre">
+            <label>Thể loại:</label>
+            <input type="text" id="editGenre" name="genre">
 
-      <!-- Dòng: Đạo diễn & Thời lượng -->
-      <div class="form-row">
-        <div class="form-group">
-          <label>Đạo diễn:</label>
-          <input type="text" id="editDirector" name="director">
+            <!-- Dòng: Đạo diễn & Thời lượng -->
+            <div class="form-row">
+            <div class="form-group">
+                <label>Đạo diễn:</label>
+                <input type="text" id="editDirector" name="director">
+            </div>
+            <div class="form-group">
+                <label>Thời lượng:</label>
+                <input type="text" id="editDuration" name="duration">
+            </div>
+            </div>
+
+            <!-- Dòng: Ngôn ngữ & Diễn viên -->
+            <div class="form-row">
+            <div class="form-group">
+                <label>Ngôn ngữ:</label>
+                <input type="text" id="editLanguage" name="language">
+            </div>
+            <div class="form-group">
+            <label>Ngày phát hành:</label>
+            <input type="date" id="editReleaseDate" name="release_date">
+            </div>
+            </div>
+                        
+            <label>Diễn viên:</label>
+            <input type="text" id="editCast" name="cast">
+
+
+            <label>Mô tả:</label>
+            <textarea id="editDescription" name="description"></textarea>
+            <script>
+                CKEDITOR.replace('editDescription');
+            </script>
+
+            <label>URL Trailer:</label>
+            <input type="url" id="editTrailer" name="trailer"></input>
+
+            <label>Poster phim:</label>
+            <input type="file" id="editPoster" accept="image/*" name="poster">
+
+            <label>Banner phim:</label>
+            <input type="file" id="editBanner" accept="image/*" name="banner">
+            <input type="hidden" id="editId" name="id">
+
+            <button type="submit">Lưu thay đổi</button>
+            </form>
         </div>
-        <div class="form-group">
-          <label>Thời lượng:</label>
-          <input type="text" id="editDuration" name="duration">
-        </div>
-      </div>
-
-      <!-- Dòng: Ngôn ngữ & Diễn viên -->
-      <div class="form-row">
-        <div class="form-group">
-          <label>Ngôn ngữ:</label>
-          <input type="text" id="editLanguage" name="language">
-        </div>
-        <div class="form-group">
-        <label>Ngày phát hành:</label>
-        <input type="date" id="editReleaseDate" name="release_date">
-        </div>
-      </div>
-                    
-        <label>Diễn viên:</label>
-        <input type="text" id="editCast" name="cast">
-
-
-        <label>Mô tả:</label>
-        <textarea id="editDescription" name="description"></textarea>
-
-        <label>URL Trailer:</label>
-        <input type="url" id="editTrailer" name="trailer"></input>
-
-        <label>Poster phim:</label>
-        <input type="file" id="editPoster" accept="image/*" name="poster">
-
-        <label>Banner phim:</label>
-        <input type="file" id="editBanner" accept="image/*" name="banner">
-        <input type="hidden" id="editId" name="id">
-
-        <button type="submit">Lưu thay đổi</button>
-        </form>
-    </div>
     </div>
 
     <!-- PANEL XÁC NHẬN XÓA -->
