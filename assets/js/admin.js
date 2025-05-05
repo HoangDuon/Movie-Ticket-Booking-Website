@@ -1,4 +1,4 @@
-const allPages = ["dashboard", "users", "movies", "cinemas","concessions","membership","showtime"];
+const allPages = ["dashboard", "users", "movies", "cinemas","concessions","membership","showtime","promotions"];
 
 document.querySelectorAll(".menu-item").forEach(item => {
     item.addEventListener("click", function () {
@@ -445,4 +445,61 @@ function showDeleteShowtimeConfirm(movieId,hide) {
 
 function hideDeleteShowtimeConfirm() {
   document.getElementById('deleteShowtimeConfirmPanel').style.display = 'none';
+}
+
+//JS phần thêm xóa sửa khuyến mãi
+function showPromotionEditForm(button) {
+  document.getElementById('editPromotionTitle').value = button.dataset.title;
+  document.getElementById('editPromotionId').value = button.dataset.id;
+
+  // Gán mô tả vào CKEditor
+  if (CKEDITOR.instances['editPromotionContent']) {
+      CKEDITOR.instances['editPromotionContent'].setData(button.dataset.content);
+  } else {
+      CKEDITOR.replace('editPromotionContent', {
+          on: {
+              instanceReady: function () {
+                  this.setData(button.dataset.content);
+              }
+          }
+      });
+  }
+
+  // Hiện form nổi
+  document.getElementById('editPromotionFormPanel').style.display = 'flex';
+}
+
+function hideEditPromotionForm() {
+  document.getElementById('editPromotionFormPanel').style.display = 'none';
+}
+
+function showAddPromotionForm() {
+  document.getElementById('editPromotionForm').reset();
+  document.getElementById('editPromotionId').value = "";
+
+  // Nếu đã có CKEditor thì xóa nội dung
+  if (CKEDITOR.instances['editPromotionsContent']) {
+      CKEDITOR.instances['editPromotionsContent'].setData('');
+  }
+
+  document.getElementById('editPromotionFormPanel').style.display = 'flex';
+}
+
+function updateCkEditorBeforeSubmit() {
+  for (let instance in CKEDITOR.instances) {
+      CKEDITOR.instances[instance].updateElement();
+  }
+}
+
+function showDeletePromotionsConfirm(promotionId,hide) {
+  document.getElementById('deletePromotionId').value = promotionId;
+  const title = document.getElementById('titlePromotion');
+  title.textContent = hide === 0
+      ? "Bạn có chắc muốn ẩn khuyến mãi này không?"
+      : "Bạn có chắc muốn hiện khuyến mãi này không?";
+  document.getElementById('deletePromotionsConfirmPanel').style.display = 'flex';
+}
+
+function hideDeletePromotionsConfirm() {
+  document.getElementById('deletePromotionsConfirmPanel').style.display = 'none';
 }

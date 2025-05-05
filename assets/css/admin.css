@@ -247,6 +247,16 @@ textarea {
   flex: 1;
 }
 
+/* CSS cho FORM EDIT PROMOTIONS */
+.edit-promotions-modal input[type="text"],
+.edit-promotions-modal input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
 /* CSS cho FORM EDIT CINEMAS */
 .edit-cinemas-modal input[type="text"],
 .edit-cinemas-modal select{
@@ -387,4 +397,8 @@ button[type="submit"]:hover {
   100% {
     opacity: 1;
   }
+}
+
+.cke_notification_warning{
+  display: none !important;
 }

@@ -14,17 +14,20 @@ include "../controler/user_services.php";
 include "../controler/film_services.php";
 include "../controler/concessions_services.php";
 include "../controler/cinemas_services.php";
+include "../controler/promotions_services.php";
 
 $concessionssevices = new concessions_services();
 $userservice = new user_services();
 $filmservice = new film_services();
 $cinemaservice = new cinemas_services();
+$promotionsservice = new promotions_services();
 $concessions = $concessionssevices->ShowConcessionsAdmin();
 $users = $userservice->ShowUser();
 $memberships = $userservice->ShowMembership();
 $showtimes = $filmservice->ShowShowtimesFilmAdmin();
 $films = $filmservice->ShowFilmAdmin();
 $cinemas = $cinemaservice->ShowCinemasAdmin();
+$promotions = $promotionsservice->ShowPromotionsAdmin();
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -108,6 +111,7 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
     <a class="menu-item" data-page="users"><i class="bi bi-people"></i> Quản lý người dùng</a>
     <a class="menu-item" data-page="membership"><i class="bi bi-gem"></i> Quản lý Membership</a>
     <a class="menu-item" data-page="concessions"><i class="bi bi-basket"></i> Quản lý đồ ăn</a>
+    <a class="menu-item" data-page="promotions"><i class="bi bi-tag"></i> Quản lý khuyến mãi</a>
 </div>
 
 <div class="content" id="content">
@@ -924,6 +928,102 @@ $cinemas = $cinemaservice->ShowCinemasAdmin();
                 <button type="submit" style="background-color:rgb(24, 181, 63); margin-right: 10px;">Xác nhận</button>
                 <button type="button" style="background-color: #e74c3c; margin-right: 10px;" onclick="hideDeleteShowtimeConfirm()">Hủy</button>
             </form>
+        </div>
+    </div>
+
+    <!-- KHUYẾN MÃI -->
+    <div id="page-promotions" style="display: none;">
+        <h2>Quản lý khuyến mãi</h2>
+        <a href="#" class="btn btn-success btn-sm" onclick="showAddPromotionForm()">
+            <i class="bi bi-plus-circle"></i> Thêm
+        </a>
+        <table class="table table-bordered mt-3">
+            <thead class="table-dark">
+                <tr>
+                    <th>STT</th>
+                    <th>Tiêu đề</th>
+                    <th>Nội dung</th>
+                    <th>Hình ảnh</th>
+                    <th>Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($promotions as $promotion): ?>
+                <tr>
+                    <td><?= $promotion['promotion_id'] ?>
+                        <?php if ($promotion['hide'] == 0): ?>
+                            <i class="bi bi-eye" style="color: green;" title="Đang hiển thị"></i>
+                        <?php else: ?>
+                            <i class="bi bi-eye-slash" style="color: gray;" title="Đang ẩn"></i>
+                        <?php endif; ?></td>
+                    <td><?= $promotion['title'] ?></td>
+                    <td><?= $promotion['content'] ?></td>
+                    <td><img src="../../<?= $promotion['banner_url']?>" class="promotion-banner" alt=""> </td>
+                    <td>
+                    <a href="#" class="btn btn-warning btn-sm"
+                            onclick="showPromotionEditForm(this)"
+                            data-id="<?= $promotion['promotion_id'] ?>"
+                            data-title="<?= htmlspecialchars($promotion['title'], ENT_QUOTES) ?>"
+                            data-content="<?= $promotion['content'] ?>"
+                            >
+                            <i class="bi bi-pencil-square"></i> Sửa
+                        </a>
+                        <?php if ($promotion['hide'] == 0): ?>
+                        <a href="#"
+                        onclick="showDeletePromotionsConfirm(<?= $promotion['promotion_id'] ?>,<?= $promotion['hide'] ?>)" 
+                        class="btn btn-danger btn-sm">
+                            <i class="bi bi-eye-slash"></i> Ẩn
+                        </a>
+                    <?php else: ?>
+                        <a href="#"
+                        onclick="showDeletePromotionsConfirm(<?= $promotion['promotion_id'] ?>,<?= $promotion['hide'] ?>)" 
+                        class="btn btn-success btn-sm">
+                            <i class="bi bi-eye"></i> Hiện
+                        </a>
+                    <?php endif; ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- FORM EDIT HIỂN NỔI LÊN -->
+    <div id="editPromotionFormPanel" class="modal-overlay" style="display: none;">
+        <div class="modal-content edit-promotions-modal">
+            <span class="close-button" onclick="hideEditPromotionForm()">&times;</span>
+            <form id="editPromotionForm" action="../controler/add_update_promotions.php" method="post" enctype="multipart/form-data">
+
+            <label>Tiêu đề:</label>
+            <input type="text" id="editPromotionTitle" name="title">
+
+            <label>Nội dung:</label>
+            <textarea name="content" id="editPromotionContent" rows="5" class="form-control"></textarea>
+
+            <script>
+                CKEDITOR.replace('editPromotionContent');
+            </script>
+
+            <label>Hình ảnh</label>
+            <input type="file" id="editPromotionPicture" accept="image/*" name="banner">
+
+            <input type="hidden" id="editPromotionId" name="id">
+
+            <button type="submit">Lưu thay đổi</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- PANEL XÁC NHẬN XÓA -->
+    <div id="deletePromotionsConfirmPanel" class="modal-overlay" style="display: none;">
+        <div class="modal-content delete-modal delete-promotions-modal" style="text-align: center;">
+            <span class="close-button" onclick="hideDeletePromotionsConfirm()">&times;</span>
+            <h3 id="titlePromotion">Bạn có chắc muốn ẩn phần này không?</h3>
+            <form id="deletePromotionsForm" action="../controler/delete_promotions.php" method="post">
+            <input type="hidden" name="id" id="deletePromotionId">
+            <button type="submit" style="background-color: rgb(24, 181, 63); margin-right: 10px;">Xác nhận</button>
+            <button type="button" style="background-color: #e74c3c; margin-right: 10px;" onclick="hideDeletePromotionsConfirm()">Hủy</button>
+            </form> 
         </div>
     </div>
 
