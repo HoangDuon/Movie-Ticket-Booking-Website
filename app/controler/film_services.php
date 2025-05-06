@@ -55,6 +55,21 @@ class film_services{
         return pdo_query($sql);
     }
 
+    public function getMoviebyID($id) {
+        $sql = "SELECT *
+                FROM movies
+                WHERE movie_id = $id";
+        return pdo_query($sql);
+    }
+
+    function getShowDatesByMovieID($movie_id) {
+        $sql = "SELECT DISTINCT DATE(start_time) AS show_date 
+                FROM showtimes 
+                WHERE movie_id = ? 
+                ORDER BY show_date ASC";
+        return pdo_query($sql, $movie_id);
+    }
+
     public function getMovieInfo() {
         $sql = "SELECT *
                 FROM movies

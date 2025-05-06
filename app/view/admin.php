@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -103,7 +107,19 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
 </nav>
 
 <div class="sidebar text-light" id="sidebar">
-    <h4 class="text-center">HELLO ADMIN</h4>
+    <?php
+    if (isset($_SESSION['user']) && $_SESSION['user']['role']==='Admin') {
+        echo '<h4 class="text-center">
+                HELLO '. $_SESSION['user']['full_name']. '
+        </h4>';
+    }
+    else{
+        echo '<h4 class="text-center">HELLO ADMIN</h4>';
+    }
+    // echo '<pre>';
+    // var_dump($_SESSION);
+    // echo '</pre>';            
+    ?>
     <a class="menu-item active" data-page="dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a>
     <a class="menu-item" data-page="movies"><i class="bi bi-film"></i> Quản lý phim</a>
     <a class="menu-item" data-page="cinemas"><i class="bi bi-building"></i> Quản lý rạp</a>

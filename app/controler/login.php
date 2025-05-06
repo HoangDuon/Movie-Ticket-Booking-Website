@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "user_services.php";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // var_dump($_POST);
@@ -21,5 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             echo "Email hoặc mật khẩu không đúng!";
         }
+
+    
 }
 ?>

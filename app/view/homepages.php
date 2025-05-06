@@ -62,22 +62,10 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="filter-3">
-                                <div class="dropdown">
-                                    <button id="filter-btn" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <span id="heading-dropdown">3. Chọn ngày</span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                    </ul>
-                                </div>
-                            </div>
                             <div class="filter-4">
                                 <div class="dropdown">
                                     <button id="filter-btn" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <span id="heading-dropdown">4. Chọn suất</span>
+                                        <span id="heading-dropdown">3. Chọn suất</span>
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="#">Action</a></li>
@@ -335,49 +323,27 @@
                 <div class="sales">
                     <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                            <div class="carousel-item active">
-        
-                                <div class="row row-cols-1 row-cols-md-3 g-4">
-                                    <div class="col">
-                                        <div class="card h-100">
-                                            <img src="../img/sales-1.webp" id="card-img-sales" class="card-img-top" alt="...">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="card h-100">
-                                            <img src="../img/sales-2.webp" id="card-img-sales" class="card-img-top" alt="...">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="card h-100">
-                                            <img src="../img/sales-3.webp" id="card-img-sales" class="card-img-top" alt="...">
-                                        </div>
-                                    </div>
-        
-                                    </div>
-                            </div>
-                            <div class="carousel-item">
-        
-                                <div class="row row-cols-1 row-cols-md-3 g-4">
-                                    <div class="col">
-                                        <div class="card h-100">
-                                            <img src="../img/sales-3.webp" id="card-img-sales" class="card-img-top" alt="...">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="card h-100">
-                                            <img src="../img/sales-2.webp" id="card-img-sales" class="card-img-top" alt="...">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="card h-100">
-                                            <img src="../img/sales-1.webp" id="card-img-sales" class="card-img-top" alt="...">
-                                        </div>
-                                    </div>
-        
-                            </div>
-        
+                            <?php
+                            $promotionsservices= new promotions_services();
+                            $promotions = $promotionsservices->ShowPromotions();
+                            $chunks = array_chunk($promotions, 3);
+                            foreach ($chunks as $index => $chunk) {
+                                $active = $index == 0 ? 'active' : '';
+                                echo '<div class="carousel-item ' . $active . '">';
+                                echo '<div class="row row-cols-1 row-cols-md-3 g-4">';
+                                foreach ($chunk as $img) {
+                                    echo '<div class="col">';
+                                    echo '  <div class="card h-100">';
+                                    echo '    <img src="' . htmlspecialchars($img['banner_url']) . '" class="card-img-top" alt="...">';
+                                    echo '  </div>';
+                                    echo '</div>';
+                                }
+                                echo '</div>';
+                                echo '</div>';
+                            }
+                            ?>
                         </div>
+        
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
