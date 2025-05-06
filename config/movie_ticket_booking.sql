@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 01, 2025 lúc 07:53 PM
+-- Thời gian đã tạo: Th5 06, 2025 lúc 06:52 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -254,7 +254,7 @@ INSERT INTO `movies` (`movie_id`, `title`, `genre`, `duration`, `director`, `cas
 (10, 'Inception', 'Sci-Fi', 148, 'Christopher Nolan', 'Leonardo DiCaprio, Joseph Gordon-Levitt', 'English', '2010-07-16', 'A thief who steals corporate secrets is given the chance to erase his criminal record', 'assets/img/inception.jpg', 'https://www.youtube.com/watch?v=y2TCjYiTGIo', 'https://banner.example.com', '2025-04-23 12:20:54', 'https://link.example.com', 0, 10),
 (11, 'Mickey 17', 'Khoa học viễn tưởng, Phiêu lưu', 118, 'Bong Joon-ho', 'Robert Pattinson, Mark Ruffalo, Toni Collette', 'English', '2025-04-18', 'Mickey 17 là một bộ phim khoa học viễn tưởng do Bong Joon-ho đạo diễn, kể về một nhân vật có khả năng hồi sinh không ngừng, thực hiện một nhiệm vụ du hành ngoài vũ trụ đầy nguy hiểm. Phim hứa hẹn mang đến những trải nghiệm điện ảnh độc đáo và hấp dẫn .', 'assets/img/Mickey17.jpg', 'https://www.youtube.com/watch?v=kFT4D0o9IZ4', 'assets/img/Mickey17-banner.jpg', '2025-04-23 18:21:40', NULL, 0, NULL),
 (12, 'Chiếm đoạt', 'Chính Kịch, Huyền Thoại', 190, 'Thắng Vũ', 'Miu Lê, KaZik', 'Tiếng Việt', '2023-11-24', 'Chuyện tình giữa My và Hoàng không liên quan nhiều đến tổng thể kịch bản. Ban đầu, My lợi dụng Hoàng như một quân cờ để giúp công việc của Sơn được thuận lợi. Về sau, phát hiện kế hoạch trả thù của My, anh vẫn đem lòng yêu cô, muốn sống chung dưới một mái nhà. Đạo diễn dàn dựng nhiều khoảnh khắc lãng mạn giữa My và Hoàng để dung hòa, giúp tác phẩm bớt màu u tối. Song, cách sắp xếp chưa mượt mà khiến tình tiết này lệch ra khỏi tổng thể phim.', 'assets/img/Chiemdoat.PNG', 'https://www.youtube.com/watch?v=vFJpPawJWjw', 'assets/img/chiemdoat banner.PNG', '2025-04-26 15:25:45', NULL, 0, NULL),
-(13, 'MA DA', 'Kinh thánh', 95, 'Nguyễn Hữu Hoàng', 'Việt Hương, đứa bé con gái giả tưởng, đứa bé con gái không phải người việt, thằng béo oscar 10/10', 'Tiếng Việt', '2024-08-16', '\"Ma da\" kể về cuộc sống của bà Lệ (do Việt Hương thủ vai), một phụ nữ làm nghề vớt xác trên sông. Công việc của bà là đưa những người đã mất trở về với gia đình họ, giúp họ có một nơi an nghỉ cuối cùng. Một ngày nọ, bà Lệ vớt được xác của một thanh niên bí ẩn. Từ đó, bà bắt đầu gặp phải nhiều hiện tượng kỳ lạ và những dấu hiệu tai ương.', 'assets/img/madaposter.jpg', 'https://youtu.be/vC-KNlLNIso?si=DrJkPJXnR3demkmQ', 'assets/img/mada.jpg', '2025-04-29 16:25:28', NULL, 0, NULL);
+(13, 'MA DA', 'Kinh thánh', 95, 'Nguyễn Hữu Hoàng', 'Việt Hương, đứa bé con gái giả tưởng, đứa bé con gái không phải người việt, thằng béo oscar 10/10', 'Tiếng Việt', '2024-08-16', '<p><strong>&quot;Ma da&quot;</strong> kể về cuộc sống của b&agrave; Lệ (do Việt Hương thủ vai), một phụ nữ l&agrave;m nghề vớt x&aacute;c tr&ecirc;n s&ocirc;ng. C&ocirc;ng việc của b&agrave; l&agrave; đưa những người đ&atilde; mất trở về với gia đ&igrave;nh họ, gi&uacute;p họ c&oacute; một nơi an nghỉ cuối c&ugrave;ng. Một ng&agrave;y nọ, b&agrave; Lệ vớt được x&aacute;c của một thanh ni&ecirc;n b&iacute; ẩn. Từ đ&oacute;, b&agrave; bắt đầu gặp phải nhiều hiện tượng kỳ lạ v&agrave; những dấu hiệu tai ương.</p>\r\n', 'assets/img/madaposter.jpg', 'https://youtu.be/vC-KNlLNIso?si=DrJkPJXnR3demkmQ', 'assets/img/mada.jpg', '2025-04-29 16:25:28', NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -290,6 +290,35 @@ INSERT INTO `payments` (`payment_id`, `booking_id`, `user_id`, `price`, `payment
 (8, 8, 8, 370000.00, 'Credit_card', 'Failed', '2025-04-23 12:23:40', 'https://link.example.com', 0, 8),
 (9, 9, 9, 380000.00, 'Paypal', 'Success', '2025-04-23 12:23:40', 'https://link.example.com', 0, 9),
 (10, 10, 10, 420000.00, 'Credit_card', 'Pending', '2025-04-23 12:23:40', 'https://link.example.com', 0, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `promotions`
+--
+
+CREATE TABLE `promotions` (
+  `promotion_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `content` text DEFAULT NULL,
+  `banner_url` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `link` varchar(255) DEFAULT NULL,
+  `hide` tinyint(1) DEFAULT 0,
+  `order_index` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `promotions`
+--
+
+INSERT INTO `promotions` (`promotion_id`, `title`, `content`, `banner_url`, `created_at`, `link`, `hide`, `order_index`) VALUES
+(1, 'Giảm giá mùa hè 2025', 'Tận hưởng mùa hè rực rỡ với ưu đãi giảm giá 30% cho mọi suất chiếu từ 1/6 đến 30/6.', 'assets/img/summer2025.jpg', '2025-05-05 15:41:28', NULL, 0, 1),
+(2, 'Combo bắp nước siêu rẻ', 'Chỉ với 49K, nhận ngay 1 bắp + 1 nước. Áp dụng tại tất cả các rạp toàn quốc.', 'assets/img/combo_deal.jpg', '2025-05-05 15:41:28', NULL, 0, 2),
+(3, 'Ngày hội thành viên', 'Thành viên Silver trở lên được giảm 15% mọi hóa đơn trong ngày 10 hàng tháng.', 'assets/img/member_day.jpg', '2025-05-05 15:41:28', NULL, 0, 3),
+(4, 'Ưu đãi học sinh - sinh viên', 'Xuất trình thẻ HSSV để được giảm 25% vé xem phim từ thứ 2 đến thứ 5.', 'assets/img/student_offer.jpg', '2025-05-05 15:41:28', NULL, 0, 4),
+(5, 'Khuyến mãi cuối tuần này', '<p><strong>Mua v&eacute; thứ 7</strong>, chủ nhật nhận ngay 1 combo bắp nước miễn ph&iacute;.</p>\r\n', 'assets/img/sales-1.webp', '2025-05-05 15:41:28', NULL, 0, 5),
+(6, 'KM1', '<p><strong><s><em>APDAKADSKAJSDIASD</em></s></strong></p>\r\n', 'assets/img/sales-2.webp', '2025-05-05 17:06:38', NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -581,15 +610,16 @@ CREATE TABLE `showtimes` (
 INSERT INTO `showtimes` (`showtime_id`, `movie_id`, `room_id`, `start_time`, `end_time`, `price`, `link`, `hide`, `order_index`, `created_at`) VALUES
 (1, 1, 1, '2025-05-01 10:00:00', '2025-05-01 13:00:00', 150000.00, 'https://link.example.com', 1, 1, '2025-04-23 12:23:00'),
 (2, 2, 2, '2025-05-01 14:00:00', '2025-05-01 17:00:00', 120000.00, 'https://link.example.com', 1, 2, '2025-04-23 12:23:00'),
-(3, 3, 3, '2025-05-02 10:30:00', '2025-05-02 15:00:00', 100000.00, 'https://link.example.com', 0, 3, '2025-04-23 12:23:00'),
-(4, 4, 4, '2025-05-02 15:00:00', '2025-05-02 18:00:00', 130000.00, 'https://link.example.com', 0, 4, '2025-04-23 12:23:00'),
-(5, 5, 5, '2025-05-03 11:00:00', '2025-05-03 14:00:00', 110000.00, 'https://link.example.com', 0, 5, '2025-04-23 12:23:00'),
-(6, 6, 3, '2025-05-03 14:30:00', '2025-05-03 18:00:00', 200000.00, 'https://link.example.com', 0, 6, '2025-04-23 12:23:00'),
-(7, 7, 7, '2025-05-04 16:00:00', '2025-05-04 20:00:00', 150000.00, 'https://link.example.com', 0, 7, '2025-04-23 12:23:00'),
-(8, 8, 8, '2025-05-04 18:30:00', '2025-05-04 21:00:00', 120000.00, 'https://link.example.com', 0, 8, '2025-04-23 12:23:00'),
-(9, 9, 9, '2025-05-05 10:00:00', '2025-05-05 13:00:00', 110000.00, 'https://link.example.com', 0, 9, '2025-04-23 12:23:00'),
-(10, 10, 10, '2025-05-05 13:00:00', '2025-05-05 17:00:00', 210000.00, 'https://link.example.com', 0, 10, '2025-04-23 12:23:00'),
-(29, 8, 7, '2025-04-29 21:30:00', '2025-04-30 21:30:00', 30000.00, NULL, 1, NULL, '2025-04-30 14:30:12');
+(3, 3, 3, '2025-05-02 10:30:00', '2025-05-02 15:00:00', 100000.00, 'https://link.example.com', 1, 3, '2025-04-23 12:23:00'),
+(4, 4, 4, '2025-05-02 15:00:00', '2025-05-02 18:00:00', 130000.00, 'https://link.example.com', 1, 4, '2025-04-23 12:23:00'),
+(5, 5, 5, '2025-05-03 11:00:00', '2025-05-03 14:00:00', 110000.00, 'https://link.example.com', 1, 5, '2025-04-23 12:23:00'),
+(6, 6, 3, '2025-05-03 14:30:00', '2025-05-03 18:00:00', 200000.00, 'https://link.example.com', 1, 6, '2025-04-23 12:23:00'),
+(7, 7, 7, '2025-05-04 16:00:00', '2025-05-04 20:00:00', 150000.00, 'https://link.example.com', 1, 7, '2025-04-23 12:23:00'),
+(8, 8, 8, '2025-05-04 18:30:00', '2025-05-04 21:00:00', 120000.00, 'https://link.example.com', 1, 8, '2025-04-23 12:23:00'),
+(9, 9, 9, '2025-05-05 10:00:00', '2025-05-05 13:00:00', 110000.00, 'https://link.example.com', 1, 9, '2025-04-23 12:23:00'),
+(10, 10, 10, '2025-05-05 13:00:00', '2025-05-05 17:00:00', 210000.00, 'https://link.example.com', 1, 10, '2025-04-23 12:23:00'),
+(29, 8, 7, '2025-04-29 21:30:00', '2025-04-30 21:30:00', 30000.00, NULL, 1, NULL, '2025-04-30 14:30:12'),
+(30, 8, 7, '2025-04-29 22:15:00', '2025-04-29 23:15:00', 30000.00, NULL, 1, NULL, '2025-05-06 15:16:03');
 
 -- --------------------------------------------------------
 
@@ -691,6 +721,12 @@ ALTER TABLE `payments`
   ADD KEY `user_id` (`user_id`);
 
 --
+-- Chỉ mục cho bảng `promotions`
+--
+ALTER TABLE `promotions`
+  ADD PRIMARY KEY (`promotion_id`);
+
+--
 -- Chỉ mục cho bảng `rooms`
 --
 ALTER TABLE `rooms`
@@ -767,6 +803,12 @@ ALTER TABLE `payments`
   MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT cho bảng `promotions`
+--
+ALTER TABLE `promotions`
+  MODIFY `promotion_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT cho bảng `rooms`
 --
 ALTER TABLE `rooms`
@@ -782,7 +824,7 @@ ALTER TABLE `seats`
 -- AUTO_INCREMENT cho bảng `showtimes`
 --
 ALTER TABLE `showtimes`
-  MODIFY `showtime_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `showtime_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT cho bảng `users`

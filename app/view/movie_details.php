@@ -34,6 +34,7 @@
                 <?php foreach ($showdates as $showdate): ?>
                     <button 
                         class="btn date-btn"
+                        onclick="showSchedule('<?= $movie_id ?>','<?= $showdate['show_date'] ?>')"
                         data-date="<?= $showdate['show_date'] ?>"
                         data-movie-id="<?= $movie_id ?>">
                         <?= $showdate['show_date'] ?>
@@ -44,159 +45,20 @@
                 </div>
                 <h3 class="mt-4">Danh Sách Rạp</h3>
                 <div id="cinema-list" style="display: none;">
-                    <h1>Hello</h1>
-                    <!-- Các rạp sẽ được hiển thị tùy theo ngày được chọn -->
-                    <!-- <div class="cinema-group" data-date="26/03">
-                        <div class="schedule-box">
-                            <h4>🎬 Cinestar Quốc Thanh (TPHCM)</h4>
-                            <p>271 Nguyễn Trãi, Quận 1, TP.HCM</p>
-                            <div>
-                                <button class="time-slot" data-cinema="Cinestar Quốc Thanh" data-time="08:40">08:40</button>
-                                <button class="time-slot" data-cinema="Cinestar Quốc Thanh" data-time="10:00">10:00</button>
-                                <button class="time-slot" data-cinema="Cinestar Quốc Thanh" data-time="12:00">12:00</button>
-                                <button class="time-slot" data-cinema="Cinestar Quốc Thanh" data-time="14:00">14:00</button>
-                            </div>
-                        </div>
-                        <div class="schedule-box mt-3">
-                            <h4>🎬 Cinestar Hai Bà Trưng (TPHCM)</h4>
-                            <p>135 Hai Bà Trưng, Quận 1, TP.HCM</p>
-                            <div>
-                                <button class="time-slot" data-cinema="Cinestar Hai Bà Trưng" data-time="10:30">10:30</button>
-                                <button class="time-slot" data-cinema="Cinestar Hai Bà Trưng" data-time="12:45">12:45</button>
-                                <button class="time-slot" data-cinema="Cinestar Hai Bà Trưng" data-time="16:45">16:45</button>
-                            </div>
-                        </div>
-                    </div> -->
-                    
+                    <!-- Các rạp sẽ được hiển thị tùy theo ngày được chọn -->                    
                 </div>
             </div>
             
             <!-- Các phần khác sẽ hiển thị sau khi chọn giờ chiếu -->
-            <div class="additional-content" style="display: none;">
+            <div class="additional-content" style="display: none;" id="addtional">
                 <!-- Section: Chọn Loại Vé -->
-                <div class="booking-section" id="ticket-section">
-                    <h3 class="mt-4">Chọn Loại Vé</h3>
-                    <div class="ticket-type-box">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="card bg-dark text-white">
-                                    <div class="card-body">
-                                        <h5 class="card-title">NGƯỜI LỚN</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">ĐƠN</h6>
-                                        <p class="card-text">45,000 VND</p>
-                                        <div class="quantity-control">
-                                            <button class="quantity-btn minus" data-type="adult">-</button>
-                                            <input type="text" class="quantity-input" value="0" id="adult-quantity" readonly>
-                                            <button class="quantity-btn plus" data-type="adult">+</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card bg-dark text-white">
-                                    <div class="card-body">
-                                        <h5 class="card-title">HSSV-NGƯỜI CAO TUỔI</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">ĐƠN</h6>
-                                        <p class="card-text">45,000 VND</p>
-                                        <div class="quantity-control">
-                                            <button class="quantity-btn minus" data-type="senior">-</button>
-                                            <input type="text" class="quantity-input" value="0" id="senior-quantity" readonly>
-                                            <button class="quantity-btn plus" data-type="senior">+</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card bg-dark text-white">
-                                    <div class="card-body">
-                                        <h5 class="card-title">NGƯỜI LỚN</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">ĐÔI</h6>
-                                        <p class="card-text">95,000 VND</p>
-                                        <div class="quantity-control">
-                                            <button class="quantity-btn minus" data-type="couple">-</button>
-                                            <input type="text" class="quantity-input" value="0" id="couple-quantity" readonly>
-                                            <button class="quantity-btn plus" data-type="couple">+</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
+                <h3 class="mt-4">CHỌN GHẾ</h3>
                 <!-- Section: Chọn Ghế -->
                 <div class="booking-section" id="seats-section">
-                    <h3 class="mt-4">Chọn Ghế - RẠP 03</h3>
-                    <div class="screen">Màn hình</div>
-                    <div class="seat-grid">
-                        <!-- Row A -->
-                        <div class="seat-row">
-                            <span style="display: inline-block; width: 20px; text-align: right; margin-right: 10px;">A</span>
-                            <div class="seat" data-seat="A01">A01</div>
-                            <div class="seat" data-seat="A02">A02</div>
-                            <div class="seat" data-seat="A03">A03</div>
-                            <div class="seat" data-seat="A04">A04</div>
-                            <div class="seat" data-seat="A05">A05</div>
-                            <div class="seat" data-seat="A06">A06</div>
-                            <div class="seat" data-seat="A07">A07</div>
-                            <div class="seat" data-seat="A08">A08</div>
-                            <div class="seat" data-seat="A09">A09</div>
-                            <div class="seat" data-seat="A10">A10</div>
-                            <div class="seat" data-seat="A11">A11</div>
-                        </div>
-                        <!-- Row B -->
-                        <div class="seat-row">
-                            <span style="display: inline-block; width: 20px; text-align: right; margin-right: 10px;">B</span>
-                            <div class="seat" data-seat="B01">B01</div>
-                            <div class="seat" data-seat="B02">B02</div>
-                            <div class="seat" data-seat="B03">B03</div>
-                            <div class="seat" data-seat="B04">B04</div>
-                            <div class="seat" data-seat="B05">B05</div>
-                            <div class="seat" data-seat="B06">B06</div>
-                            <div class="seat" data-seat="B07">B07</div>
-                            <div class="seat" data-seat="B08">B08</div>
-                            <div class="seat" data-seat="B09">B09</div>
-                            <div class="seat" data-seat="B10">B10</div>
-                            <div class="seat" data-seat="B11">B11</div>
-                        </div>
-                        <!-- Row F (middle section) -->
-                        <div class="seat-row">
-                            <span style="display: inline-block; width: 20px; text-align: right; margin-right: 10px;">F</span>
-                            <div class="seat" data-seat="F01">F01</div>
-                            <div class="seat" data-seat="F02">F02</div>
-                            <div class="seat" data-seat="F03">F03</div>
-                            <div class="seat" data-seat="F04">F04</div>
-                            <div class="seat" data-seat="F05">F05</div>
-                            <div class="seat" data-seat="F06">F06</div>
-                            <div class="seat" data-seat="F07">F07</div>
-                            <div class="seat" data-seat="F08">F08</div>
-                            <div class="seat" data-seat="F09">F09</div>
-                            <div class="seat" data-seat="F10">F10</div>
-                        </div>
-                        <!-- Row G (middle section) -->
-                        <div class="seat-row">
-                            <span style="display: inline-block; width: 20px; text-align: right; margin-right: 10px;">G</span>
-                            <div class="seat" data-seat="G01">G01</div>
-                            <div class="seat" data-seat="G02">G02</div>
-                            <div class="seat" data-seat="G03">G03</div>
-                            <div class="seat" data-seat="G04">G04</div>
-                            <div class="seat" data-seat="G05">G05</div>
-                            <div class="seat" data-seat="G06">G06</div>
-                            <div class="seat" data-seat="G07">G07</div>
-                            <div class="seat" data-seat="G08">G08</div>
-                            <div class="seat" data-seat="G09">G09</div>
-                            <div class="seat" data-seat="G10">G10</div>
-                        </div>
-                        <!-- Row O (couple seats) -->
-                        <div class="seat-row">
-                            <span style="display: inline-block; width: 20px; text-align: right; margin-right: 10px;">O</span>
-                            <div class="seat couple" data-seat="O01">O01</div>
-                            <div class="seat couple" data-seat="O02">O02</div>
-                            <div class="seat couple" data-seat="O03">O03</div>
-                            <div class="seat couple" data-seat="O04">O04</div>
-                        </div>
-                    </div>
-                    <div class="seat-legend">
+
+                </div>
+
+                <div class="seat-legend">
                         <div class="legend-item">
                             <div class="legend-color" style="background-color: #fff;"></div>
                             <span>Ghế Thường</span>
@@ -213,7 +75,6 @@
                             <div class="legend-color" style="background-color: #6c757d;"></div>
                             <span>Ghế Đã Đặt</span>
                         </div>
-                    </div>
                 </div>
                 
                 <!-- Section: Chọn Bắp Nước -->
