@@ -9,5 +9,10 @@ class concessions_services{
         $sql = "SELECT * FROM concessions ORDER BY concession_id DESC";
         return pdo_query($sql);
     }
+
+    public function ShowConcessions(){
+        $sql = "SELECT * FROM concessions WHERE hide=0 ORDER BY concession_id DESC";
+        return pdo_query($sql);
+    }
 }
 ?>  

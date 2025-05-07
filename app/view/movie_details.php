@@ -1,7 +1,3 @@
-<?php 
-
-?>
-
 
 <body>
     <div class="container mt-4">
@@ -64,9 +60,14 @@
                             <span>Ghế Thường</span>
                         </div>
                         <div class="legend-item">
+                            <div class="legend-color" style="background-color: #fff;"></div>
+                            <span>Ghế Vip</span>
+                        </div>
+                        <div class="legend-item">
                             <div class="legend-color" style="background-color: #fff; width: 40px;"></div>
                             <span>Ghế Đôi (2 Người)</span>
                         </div>
+                        
                         <div class="legend-item">
                             <div class="legend-color" style="background-color: #ffc107;"></div>
                             <span>Ghế Chọn</span>
@@ -80,63 +81,25 @@
                 <!-- Section: Chọn Bắp Nước -->
                 <div class="booking-section" id="concession-section">
                     <h3 class="mt-4">Chọn Bắp Nước</h3>
-                    
-                    <h4 class="section-title">COMBO 2 NGĂN</h4>
+                    <?php
+                    $concessionService= new concessions_services();
+                    $concessions = $concessionService->ShowConcessions();                   
+                    ?>
                     <div class="food-grid">
+                    <?php foreach ($concessions as $concession): ?>
                         <div class="card bg-dark text-white">
                             <div class="card-body food-card">
-                                <img src="https://placehold.co/100x100" alt="Combo Gấu" class="food-img">
-                                <h5 class="card-title">COMBO GẤU</h5>
-                                <p>1 Coke 32oz + 1 Bắp 2 Ngăn 64OZ Phô Mai + Caramel</p>
-                                <p class="card-text">119,000 VND</p>
+                                <img src="<?= $concession['picture_link']?>" alt="<?= $concession['name']?>" class="food-img">
+                                <h5 class="card-title"><?= $concession['name']?></h5>
+                                <p class="card-text"><?= $concession['price']?> VND</p>
                                 <div class="quantity-control">
-                                    <button class="quantity-btn minus" data-type="combo1">-</button>
-                                    <input type="text" class="quantity-input" value="0" id="combo1-quantity" readonly>
-                                    <button class="quantity-btn plus" data-type="combo1">+</button>
+                                    <button class="quantity-btn minus" data-type="<?= $concession['name']?>">-</button>
+                                    <input type="text" class="quantity-input" value="0" id="<?= $concession['concession_id']?>-quantity" readonly>
+                                    <button class="quantity-btn plus" data-type="<?= $concession['name']?>">+</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="card bg-dark text-white">
-                            <div class="card-body food-card">
-                                <img src="https://placehold.co/100x100" alt="Combo Có Gấu" class="food-img">
-                                <h5 class="card-title">COMBO CÓ GẤU</h5>
-                                <p>2 Coke 32oz + 1 Bắp 2 Ngăn 64OZ Phô Mai + Caramel</p>
-                                <p class="card-text">129,000 VND</p>
-                                <div class="quantity-control">
-                                    <button class="quantity-btn minus" data-type="combo2">-</button>
-                                    <input type="text" class="quantity-input" value="0" id="combo2-quantity" readonly>
-                                    <button class="quantity-btn plus" data-type="combo2">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h4 class="section-title mt-4">NƯỚC NGỌT</h4>
-                    <div class="food-grid">
-                        <div class="card bg-dark text-white">
-                            <div class="card-body food-card">
-                                <img src="https://placehold.co/100x100" alt="Sprite" class="food-img">
-                                <h5 class="card-title">SPRITE 32OZ</h5>
-                                <p class="card-text">37,000 VND</p>
-                                <div class="quantity-control">
-                                    <button class="quantity-btn minus" data-type="sprite">-</button>
-                                    <input type="text" class="quantity-input" value="0" id="sprite-quantity" readonly>
-                                    <button class="quantity-btn plus" data-type="sprite">+</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card bg-dark text-white">
-                            <div class="card-body food-card">
-                                <img src="https://placehold.co/100x100" alt="Coke" class="food-img">
-                                <h5 class="card-title">COKE 32OZ</h5>
-                                <p class="card-text">37,000 VND</p>
-                                <div class="quantity-control">
-                                    <button class="quantity-btn minus" data-type="coke">-</button>
-                                    <input type="text" class="quantity-input" value="0" id="coke-quantity" readonly>
-                                    <button class="quantity-btn plus" data-type="coke">+</button>
-                                </div>
-                            </div>
-                        </div>
+                    <?php endforeach; ?>
                     </div>
                 </div>
             </div>
@@ -144,7 +107,7 @@
     </div>
     
     <!-- Fixed booking bar -->
-    <div class="fixed-bar">
+    <div class="fixed-bar" style="display: none;">
         <div class="fixed-bar-left">
             <div class="fixed-bar-timer">
                 <div class="timer-label">Thời gian giữ vé:</div>

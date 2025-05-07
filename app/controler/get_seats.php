@@ -21,7 +21,7 @@ if (!$roomResult || count($roomResult) === 0) {
 $room_id = $roomResult[0]['room_id'];
 
 // Lấy danh sách ghế trong phòng
-$sqlSeats = "SELECT seat_number, status, seat_type FROM seats WHERE room_id = ?";
+$sqlSeats = "SELECT seat_number, status, seat_type, extra_price FROM seats WHERE room_id = ?";
 $seats = pdo_query($sqlSeats, $room_id);
 
 echo json_encode(['seats' => $seats]);

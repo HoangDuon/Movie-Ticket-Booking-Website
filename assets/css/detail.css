@@ -176,18 +176,23 @@ body {
 }
 
 .booking-btn {
-    background-color: #15642f;
+    background-color: #21a24c;
     color: white;
     border: none;
     padding: 10px 30px;
     border-radius: 5px;
     cursor: pointer;
-    opacity: 0.5;
+    opacity: 1;
     text-transform: uppercase;
     font-weight: bold;
 }
 
-.booking-btn.active {
+.booking-btn:hover {
+    background-color: #1a7432; /* Đổi màu nền khi hover */
+    transform: scale(1.05); /* Tăng kích thước nút một chút khi hover */
+}
+
+.booking-btn:active {
     opacity: 1;
     cursor: pointer;
 }
