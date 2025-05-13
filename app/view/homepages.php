@@ -31,47 +31,39 @@
                         </button>
                     </div>
                 </div>
-        
+                <?php
+                $CinemaService = new cinemas_services(); // Khởi tạo service
+                $cinemas= $CinemaService->ShowCinemas();
+                ?>
                 <div class="container-fluid">
                     <div class="filter-film">
                         <div class="filter-heading">
                             <h1>ĐẶT VÉ NHANH</h1>
                         </div>
                         <div class="filter-group">
-                            <div class="filter-1">
-                                <div class="dropdown">
-                                    <button id="filter-btn" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <span id="heading-dropdown">1. Chọn rạp</span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="filter-2">
-                                <div class="dropdown">
-                                    <button id="filter-btn" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <span id="heading-dropdown">2. Chọn phim</span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="filter-4">
-                                <div class="dropdown">
-                                    <button id="filter-btn" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <span id="heading-dropdown">3. Chọn suất</span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                    </ul>
+                            <div class="container mt-5">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>1. Chọn rạp</label>
+                                        <select id="cinema-select" class="form-select">
+                                            <option value="">-- Chọn rạp --</option>
+                                            <?php foreach ($cinemas as $cinema): ?>
+                                                <option value="<?= $cinema['cinema_id'] ?>"><?= $cinema['name'] ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>2. Chọn phim</label>
+                                        <select id="movie-select" class="form-select" disabled>
+                                            <option value="">-- Chọn phim --</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>3. Chọn suất chiếu</label>
+                                        <select id="showtime-select" class="form-select" disabled>
+                                            <option value="">-- Chọn suất chiếu --</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="btn-order">
@@ -356,24 +348,9 @@
                 </div>
         
                 <div class="heading-phim members">
-                    <h1>CHƯƠNG TRÌNH THÀNH VIÊN</h1>
                 </div>
         
-                <div class="members-info">
-                <?php
-                    $membershipLinks = []; // Khởi tạo
-                    $defaultFriendImg = '../../';
-                    $defaultVipImg = '../img/default_cvip.webp';
-
-                    try {
-                        $membershipService = new film_services(); // Khởi tạo
-                        // Gọi phương thức đã được sửa đổi
-                        $membershipLinks = $membershipService->ShowMembership(); // Kết quả đã đúng định dạng mong muốn
-                    } catch (Throwable $e) {
-                        error_log("Lỗi khi lấy dữ liệu membership: " . $e->getMessage());
-                    }
-                ?>
-
+                <!--<div class="members-info">
                     <div class="container">
                         <div class="row">
                             <div class="col">
@@ -410,7 +387,8 @@
         </div>
             <div class="col-1">
 
-            </div>
+            </div> -->
         </div>
     </div>
     </div>
+    <script src="../LTW/assets/js/homepages.js"></script>

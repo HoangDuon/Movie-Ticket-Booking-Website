@@ -22,5 +22,17 @@ class cinemas_services{
 
         return pdo_query($sql);
     }
+
+    public function ShowCinemas(){
+        $sql = "SELECT 
+            c.cinema_id, 
+            c.name,
+            c.location ,
+            c.phone , 
+            c.hide
+        FROM cinemas c Where hide=0";
+
+        return pdo_query($sql);
+    }
 }
 ?>  

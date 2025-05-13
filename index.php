@@ -5,6 +5,7 @@
     include_once "app/model/pdo.php";
     include "app/controler/promotions_services.php";
     include "app/controler/concessions_services.php";
+    include "app/controler/cinemas_services.php";
 ?>
 
 <div id="main-content">
