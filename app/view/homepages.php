@@ -1,7 +1,7 @@
 <!-- --------------------------------------- content ------------------------------------------------------------------------------------------------- -->
 
 <div class="container">
-<div class="main-slide">
+			<div class="main-slide">
                 <div id="carouselExample" class="carousel slide">
                     <?php
                         $filmService = new film_services();
@@ -14,11 +14,11 @@
                             foreach($films as $film):
                         ?>
                             <div class="carousel-item  <?= $isFirst ? 'active' : '' ?>">
-                                <img src="<?= $film['banner_url']?>" class="d-block w-100" alt="banner-<?= $film['title']?>">
+                                <img id="banner-movie" src="<?= $film['banner_url']?>" class="d-block w-100" alt="banner-<?= $film['title']?>">
                             </div>
                         <?php 
                         $isFirst = false;
-                    endforeach; ?>
+                    	endforeach; ?>
                             
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -29,8 +29,8 @@
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
-                    </div>
                 </div>
+            </div>
                 <?php
                 $CinemaService = new cinemas_services(); // Khởi tạo service
                 $cinemas= $CinemaService->ShowCinemas();
@@ -44,24 +44,21 @@
                             <div class="container mt-5">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <label>1. Chọn rạp</label>
                                         <select id="cinema-select" class="form-select">
-                                            <option value="">-- Chọn rạp --</option>
+                                            <option value=""> 1. Chọn rạp </option>
                                             <?php foreach ($cinemas as $cinema): ?>
                                                 <option value="<?= $cinema['cinema_id'] ?>"><?= $cinema['name'] ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
                                     <div class="col-md-4">
-                                        <label>2. Chọn phim</label>
                                         <select id="movie-select" class="form-select" disabled>
-                                            <option value="">-- Chọn phim --</option>
+                                            <option value=""> 2. Chọn phim </option>
                                         </select>
                                     </div>
                                     <div class="col-md-4">
-                                        <label>3. Chọn suất chiếu</label>
                                         <select id="showtime-select" class="form-select" disabled>
-                                            <option value="">-- Chọn suất chiếu --</option>
+                                            <option value=""> 3. Chọn suất chiếu </option>
                                         </select>
                                     </div>
                                 </div>
@@ -81,11 +78,9 @@
                     <div id="carouselExampleIndicators" class="carousel slide" style="padding-bottom: 5rem;">
 
                         <?php
-                            // Lấy dữ liệu phim (Giữ nguyên phần này)
                             $filmService = new film_services();
                             $films = $filmService->getMovieInfo(); // Giả sử trả về mảng các phim
 
-                            // Chia mảng $films thành các nhóm, mỗi nhóm tối đa 4 phần tử
                             $itemsPerSlide = 4;
                             $filmChunks = []; // Khởi tạo mảng chứa các nhóm phim
                             if (!empty($films)) { // Chỉ chia nếu có phim
@@ -348,47 +343,38 @@
                 </div>
         
                 <div class="heading-phim members">
+                    <h1>CHƯƠNG TRÌNH THÀNH VIÊN</h1>
                 </div>
         
-                <!--<div class="members-info">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col">
-                                <div class="normal-members">
-                                    <div class="card">
-                                        <img src="<?= htmlspecialchars($membershipLinks['Silver'] ?? $defaultFriendImg) ?>"  class="card-img-top" alt="Thành viên C'Friend"
-                                        style="box-shadow: 0 12px 48px 0 rgba(243,234,40,.5);" >
-                                        <div class="card-body">
-                                            <h5 class="card-title">THÀNH VIÊN C'Friend</h5>
-                                            <p class="card-text">Thẻ C'Friend nhiều ưu đãi dành cho thành viên mới.</p>
-                                            <a href="#" class="btn btn-primary">TÌM HIỂU NGAY</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-    
-                            <div class="col">
-                                <div class="vip-members">
-                                    <div class="card">
-                                        <img src="<?= htmlspecialchars($membershipLinks['Diamond'] ?? $defaultVipImg) ?>"  class="card-img-top" alt="Thành viên C'Friend"
-                                        style="box-shadow: 0 12px 48px 0 rgba(243,234,40,.5);" >
-                                        <div class="card-body">
-                                            <h5 class="card-title">THÀNH VIÊN C'Vip</h5>
-                                            <p class="card-text">Thẻ VIP mang đến nhiều ưu đãi độc quyền.</p>
-                                            <a href="#" class="btn btn-primary">TÌM HIỂU NGAY</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+				<div class="members-info">
+					<?php
+						$membershipinfo = new membership();
+						$memberships = $membershipinfo->getMembershipInfo();
+					?>
+					<div class="container">
+						<div class="row">
+							<?php foreach ($memberships as $member): ?>
+								<div class="col">
+									<div class="card">
+										<img src="<?= htmlspecialchars($member['link']) ?>" class="card-img-top" alt="..." style="box-shadow: 0 12px 48px 0 rgba(243,234,40,.5);">
+										<div class="card-body">
+											<h5 class="card-title">THÀNH VIÊN <?= htmlspecialchars($member['member_type']) ?></h5>
+											<a href="#" class="btn btn-primary">TÌM HIỂU NGAY</a>
+										</div>
+									</div>
+								</div>
+							<?php endforeach; ?>
+						</div>
+					</div>
+				</div>
                 </div>            
             </div>
         </div>
             <div class="col-1">
 
-            </div> -->
+            </div>
         </div>
     </div>
     </div>
     <script src="../LTW/assets/js/homepages.js"></script>
+    <script src="../LTW/assets/js/filter.js"></script>

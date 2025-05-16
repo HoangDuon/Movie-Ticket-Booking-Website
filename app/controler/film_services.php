@@ -86,39 +86,7 @@ class film_services{
                 ORDER BY release_date ASC";
         return pdo_query($sql);
     }
-
-    public function ShowMembership() {
-        // Chỉ chọn những cột cần thiết và lọc cụ thể 'friend', 'vip'
-        $sql = "SELECT member_type, link
-                FROM membership_discounts
-                WHERE hide=0 AND member_type IN ('Silver', 'Diamond')"; // Lọc cụ thể
     
-        $links = ['Silver' => null, 'Diamond' => null]; // Mảng kết quả mong muốn
-    
-        try {
-            // Giả sử pdo_query trả về mảng các hàng kết quả
-            $results = pdo_query($sql);
-    
-            if (!empty($results) && is_array($results)) {
-                foreach ($results as $row) {
-                    if (is_array($row) && isset($row['member_type']) && isset($row['link'])) {
-                         if ($row['member_type'] === 'Silver') {
-                             $links['Silver'] = $row['link'];
-                         } elseif ($row['member_type'] === 'Diamond') {
-                             $links['Diamond'] = $row['link'];
-                         }
-                    }
-                }
-            }
-        } catch (Exception $e) {
-            error_log("Lỗi trong ShowMembership: " . $e->getMessage());
-            // Trả về mảng với giá trị null nếu có lỗi
-        }
-    
-        return $links; // Trả về mảng ['friend' => link_hoac_null, 'vip' => link_hoac_null]
-    }
-    
-
     // public function getSaleInfo() {
     //     $sql = "SELECT *
     //             FROM sales              

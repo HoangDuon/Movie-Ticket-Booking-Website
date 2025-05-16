@@ -1,3 +1,4 @@
+
 /* Đảm bảo carousel full width nhưng nội dung căn giữa */
 .showing-movie-slide {
     width: 100%;
@@ -82,4 +83,72 @@
     .carousel-control-next {
         width: 10%; /* Tăng chiều rộng nút trên mobile */
     }
+}
+
+/* --------------------------------------------------------------------------- */
+
+/* 1. Thiết lập cho container .main-slide */
+.main-slide {
+    margin-top: 2rem;
+    position: relative;
+}
+
+.main-slide #carouselExample {
+    position: relative;
+    width: 100%;
+}
+
+.main-slide #carouselExample .carousel-item img#banner-movie {
+    height: 60rem;
+    object-fit: cover;
+    width: 100%;
+    display: block;
+}
+
+.main-slide #carouselExample .carousel-control-prev {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -50px;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    opacity: 0.8;
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-slide #carouselExample .carousel-control-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    /* Đẩy nút ra ngoài lề phải của #carouselExample */
+    right: -50px;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    opacity: 0.8;
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-slide #carouselExample .carousel-control-prev:hover,
+.main-slide #carouselExample .carousel-control-next:hover {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.main-slide #carouselExample .carousel-control-prev-icon,
+.main-slide #carouselExample .carousel-control-next-icon {
+    background-size: 50% 50%;
+    width: 20px;
+    height: 20px;
 }
