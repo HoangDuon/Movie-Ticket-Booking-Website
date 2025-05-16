@@ -1,0 +1,317 @@
+/* Main Styles */
+body {
+    background: linear-gradient(to bottom, #0a1226, #1a237e);
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+/* Progress Steps */
+.progress-steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.step-number {
+    background-color: white;
+    color: #0a1226;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.step-text {
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.step-line {
+    height: 1px;
+    background-color: white;
+    width: 40px;
+    margin: 0 5px;
+}
+
+.step.active .step-number {
+    background-color: #ffc107;
+    color: #0a1226;
+}
+
+.step.completed .step-number {
+    background-color: #28a745;
+    color: white;
+}
+
+.step-line.completed {
+    background-color: #28a745;
+}
+
+@media (min-width: 768px) {
+    .step-line {
+        width: 80px;
+    }
+    
+    .step-text {
+        font-size: 14px;
+    }
+}
+
+/* Section Container */
+.section-container {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 20px;
+    color: white;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #ffc107;
+    text-align: center;
+}
+
+/* Payment Section */
+.payment-section {
+    background-color: #1a237e;
+    border-radius: 8px;
+    padding: 20px;
+    color: white;
+}
+
+.payment-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    color: #ffc107;
+    text-align: center;
+}
+
+.payment-methods {
+    margin-bottom: 20px;
+}
+
+.payment-method {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.payment-method input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid white;
+    margin-right: 15px;
+    position: relative;
+    cursor: pointer;
+}
+
+.payment-method input[type="radio"]:checked {
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.payment-method input[type="radio"]:checked::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ffc107;
+}
+
+.payment-method label {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.payment-method i {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.payment-button {
+    background-color: #ffc107;
+    color: #000;
+    border: none;
+    border-radius: 4px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.payment-button:hover {
+    background-color: #e0a800;
+}
+
+/* Movie Information Box */
+.movie-info {
+    background-color: #1e88e5;
+    border-radius: 8px;
+    padding: 20px;
+    color: white;
+}
+
+.timer-badge {
+    background-color: #ffc107;
+    color: black;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.cinema-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.cinema-address {
+    font-size: 14px;
+}
+
+.info-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.total-section {
+    border-top: 1px dashed white;
+    padding-top: 15px;
+    margin-top: 15px;
+}
+
+.total-price {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: right;
+    margin: 0;
+}
+
+/* Form Styling */
+.form-control:focus {
+    border-color: #ffc107;
+    box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+}
+
+.form-check-input:checked {
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+/* Ticket Information Card */
+.ticket-info-card {
+    background-color: white;
+    color: #333;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.ticket-header {
+    background-color: #1e88e5;
+    color: white;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.cinema-logo {
+    margin-right: 20px;
+}
+
+.ticket-title {
+    flex-grow: 1;
+}
+
+.ticket-title h3 {
+    margin: 0;
+    font-weight: bold;
+}
+
+.booking-id {
+    margin: 5px 0 0;
+    font-size: 14px;
+}
+
+.ticket-body {
+    padding: 20px;
+}
+
+.success-icon {
+    font-size: 40px;
+    color: #28a745;
+}
+
+.info-row {
+    display: flex;
+    margin-bottom: 8px;
+}
+
+.info-label {
+    font-weight: bold;
+    width: 120px;
+    flex-shrink: 0;
+}
+
+.info-value {
+    flex-grow: 1;
+}
+
+.customer-details h5 {
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #1e88e5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .movie-info {
+        margin-top: 20px;
+    }
+    
+    .timer-badge {
+        font-size: 12px;
+        padding: 2px 6px;
+    }
+}
+
+.return {
+    text-decoration: none;
+    color: #000;
+}
+
+.payment-details h5{
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #1e88e5;
+}

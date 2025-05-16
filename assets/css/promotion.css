@@ -1,0 +1,267 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+    line-height: 1.6;
+    background-image:  url("../img/BG-detail.jpg");
+}
+
+.banner-slider {
+    position: relative;
+    height: 300px;
+    margin-bottom: 30px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.banner-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity 0.5s ease-in-out;
+    opacity: 0;
+    background-color: #1a1a1a;
+}
+
+.banner.active {
+    opacity: 1;
+}
+
+.banner:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+}
+
+.banner-content {
+    text-align: center;
+    max-width: 800px;
+    padding: 20px;
+    z-index: 5;
+    position: relative;
+}
+
+.banner-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0);
+    color: #e2fa07;
+    border: none;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.banner-nav.prev {
+    left: 20px;
+}
+
+.banner-nav.next {
+    right: 20px;
+}
+
+.banner h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #e7f708;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+.banner p {
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+/* Title Section */
+.title-section {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    background: transparent;
+}
+
+.title-section h2 {
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.content-section {
+    min-height: 500px;
+    padding: 40px 0;
+    background: transparent;
+}
+
+.promotion-card {
+    background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #333;
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+.promotion-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(255, 2, 2, 0.2);
+}
+
+.promotion-card h3 {
+    color: #e7f708;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.promotion-card p {
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+.promotion-details {
+    background-color: #222;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.promotion-details ul {
+    list-style: none;
+    color: #fff;
+    margin-bottom: 0;
+}
+
+.promotion-details li {
+    padding: 5px 0;
+    border-bottom: 1px solid #333;
+}
+
+.promotion-details li:last-child {
+    border-bottom: none;
+}
+
+.promotion-details li::before {
+    content: "→ ";
+    color: #ff6b35;
+    font-weight: bold;
+}
+
+.promo-button {
+    background: #ffed4e;
+    color: #1a1a1a;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.promo-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #8b5cf6, #3b82f6);
+    transition: left 0.3s ease;
+}
+
+.promo-button:hover::before {
+    left: 0;
+}
+
+.promo-button:hover {
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+}
+
+.promo-button span {
+    position: relative;
+    z-index: 1;
+}
+
+.validity {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+/* Bootstrap responsive behavior */
+@media (max-width: 991.98px) {
+    .content-section {
+        padding: 30px 20px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .banner h1 {
+        font-size: 2rem;
+    }
+    
+    .banner p {
+        font-size: 1rem;
+    }
+    
+    .title-section h2 {
+        font-size: 1.5rem;
+    }
+    
+    .content-section {
+        padding: 20px 15px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .banner h1 {
+        font-size: 1.5rem;
+    }
+    
+    .promotion-card {
+        padding: 15px;
+    }
+    
+    .promotion-card h3 {
+        font-size: 1.25rem;
+    }
+}
