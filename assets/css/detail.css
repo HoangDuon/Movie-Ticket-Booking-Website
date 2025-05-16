@@ -3,7 +3,6 @@ body {
     color: white;
     background: url('../img/BG-detail.jpg') no-repeat center center fixed;
     background-size: cover;
-    padding-bottom: 100px; /* Space for fixed bar - will be applied only when fixed bar is visible */
 }
 
 .movie-poster {

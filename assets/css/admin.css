@@ -3,18 +3,77 @@ body {
 }
 
 .navbar-custom {
+  background-color: #212529;
+  height: 50px;
+}
+
+.navbar-custom .navbar-brand {
+  color: white;
+  font-weight: bold;
+}
+
+.navbar-custom .logout {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.navbar-custom .logout:hover {
+  color: #adb5bd;
+}
+
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: #343a40;
+  position: fixed;
+  top: 50px;
+  left: 0;
+  padding-top: 20px;
+}
+
+.sidebar a {
+  display: block;
+  color: white;
+  padding: 12px;
+  text-decoration: none;
+}
+
+.sidebar a:hover, .sidebar a.active {
+  background-color: #495057;
+}
+
+.content {
+  margin-top: 50px;
+  margin-left: 250px;
+  padding: 20px;
+}
+
+/* Đặt kích thước cho poster phim */
+.movie-poster {
+  width: 100px;
+  height: auto;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.navbar-custom {
     background-color: #212529;
     height: 50px;
 }
+
 .navbar-custom .navbar-brand {
     color: white;
     font-weight: bold;
 }
+
 .navbar-custom .logout {
     color: white;
     text-decoration: none;
     font-size: 14px;
 }
+
+
 .navbar-custom .logout:hover {
     color: #adb5bd;
 }
@@ -29,6 +88,7 @@ body {
     padding-top: 20px;
     transition: all 0.3s;
 }
+
 .sidebar a {
     display: block;
     color: white;
@@ -36,6 +96,7 @@ body {
     text-decoration: none;
     cursor: pointer;
 }
+
 .sidebar a:hover, .sidebar a.active {
     background-color: #495057;
 }
@@ -46,6 +107,7 @@ body {
     padding: 20px;
     transition: margin-left 0.3s;
 }
+
 .content.full {
     margin-left: 70px;
 }
