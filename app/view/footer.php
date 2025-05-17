@@ -8,7 +8,7 @@
                     <div class="row align-items-start">
                         <div class="ft-body-item col-4">
                             <a href="#" class="ft-logo">
-                                <img loading="lazy" width="170" height="60" src="https://api-website.cinestar.com.vn/media/wysiwyg/bocongthuong/footer-logo.webp" alt="">
+                                <img loading="lazy" height="180" src="/LTW/assets/img/logo.png" alt="">
                             </a>
                             <div class="ft-text">
                                 <p class="txt">BE HAPPY, BE A STAR</p>

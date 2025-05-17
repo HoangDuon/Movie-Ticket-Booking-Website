@@ -55,13 +55,6 @@ header {
     border-bottom: #cfcfcf 1px solid;
 }
 
-.hd-logo {
-
-}
-
-.hd-logo img {
-    width: 50%;
-}
 
 .hd-action {
     display: flex;

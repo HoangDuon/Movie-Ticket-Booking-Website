@@ -66,7 +66,7 @@ function showSchedule(movieId, date) {
               showtimeButton.setAttribute("data-showtime-id", showtime.showtime_id)
               showtimeButton.setAttribute("data-cinema", cinema.cinema_name)
               showtimeButton.setAttribute("data-time", showtime.start_time)
-              showtimeButton.innerHTML = `${showtime.start_time} - ${showtime.end_time} | Giá: ${showtime.price} VNĐ`
+              showtimeButton.innerHTML = `${showtime.start_time} - ${showtime.end_time} | Giá: ${Number.parseInt(showtime.price)} VNĐ`
 
               showtimeButton.onclick = () => {
                 // Update time slot states

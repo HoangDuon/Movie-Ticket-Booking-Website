@@ -91,7 +91,7 @@
                             <div class="card-body food-card">
                                 <img src="<?= $concession['picture_link']?>" alt="<?= $concession['name']?>" class="food-img">
                                 <h5 class="card-title"><?= $concession['name']?></h5>
-                                <p class="card-text"><?= $concession['price']?> VND</p>
+                                <p class="card-text"><?= intval($concession['price'])?> VND</p>
                                 <div class="quantity-control">
                                     <button class="quantity-btn minus" data-type="<?= $concession['name']?>">-</button>
                                     <input type="text" class="quantity-input" value="0" id="<?= $concession['concession_id']?>-quantity" readonly>
@@ -124,5 +124,5 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src=" ../assets/js/detail.js"></script>
+    <script src=" ../LTW/assets/js/detail.js"></script>
 </body>
