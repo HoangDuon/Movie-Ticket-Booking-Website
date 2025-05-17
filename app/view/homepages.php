@@ -321,7 +321,7 @@
                                 foreach ($chunk as $img) {
                                     echo '<div class="col">';
                                     echo '  <div class="card h-100">';
-                                    echo '    <img src="/assets/img/sales-2.webp" class="card-img-top" alt="...">';
+                                    echo '    <img src="' . htmlspecialchars($img['banner_url']) . '" class="card-img-top" alt="...">';
                                     echo '  </div>';
                                     echo '</div>';
                                 }

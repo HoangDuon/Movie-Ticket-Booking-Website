@@ -7,7 +7,7 @@ $title = $_POST['title'];
 $content = $_POST['content'];
 
 // Xử lý ảnh (poster + banner)
-function upload_file($fileKey, $uploadDir = "../../assets/img/") {
+function upload_file($fileKey, $uploadDir = "/LTW/assets/img/") {
     if (isset($_FILES[$fileKey]) && $_FILES[$fileKey]['error'] === UPLOAD_ERR_OK) {
         $fileTmp = $_FILES[$fileKey]['tmp_name'];
         $fileName = basename($_FILES[$fileKey]['name']);
