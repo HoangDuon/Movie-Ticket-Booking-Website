@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Khởi tạo đếm ngược
 function initCountdown() {
-  let timeLeft = 300 // 6 phút 2 giây
+  let timeLeft = 300 // 5 phút
   const countdownElements = document.querySelectorAll("#countdown, #countdown2")
 
   function updateCountdown() {
@@ -40,8 +40,7 @@ function initCountdown() {
 
     if (timeLeft <= 0) {
       clearInterval(timerInterval)
-      alert("Thời gian giữ vé đã hết. Vui lòng thực hiện lại.")
-      // Trong thực tế, có thể chuyển hướng người dùng đến trang hết hạn
+      alert("Thời gian giữ vé đã hết.")
     } else {
       timeLeft--
     }
@@ -69,8 +68,10 @@ function goToPaymentStep() {
     return
   }
 
-  // Lưu thông tin khách hàng
-  saveCustomerInfo(fullName, phone, email)
+  // Lưu thông tin khách hàng vào localStorage thay vì cập nhật DOM
+  localStorage.setItem("customerName", fullName)
+  localStorage.setItem("customerPhone", phone)
+  localStorage.setItem("customerEmail", email)
 
   // Ẩn phần thông tin khách hàng
   document.getElementById("customer-section").style.display = "none"
@@ -95,14 +96,41 @@ function goToTicketStep() {
 
   // Tạo mã đặt vé ngẫu nhiên
   document.getElementById("booking-id").textContent = "CS" + Math.floor(Math.random() * 1000000000)
-}
-
-// Lưu thông tin khách hàng
-function saveCustomerInfo(name, phone, email) {
-  // Lưu thông tin để hiển thị trong phần thông tin vé
-  document.getElementById("customer-name").textContent = name
-  document.getElementById("customer-phone").textContent = phone
-  document.getElementById("customer-email").textContent = email
+  
+  // Hiển thị thông tin khách hàng đã lưu
+  const customerName = localStorage.getItem("customerName")
+  const customerPhone = localStorage.getItem("customerPhone")
+  const customerEmail = localStorage.getItem("customerEmail")
+  
+  if (customerName) document.getElementById("customer-name").textContent = customerName
+  if (customerPhone) document.getElementById("customer-phone").textContent = customerPhone
+  if (customerEmail) document.getElementById("customer-email").textContent = customerEmail
+  
+  // Hiển thị phương thức thanh toán đã chọn
+  const paymentMethods = document.getElementsByName("paymentMethod")
+  let selectedMethod = "Thẻ tín dụng/ghi nợ" // Mặc định
+  
+  for (const method of paymentMethods) {
+    if (method.checked) {
+      switch (method.id) {
+        case "creditCard":
+          selectedMethod = "Thẻ tín dụng/ghi nợ"
+          break
+        case "bankTransfer":
+          selectedMethod = "Chuyển khoản ngân hàng"
+          break
+        case "momo":
+          selectedMethod = "Ví MoMo"
+          break
+        case "zalopay":
+          selectedMethod = "ZaloPay"
+          break
+      }
+      break
+    }
+  }
+  
+  document.getElementById("payment-method").textContent = selectedMethod
 }
 
 // Cập nhật trạng thái các bước

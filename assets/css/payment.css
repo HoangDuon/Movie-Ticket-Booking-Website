@@ -70,22 +70,6 @@ body {
     }
 }
 
-/* Section Container */
-.section-container {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    padding: 20px;
-    color: white;
-}
-
-.section-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #ffc107;
-    text-align: center;
-}
-
 /* Payment Section */
 .payment-section {
     background-color: #1a237e;
@@ -228,69 +212,10 @@ body {
     border-color: #ffc107;
 }
 
-/* Ticket Information Card */
-.ticket-info-card {
-    background-color: white;
-    color: #333;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.ticket-header {
-    background-color: #1e88e5;
-    color: white;
-    padding: 15px;
-    display: flex;
-    align-items: center;
-}
-
-.cinema-logo {
-    margin-right: 20px;
-}
-
-.ticket-title {
-    flex-grow: 1;
-}
-
-.ticket-title h3 {
-    margin: 0;
-    font-weight: bold;
-}
-
-.booking-id {
-    margin: 5px 0 0;
-    font-size: 14px;
-}
-
-.ticket-body {
-    padding: 20px;
-}
-
+/* Success Icon */
 .success-icon {
     font-size: 40px;
     color: #28a745;
-}
-
-.info-row {
-    display: flex;
-    margin-bottom: 8px;
-}
-
-.info-label {
-    font-weight: bold;
-    width: 120px;
-    flex-shrink: 0;
-}
-
-.info-value {
-    flex-grow: 1;
-}
-
-.customer-details h5 {
-    font-weight: bold;
-    margin-bottom: 15px;
-    color: #1e88e5;
 }
 
 /* Responsive adjustments */
@@ -303,15 +228,4 @@ body {
         font-size: 12px;
         padding: 2px 6px;
     }
-}
-
-.return {
-    text-decoration: none;
-    color: #000;
-}
-
-.payment-details h5{
-    font-weight: bold;
-    margin-bottom: 15px;
-    color: #1e88e5;
 }
