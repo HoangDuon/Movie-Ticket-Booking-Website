@@ -1,271 +1,149 @@
-/* Global Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #e9ecef;
+    background-image: url("../img/BG-detail.jpg");
+    min-height: 100vh;
+    padding: 20px;
+    color: #fff;
 }
 
 /* Sidebar Styles */
 .sidebar {
-    background: linear-gradient(to bottom, #5f42b5, #2e1d62);
-    color: white;
-    min-height: 100vh;
-    padding: 20px 0;
-}
-
-.profile-section {
+    background-color: rgba(85, 75, 175, 0.5);
+    border-radius: 15px;
     padding: 20px;
+    height: calc(100vh - 40px);
 }
 
-.username {
-    font-size: 22px;
-    margin-bottom: 15px;
-    color: #fff;
+.user-profile {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-.cfriends-badge {
-    background-color: #ffda00;
-    color: #000;
-    font-weight: bold;
-    padding: 8px 20px;
-    border-radius: 5px;
-    display: inline-block;
-    margin: 10px 0;
+.avatar {
+    font-size: 40px;
+    margin-bottom: 10px;
 }
 
-.points-section {
-    margin-top: 15px;
-    padding: 0 10px;
+.user-profile h4 {
+    margin-bottom: 5px;
+    font-size: 18px;
 }
 
-.cfriends-text {
-    color: #ffda00;
-    font-weight: bold;
+.user-profile p {
+    font-size: 12px;
+    color: #ccc;
 }
 
-.progress {
-    height: 8px;
-    background-color: #473485;
-    margin: 8px 0;
-}
-
-.progress-bar {
-    background-color: #ffda00;
-}
-
-.points-value {
-    text-align: right;
-    font-size: 14px;
-    margin: 5px 0;
-}
-
-/* Sidebar Menu */
 .sidebar-menu {
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
-.sidebar-menu .nav-item {
-    padding: 5px 0;
-    margin: 5px 0;
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    color: #ccc;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-left: 3px solid transparent;
+    padding-left: 10px;
 }
 
-.sidebar-menu .nav-item.active {
-    border-left: 3px solid #ffda00;
-    background-color: rgba(255, 255, 255, 0.1);
+.menu-item.active {
+    color: #f8e71c;
+    border-left: 3px solid #f8e71c;
 }
 
-.sidebar-menu .nav-link {
-    color: white;
-    padding: 10px 20px;
-}
-
-.sidebar-menu .nav-link i {
-    margin-right: 10px;
+.menu-item i {
+    margin-right: 15px;
     width: 20px;
     text-align: center;
 }
 
-.sidebar-menu .logout {
-    margin-top: 30px;
-}
-
-/* Main Content */
 .main-content {
-    padding: 0;
-    background-color: #f5f5f5;
-}
-
-.content-header {
-    background-color: #1a1a2e;
-    color: white;
     padding: 20px;
 }
 
-.content-header h1 {
-    margin: 0;
-    font-size: 24px;
+.content-box {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    color: #000;
+}
+
+.section-title {
+    color: #000;
+    font-size: 18px;
+    margin-bottom: 20px;
     font-weight: bold;
 }
 
-.content-body {
-    padding: 20px;
-}
-
-/* Information Sections */
-.info-section {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-.info-section h2 {
-    font-size: 20px;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #eee;
-}
-
-/* Form Elements */
 label {
     font-weight: 500;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
     display: block;
 }
 
 .form-control {
-    padding: 10px 15px;
-    height: auto;
     border: 1px solid #ddd;
-}
-
-.required {
-    color: red;
-}
-
-/* Buttons */
-.save-btn {
-    background-color: #eee;
-    color: #333;
-    font-weight: bold;
-    padding: 10px 25px;
-    border: none;
-    margin-top: 10px;
-}
-
-.save-btn:hover {
-    background-color: #ddd;
-}
-
-/* Form validation styling */
-.form-control.is-invalid {
-    border-color: #dc3545;
-    padding-right: calc(1.5em + 0.75rem);
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right calc(0.375em + 0.1875rem) center;
-    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
-}
-
-.invalid-feedback {
-    display: block;
-    width: 100%;
-    margin-top: 0.25rem;
-    font-size: 0.875em;
-    color: #dc3545;
-}
-
-/* Date picker styling */
-.datepicker {
-    border-radius: 4px;
-    font-size: 14px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-}
-
-.datepicker-dropdown {
     padding: 10px;
-    z-index: 1060 !important;
+    height: auto;
 }
 
-.datepicker table tr td.active,
-.datepicker table tr td.active:hover,
-.datepicker table tr td.active.disabled,
-.datepicker table tr td.active.disabled:hover {
-    background-color: #5f42b5 !important;
-    background-image: none;
+.btn-save {
+    background-color: #e6f0f6;
+    color: #000;
+    font-weight: bold;
+    padding: 8px 25px;
+    border: none;
+    border-radius: 5px;
 }
 
-.datepicker table tr td.today {
-    background-color: #ffffcc !important;
+.btn-save:hover {
+    background-color: #e6f0f6;
     color: #000;
 }
 
-.date-icon {
-    cursor: pointer;
+.text-warning {
+    color: #f8e71c !important;
 }
 
-/* Toast notification styling */
-.toast {
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-}
-
-.toast-body {
-    font-weight: 500;
-}
-
-.form-control:focus {
-    border-color: #7e57c2;
-    box-shadow: 0 0 0 0.25rem rgba(126, 87, 194, 0.25);
-}
-
-.purchase-history-container {
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+.purchase-history-box {
     overflow: hidden;
 }
 
-.purchase-history-table {
+.table {
+    width: 100%;
     margin-bottom: 0;
 }
 
-.purchase-history-table thead {
-    background-color: #1a3267;
+.table-header th {
+    background-color: #1a3b6d;
     color: white;
-}
-
-.purchase-history-table th {
-    padding: 15px;
+    padding: 12px;
     font-weight: 500;
     border: none;
     text-align: center;
 }
 
-.purchase-history-table td {
-    padding: 15px;
-    vertical-align: middle;
+.table td {
+    padding: 12px;
     border-bottom: 1px solid #eee;
+    color: #333;
     text-align: center;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .sidebar {
-        min-height: auto;
-    }
-    
-    .row > [class*='col-'] {
-        padding: 0;
-    }
-    
-    .purchase-history-table {
-        min-width: 650px;
-    }
-    
-    .purchase-history-table th,
-    .purchase-history-table td {
-        padding: 10px 8px;
-        font-size: 0.9rem;
-    }
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+    color: #1a3b6d !important;
 }
 
+.logout-link {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.title {
+    font-weight: bold;
+}
