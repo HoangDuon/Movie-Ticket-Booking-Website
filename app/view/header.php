@@ -7,9 +7,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../LTW/assets/css/slide.css">
     <link rel="stylesheet" href="../LTW/assets/css/homepage.css">
-    <link rel="stylesheet" href="../LTW/assets/css/login.css">
     <link rel="stylesheet" href="../LTW/assets/css/footer.css">
     <link rel="stylesheet" href="../LTW/assets/css/detail.css">
+    <link rel="stylesheet" href="../LTW/assets/css/filter.css">
+    <link rel="stylesheet" href="../LTW/assets/css/login.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -56,34 +57,35 @@
                             </form>
                         </div>
             
-                        <div class="hd-log">
-                            <div class="login-ic">
-                                <a href="#">
-                                    <i class="fa-regular fa-circle-user"></i>
-                                </a>
-                            </div>
-                            <?php
-                            if (isset($_SESSION['user'])&& $_SESSION['user']['role']==='Customer') {
-                                echo '<div class="login">    
-                                    <a href="">
-                                        '. $_SESSION['user']['full_name']. '
-                                    </a>                            
-                                </div>';
-                            }
-                            else{
-                                echo '<div class="login">    
-                                <a href="index.php?page=login">
-                                    Đăng nhập
-                                </a>                          
-                                </div>';
-                            }
+                    <div class="hd-log">
+                        <div class="login-ic">
+                            <a href="#"> <i class="fa-regular fa-circle-user"></i>
+                            </a>
+                        </div>
+                        <?php
+                        if (isset($_SESSION['user']) && $_SESSION['user']['role'] === 'Customer') {
+                            // Khi người dùng đã đăng nhập
+                            echo '<div class="login user-dropdown-container">  
+                                    <a href="javascript:void(0);" class="user-name-link"> ' . htmlspecialchars($_SESSION['user']['full_name']) . '
+                                    <ul class="user-options-dropdown"> 
+                                        <li><a href="index.php?page=profile">Thông tin cá nhân</a></li>
+                                        <li><a class="logout" href="app/controler/logout.php">Đăng xuất</a></li>
+                                    </ul>
+                                  </div>';
+                        } else {
+                            // Khi người dùng chưa đăng nhập
+                            echo '<div class="login">    
+                                    <a href="index.php?page=login">
+                                        Đăng nhập
+                                    </a>                          
+                                  </div>';
+                        }
                             // echo '<pre>';
                             // var_dump($_SESSION);
                             // echo '</pre>';            
                             ?>
                         </div>
-                    </div>
-                    
+                    </div>                    
                     <div class="header-bottom">
             
                         <div class="hd-bottom-action">

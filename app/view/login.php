@@ -1,6 +1,6 @@
 <body class="web-login">
     <div class="container d-flex justify-content-start align-items-center min-vh-100">
-        <div class="card p-3" style="width: 400px;">
+        <div class="card p-3" style="width: 400px; background-color: #fff;">
             <!-- Tab Navigation -->
             <ul class="nav nav-tabs nav-fill" id="authTabs" role="tablist">
                 <li class="nav-item">

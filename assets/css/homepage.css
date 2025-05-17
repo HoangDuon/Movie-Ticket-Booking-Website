@@ -31,6 +31,7 @@ html {
 /* ------------------------------------------------ */
 
 body {
+    overflow-x: hidden;
     font-family: "Montserrat", sans-serif;
     font-size: 1.6rem;
     margin: 0;
@@ -436,6 +437,17 @@ header {
     border: none;
 }
 
+.card {
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+}
+
+.card-body .card-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #f8fafc;
+}
+
 .vip-members .card .card-body h5 {
     font-size: 3rem;
     font-weight: 800;
@@ -470,7 +482,6 @@ footer {
     padding: 1.4rem 2rem;
     border-radius: 1rem;
     text-decoration: none;
-
     display: inline-flex; /* Đảm bảo nội dung bên trong căn giữa */
     align-items: center;
     justify-content: center;

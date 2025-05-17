@@ -108,3 +108,59 @@ input[type="password"]::-webkit-contacts-auto-fill-button,
 input[type="password"]::-webkit-textfield-decoration-container {
     display: none !important;
 }
+
+/* CSS cho khu vực đăng nhập và dropdown của người dùng */
+
+.hd-log {
+    /* Các style hiện tại của bạn cho .hd-log */
+    display: flex; /* Giúp icon và tên/login thẳng hàng */
+    align-items: center;
+}
+
+.login.user-dropdown-container {
+    position: relative; /* Cần thiết để định vị menu xổ xuống con */
+    cursor: pointer; /* Cho biết có thể tương tác khi hover */
+}
+
+.user-name-link {
+    text-decoration: none;
+    /* color: #ee1818; */
+    padding: 8px 0; /* Hoặc padding khác tùy bạn */
+    /* display: inline-block; */
+    display: hidden;
+}
+
+.user-options-dropdown {
+    display: none; /* Ẩn menu xổ xuống ban đầu */
+    position: absolute;
+    top: 100%; /* Hiển thị ngay bên dưới tên người dùng */
+    left: 0; /* Căn lề trái với .user-dropdown-container */
+    background-color: #0f172a;
+    min-width: 200px; /* Chiều rộng tối thiểu của menu, điều chỉnh nếu cần */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    list-style-type: none;
+    padding: 5px 0; /* Padding trên dưới cho ul */
+    margin: 5px 0 0 0; /* Khoảng cách nhỏ từ tên người dùng xuống menu */
+    z-index: 100; /* Đảm bảo menu nằm trên các phần tử khác */
+}
+
+/* Hiển thị menu xổ xuống khi hover vào .user-dropdown-container */
+.login.user-dropdown-container:hover .user-options-dropdown {
+    display: block;
+}
+
+.user-options-dropdown li a {
+    color: #ffffff;
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 1.6rem; /* Cỡ chữ cho các mục menu */
+    white-space: nowrap; /* Ngăn các mục menu xuống dòng */
+    transition: background-color 0.2s ease;
+}
+
+.user-options-dropdown li a:hover {
+    /* color: #000; */
+}

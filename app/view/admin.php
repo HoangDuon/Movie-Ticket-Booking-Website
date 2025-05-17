@@ -2,17 +2,6 @@
 session_start();
 ?>
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý hệ thống</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../../assets/css/admin.css">
-</head>
 <?php
 include "../controler/user_services.php";
 include "../controler/film_services.php";
@@ -42,57 +31,7 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .navbar-custom {
-            background-color: #212529;
-            height: 50px;
-        }
-        .navbar-custom .navbar-brand {
-            color: white;
-            font-weight: bold;
-        }
-        .navbar-custom .logout {
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        .navbar-custom .logout:hover {
-            color: #adb5bd;
-        }
-        .sidebar {
-            width: 250px;
-            height: 100vh;
-            background-color: #343a40;
-            position: fixed;
-            top: 50px;
-            left: 0;
-            padding-top: 20px;
-        }
-        .sidebar a {
-            display: block;
-            color: white;
-            padding: 12px;
-            text-decoration: none;
-        }
-        .sidebar a:hover, .sidebar a.active {
-            background-color: #495057;
-        }
-        .content {
-            margin-top: 50px;
-            margin-left: 250px;
-            padding: 20px;
-        }
-            /* Đặt kích thước cho poster phim */
-    .movie-poster {
-        width: 100px;
-        height: auto;
-        border-radius: 5px;
-        object-fit: cover;
-    }
-    </style>
+    <link rel="stylesheet" href="../../assets/css/admin.css">
 </head>
 <body>
 <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
@@ -101,7 +40,7 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
     <div class="container-fluid">
         <a class="navbar-brand ms-2" href="#">ADMIN SITE</a>
         <div class="d-flex me-3">
-            <a class="logout" href="#"><i class="bi bi-box-arrow-right"></i> Đăng xuất</a>
+            <a class="logout" href="../controler/logout.php"><i class="bi bi-box-arrow-right"></i> Đăng xuất</a>
         </div>
     </div>
 </nav>
@@ -131,11 +70,89 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
 </div>
 
 <div class="content" id="content">
-    <div id="page-dashboard">
-        <h2>Dashboard</h2>
-        <p>Chào mừng bạn đến với hệ thống quản lý.</p>
-    </div>
 
+<div id="page-dashboard">
+    <h2 class="heading2">Dashboard</h2>
+    <p>Chào mừng bạn đến với hệ thống quản lý, <?php echo isset($_SESSION['user']['full_name']) ? htmlspecialchars($_SESSION['user']['full_name']) : 'Admin'; ?>!</p>
+    <hr>
+
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Tổng số phim</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo count($films); // Giả sử $films là mảng phim đã lấy ?></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-film fs-2 text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Người dùng đăng ký</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo count($users); // Giả sử $users là mảng người dùng ?></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-people fs-2 text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Số rạp hoạt động</div>
+                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo count($cinemas); ?></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-building fs-2 text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Xuất chiếu hôm nay</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <?php 
+                                    // Phần này cần logic PHP để đếm xuất chiếu hôm nay
+                                    $todayShowtimes = 0;
+                                    // foreach($showtimes as $st) { if (date('Y-m-d', strtotime($st['start_time'])) == date('Y-m-d')) $todayShowtimes++; }
+                                    // echo $todayShowtimes;
+                                    echo "N/A"; // Placeholder, bạn cần tự code logic này
+                                ?>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-calendar-event fs-2 text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
     <!-- NGƯỜI DÙNG -->
     <div id="page-users" style="display: none;">
         <h2>Quản lý người dùng</h2>
