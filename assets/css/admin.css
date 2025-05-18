@@ -2,6 +2,62 @@ body {
     font-family: Arial, sans-serif;
 }
 
+#page-dashboard h2 {
+    color: #333;
+    border-bottom: 2px solid #4e73df; /* Đường gạch chân màu primary */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+#page-dashboard p { /* Lời chào mừng */
+    font-size: 1.4rem;
+    color: #555;
+}
+
+/* CSS cho Card Dashboard */
+#page-dashboard .card {
+    border: none;
+    transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
+}
+
+#page-dashboard .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+#page-dashboard .card .card-body {
+    padding: 1.5rem;
+}
+
+#page-dashboard .card .text-xs {
+    font-size: 0.8rem;
+}
+
+#page-dashboard .card .fs-2 {
+    font-size: 2.5rem !important; 
+}
+
+#page-dashboard .text-gray-300 {
+    color: #dddfeb !important;
+}
+#page-dashboard .text-gray-800 {
+    color: #5a5c69 !important;
+}
+
+#page-dashboard .border-left-primary {
+    border-left: 0.25rem solid #4e73df !important;
+}
+#page-dashboard .border-left-success {
+    border-left: 0.25rem solid #1cc88a !important;
+}
+#page-dashboard .border-left-info {
+    border-left: 0.25rem solid #36b9cc !important;
+}
+#page-dashboard .border-left-warning {
+    border-left: 0.25rem solid #f6c23e !important;
+}
+
+
 .navbar-custom {
   background-color: #212529;
   height: 50px;
@@ -137,6 +193,7 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 9999;
+  overflow-y: auto;
 }
 
 .modal-content {
@@ -149,6 +206,8 @@ body {
   position: relative;
   animation: fadeIn 0.3s ease-in-out !important;
   color: #333;           /* chữ tối cho contrast */
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .close-button {

@@ -380,7 +380,7 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
             </div>
             <div class="form-group">
                 <label>Thời lượng:</label>
-                <input type="text" id="editDuration" name="duration">
+                <input type="number" id="editDuration" name="duration">
             </div>
             </div>
 
