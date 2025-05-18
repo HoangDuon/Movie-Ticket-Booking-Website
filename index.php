@@ -20,6 +20,9 @@
             case 'login':
                 include("../LTW/app/view/login.php");
                 break;
+            case 'profile':
+                include("../LTW/app/view/profile.php");
+                break;
             case 'movie-details':
                 $movie_id = $_GET['id'] ?? null;
                 $filmservices=new film_services();

@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
+    console.log("✅ File JS đã được load thành công!");
+
     const menuItems = document.querySelectorAll('.menu-item');
     const contentSections = document.querySelectorAll('.main-content-section');
 
@@ -76,4 +78,10 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
         }, 1000);
     }
+
+    document.getElementById("edit-button").addEventListener("click", function () {
+    console.log("active")
+    const inputs = document.querySelectorAll("#customer-info-content input");
+    inputs.forEach(input => input.removeAttribute("disabled"));
+    });
 });

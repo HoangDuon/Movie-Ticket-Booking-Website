@@ -73,7 +73,7 @@ class film_services{
     public function getMovieInfo() {
         $sql = "SELECT *
                 FROM movies
-                WHERE release_date < NOW()
+                WHERE release_date < NOW() and hide=0
                 ORDER BY order_index ASC";
         return pdo_query($sql);
     }

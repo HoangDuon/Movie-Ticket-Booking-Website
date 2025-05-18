@@ -23,14 +23,16 @@ class user_services{
     }
 
     public function login($email,$password){
-    $sql = "SELECT * FROM users WHERE email = ?";
+    $sql = "SELECT * FROM users WHERE email = ? and hide=0";
     $user = pdo_query_one($sql, $email);
     if ($user && password_verify($password, $user['password'])) {
-        return [
+        return [    
             'id' => $user['id'],
             'full_name' => $user['full_name'],
             'email' => $user['email'],
-            'role' => $user['role']
+            'role' => $user['role'],
+            'birthday' => $user['birthday'],
+            'phone' => $user['phone']
         ];
     }
 
