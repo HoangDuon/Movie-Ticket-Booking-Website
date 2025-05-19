@@ -1,8 +1,8 @@
-// script.js - JavaScript cho trang khuyến mãi
-
 // Banner slider variables
 let currentSlide = 0;
 const banners = document.querySelectorAll('.banner');
+const prevButton = document.querySelector('.banner-nav.prev');
+const nextButton = document.querySelector('.banner-nav.next');
 
 // Initialize banner backgrounds
 function initBanners() {
@@ -22,72 +22,51 @@ function showBanner(index) {
     currentSlide = index;
 }
 
-// Change banner (previous/next)
-function changeBanner(direction) {
-    currentSlide += direction;
-    
-    if (currentSlide >= banners.length) {
-        currentSlide = 0;
-    } else if (currentSlide < 0) {
-        currentSlide = banners.length - 1;
-    }
-    
-    showBanner(currentSlide);
-}
-
-// Auto slide functionality
-function autoSlide() {
-    changeBanner(1);
-}
-
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize banners
     initBanners();
-
-    setInterval(autoSlide, 3000); // Change every 5 seconds
+    
+    // Set up event listeners for navigation buttons
+    prevButton.addEventListener('click', () => {
+        changeBanner(-1);
+        // Reset auto slide timer when manually navigating
+        clearInterval(autoSlideInterval);
+        autoSlideInterval = startAutoSlide();
+    });
+    
+    nextButton.addEventListener('click', () => {
+        changeBanner(1);
+        // Reset auto slide timer when manually navigating
+        clearInterval(autoSlideInterval);
+        autoSlideInterval = startAutoSlide();
+    });
     
     // Banner click to redirect
     banners.forEach(banner => {
         banner.addEventListener('click', function() {
             console.log('Banner clicked!');
+            // Thêm hành động khi click vào banner ở đây
+            // Ví dụ: window.location.href = 'chi-tiet-khuyen-mai.html';
         });
     });
     
-    // Add click event for all promotion buttons
-    const promoButtons = document.querySelectorAll('.promo-button');
-    promoButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Get the promotion title from the parent card
-            const card = this.closest('.promotion-card');
-            const title = card.querySelector('h3').textContent;
-            
-            // Show alert with promotion info
-            alert(`Bạn đã chọn: ${title}\n\nChức năng đặt vé sẽ được cập nhật sớm!`);
-            
-            // Optional: Add animation effect
-            this.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 150);
-        });
-    });
-    
-    // Add hover effect for promotion cards
-    const promotionCards = document.querySelectorAll('.promotion-card');
-    promotionCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
+    // Add hover effect for promotion card
+    const promotionCard = document.querySelector('.promotion-card');
+    if (promotionCard) {
+        promotionCard.addEventListener('mouseenter', function() {
             this.style.borderColor = '#ff6b35';
         });
         
-        card.addEventListener('mouseleave', function() {
+        promotionCard.addEventListener('mouseleave', function() {
             this.style.borderColor = '#333';
         });
-    });
+    }
     
     // Add loading animation when page loads
     function addLoadingAnimation() {
-        const cards = document.querySelectorAll('.promotion-card');
-        cards.forEach((card, index) => {
+        const card = document.querySelector('.promotion-card');
+        if (card) {
             card.style.opacity = '0';
             card.style.transform = 'translateY(20px)';
             
@@ -95,64 +74,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                 card.style.opacity = '1';
                 card.style.transform = 'translateY(0)';
-            }, 100 * index);
-        });
+            }, 100);
+        }
     }
     
     // Call loading animation
     addLoadingAnimation();
-    
-    // Smooth scroll for internal links (nếu có)
-    function smoothScroll(target) {
-        const element = document.querySelector(target);
-        if (element) {
-            element.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    }
     
     // Optional: Add keyboard navigation for banners
     document.addEventListener('keydown', function(e) {
         // Left arrow key - previous banner
         if (e.key === 'ArrowLeft') {
             changeBanner(-1);
+            clearInterval(autoSlideInterval);
+            autoSlideInterval = startAutoSlide();
         }
         
         // Right arrow key - next banner
         if (e.key === 'ArrowRight') {
             changeBanner(1);
+            clearInterval(autoSlideInterval);
+            autoSlideInterval = startAutoSlide();
         }
     });
     
-    // Add intersection observer for animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in');
-            }
-        });
-    }, observerOptions);
-    
-    // Observe all promotion cards
-    promotionCards.forEach(card => {
-        observer.observe(card);
-    });
+    // Start auto slide
+    let autoSlideInterval = startAutoSlide();
 });
-
-// Function to format price (nếu cần thiết)
-function formatPrice(price) {
-    return new Intl.NumberFormat('vi-VN', {
-        style: 'currency',
-        currency: 'VND'
-    }).format(price);
-}
-
-// Export functions nếu cần sử dụng ở file khác
-// export { formatPrice, smoothScroll, changeBanner };

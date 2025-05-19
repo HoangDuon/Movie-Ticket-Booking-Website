@@ -3,159 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promotion</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Khuyến Mãi</title>
     <link rel="stylesheet" href="css/promotion.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Banner Section -->
+    
     <div class="banner-slider">
         <div class="banner-container">
-            <div class="banner active banner-img" data-bg="img/joker.jpg">
-                <div class="banner-content">
-                    <h1>CinePlex</h1>
-                    <p>Khuyến mãi đặc biệt - Trải nghiệm điện ảnh tuyệt vời</p>
-                </div>
-            </div>
-
-            <div class="banner banner-img" data-bg="img/soda.jpg">
-                <div class="banner-content">
-                    <h1>Giảm Giá Đặc Biệt</h1>
-                    <p>Đặt vé ngay hôm nay để nhận ưu đãi lớn!</p>
-                </div>
-            </div>
-
-            <div class="banner banner-img" data-bg="img/tea.jpg">
-                <div class="banner-content">
-                    <h1>Ưu Đãi Đặc Biệt</h1>
-                    <p>Tiết kiệm tới 50% cho vé xem phim</p>
-                </div>
+            <div class="banner active" data-bg="img/joker.jpg">
             </div>
         </div>
-        
-        <!-- Navigation buttons -->
-        <button class="banner-nav prev" onclick="changeBanner(-1)">
-            <span>&lsaquo;</span>
-        </button>
-        <button class="banner-nav next" onclick="changeBanner(1)">
-            <span>&rsaquo;</span>
-        </button>
     </div>
 
     <!-- Title Section -->
     <div class="title-section">
-        <h2>ƯU ĐÃI TRONG THÁNG</h2>
+        <h2>C'STUDENT - 45K CHO HỌC SINH SINH VIÊN</h2>
     </div>
 
     <!-- Content Section -->
-    <div class="content-section">
-        <div class="container-fluid">
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="promotion-card h-100 d-flex flex-column">
-                        <h3>Combo Gia Đình Siêu Tiết Kiệm</h3>
-                        <p>Thưởng thức phim cùng gia đình với giá ưu đãi không thể bỏ qua!</p>
-                        <div class="promotion-details flex-grow-1">
-                            <ul>
-                                <li>4 vé phim 2D (ghế thường)</li>
-                                <li>2 bỏng ngô size L</li>
-                                <li>4 nước ngọt size M</li>
-                                <li>Giá chỉ: 450.000đ</li>
-                            </ul>
-                        </div>
-                        <button class="promo-button"><span>Đặt Ngay</span></button>
-                        <div class="validity">Có hiệu lực đến 31/12/2024</div>
-                    </div>
-                </div>
+    <div class="container">
+        <div class="promotion-detail">
+            <div class="promotion-card">
+                <h2>Chi Tiết Ưu Đãi</h2>
+                <div class="promotion-content">
+                    <p>Cinestar mang đến ưu đãi đặc biệt dành riêng cho các bạn học sinh, sinh viên, giáo viên và người dưới 22 tuổi!</p>
 
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="promotion-card h-100 d-flex flex-column">
-                        <h3>Thứ 3 Vui Vẻ</h3>
-                        <p>Giảm giá 50% vé phim cho tất cả suất chiếu vào thứ 3!</p>
-                        <div class="promotion-details flex-grow-1">
-                            <ul>
-                                <li>Áp dụng tất cả phim đang chiếu</li>
-                                <li>Tặng 1 nước ngọt miễn phí</li>
-                                <li>Không áp dụng cho ghế VIP</li>
-                                <li>Giảm giá: 50%</li>
-                            </ul>
-                        </div>
-                        <button class="promo-button"><span>Xem Chi Tiết</span></button>
-                        <div class="validity">Áp dụng tất cả thứ 3 trong tháng</div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="promotion-card h-100 d-flex flex-column">
-                        <h3>Happy Hour</h3>
-                        <p>Giờ vàng với giá vé ưu đãi cho các suất chiếu buổi sáng!</p>
-                        <div class="promotion-details flex-grow-1">
-                            <ul>
-                                <li>Suất chiếu từ 9:00 - 11:00</li>
-                                <li>Giá vé chỉ từ 75.000đ</li>
-                                <li>Tặng kèm bỏng ngọt</li>
-                                <li>Áp dụng thứ 2 đến thứ 6</li>
-                            </ul>
-                        </div>
-                        <button class="promo-button"><span>Đặt Vé Ngay</span></button>
-                        <div class="validity">Từ thứ 2 đến thứ 6 hàng tuần</div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="promotion-card h-100 d-flex flex-column">
-                        <h3>Student Deal</h3>
-                        <p>Ưu đãi đặc biệt cho sinh viên với giá vé cực hấp dẫn!</p>
-                        <div class="promotion-details flex-grow-1">
-                            <ul>
-                                <li>Giảm 30% vé học sinh - sinh viên</li>
-                                <li>Combo bỏng + nước giá chỉ 69.000đ</li>
-                                <li>Có hiệu lực với thẻ sinh viên</li>
-                                <li>Áp dụng tất cả các ngày</li>
-                            </ul>
-                        </div>
-                        <button class="promo-button"><span>Áp Dụng Ngay</span></button>
-                        <div class="validity">Quanh năm cho sinh viên</div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="promotion-card h-100 d-flex flex-column">
-                        <h3>Couple Night</h3>
-                        <p>Đêm hẹn hò lý tưởng với combo couple đặc biệt!</p>
-                        <div class="promotion-details flex-grow-1">
-                            <ul>
-                                <li>2 vé phim (ghế đôi)</li>
-                                <li>1 bỏng ngô caramel size L</li>
-                                <li>2 nước ngọt size M</li>
-                                <li>Giá trọn gói: 320.000đ</li>
-                            </ul>
-                        </div>
-                        <button class="promo-button"><span>Book Ngay</span></button>
-                        <div class="validity">Thứ 7 - Chủ nhật hàng tuần</div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="promotion-card h-100 d-flex flex-column">
-                        <h3>Early Bird</h3>
-                        <p>Đặt vé sớm để nhận ưu đãi hấp dẫn!</p>
-                        <div class="promotion-details flex-grow-1">
-                            <ul>
-                                <li>Đặt trước 3 ngày: giảm 20%</li>
-                                <li>Đặt trước 7 ngày: giảm 35%</li>
-                                <li>Áp dụng tất cả rạp</li>
-                                <li>Không giới hạn số lượng vé</li>
-                            </ul>
-                        </div>
-                        <button class="promo-button"><span>Đặt Sớm</span></button>
-                        <div class="validity">Quanh năm</div>
-                    </div>
+                    <h3>Điều kiện áp dụng:</h3>
+                    <ul class="promotion-list">
+                        <li>Học sinh, sinh viên: Xuất trình thẻ học sinh/sinh viên còn hiệu lực</li>
+                        <li>Giáo viên: Xuất trình thẻ giáo viên còn hiệu lực</li>
+                        <li>Người dưới 22 tuổi: Xuất trình CMND/CCCD/Hộ chiếu còn hiệu lực</li>
+                        <li>Mỗi thẻ chỉ được mua 01 vé ưu đãi</li>
+                    </ul>
+                    
+                    <button class="promo-button"><span>Áp Dụng Ngay</span></button>
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/promotion.js"></script>
 </body>
 </html>
