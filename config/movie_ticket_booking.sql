@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 17, 2025 lúc 12:49 PM
+-- Thời gian đã tạo: Th5 19, 2025 lúc 04:37 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Cơ sở dữ liệu: `movie_ticket_booking`
 --
+CREATE DATABASE IF NOT EXISTS `movie_ticket_booking` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `movie_ticket_booking`;
 
 -- --------------------------------------------------------
 
@@ -99,7 +101,6 @@ CREATE TABLE `booking_details` (
   `detail_id` int(11) NOT NULL,
   `booking_id` int(11) NOT NULL,
   `seat_id` int(11) NOT NULL,
-  `price` decimal(10,2) NOT NULL,
   `link` varchar(255) DEFAULT NULL,
   `hide` tinyint(1) DEFAULT 0,
   `order_index` int(11) DEFAULT NULL,
@@ -110,15 +111,15 @@ CREATE TABLE `booking_details` (
 -- Đang đổ dữ liệu cho bảng `booking_details`
 --
 
-INSERT INTO `booking_details` (`detail_id`, `booking_id`, `seat_id`, `price`, `link`, `hide`, `order_index`, `created_at`) VALUES
-(3, 3, 3, 200000.00, 'https://link.example.com', 0, 3, '2025-04-23 12:23:40'),
-(4, 4, 4, 240000.00, 'https://link.example.com', 0, 4, '2025-04-23 12:23:40'),
-(5, 5, 5, 210000.00, 'https://link.example.com', 0, 5, '2025-04-23 12:23:40'),
-(6, 6, 6, 270000.00, 'https://link.example.com', 0, 6, '2025-04-23 12:23:40'),
-(7, 7, 7, 300000.00, 'https://link.example.com', 0, 7, '2025-04-23 12:23:40'),
-(8, 8, 8, 260000.00, 'https://link.example.com', 0, 8, '2025-04-23 12:23:40'),
-(9, 9, 9, 240000.00, 'https://link.example.com', 0, 9, '2025-04-23 12:23:40'),
-(10, 10, 10, 310000.00, 'https://link.example.com', 0, 10, '2025-04-23 12:23:40');
+INSERT INTO `booking_details` (`detail_id`, `booking_id`, `seat_id`, `link`, `hide`, `order_index`, `created_at`) VALUES
+(3, 3, 3, 'https://link.example.com', 0, 3, '2025-04-23 12:23:40'),
+(4, 4, 4, 'https://link.example.com', 0, 4, '2025-04-23 12:23:40'),
+(5, 5, 5, 'https://link.example.com', 0, 5, '2025-04-23 12:23:40'),
+(6, 6, 6, 'https://link.example.com', 0, 6, '2025-04-23 12:23:40'),
+(7, 7, 7, 'https://link.example.com', 0, 7, '2025-04-23 12:23:40'),
+(8, 8, 8, 'https://link.example.com', 0, 8, '2025-04-23 12:23:40'),
+(9, 9, 9, 'https://link.example.com', 0, 9, '2025-04-23 12:23:40'),
+(10, 10, 10, 'https://link.example.com', 0, 10, '2025-04-23 12:23:40');
 
 -- --------------------------------------------------------
 
@@ -313,8 +314,8 @@ CREATE TABLE `promotions` (
 --
 
 INSERT INTO `promotions` (`promotion_id`, `title`, `content`, `banner_url`, `created_at`, `link`, `hide`, `order_index`) VALUES
-(1, 'Giảm giá mùa hè 2025', 'Tận hưởng mùa hè rực rỡ với ưu đãi giảm giá 30% cho mọi suất chiếu từ 1/6 đến 30/6.', 'assets/img/summer2025.jpg', '2025-05-05 15:41:28', NULL, 0, 1),
-(2, 'Combo bắp nước siêu rẻ', 'Chỉ với 49K, nhận ngay 1 bắp + 1 nước. Áp dụng tại tất cả các rạp toàn quốc.', 'assets/img/combo_deal.jpg', '2025-05-05 15:41:28', NULL, 0, 2),
+(1, 'Giảm giá mùa hè 2025', 'Tận hưởng mùa hè rực rỡ với ưu đãi giảm giá 30% cho mọi suất chiếu từ 1/6 đến 30/6.', '/LTW/assets/img/summer2025.jpg', '2025-05-05 15:41:28', NULL, 0, 1),
+(2, 'Combo bắp nước siêu rẻ', 'Chỉ với 49K, nhận ngay 1 bắp + 1 nước. Áp dụng tại tất cả các rạp toàn quốc.', '/LTW/assets/img/combo_deal.jpg', '2025-05-05 15:41:28', NULL, 0, 2),
 (3, 'Ngày hội thành viên', 'Thành viên Silver trở lên được giảm 15% mọi hóa đơn trong ngày 10 hàng tháng.', 'assets/img/member_day.jpg', '2025-05-05 15:41:28', NULL, 0, 3),
 (4, 'Ưu đãi học sinh - sinh viên', 'Xuất trình thẻ HSSV để được giảm 25% vé xem phim từ thứ 2 đến thứ 5.', 'assets/img/student_offer.jpg', '2025-05-05 15:41:28', NULL, 0, 4),
 (5, 'Khuyến mãi cuối tuần này', '<p><strong>Mua v&eacute; thứ 7</strong>, chủ nhật nhận ngay 1 combo bắp nước miễn ph&iacute;.</p>\r\n', 'assets/img/sales-1.webp', '2025-05-05 15:41:28', NULL, 0, 5),
@@ -655,10 +656,11 @@ INSERT INTO `users` (`user_id`, `full_name`, `email`, `password`, `phone`, `birt
 (6, 'Pham Minh Hoang', 'hoang@example.com', '$2y$10$mJQEWw7gu95Z2S507LU/f.fEgo9SMAWMTJftltOQHJphq8bM7bn4W', '0971234567', '1991-06-30', 'Customer', 'Diamond', '2025-04-23 12:20:54', 'https://link.example.com', 0, 6),
 (7, 'Tran Thi Thanh', 'thanh@example.com', '$2y$10$K8lMnZC7F.4rNEGhshXIu.aN9RngQoVCKtJQrNFX55.UN65/yIKUW', '0903456789', '1993-03-25', 'Customer', 'Silver', '2025-04-23 12:20:54', 'https://link.example.com', 0, 7),
 (8, 'Le Thi Mai', 'mai2@example.com', '$2y$10$hQiqcoVKxeP2jJvy2o2DiOOyS9LEk1w68/wqTWINmNAMkp508I8MO', '0967654321', '1995-11-15', 'Customer', 'Gold', '2025-04-23 12:20:54', 'https://link.example.com', 0, 8),
-(9, 'Nguyen Bao Han', 'han@example.com', '$2y$10$UyynL5cbCpw9vjMK9Lukw.i3dsi7e9D8Mnj.h3/lAWWKY/yBG4S9e', '0982345678', '1990-07-22', 'Admin', 'Gold', '2025-04-23 12:20:54', 'https://link.example.com', 0, 9),
+(9, 'Nguyen Bao Han', 'han@example.com', '$2y$10$UyynL5cbCpw9vjMK9Lukw.i3dsi7e9D8Mnj.h3/lAWWKY/yBG4S9e', '0982345678', '1990-07-22', 'Customer', 'Gold', '2025-04-23 12:20:54', 'https://link.example.com', 0, 9),
 (10, 'Phan Thi Lan', 'lan2@example.com', '$2y$10$grmByn5a6Mpe2/tOoTOT9ObqiAPv2AFELI69C50kQh867vLJsOase', '0934345678', '1987-12-10', 'Customer', 'None', '2025-04-23 12:20:54', 'https://link.example.com', 1, 10),
-(13, 'Duong Hoang', 'hd34227@gmail.com', '$2y$10$5619w.WL3ehiJIwbrgWdd.kP/lKHj2S9Ez9lbaz5AGZRaez7z4joO', '0928051363', '2025-04-07', 'Admin', 'Diamond', '2025-04-24 13:52:20', NULL, 1, NULL),
-(15, 'ADMIN', 'ADMIN@gmail.com', '$2y$10$FuTrTxDRLbrPRmSJ/Cdbd.YZmgaWfj6iZmeNuTQlub3xUyG0n3wz6', '0', '2025-04-01', 'Admin', 'Diamond', '2025-04-24 14:03:36', NULL, 0, NULL);
+(13, 'Duong Hoang', 'hd34227@gmail.com', '$2y$10$pA5OuBgyQWcUa0EtYHN1l.pgO4ek9Tf8z2BQP/DkczzHVk2qwWTvi', '0928051366', '2025-04-07', 'Customer', 'Diamond', '2025-04-24 13:52:20', NULL, 0, NULL),
+(15, 'ADMIN', 'ADMIN@gmail.com', '$2y$10$FuTrTxDRLbrPRmSJ/Cdbd.YZmgaWfj6iZmeNuTQlub3xUyG0n3wz6', '0', '2025-04-01', 'Admin', 'Diamond', '2025-04-24 14:03:36', NULL, 0, NULL),
+(16, 'Hoàng', 'kophailamdau@gmail.com', '$2y$10$7zpErqUIhZ4q3JcBcw4FoepPL2twdP7h35r8j1vZjjioy9VuO8IpW', '0928051332', '2025-05-05', 'Customer', 'None', '2025-05-19 10:45:11', NULL, 0, NULL);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -830,7 +832,7 @@ ALTER TABLE `showtimes`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
