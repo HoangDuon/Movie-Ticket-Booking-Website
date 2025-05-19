@@ -6,12 +6,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // exit;   
 
     $user = new user_services();
-    $email = $_POST['username'];
-    $password = $_POST['password'];
+    $email = $_POST['username'] ?? '';
+    $password = $_POST['password'] ?? '';
 
     $user_info = $user->login($email, $password);
 
     if ($user_info) {
+
+        unset($_SESSION['login_error_message_text']); // Xóa lỗi nếu có từ lần trước
         $_SESSION['user'] = $user_info;
         if ($user_info['role'] === 'Admin') {
             header("Location: /LTW/app/view/admin.php");
@@ -26,7 +28,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </script>";
                 exit;
         }
-
-    
 }
 ?>

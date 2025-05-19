@@ -164,3 +164,8 @@ input[type="password"]::-webkit-textfield-decoration-container {
 .user-options-dropdown li a:hover {
     /* color: #000; */
 }
+
+.login-error-message-inline {
+  font-weight: bold;
+  font-size: 1.4rem;
+}

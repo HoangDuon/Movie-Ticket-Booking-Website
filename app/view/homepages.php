@@ -208,8 +208,8 @@
 
                         <div class="carousel-indicators">
                             <?php // Tạo indicators động dựa trên số slide
-                            if ($totalSlides > 0):
-                                for ($i = 0; $i < $totalSlides; $i++):
+                            if ($totalSlides > 0): ?>
+                            <?php    for ($i = 0; $i < $totalSlides; $i++):
                             ?>
                                     <button type="button"
                                             data-bs-target="#carouselExampleIndicators1"
@@ -233,7 +233,6 @@
                                     $activeClass = ($index == 0) ? 'active' : ''; // Xác định slide active
                             ?>
                                     <div class="carousel-item <?= $activeClass ?>">
-                                        <div class="container text-center">
                                             <div class="row row-cols-1 row-cols-md-4 g-4">
                                                 <?php
                                                 // Lặp qua từng phim trong nhóm hiện tại
@@ -271,9 +270,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                <?php endforeach; // Kết thúc vòng lặp phim trong chunk ?>
-                                            </div>
+                                                </div>
+                                            <?php endforeach; // Kết thúc vòng lặp phim trong chunk ?>
                                         </div>
                                     </div>
                             <?php
@@ -281,14 +279,12 @@
                             else: // Trường hợp không có phim sắp chiếu nào
                             ?>
                                 <div class="carousel-item active">
-                                    <div class="container text-center">
-                                        <div class="row">
+                                        <div class="row row-cols-1 row-cols-md-4 g-4">
                                             <div class="col">
                                                 <p class="my-5">Chưa có thông tin phim sắp chiếu.</p>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                             <?php endif;?>
                         </div>
 
@@ -302,7 +298,7 @@
                         </button>
                     </div>
                 </div>
-
+                
                 <div class="heading-phim khuyen-mai">
                     <h1>KHUYẾN MÃI</h1>
                 </div>

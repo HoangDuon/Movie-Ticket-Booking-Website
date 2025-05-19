@@ -112,12 +112,6 @@
                                     <a href="#">Khuyến mãi</a>
                                 </li>
                                 <li>
-                                    <a href="#">Thuê sự kiện</a>
-                                </li>
-                                <li>
-                                    <a href="#">Tất cả các giải trí</a>
-                                </li>
-                                <li>
                                     <a href="#">Giới thiệu</a>
                                 </li>
                             </ul>
