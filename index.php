@@ -23,6 +23,9 @@
             case 'profile':
                 include("../LTW/app/view/profile.php");
                 break;
+            case 'payment':
+                include("../LTW/app/view/payment.php");
+                break;
             case 'movie-details':
                 $movie_id = $_GET['id'] ?? null;
                 $filmservices=new film_services();

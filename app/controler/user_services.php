@@ -8,12 +8,16 @@ class user_services{
     public function add_User($name,$dob,$phone,$email,$password){
         
         if ($this->isEmailExists($email)) {
-            echo "<script>alert('Email đã được sử dụng.');</script>";
+            echo "<script>alert('Email đã được sử dụng.');
+            window.history.back();
+            </script>";
             return;
         }
     
         if ($this->isPhoneExists($phone)) {
-            echo "<script>alert('Số điện thoại đã được sử dụng.');</script>";
+            echo "<script>alert('Số điện thoại đã được sử dụng.');
+            window.history.back();
+            </script>";
             return;
         }
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -27,7 +31,7 @@ class user_services{
     $user = pdo_query_one($sql, $email);
     if ($user && password_verify($password, $user['password'])) {
         return [    
-            'id' => $user['id'],
+            'id' => $user['user_id'],
             'full_name' => $user['full_name'],
             'email' => $user['email'],
             'role' => $user['role'],

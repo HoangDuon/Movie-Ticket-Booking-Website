@@ -81,88 +81,89 @@
 
 
 
-        // Xử lý form đăng ký
-        const registerForm = document.querySelector('#registerForm');
-        registerForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            let isCheck=true;
-            console.log('Form đăng ký đang được gửi');
-            // Lấy giá trị các trường
-            const fullName = document.querySelector('#fullName').value;
-            const dob = document.querySelector('#dob').value;
-            const phone = document.querySelector('#phone').value;
-            const email = document.querySelector('#email').value;
-            const passwordReg = document.querySelector('#passwordReg').value;
-            const passwordCon = document.querySelector('#passwordCon').value;
-            const terms = document.querySelector('#terms').checked;
+        // // Xử lý form đăng ký
+        // const registerForm = document.querySelector('#registerForm');
+        // registerForm.addEventListener('submit', (e) => {
+        //     e.preventDefault();
+        //     let isCheck=true;
+        //     console.log('Form đăng ký đang được gửi');
+        //     // Lấy giá trị các trường
+        //     const fullName = document.querySelector('#fullName').value;
+        //     const dob = document.querySelector('#dob').value;
+        //     const phone = document.querySelector('#phone').value;
+        //     const email = document.querySelector('#email').value;
+        //     const passwordReg = document.querySelector('#passwordReg').value;
+        //     const passwordCon = document.querySelector('#passwordCon').value;
+        //     const terms = document.querySelector('#terms').checked;
 
-            // Kiểm tra các trường và hiển thị thông báo lỗi
-            if (fullName === '') {
-                isCheck=false;
-                document.querySelector('#fullNameError').style.display = 'block';
-            } else {
-                document.querySelector('#fullNameError').style.display = 'none';
-            }
+        //     // Kiểm tra các trường và hiển thị thông báo lỗi
+        //     if (fullName === '') {
+        //         isCheck=false;
+        //         document.querySelector('#fullNameError').style.display = 'block';
+        //     } else {
+        //         document.querySelector('#fullNameError').style.display = 'none';
+        //     }
 
-            if (dob === '') {
-                isCheck=false;
-                document.querySelector('#dobError').style.display = 'block';
-            } else {
-                document.querySelector('#dobError').style.display = 'none';
-            }
+        //     if (dob === '') {
+        //         isCheck=false;
+        //         document.querySelector('#dobError').style.display = 'block';
+        //     } else {
+        //         document.querySelector('#dobError').style.display = 'none';
+        //     }
 
-            if (phone === '') {
-                isCheck=false;
-                document.querySelector('#phoneError').style.display = 'block';
-            } else if (!validatePhone(phone)) {
-                document.querySelector('#phoneError').textContent = 'Số điện thoại không hợp lệ.';
-                document.querySelector('#phoneError').style.display = 'block';
-                isCheck=false;
-            }
-            else {
-                document.querySelector('#phoneError').style.display = 'none';
-            }
+        //     if (phone === '') {
+        //         isCheck=false;
+        //         document.querySelector('#phoneError').style.display = 'block';
+        //     } else if (!validatePhone(phone)) {
+        //         document.querySelector('#phoneError').textContent = 'Số điện thoại không hợp lệ.';
+        //         document.querySelector('#phoneError').style.display = 'block';
+        //         isCheck=false;
+        //     }
+        //     else {
+        //         document.querySelector('#phoneError').style.display = 'none';
+        //     }
 
-            if (email === '') {
-                isCheck=false;
-                document.querySelector('#emailError').style.display = 'block';
-            } else if (!validateEmail(email)) {
-                document.querySelector('#emailError').textContent = 'Email không hợp lệ.';
-                document.querySelector('#emailError').style.display = 'block';
-                isCheck=false;
-            } else {
-                document.querySelector('#emailError').style.display = 'none';
-            }
+        //     if (email === '') {
+        //         isCheck=false;
+        //         document.querySelector('#emailError').style.display = 'block';
+        //     } else if (!validateEmail(email)) {
+        //         document.querySelector('#emailError').textContent = 'Email không hợp lệ.';
+        //         document.querySelector('#emailError').style.display = 'block';
+        //         isCheck=false;
+        //     } else {
+        //         document.querySelector('#emailError').style.display = 'none';
+        //     }
 
-            if (passwordReg === '') {
-                isCheck=false;
-                document.querySelector('#regPasswordError').style.display = 'block';
-            } else {
-                document.querySelector('#regPasswordError').style.display = 'none';
-            }
+        //     if (passwordReg === '') {
+        //         isCheck=false;
+        //         document.querySelector('#regPasswordError').style.display = 'block';
+        //     } else {
+        //         document.querySelector('#regPasswordError').style.display = 'none';
+        //     }
 
-            if (passwordCon === '') {
-                document.querySelector('#confirmPasswordError').style.display = 'block';
-                isCheck=false;
-            } else if (!validatePassword(passwordReg, passwordCon)) {
-                document.querySelector('#confirmPasswordError').textContent = 'Mật khẩu xác thực không khớp.';
-                document.querySelector('#confirmPasswordError').style.display = 'block';
-                isCheck=false;
-            } else {
-                document.querySelector('#confirmPasswordError').style.display = 'none';
-            }
+        //     if (passwordCon === '') {
+        //         document.querySelector('#confirmPasswordError').style.display = 'block';
+        //         isCheck=false;
+        //     } else if (!validatePassword(passwordReg, passwordCon)) {
+        //         document.querySelector('#confirmPasswordError').textContent = 'Mật khẩu xác thực không khớp.';
+        //         document.querySelector('#confirmPasswordError').style.display = 'block';
+        //         isCheck=false;
+        //     } else {
+        //         document.querySelector('#confirmPasswordError').style.display = 'none';
+        //     }
 
-            if (!terms) {
-                document.querySelector('#termsError').style.display = 'block';
-                isCheck=false;
-            } else {
-                document.querySelector('#termsError').style.display = 'none';
-            }
+        //     if (!terms) {
+        //         document.querySelector('#termsError').style.display = 'block';
+        //         isCheck=false;
+        //     } else {
+        //         document.querySelector('#termsError').style.display = 'none';
+        //     }
 
-            if (isCheck) {
-                registerForm.submit();
-            }
-        });
+        //     if (isCheck) {
+        //         console.log("Sending form")
+        //         registerForm.submit();
+        //     }
+        // });
 
         // Ẩn thông báo lỗi khi người dùng bắt đầu nhập lại
         document.querySelectorAll('input').forEach(input => {

@@ -21,31 +21,32 @@
                     </div>
                     <div class="menu-item mt-5">
                         <i class="fas fa-sign-out-alt"></i>
-                        <a href="login.html" class="logout-link">Đăng xuất</a>
+                        <a href="app/controler/logout.php" class="logout-link">Đăng xuất</a>
                     </div>
                 </div>
             </div>
             
             <!-- Main Content -->
             <div class="col-md-9 main-content">
+                <form method="POST" action="app/controler/update_profile.php">
                 <div id="customer-info-content" class="main-content-section">
                     <h2 class="title">THÔNG TIN KHÁCH HÀNG</h2>
                     <!-- Personal Information Section -->
                     <div class="content-box">
                         <h3 class="section-title">Thông tin cá nhân</h3>
-                        <button class="btn btn-secondary" id="edit-button">
+                        <button class="btn btn-secondary" id="edit-button" type="button">
                             <i class="bi bi-wrench"></i>
                         </button>
 
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="fullname">Họ và tên</label>
-                                <input type="text" class="form-control" id="fullname" value="<?= htmlspecialchars($_SESSION['user']['full_name']) ?>" disabled>
+                                <input type="text" class="form-control" name="fullname" id="fullname" value="<?= htmlspecialchars($_SESSION['user']['full_name']) ?>" disabled>
                             </div>
                             <div class="col-md-6">
                                 <label for="birthdate">Ngày sinh</label>
                                 <div class="input-group">
-                                    <input type="date" class="form-control" id="birthdate" value="<?= ($_SESSION['user']['birthday']) ?>" disabled>
+                                    <input type="date" class="form-control" name="birthdate" id="birthdate" value="<?= ($_SESSION['user']['birthday']) ?>" disabled>
                                 </div>
                             </div>
                         </div>
@@ -53,41 +54,43 @@
                         <div class="row mb-4">
                             <div class="col-md-6">
                                 <label for="phone">Số điện thoại</label>
-                                <input type="text" class="form-control" id="phone" value="<?= ($_SESSION['user']['phone']) ?>" disabled>
+                                <input type="text" class="form-control" id="phone" name="phone" value="<?= ($_SESSION['user']['phone']) ?>" disabled>
                             </div>
                             <div class="col-md-6">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" value="<?= ($_SESSION['user']['email']) ?>" disabled>
+                                <input type="email" class="form-control" id="email" name="email" value="<?= ($_SESSION['user']['email']) ?>" disabled>
                             </div>
                         </div>
                         
                         <div class="text">
-                            <button class="btn btn-save">LƯU THÔNG TIN</button>
+                            <button class="btn btn-save" type="submit">LƯU THÔNG TIN</button>
                         </div>
                     </div>
-                    
+                    </form>
+
                     <!-- Password Change Section -->
                     <div class="content-box mt-4">
                         <h3 class="section-title">Đổi mật khẩu</h3>
-                        
+                        <form method="POST" action="app/controler/change_password.php">
                         <div class="mb-3">
                             <label for="current-password">Mật khẩu cũ <span class="text-danger">*</span></label>
-                            <input type="password" class="form-control" id="current-password">
+                            <input type="password" class="form-control" id="current-password" name="current_password" require>
                         </div>
                         
                         <div class="mb-3">
                             <label for="new-password">Mật khẩu mới <span class="text-danger">*</span></label>
-                            <input type="password" class="form-control" id="new-password">
+                            <input type="password" class="form-control" id="new-password" name="new_password" require>
                         </div>
                         
                         <div class="mb-4">
                             <label for="confirm-password">Xác thực mật khẩu <span class="text-danger">*</span></label>
-                            <input type="password" class="form-control" id="confirm-password">
+                            <input type="password" class="form-control" id="confirm-password" name="confirm_password" required>
                         </div>
                         
                         <div class="text">
-                            <button class="btn btn-save">ĐỔI MẬT KHẨU</button>
+                            <button type="submit" class="btn btn-save">ĐỔI MẬT KHẨU</button>
                         </div>
+                        </form>
                     </div>
                 </div>
                 

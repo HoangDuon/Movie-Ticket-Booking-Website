@@ -26,39 +26,39 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    const saveInfoBtn = document.querySelector('.btn-save');
-    if (saveInfoBtn) {
-        saveInfoBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('Thông tin đã được lưu!');
-        });
-    }
+    // const saveInfoBtn = document.querySelector('.btn-save');
+    // if (saveInfoBtn) {
+    //     saveInfoBtn.addEventListener('click', function(e) {
+    //         e.preventDefault();
+    //         alert('Thông tin đã được lưu!');
+    //     });
+    // }
 
-    // Password change handler
-    const changePasswordBtn = document.querySelectorAll('.btn-save')[1];
-    if (changePasswordBtn) {
-        changePasswordBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            const currentPassword = document.getElementById('current-password').value;
-            const newPassword = document.getElementById('new-password').value;
-            const confirmPassword = document.getElementById('confirm-password').value;
+    // // Password change handler
+    // const changePasswordBtn = document.querySelectorAll('.btn-save')[1];
+    // if (changePasswordBtn) {
+    //     changePasswordBtn.addEventListener('click', function(e) {
+    //         e.preventDefault();
+    //         const currentPassword = document.getElementById('current-password').value;
+    //         const newPassword = document.getElementById('new-password').value;
+    //         const confirmPassword = document.getElementById('confirm-password').value;
 
-            if (!currentPassword || !newPassword || !confirmPassword) {
-                alert('Vui lòng điền đầy đủ thông tin!');
-                return;
-            }
+    //         if (!currentPassword || !newPassword || !confirmPassword) {
+    //             alert('Vui lòng điền đầy đủ thông tin!');
+    //             return;
+    //         }
 
-            if (newPassword !== confirmPassword) {
-                alert('Mật khẩu mới và xác nhận mật khẩu không khớp!');
-                return;
-            }
+    //         if (newPassword !== confirmPassword) {
+    //             alert('Mật khẩu mới và xác nhận mật khẩu không khớp!');
+    //             return;
+    //         }
 
-            alert('Mật khẩu đã được thay đổi thành công!');
-            document.getElementById('current-password').value = '';
-            document.getElementById('new-password').value = '';
-            document.getElementById('confirm-password').value = '';
-        });
-    }
+    //         alert('Mật khẩu đã được thay đổi thành công!');
+    //         document.getElementById('current-password').value = '';
+    //         document.getElementById('new-password').value = '';
+    //         document.getElementById('confirm-password').value = '';
+    //     });
+    // }
 
     function simulateLoadPurchaseHistory() {
         const tableBody = document.getElementById('purchase-history-data');

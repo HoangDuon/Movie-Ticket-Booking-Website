@@ -334,35 +334,22 @@ function initializeBookingButton() {
         total_price: Number.parseInt(document.getElementById("booking-total").textContent.replace(/[^\d]/g, "")),
       }
 
-      console.log("Booking data:", bookingData)
+      console.log("Booking data:", JSON.stringify(bookingData))
 
-      // Gửi dữ liệu đặt vé đến server
-      fetch("app/controler/create_booking.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(bookingData),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success) {
-            alert("Đặt vé thành công!")
-            window.location.href = "booking_confirmation.php?booking_id=" + data.booking_id
-          } else {
-            alert("Lỗi: " + data.message)
-          }
-        })
-        .catch((error) => {
-          console.error("Lỗi khi đặt vé:", error)
-          alert(
-            `Đặt vé thành công!\nGhế: ${selectedSeats.map((s) => s.id).join(", ")}\nTổng tiền: ${bookingData.total_price.toLocaleString()} VND`,
-          )
-        })
+      // Gửi dữ liệu bookingData sang payment.php bằng POST
+      const form = document.createElement("form")
+      form.method = "POST"
+      form.action = "index.php?page=payment"
 
-      alert(
-        `Đặt vé thành công!\nGhế: ${selectedSeats.map((s) => s.id).join(", ")}\nTổng tiền: ${bookingData.total_price.toLocaleString()} VND`,
-      )
+      const input = document.createElement("input")
+      input.type = "hidden"
+      input.name = "booking_data"
+      input.value = JSON.stringify(bookingData)
+
+      form.appendChild(input)
+      document.body.appendChild(form)
+      form.submit()
+
     })
   }
 }

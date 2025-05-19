@@ -56,22 +56,22 @@ function initCountdown() {
 // Chuyển đến bước thanh toán
 function goToPaymentStep() {
   // Kiểm tra form thông tin khách hàng
-  const fullName = document.getElementById("fullName").value
-  const phone = document.getElementById("phone").value
-  const email = document.getElementById("email").value
+  // const fullName = document.getElementById("fullName").value
+  // const phone = document.getElementById("phone").value
+  // const email = document.getElementById("email").value
   const ageCheck = document.getElementById("ageCheck").checked
   const termsCheck = document.getElementById("termsCheck").checked
 
   // Kiểm tra dữ liệu đầu vào
-  if (!fullName || !phone || !email || !ageCheck || !termsCheck) {
+  if (!ageCheck || !termsCheck) {
     alert("Vui lòng điền đầy đủ thông tin và đồng ý với các điều khoản.")
     return
   }
 
   // Lưu thông tin khách hàng vào localStorage thay vì cập nhật DOM
-  localStorage.setItem("customerName", fullName)
-  localStorage.setItem("customerPhone", phone)
-  localStorage.setItem("customerEmail", email)
+  // localStorage.setItem("customerName", fullName)
+  // localStorage.setItem("customerPhone", phone)
+  // localStorage.setItem("customerEmail", email)
 
   // Ẩn phần thông tin khách hàng
   document.getElementById("customer-section").style.display = "none"

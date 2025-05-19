@@ -20,7 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         exit();
         } else {
-            echo "Email hoặc mật khẩu không đúng!";
+                echo "<script>
+                    alert('Sai tài khoản hoặc mật khẩu');
+                    window.history.back();
+                    </script>";
+                exit;
         }
 
     
