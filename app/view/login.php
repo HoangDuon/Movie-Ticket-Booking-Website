@@ -47,6 +47,15 @@
                         </div>
                         
                         <!-- Đăng Nhập -->
+                        <div id="loginErrorMessageContainer" class="login-error-message-inline" 
+                            style="<?php echo (isset($_SESSION['login_error_message_text']) && !empty($_SESSION['login_error_message_text'])) ? 'display: block;' : 'display: none;'; ?> color: red; margin-bottom: 15px; text-align: center;">
+                            <?php
+                                if (isset($_SESSION['login_error_message_text']) && !empty($_SESSION['login_error_message_text'])) {
+                                    echo htmlspecialchars($_SESSION['login_error_message_text']); // Hiển thị thông báo lỗi
+                                    unset($_SESSION['login_error_message_text']); // Xóa thông báo lỗi khỏi session sau khi đã hiển thị
+                                }
+                            ?>
+                        </div>
                         <button type="submit" class="btn-warning" name="btn_log"><span>ĐĂNG NHẬP</span></button>
                     </form>
                 </div>
