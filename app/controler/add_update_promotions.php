@@ -26,7 +26,7 @@ $banner = upload_file('banner');
 if (empty($id)) {
     $sql = "INSERT INTO promotions (title, content ,banner_url)
             VALUES (?, ?, ?)";
-    pdo_execute($sql, $title, $content,$banner);
+    pdo_execute($sql, $title, $content, $banner);
 } else {
     // Cập nhật
     $sql = "UPDATE promotions SET title=?, content=?";
@@ -42,7 +42,7 @@ if (empty($id)) {
 
     pdo_execute($sql, ...$params);
 }
-header("Location: ../view/admin.php");
+header("Location: ../view/admin.php#promotions");
 // echo '<pre>';
 // print_r($_FILES);
 // echo '</pre>';
