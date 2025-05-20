@@ -94,7 +94,7 @@ body.web-login {
     color: #603ca4;
 }
 
-#togglePassword, #togglePasswordReg, #togglePasswordCon {
+#togglePassword, #togglePasswordReg, #togglePasswordCon, #toggleNewPassword, #toggleConfirmNewPassword {
     float: right;
     margin-top: -30px;
     margin-left: -25px;
@@ -168,4 +168,30 @@ input[type="password"]::-webkit-textfield-decoration-container {
 .login-error-message-inline {
   font-weight: bold;
   font-size: 1.4rem;
+}
+
+/* Styles cho phần quên mật khẩu */
+.forgot-password-container {
+    padding: 10px 0;
+}
+
+#resendOtp {
+    color: #603ca4;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+#resendOtp:hover {
+    text-decoration: underline;
+}
+
+.otp-countdown {
+    font-size: 14px;
+    color: #666;
+    margin-left: 10px;
+}
+
+#backToLoginLink {
+    display: inline-block;
+    margin-top: 10px;
 }
