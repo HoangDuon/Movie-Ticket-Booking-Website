@@ -744,6 +744,7 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
                 <tr>
                     <th>Loại</th>
                     <th>Tỉ lệ giảm (%)</th>
+                    <th>Nội dung</th>
                     <th>Chức năng</th>
                 </tr>
             </thead>
@@ -752,11 +753,13 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
                 <tr>
                     <td><?= $membership['member_type'] ?></td>
                     <td><?= $membership['discount_percent'] ?></td>
+                    <td><?= $membership['content'] ?></td>
                     <td>
                     <a href="#" class="btn btn-warning btn-sm"
                             onclick="showEditMemberForm(this)"
                             data-member="<?= $membership['member_type']?>"
                             data-discount="<?= $membership['discount_percent'] ?>"
+                            data-content="<?= $membership['content'] ?>"
                             >
                             <i class="bi bi-pencil-square"></i> Sửa
                         </a>
@@ -786,6 +789,12 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
                         <label>Giảm giá (%):</label>
                         <input type="text" id="editMemberDiscount" name="discount">
                     </div>
+                    <label>Nội dung:</label>
+                    <textarea name="content" id="editMemberContent" rows="5" class="form-control"></textarea>
+
+                    <script>
+                        CKEDITOR.replace('editMemberContent');
+                    </script>
                 </div>
                 <button type="submit">Lưu thay đổi</button>
             </form>
@@ -991,7 +1000,7 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
                         <?php endif; ?></td>
                     <td><?= $promotion['title'] ?></td>
                     <td><?= $promotion['content'] ?></td>
-                    <td><img src="../../<?= $promotion['banner_url']?>" class="promotion-banner" alt=""> </td>
+                    <td><img src="<?= $promotion['banner_url']?>" class="promotion-banner" alt=""> </td>
                     <td>
                     <a href="#" class="btn btn-warning btn-sm"
                             onclick="showPromotionEditForm(this)"

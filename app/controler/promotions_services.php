@@ -14,5 +14,10 @@ class promotions_services{
         $sql = "SELECT * FROM promotions WHERE hide=0 ORDER BY promotion_id DESC";
         return pdo_query($sql);
     }
+
+    public function getPromotionbyID($promotion_id){
+        $sql = "SELECT * FROM promotions WHERE hide=0 and promotion_id=?";
+        return pdo_query_one($sql,$promotion_id);
+    }
 }
 ?>  

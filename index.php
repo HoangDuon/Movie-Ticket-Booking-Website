@@ -26,6 +26,13 @@
             case 'payment':
                 include("../LTW/app/view/payment.php");
                 break;
+            case 'promotion-details':
+                $promotion_id = $_GET['id'] ?? null;
+                $promotionservices=new promotions_services();
+                $promotion = $promotionservices->getPromotionbyID($promotion_id);
+                
+                include "../LTW/app/view/promotion_details.php";
+                break;
             case 'movie-details':
                 $movie_id = $_GET['id'] ?? null;
                 $filmservices=new film_services();

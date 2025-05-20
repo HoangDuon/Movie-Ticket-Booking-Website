@@ -8,6 +8,7 @@ class membership {
     public function getMembershipInfo() {
     $sql = "SELECT *
             FROM membership_discounts
+            where hide =0
             ORDER BY order_index ASC";
     return pdo_query($sql);
     }

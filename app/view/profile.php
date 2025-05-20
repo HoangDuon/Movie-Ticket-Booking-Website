@@ -15,6 +15,10 @@
                         <i class="fas fa-user"></i>
                         <span>Thông tin khách hàng</span>
                     </div>
+                    <div class="menu-item" data-section="member">
+                        <i class="fas fa-crown"></i>
+                        <span>Thành viên</span>
+                    </div>
                     <div class="menu-item" data-section="purchase-history">
                         <i class="fas fa-calendar"></i>
                         <span>Lịch sử mua hàng</span>
@@ -91,6 +95,50 @@
                             <button type="submit" class="btn btn-save">ĐỔI MẬT KHẨU</button>
                         </div>
                         </form>
+                    </div>
+                </div>
+
+                 <!-- Member Section -->
+                <div id="member-content" class="main-content-section" style="display: none;">
+                    <h2 class="title">THÀNH VIÊN</h2>
+                    
+                    <!-- Points Accumulation Section -->
+                    <div class="content-box">
+                        <h3 class="section-title">Thông tin</h3>
+                        
+                        <div class="points-info mb-3">
+                            <div class="row align-items-center">
+                                <div class="col-md-6">
+                                    <p class="mb-1">Hạng thành viên: <span class="member-rank" id="memberRank"><?= ($_SESSION['user']['member']) ?></span></p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        <p class="points-note">
+                            Mua vé càng nhiều, ưu đãi càng phiêu!
+                        </p>
+                    </div>
+                    
+                    <!-- Member Benefits Section -->
+                    <div class="content-box mt-4">
+                        <h3 class="section-title">Quyền lợi thành viên</h3>
+                        <?php
+                        $memberships=new membership();
+                        $members=$memberships->getMembershipInfo();
+                        ?>
+                        <div class="member-benefits">
+                            <?php foreach ($members as $member): ?>
+                            <div class="benefit-item active">
+                                <div class="benefit-header">
+                                    <h5><i class="fas fa-gem me-2 <?= $member['member_type'] ?>"></i><?= htmlspecialchars($member['member_type']) ?></h5>
+                                </div>
+                                <div class="benefit-content">
+                                    <?= $member['content'] ?>
+                                </div>
+                            </div>
+                            <?php endforeach; ?>
+                        </div>
                     </div>
                 </div>
                 

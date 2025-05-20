@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../LTW/assets/css/login.css">
     <link rel="stylesheet" href="../LTW/assets/css/guestInfo.css">
     <link rel="stylesheet" href="../LTW/assets/css/payment.css">
+    <link rel="stylesheet" href="../LTW/assets/css/promotion.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 19, 2025 lúc 04:37 PM
+-- Thời gian đã tạo: Th5 20, 2025 lúc 01:44 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -197,6 +197,7 @@ INSERT INTO `concessions` (`concession_id`, `name`, `price`, `picture_link`, `li
 CREATE TABLE `membership_discounts` (
   `member_type` enum('None','Silver','Gold','Diamond') NOT NULL,
   `discount_percent` decimal(5,2) NOT NULL CHECK (`discount_percent` between 0 and 100),
+  `content` text DEFAULT NULL,
   `link` varchar(255) DEFAULT NULL,
   `hide` tinyint(1) DEFAULT 0,
   `order_index` int(11) DEFAULT NULL,
@@ -207,11 +208,11 @@ CREATE TABLE `membership_discounts` (
 -- Đang đổ dữ liệu cho bảng `membership_discounts`
 --
 
-INSERT INTO `membership_discounts` (`member_type`, `discount_percent`, `link`, `hide`, `order_index`, `created_at`) VALUES
-('None', 0.00, 'https://link.example.com', 0, 1, '2025-04-23 12:20:54'),
-('Silver', 5.00, 'https://link.example.com', 0, 2, '2025-04-23 12:20:54'),
-('Gold', 10.00, 'https://link.example.com', 0, 3, '2025-04-23 12:20:54'),
-('Diamond', 15.00, 'https://link.example.com', 0, 4, '2025-04-23 12:20:54');
+INSERT INTO `membership_discounts` (`member_type`, `discount_percent`, `content`, `link`, `hide`, `order_index`, `created_at`) VALUES
+('None', 0.00, '<ul>\r\n	<li>Tham gia c&aacute;c chương tr&igrave;nh khuyến m&atilde;i th&ocirc;ng thường</li>\r\n	<li>Nhận th&ocirc;ng b&aacute;o về sản phẩm mới v&agrave; ưu đ&atilde;i qua email</li>\r\n</ul>\r\n\r\n<p>&nbsp;</p>\r\n', 'https://link.example.com', 0, 1, '2025-04-23 12:20:54'),
+('Silver', 10.00, '<ul>\r\n	<li>Giảm gi&aacute; 10% tr&ecirc;n tổng h&oacute;a đơn cho mỗi lần mua h&agrave;ng</li>\r\n	<li>Ưu ti&ecirc;n tư vấn v&agrave; hỗ trợ kỹ thuật</li>\r\n	<li>Qu&agrave; tặng sinh nhật đặc biệt</li>\r\n	<li>Tất cả quyền lợi của th&agrave;nh vi&ecirc;n thường</li>\r\n</ul>\r\n', 'https://link.example.com', 0, 2, '2025-04-23 12:20:54'),
+('Gold', 15.00, '<ul>\r\n	<li>Giảm gi&aacute; 15% tr&ecirc;n tổng h&oacute;a đơn cho mỗi lần mua h&agrave;ng</li>\r\n	<li>Miễn ph&iacute; vận chuyển cho mọi đơn h&agrave;ng</li>\r\n	<li>Tham gia c&aacute;c sự kiện đặc biệt d&agrave;nh ri&ecirc;ng cho th&agrave;nh vi&ecirc;n V&agrave;ng</li>\r\n	<li>Đổi điểm thưởng lấy sản phẩm với tỷ lệ ưu đ&atilde;i</li>\r\n	<li>Tất cả quyền lợi của th&agrave;nh vi&ecirc;n Bạc</li>\r\n</ul>\r\n', 'https://link.example.com', 0, 3, '2025-04-23 12:20:54'),
+('Diamond', 20.00, '<ul>\r\n	<li>Giảm gi&aacute; 20% tr&ecirc;n tổng h&oacute;a đơn cho mỗi lần mua h&agrave;ng</li>\r\n	<li>Dịch vụ chăm s&oacute;c kh&aacute;ch h&agrave;ng VIP 24/7</li>\r\n	<li>Qu&agrave; tặng đặc biệt h&agrave;ng qu&yacute;</li>\r\n	<li>Ưu ti&ecirc;n trải nghiệm sản phẩm mới trước khi ra mắt</li>\r\n	<li>Tham gia c&aacute;c sự kiện độc quyền</li>\r\n	<li>Tất cả quyền lợi của th&agrave;nh vi&ecirc;n V&agrave;ng</li>\r\n</ul>\r\n', 'https://link.example.com', 0, 4, '2025-04-23 12:20:54');
 
 -- --------------------------------------------------------
 
@@ -314,12 +315,14 @@ CREATE TABLE `promotions` (
 --
 
 INSERT INTO `promotions` (`promotion_id`, `title`, `content`, `banner_url`, `created_at`, `link`, `hide`, `order_index`) VALUES
-(1, 'Giảm giá mùa hè 2025', 'Tận hưởng mùa hè rực rỡ với ưu đãi giảm giá 30% cho mọi suất chiếu từ 1/6 đến 30/6.', '/LTW/assets/img/summer2025.jpg', '2025-05-05 15:41:28', NULL, 0, 1),
+(1, 'Giảm giá mùa hè 2025', '<p>Tận hưởng m&ugrave;a h&egrave; rực rỡ với ưu đ&atilde;i giảm gi&aacute; 30% cho mọi suất chiếu từ 1/6 đến 30/6.</p>\r\n', '/LTW/assets/img/sales-2.webp', '2025-05-05 15:41:28', NULL, 0, 1),
 (2, 'Combo bắp nước siêu rẻ', 'Chỉ với 49K, nhận ngay 1 bắp + 1 nước. Áp dụng tại tất cả các rạp toàn quốc.', '/LTW/assets/img/combo_deal.jpg', '2025-05-05 15:41:28', NULL, 0, 2),
 (3, 'Ngày hội thành viên', 'Thành viên Silver trở lên được giảm 15% mọi hóa đơn trong ngày 10 hàng tháng.', 'assets/img/member_day.jpg', '2025-05-05 15:41:28', NULL, 0, 3),
 (4, 'Ưu đãi học sinh - sinh viên', 'Xuất trình thẻ HSSV để được giảm 25% vé xem phim từ thứ 2 đến thứ 5.', 'assets/img/student_offer.jpg', '2025-05-05 15:41:28', NULL, 0, 4),
 (5, 'Khuyến mãi cuối tuần này', '<p><strong>Mua v&eacute; thứ 7</strong>, chủ nhật nhận ngay 1 combo bắp nước miễn ph&iacute;.</p>\r\n', 'assets/img/sales-1.webp', '2025-05-05 15:41:28', NULL, 0, 5),
-(6, 'KM1', '<p><strong><s><em>APDAKADSKAJSDIASD</em></s></strong></p>\r\n', 'assets/img/sales-2.webp', '2025-05-05 17:06:38', NULL, 0, NULL);
+(6, 'KM1', '<p><strong><s><em>APDAKADSKAJSDIASD</em></s></strong></p>\r\n', 'assets/img/sales-2.webp', '2025-05-05 17:06:38', NULL, 0, NULL),
+(7, '123', '<p>123</p>\r\n', '/LTW/assets/img/sales-2.webp', '2025-05-20 09:00:41', NULL, 0, NULL),
+(8, 's', '<p><s><em>dasd</em></s></p>\r\n', '/LTW/assets/img/sales-3.webp', '2025-05-20 09:01:25', NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -808,7 +811,7 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT cho bảng `promotions`
 --
 ALTER TABLE `promotions`
-  MODIFY `promotion_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `promotion_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT cho bảng `rooms`

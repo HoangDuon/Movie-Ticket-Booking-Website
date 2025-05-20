@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 17, 2025 lúc 12:51 PM
+-- Thời gian đã tạo: Th5 20, 2025 lúc 01:44 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -69,7 +69,6 @@ CREATE TABLE `booking_details` (
   `detail_id` int(11) NOT NULL,
   `booking_id` int(11) NOT NULL,
   `seat_id` int(11) NOT NULL,
-  `price` decimal(10,2) NOT NULL,
   `link` varchar(255) DEFAULT NULL,
   `hide` tinyint(1) DEFAULT 0,
   `order_index` int(11) DEFAULT NULL,
@@ -119,6 +118,7 @@ CREATE TABLE `concessions` (
 CREATE TABLE `membership_discounts` (
   `member_type` enum('None','Silver','Gold','Diamond') NOT NULL,
   `discount_percent` decimal(5,2) NOT NULL CHECK (`discount_percent` between 0 and 100),
+  `content` text DEFAULT NULL,
   `link` varchar(255) DEFAULT NULL,
   `hide` tinyint(1) DEFAULT 0,
   `order_index` int(11) DEFAULT NULL,

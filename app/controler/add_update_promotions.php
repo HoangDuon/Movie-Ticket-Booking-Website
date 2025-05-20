@@ -7,14 +7,14 @@ $title = $_POST['title'];
 $content = $_POST['content'];
 
 // Xử lý ảnh (poster + banner)
-function upload_file($fileKey, $uploadDir = "/LTW/assets/img/") {
+function upload_file($fileKey, $uploadDir = __DIR__ . "/../../assets/img/") {
     if (isset($_FILES[$fileKey]) && $_FILES[$fileKey]['error'] === UPLOAD_ERR_OK) {
         $fileTmp = $_FILES[$fileKey]['tmp_name'];
         $fileName = basename($_FILES[$fileKey]['name']);
         $targetPath = $uploadDir . $fileName;
 
         if (move_uploaded_file($fileTmp, $targetPath)) {
-            return 'assets/img/'. $fileName;
+            return '/LTW/assets/img/'. $fileName;
         }
     }
     return null;

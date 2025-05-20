@@ -317,7 +317,9 @@
                                 foreach ($chunk as $img) {
                                     echo '<div class="col">';
                                     echo '  <div class="card h-100">';
+                                   echo "<a href='index.php?page=promotion-details&id={$img['promotion_id']}'>";
                                     echo '    <img src="' . htmlspecialchars($img['banner_url']) . '" class="card-img-top" alt="...">';
+                                    echo '</a>';                                   
                                     echo '  </div>';
                                     echo '</div>';
                                 }

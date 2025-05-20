@@ -127,6 +127,19 @@ function showEditMemberForm(button) {
   document.getElementById('editMemberMember').value = button.dataset.member;
   document.getElementById('editMemberDiscount').value = button.dataset.discount;
 
+    // Gán mô tả vào CKEditor
+  if (CKEDITOR.instances['editMemberContent']) {
+      CKEDITOR.instances['editMemberContent'].setData(button.dataset.content);
+  } else {
+      CKEDITOR.replace('editMemberContent', {
+          on: {
+              instanceReady: function () {
+                  this.setData(button.dataset.content);
+              }
+          }
+      });
+  }
+
   // Hiện form nổi
   document.getElementById('editMemberFormPanel').style.display = 'flex';
 }

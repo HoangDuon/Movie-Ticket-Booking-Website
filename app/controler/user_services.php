@@ -36,7 +36,8 @@ class user_services{
             'email' => $user['email'],
             'role' => $user['role'],
             'birthday' => $user['birthday'],
-            'phone' => $user['phone']
+            'phone' => $user['phone'],
+            'member' => $user['member']
         ];
     }
 

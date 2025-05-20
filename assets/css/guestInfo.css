@@ -226,22 +226,22 @@ label {
 }
 
 /* Icons for member levels */
-#noneMember .noneMember {
+.benefit-item .None {
     color: #60717a;
 }
 
-#silverMember .silverMember {
+.benefit-item  .Silver {
     color: #adb5bd;
 }
 
-#goldMember .goldMember {
+.benefit-item  .Gold {
     color: #ffc107;
 }
 
-#platinumMember .platinumMember {
+.benefit-item  .platinumMember {
     color: #37a2af;
 }
 
-#diamondMember .diamondMember {
+.benefit-item  .Diamond {
     color: #17a2b8;
 }
