@@ -10,7 +10,7 @@ $sql = "UPDATE membership_discounts SET discount_percent=? WHERE member_type=?";
 
 pdo_execute($sql, $discount,$member);
 
-header("Location: ../view/admin.php");
+header("Location: ../view/admin.php#membership");
 // echo '<pre>';
 // print_r($_FILES);
 // echo '</pre>';

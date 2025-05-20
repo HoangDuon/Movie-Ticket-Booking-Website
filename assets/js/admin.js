@@ -14,7 +14,17 @@ document.querySelectorAll(".menu-item").forEach(item => {
         document.getElementById("page-" + page).style.display = "block";
     });
 });
-
+// Sửa xong vẫn ở tab đó
+document.addEventListener("DOMContentLoaded", function () {
+    const hash = window.location.hash;
+    if (hash) {
+        const tab = hash.replace('#', '');
+        const targetTab = document.querySelector(`[data-page="${tab}"]`);
+        if (targetTab) {
+            targetTab.click(); // Kích hoạt tab bằng cách click vào menu
+        }
+    }
+});
 //JS phần thêm xóa sửa phim
 function showMovieEditForm(button) {
   document.getElementById('editTitle').value = button.dataset.title;
@@ -78,7 +88,114 @@ function showMovieDeleteConfirm(movieId,hide) {
 function hideMovieDeleteConfirm() {
   document.getElementById('deleteMovieConfirmPanel').style.display = 'none';
 }
-///
+// Validate sửa phim
+document.getElementById('editMovieForm').addEventListener('submit', function (e) {
+    updateCkEditorBeforeSubmit(); // đảm bảo CKEditor cập nhật textarea
+
+    const title = document.getElementById("editTitle").value.trim();
+    const genre = document.getElementById("editGenre").value.trim();
+    const director = document.getElementById("editDirector").value.trim();
+    const duration = document.getElementById("editDuration").value.trim();
+    const language = document.getElementById("editLanguage").value.trim();
+    const releaseDate = document.getElementById("editReleaseDate").value.trim();
+    const cast = document.getElementById("editCast").value.trim();
+    const trailer = document.getElementById("editTrailer").value.trim();
+    const poster = document.getElementById("editPoster"); // type="file"
+    const banner = document.getElementById("editBanner");
+    const description = CKEDITOR.instances['editDescription'].getData().trim();
+
+    // 1. Tiêu đề
+    if (!title) {
+        alert("Tiêu đề không được để trống!");
+        document.getElementById('editTitle').focus();
+        e.preventDefault(); return;
+    }
+    if (title.length > 255) {
+      alert("Tiêu đề chỉ tối đa là 255 ký tự");
+      document.getElementById('editTitle').focus();
+      e.preventDefault(); return;
+    }
+
+    // 2. Thể loại
+    if (!genre || genre.length > 255) {
+        alert("Thể loại không được để trống!");
+        document.getElementById('editGenre').focus();
+        e.preventDefault(); return;
+    }
+    if (genre.length > 255) {
+        alert("Thể loại tối đa 255 ký tự!");
+        document.getElementById('editGenre').focus();
+        e.preventDefault(); return;
+    }
+
+    // 3. Đạo diễn
+    if (!director) {
+        alert("Đạo diễn không được để trống!");
+        document.getElementById('editDirector').focus();
+        e.preventDefault(); return;
+    }
+
+    // 4. Thời lượng
+    if (!duration) {
+        alert("Thời lượng không được để trống!");
+        document.getElementById('editDuration').focus();
+        e.preventDefault(); return;
+    }
+    if (isNaN(duration) || duration <= 0) {
+        alert("Thời lượng phải là số dương!");
+        document.getElementById('editDuration').focus();
+        e.preventDefault(); return;
+    }
+
+    // 5. Ngôn ngữ
+    if (!language) {
+        alert("Ngôn ngữ không được để trống!");
+        document.getElementById('editLanguage').focus();
+        e.preventDefault(); return;
+    }
+
+    // 6. Ngày phát hành
+    if (!releaseDate) {
+        alert("Ngày phát hành không được để trống!");
+        document.getElementById('editReleaseDate').focus();
+        e.preventDefault(); return;
+    }
+
+    // 7. Diễn viên
+    if (!cast) {
+        alert("Diễn viên không được để trống!");
+        document.getElementById('editCast').focus();
+        e.preventDefault(); return;
+    }
+
+    // 8. Mô tả
+    if (!description) {
+        alert("Mô tả không được để trống!");
+        document.getElementById('editDescription').focus();
+        e.preventDefault(); return;
+    }
+
+    // 9. Trailer
+    if (!/^https?:\/\//.test(trailer)) {
+        alert("Link trailer phải bắt đầu bằng http:// hoặc https://");
+        document.getElementById('editTrailer').focus();
+        e.preventDefault(); return;
+    }
+
+    // 10 + 11. Poster và Banner: nếu là thêm mới (id rỗng)
+    const isAddMode = document.getElementById("editId").value === "";
+
+    if (isAddMode) {
+        if (poster.files.length === 0) {
+            alert("Poster là bắt buộc khi thêm mới!");
+            e.preventDefault(); return;
+        }
+        // if (banner.files.length === 0) {
+        //     alert("Banner là bắt buộc khi thêm mới!");
+        //     e.preventDefault(); return;
+        // }
+    }
+});
 
 
 //JS phần thêm xóa sửa người dùng
@@ -121,6 +238,70 @@ function showDeleteUserConfirm(movieId,hide) {
 function hideDeleteUserConfirm() {
   document.getElementById('deleteUserConfirmPanel').style.display = 'none';
 }
+
+// Validate sửa người dùng
+document.getElementById('editUserForm').addEventListener('submit', function (e) {
+
+  const userName = document.getElementById("editUserName").value.trim();
+  const userEmail = document.getElementById("editUserEmail").value.trim();
+  const userPhone = document.getElementById("editUserPhone").value.trim();
+  const userDOB = document.getElementById("editUserBirthday").value.trim();
+  const userRole = document.getElementById("editUserRole").value.trim();
+  const userMember = document.getElementById("editUserMember").value.trim();
+  const userPassword = document.getElementById("editUserPassword").value.trim();
+  const userId = document.getElementById("editUserId").value.trim();
+
+  // 1. Tên người dùng
+  if (!userName) {
+      alert("Tên người dùng bắt buộc không được để trống!");
+      document.getElementById('editUserName').focus();
+      e.preventDefault(); return;
+  }
+  if (userName.length > 255) {
+    alert("Tên người dùng chỉ tối đa là 255 ký tự");
+    document.getElementById('editUserName').focus();
+    e.preventDefault(); return;
+  }
+
+  // 2. Email người dùng
+  const emailRegex = /^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,}$/;
+  if (!userEmail || !emailRegex.test(userEmail)) {
+    alert("Email không hợp lệ.");
+    document.getElementById('editUserEmail').focus();
+    e.preventDefault(); return;
+  }
+
+  // 3. Số điện thoại
+  const phoneRegex = /^\d{10}$/;
+  if (!userPhone || !phoneRegex.test(userPhone)) {
+      alert("Số điện thoại phải gồm 10 chữ số.");
+      document.getElementById('editUserPhone').focus();
+      e.preventDefault(); return;
+  }
+
+  // 4. Ngày sinh
+  if (!userDOB) {
+      alert("Vui lòng chọn ngày sinh.");
+      document.getElementById('editUserBirthday').focus();
+      e.preventDefault(); return;
+  } else {
+      const dob = new Date(userDOB);
+      const today = new Date();
+      if (dob >= today) {
+          alert("Ngày sinh phải là trong quá khứ.");
+          document.getElementById('editUserBirthday').focus();
+          e.preventDefault(); return;
+      }
+  }
+  
+  // 7. Mật khẩu (bắt buộc khi thêm mới)
+  const isAdd = userId === "";
+  if (isAdd && !userPassword) {
+      alert("Mật khẩu bắt buộc khi thêm mới.");
+      document.getElementById('editUserPassword').focus();
+      e.preventDefault(); return;
+  }
+});
 
 //JS phần thêm xóa sửa membership
 function showEditMemberForm(button) {
@@ -181,6 +362,44 @@ function showDeleteConcessionsConfirm(movieId,hide) {
 function hideDeleteConcessionsConfirm() {
   document.getElementById('deleteConcessionsConfirmPanel').style.display = 'none';
 }
+// Validate thêm sửa đồ ăn
+document.getElementById("editConcessionsForm").addEventListener("submit", function (e) {
+    const name = document.getElementById("editConcessionsName").value.trim();
+    const price = document.getElementById("editConcessionsPrice").value.trim();
+    const picture = document.getElementById("editPicture");
+    const id = document.getElementById("editConcessionsId").value.trim();
+
+    // 1. Tên đồ ăn
+    if (!name) {
+        alert("Tên đồ ăn không được để trống.");
+        document.getElementById('editConcessionsName').focus();
+        e.preventDefault(); return;
+    }
+    if (name.length > 100) {
+      alert("Tên đồ ăn không vượt quá 100 ký tự.");
+      document.getElementById('editConcessionsName').focus();
+      e.preventDefault(); return;
+    }
+
+    // 2. Giá
+    if (!price) {
+        alert("Giá không được để trống.");
+        document.getElementById('editConcessionsPrice').focus();
+        e.preventDefault(); return;
+    }
+    if (isNaN(price) || parseFloat(price) <= 0) {
+      alert("Giá phải là số dương.");
+      document.getElementById('editConcessionsPrice').focus();
+      e.preventDefault(); return;
+    }
+
+    // 3. Ảnh (bắt buộc khi thêm mới)
+    const isAdd = id === "";
+    if (isAdd && picture.files.length === 0) {
+        alert("Ảnh minh họa là bắt buộc khi thêm mới.");
+        e.preventDefault(); return;
+    }
+});
 
 //JS phần thêm xóa sửa rạp phim
 function showEditCinemasForm(button, cinemaId) {
@@ -287,6 +506,47 @@ function showDeleteCinemasConfirm(movieId,hide) {
 function hideDeleteCinemasConfirm() {
   document.getElementById('deleteCinemasConfirmPanel').style.display = 'none';
 }
+// Validate thêm, sửa rạp phim
+document.getElementById("editCinemasForm").addEventListener("submit", function (e) {
+    const cineName = document.getElementById("editCinemasName").value.trim();
+    const cineLocation = document.getElementById("editCinemasLocation").value.trim();
+    const cineId = document.getElementById("editCinemasId");
+    const cinePhone = document.getElementById("editCinemasPhone").value.trim();
+    const cineRooms = document.getElementById("editCinemasRooms").value.trim();
+    const cineShowtimes = document.getElementById("editCinemasShowtimes").value.trim();
+
+    // 1. Tên rạp phim
+    if (!cineName) {
+        alert("Tên rạp phim không được để trống");
+        document.getElementById('editCinemasName').focus();
+        e.preventDefault(); return;
+    }
+    if (cineName.length > 100) {
+      alert("Tên rạp phim không vượt quá 100 ký tự.");
+      document.getElementById('editCinemasName').focus();
+      e.preventDefault(); return;
+    }
+
+    // 2. Vị trí rạp phim
+    if (!cineLocation) {
+        alert("Vị trí rạp phim không được để trống");
+        document.getElementById('editCinemasLocation').focus();
+        e.preventDefault(); return;
+    }
+    if (cineLocation.length > 100) {
+      alert("Vị trí rạp phim không vượt quá 100 ký tự.");
+      document.getElementById('editCinemasLocation').focus();
+      e.preventDefault(); return;
+    }
+
+    // 3. Điện thoại rạp phim
+    const phoneRegex = /^\d{10}$/;
+    if (!cinePhone || !phoneRegex.test(cinePhone)) {
+        alert("Số điện thoại phải gồm 10 chữ số.");
+        document.getElementById('editCinemasPhone').focus();
+        e.preventDefault(); return;
+    }
+});
 
 //JS phần thêm xóa sửa Xuất chiếu
 function showEditShowtimeForm(button) {
@@ -503,3 +763,42 @@ function showDeletePromotionsConfirm(promotionId,hide) {
 function hideDeletePromotionsConfirm() {
   document.getElementById('deletePromotionsConfirmPanel').style.display = 'none';
 }
+
+//Validate thêm, sửa khuyến mãi
+document.getElementById('editPromotionForm').addEventListener('submit', function(e) {
+  updateCkEditorBeforeSubmit(); // đảm bảo CKEditor cập nhật textarea
+
+  const PromotionTitle= document.getElementById("editPromotionTitle").value.trim();
+  const PromotionImg= document.getElementById("editPromotionPicture").value.trim(); 
+    // CKEditor (dùng ID editPromotionContent)
+  const PromotionContent = CKEDITOR.instances['editPromotionContent'].getData().trim();
+
+  // 1. Tiêu đề
+  if (!PromotionTitle || PromotionTitle.length > 255) {
+      alert("Tiêu đề khuyến mãi không được để trống!");
+      document.getElementById('editPromotionTitle').focus();
+      e.preventDefault(); return;
+  }
+  if (PromotionTitle.length > 255) {
+      alert("Tiêu đề khuyến mãi không vượt quá 255 ký tự.");
+      document.getElementById('editPromotionTitle').focus();
+      e.preventDefault(); return;
+  }
+
+  // 2. Nội dung
+  if (!PromotionContent) {
+      alert("Nội dung khuyến mãi không được để trống.");
+      document.getElementById('editPromotionContent').focus();
+      e.preventDefault(); return;
+  }
+
+  // 3. Hình ảnh
+      const isAddMode = document.getElementById("editId").value === "";
+
+    if (isAddMode) {
+        if (PromotionImg.files.length === 0) {
+            alert("Hình ảnh là bắt buộc khi thêm mới!");
+            e.preventDefault(); return;
+        }
+    }
+});

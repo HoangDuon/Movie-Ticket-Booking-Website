@@ -386,6 +386,7 @@ header {
 }
 
 .movie-title {
+    text-transform: uppercase;
     font-size: 1.8rem;
     color: #f8fafc;
     font-weight: 600;

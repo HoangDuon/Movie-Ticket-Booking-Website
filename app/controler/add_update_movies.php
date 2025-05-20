@@ -54,7 +54,7 @@ if (empty($id)) {
 
     pdo_execute($sql, ...$params);
 }
-header("Location: ../view/admin.php");
+header("Location: ../view/admin.php#movies");
 // echo '<pre>';
 // print_r($_FILES);
 // echo '</pre>';

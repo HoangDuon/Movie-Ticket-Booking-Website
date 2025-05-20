@@ -45,5 +45,5 @@ if ($showtimeId) {
 }
 
 // Quay lại trang quản lý
-header("Location: ../view/admin.php");
+header("Location: ../view/admin.php#showtime");
 exit;
