@@ -36,7 +36,7 @@ $bookingData = json_decode($_POST['booking_data'], true);
             <!-- Customer Information Form -->
             <div class="col-12 col-md-6 mb-4">
                 <form id="customerForm">
-                    <pre><?php print_r($bookingData); ?></pre>
+                    <!-- <pre><?php print_r($bookingData); ?></pre> -->
                     <!-- <div class="mb-3">
                         <label for="fullName" class="form-label text-white">Họ và tên <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="fullName" placeholder="Họ và tên" required>
@@ -67,14 +67,18 @@ $bookingData = json_decode($_POST['booking_data'], true);
                     <button type="button" id="continueBtn" class="btn btn-warning w-100 py-2 fw-bold">TIẾP TỤC</button>
                 </form>
             </div>
+            <?php
             
+            ?>
             <!-- Movie Information -->
             <div class="col-12 col-md-6 mb-4">
                 <div class="movie-info">
                     <?php
-                    ?>
+                    $Showtime=new cinemas_services();
+                    $ShowtimeInformation=$Showtime->GetCinemasByShowtimesID($bookingData['showtime_id']);
+                    ?>  
                     <div class="d-flex justify-content-between align-items-start mb-2">
-                        <h2 class="movie-title">LM8</h2>
+                        <h2 class="movie-title"><?=$ShowtimeInformation['movie_title']?></h2>
                         <div class="timer-badge">
                             THỜI GIAN GIỮ VÉ: <span id="countdown"></span>
                         </div>
@@ -82,48 +86,67 @@ $bookingData = json_decode($_POST['booking_data'], true);
                     
                     <p class="age-rating mb-3">Phim dành cho khán giả từ đủ 13 tuổi trở lên (13+)</p>
                     
-                    <h3 class="cinema-name">Cinestar Satra Quận 6 (TPHCM)</h3>
-                    <p class="cinema-address mb-3">Tầng 6, TTTM Satra Vạn Kiếp, 1466 Vạn Kiếp, Phường 1, Quận 6, TPHCM</p>
+                    <h3 class="cinema-name"><?=$ShowtimeInformation['cinema_name']?></h3>
+                    <p class="cinema-address mb-3"><?=$ShowtimeInformation['cinema_location']?></p>
                     
                     <div class="mb-3">
                         <h4 class="info-title">Thời gian</h4>
-                        <p class="mb-0">22:35 Thứ Sáu 16/05/2025</p>
+                        <p class="mb-0"><?=$ShowtimeInformation['start_time']?></p>
                     </div>
                     
                     <div class="row mb-3">
-                        <div class="col-4">
+                        <div class="col-6">
                             <h4 class="info-title">Phòng chiếu</h4>
-                            <p class="mb-0">01</p>
+                            <p class="mb-0"><?=$ShowtimeInformation['room_name']?></p>
                         </div>
-                        <div class="col-4">
-                            <h4 class="info-title">Số vé</h4>
-                            <p class="mb-0">1</p>
-                        </div>
-                        <div class="col-4">
-                            <h4 class="info-title">Loại vé</h4>
-                            <p class="mb-0">Người Lớn</p>
+                        <div class="col-6">
+                            <h4 class="info-title">Giá vé</h4>
+                            <p class="mb-0"><?=$ShowtimeInformation['price']?></p>
                         </div>
                     </div>
                     
+                    <?php foreach ($bookingData['seats'] as $seat): ?>
                     <div class="row mb-3">
-                        <div class="col-6">
+                        <div class="col-4">
                             <h4 class="info-title">Loại ghế</h4>
-                            <p class="mb-0">Ghế Thường</p>
+                            <p class="mb-0"><?=$seat['type']?></p>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <h4 class="info-title">Số ghế</h4>
-                            <p class="mb-0">G12</p>
+                            <p class="mb-0"><?=$seat['seatNumber']?></p>
+                        </div>
+                        <div class="col-4">
+                            <h4 class="info-title">Giá ghế</h4>
+                            <p class="mb-0"><?=$seat['price']?></p>
                         </div>
                     </div>
-                    
+                    <?php endforeach; ?>
+
                     <div class="mb-3">
                         <h4 class="info-title">Bắp nước</h4>
                         <p class="mb-0">--------------------------</p>
                     </div>
                     
+                    <?php foreach ($bookingData['concessions'] as $concession): 
+                        $concessionService= new concessions_services();
+                        $con = $concessionService->GetConcessionByID($concession['concession_id'])
+                        ?>
+                    <div class="row mb-3">
+                        <div class="col-4">
+                            <p class="mb-0"><?=$con['name']?></p>
+                        </div>
+                        <div class="col-4">
+                            <p class="mb-0"><?=$con['price']?></p>
+                        </div>
+                        <div class="col-4">
+                            <p class="mb-0"><?=$concession['quantity']?></p>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+
                     <div class="total-section">
                         <h3 class="text-center mb-2">SỐ TIỀN CẦN THANH TOÁN</h3>
-                        <p class="total-price">45,000VND</p>
+                        <p class="total-price"><?=$bookingData['total_price']?> VND</p>
                     </div>
                 </div>
             </div>

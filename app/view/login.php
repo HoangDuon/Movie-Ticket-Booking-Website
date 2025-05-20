@@ -9,6 +9,9 @@
                 <li class="nav-item">
                     <a class="nav-link" id="register-tab" data-bs-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">ĐĂNG KÝ</a>
                 </li>
+                <li class="nav-item" style="display: none;">
+                    <a class="nav-link" id="forgot-tab" data-bs-toggle="tab" href="#forgot" role="tab" aria-controls="forgot" aria-selected="false">QUÊN MẬT KHẨU</a>
+                </li>
             </ul>
             <!-- Tab Content -->
             <div class="tab-content mt-3" id="authTabsContent">
@@ -43,7 +46,7 @@
 
                         <!-- Quên Mật Khẩu -->
                         <div class="forgotPassword">
-                            <a href="#" style="color: black;">Quên mật khẩu?</a>
+                            <a href="#" id="forgotPasswordLink" style="color: black;">Quên mật khẩu?</a>
                         </div>
                         
                         <!-- Đăng Nhập -->
@@ -142,6 +145,53 @@
                             <p style="margin-top: 10px; text-align: center;">Bạn đã có tài khoản? <a href="index.php?page=login" class="login-tab">Đăng nhập</a></p>
                         </div>  
                     </form>
+                </div>
+
+                <!-- Form Quên Mật Khẩu -->
+                <div class="tab-pane fade" id="forgot" role="tabpanel" aria-labelledby="forgot-tab">
+                    <div class="forgot-password-container">
+                        <h5 class="text-center mb-3">KHÔI PHỤC MẬT KHẨU</h5>
+                        <form id="forgotPasswordForm">
+                            <div class="mb-3">
+                                <label for="forgotEmail" class="form-label">Email bạn đã đăng ký <span style="color: red;">*</span></label>
+                                <input type="text" class="form-control" id="forgotEmail" name="forgotEmail" required>
+                                <span class="error" id="forgotEmailError">Vui lòng nhập email hợp lệ.</span>
+                            </div>
+                            
+                            <div class="mb-3" id="otpSection" style="display: none;">
+                                <label for="otpCode" class="form-label">Mã xác nhận <span style="color: red;">*</span></label>
+                                <input type="text" class="form-control" id="otpCode" name="otpCode">
+                                <span class="error" id="otpError">Mã xác nhận không hợp lệ.</span>
+                                <div class="d-flex justify-content-end mt-2">
+                                    <button type="button" class="btn btn-link p-0" id="resendOtp">Gửi lại mã</button>
+                                </div>
+                            </div>
+                            
+                            <div id="newPasswordSection" style="display: none;">
+                                <div class="mb-3">
+                                    <label for="newPassword" class="form-label">Mật khẩu mới <span style="color: red;">*</span></label>
+                                    <input type="password" class="form-control" id="newPassword" name="newPassword">
+                                    <i class="bi bi-eye-slash" id="toggleNewPassword"></i>
+                                    <span class="error" id="newPasswordError">Mật khẩu phải có ít nhất 6 ký tự.</span>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="confirmNewPassword" class="form-label">Xác nhận mật khẩu mới <span style="color: red;">*</span></label>
+                                    <input type="password" class="form-control" id="confirmNewPassword" name="confirmNewPassword">
+                                    <i class="bi bi-eye-slash" id="toggleConfirmNewPassword"></i>
+                                    <span class="error" id="confirmNewPasswordError">Mật khẩu xác nhận không khớp.</span>
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn-warning" id="forgotSubmitBtn"><span>GỬI YÊU CẦU</span></button>
+                            </div>
+                            
+                            <div class="text-center mt-3">
+                                <a href="#" id="backToLoginLink" class="login-tab">Quay lại đăng nhập</a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

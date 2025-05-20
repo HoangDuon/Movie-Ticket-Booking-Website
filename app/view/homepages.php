@@ -341,30 +341,30 @@
                 </div>
         
                 <div class="heading-phim members">
-                    <h1>CHƯƠNG TRÌNH THÀNH VIÊN</h1>
+                    <h1></h1>
                 </div>
         
-				<div class="members-info">
-					<?php
-						$membershipinfo = new membership();
-						$memberships = $membershipinfo->getMembershipInfo();
-					?>
-					<div class="container">
-						<div class="row">
-							<?php foreach ($memberships as $member): ?>
-								<div class="col">
-									<div class="card">
-										<img src="<?= htmlspecialchars($member['link']) ?>" class="card-img-top" alt="..." style="box-shadow: 0 12px 48px 0 rgba(243,234,40,.5);">
-										<div class="card-body">
-											<h5 class="card-title">THÀNH VIÊN <?= htmlspecialchars($member['member_type']) ?></h5>
-											<a href="#" class="btn btn-primary">TÌM HIỂU NGAY</a>
-										</div>
-									</div>
-								</div>
-							<?php endforeach; ?>
-						</div>
-					</div>
-				</div>
+                <!-- <div class="members-info">
+                    <?php
+                        $membershipinfo = new membership();
+                        $memberships = $membershipinfo->getMembershipInfo();
+                    ?>
+                    <div class="container">
+                        <div class="row">
+                            <?php foreach ($memberships as $member): ?>
+                                <div class="col">
+                                    <div class="card">
+                                        <img src="<?= htmlspecialchars($member['link']) ?>" class="card-img-top" alt="..." style="box-shadow: 0 12px 48px 0 rgba(243,234,40,.5);">
+                                        <div class="card-body">
+                                            <h5 class="card-title">THÀNH VIÊN <?= htmlspecialchars($member['member_type']) ?></h5>
+                                            <a href="#" class="btn btn-primary">TÌM HIỂU NGAY</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div> -->
                 </div>            
             </div>
         </div>

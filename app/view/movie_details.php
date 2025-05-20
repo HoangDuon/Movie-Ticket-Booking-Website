@@ -5,6 +5,13 @@
             <?php
                 $filmservices=new film_services();
                 $showdates=$filmservices->getShowDatesByMovieID($movie_id);
+                $movieId = $_GET['id'] ?? null;
+                $cinemaId = $_GET['cinema_id'] ?? null;
+                $showtimeId = $_GET['showtime_id'] ?? null;
+                $showDateFromShowtime = null;
+                if ($showtimeId) {
+                    $showDateFromShowtime = $filmservices->getShowDateByShowtimeId($showtimeId);
+                }
             ?>
             <div class="col-md-4">
                 <img src=<?= $film['poster_url']?> alt=<?= $film['title']?> class="movie-poster">
@@ -122,7 +129,18 @@
             <button id="book-btn" class="booking-btn">ĐẶT VÉ</button>
         </div>
     </div>
-
+    <script>
+    // Gán các biến PHP vào biến toàn cục JS
+    window.presetMovieId = "<?= $movieId ?>";
+    window.presetCinemaId = "<?= $cinemaId ?>";
+    window.presetShowtimeId = "<?= $showtimeId ?>";
+    window.presetShowDate = "<?= $showDateFromShowtime ?>";
+    window.presetMovieId = "123";
+    window.presetCinemaId = "5";
+    window.presetShowtimeId = "10";
+    window.presetShowDate = "2025-05-20";
+    console.log(window.presetMovieId, window.presetCinemaId,window.presetShowDate)
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src=" ../LTW/assets/js/detail.js"></script>
 </body>

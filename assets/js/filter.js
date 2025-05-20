@@ -113,6 +113,23 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    document.getElementById("order-now").addEventListener("click", function (e) {
+        e.preventDefault(); // Ngăn chuyển trang nếu có thẻ <a>
+
+        const cinemaId = document.getElementById("cinema-select").value;
+        const movieId = document.getElementById("movie-select").value;
+        const showtimeId = document.getElementById("showtime-select").value;
+
+        // Kiểm tra đầy đủ các lựa chọn
+        if (!cinemaId || !movieId || !showtimeId) {
+            return;
+        }
+        console.log(cinemaId,movieId,showtimeId)
+
+        // Chuyển hướng đến trang chi tiết phim với tham số
+        window.location.href = `index.php?page=movie-details&id=${movieId}&cinema_id=${cinemaId}&showtime_id=${showtimeId}`;
+    });
+
     // Tương tự cho dateSelect nếu có
     // if (dateSelect) {
     //     dateSelect.addEventListener("change", function() {

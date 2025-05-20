@@ -7,6 +7,31 @@ let selectedConcessions = {}
 let countdownInterval = null
 let countdownSeconds = 300 // 5 phút
 
+// Nhận các biến preset từ window (gán từ PHP)
+const presetMovieId = window.presetMovieId || null;
+const presetCinemaId = window.presetCinemaId || null;
+const presetShowtimeId = window.presetShowtimeId || null;
+const presetShowDate = window.presetShowDate || null;
+console.log(presetCinemaId,presetMovieId,presetShowDate)
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (presetMovieId && presetShowDate) {
+    // Gọi hàm showSchedule (giả sử đã được định nghĩa ở file khác)
+    showSchedule(presetMovieId, presetShowDate);
+  }
+});
+
+function autoSelectShowtime(showtimeId) {
+  const button = document.querySelector(`button[data-showtime-id="${showtimeId}"]`);
+  if (button) {
+    button.click();
+    button.scrollIntoView({ behavior: "smooth", block: "center" });
+  } else {
+    console.warn("Không tìm thấy suất chiếu để tự động chọn");
+  }
+}
+
+
 // Initialize event listeners when document is ready
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize quantity controls for concessions
@@ -125,6 +150,12 @@ function showSchedule(movieId, date) {
         Showtimelist.appendChild(noShowtimesMessage)
       }
       console.log(data)
+      if (presetShowtimeId) {
+        // dùng setTimeout 0 để đợi DOM cập nhật xong
+        setTimeout(() => {
+          autoSelectShowtime(presetShowtimeId)
+        }, 0)
+      }
     })
     .catch((error) => {
       console.error("Lỗi khi fetch showtimes:", error)
@@ -188,7 +219,7 @@ function showSeatMap(showtimeId) {
                 seatDiv.classList.toggle("selected")
 
                 const seatPrice = Number.parseInt(seat.extra_price) || 0
-                const seatId = seat.seat_number
+                const seatId = seat.seat_id
 
                 const index = selectedSeats.findIndex((s) => s.id === seatId)
                 if (index >= 0) {
@@ -196,6 +227,7 @@ function showSeatMap(showtimeId) {
                 } else {
                   selectedSeats.push({
                     id: seatId,
+                    seatNumber: seat.seat_number,
                     price: seatPrice,
                     type: seat.seat_type,
                   }) // chọn

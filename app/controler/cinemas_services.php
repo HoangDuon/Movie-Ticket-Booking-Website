@@ -34,5 +34,24 @@ class cinemas_services{
 
         return pdo_query($sql);
     }
+
+    public function GetCinemasByShowtimesID($ShowtimeId){
+        $sql = "SELECT 
+            m.title AS movie_title,
+            c.name AS cinema_name,
+            c.location AS cinema_location,
+            s.start_time,
+            s.end_time,
+            s.price,
+            r.name AS room_name
+            FROM showtimes s
+            JOIN movies m ON s.movie_id = m.movie_id
+            JOIN rooms r ON s.room_id = r.room_id
+            JOIN cinemas c ON r.cinema_id = c.cinema_id
+            WHERE s.showtime_id = ?;
+        ";
+
+        return pdo_query_one($sql,$ShowtimeId);
+    }
 }
 ?>  
