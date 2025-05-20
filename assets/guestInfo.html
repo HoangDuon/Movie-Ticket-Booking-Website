@@ -25,6 +25,10 @@
                         <i class="fas fa-user"></i>
                         <span>Thông tin khách hàng</span>
                     </div>
+                    <div class="menu-item" data-section="member">
+                        <i class="fas fa-crown"></i>
+                        <span>Thành viên</span>
+                    </div>
                     <div class="menu-item" data-section="purchase-history">
                         <i class="fas fa-calendar"></i>
                         <span>Lịch sử mua hàng</span>
@@ -48,12 +52,12 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="fullname">Họ và tên</label>
-                                <input type="text" class="form-control" id="fullname">
+                                <input type="text" class="form-control" id="fullname" disabled>
                             </div>
                             <div class="col-md-6">
                                 <label for="birthdate">Ngày sinh</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="birthdate">
+                                    <input type="text" class="form-control" id="birthdate" disabled>
                                     <span class="input-group-text"><i class="far fa-calendar"></i></span>
                                 </div>
                             </div>
@@ -62,15 +66,16 @@
                         <div class="row mb-4">
                             <div class="col-md-6">
                                 <label for="phone">Số điện thoại</label>
-                                <input type="text" class="form-control" id="phone">
+                                <input type="text" class="form-control" id="phone" disabled>
                             </div>
                             <div class="col-md-6">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email">
+                                <input type="email" class="form-control" id="email" disabled>
                             </div>
                         </div>
                         
-                        <div class="text">
+                        <div class="text d-flex justify-content-between">
+                            <button id="edit-button" class="btn btn-save">CHỈNH SỬA</button>
                             <button class="btn btn-save">LƯU THÔNG TIN</button>
                         </div>
                     </div>
@@ -96,6 +101,124 @@
                         
                         <div class="text">
                             <button class="btn btn-save">ĐỔI MẬT KHẨU</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Member Section -->
+                <div id="member-content" class="main-content-section" style="display: none;">
+                    <h2 class="title">THÀNH VIÊN</h2>
+                    
+                    <!-- Points Accumulation Section -->
+                    <div class="content-box">
+                        <h3 class="section-title">Điểm tích lũy</h3>
+                        
+                        <div class="points-info mb-3">
+                            <div class="row align-items-center">
+                                <div class="col-md-6">
+                                    <p class="mb-1">Điểm hiện tại: <span class="current-points" id="currentPoints">150</span></p>
+                                    <p class="mb-1">Hạng thành viên: <span class="member-rank" id="memberRank">Silver</span></p>
+                                </div>
+                                <div class="col-md-6 text-end">
+                                    <p class="mb-1" id="nextRankInfo">Còn <span class="points-to-next" id="pointsToNext">150</span> điểm để lên hạng Gold</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="points-progress mb-4">
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <small id="minPoints">0</small>
+                                <small id="maxPoints">Gold (300)</small>
+                            </div>
+                        </div>
+                        
+                        <p class="points-note">
+                            Tích điểm càng nhiều, ưu đãi càng phiêu!
+                        </p>
+                    </div>
+                    
+                    <!-- Member Benefits Section -->
+                    <div class="content-box mt-4">
+                        <h3 class="section-title">Quyền lợi thành viên</h3>
+                        
+                        <div class="member-benefits">
+                            <div class="benefit-item" id="noneMember">
+                                <div class="benefit-header">
+                                    <h5><i class="fas fa-gem me-2 noneMember"></i>Thành viên thường (0-100 điểm)</h5>
+                                </div>
+                                <div class="benefit-content">
+                                    <ul>
+                                        <li>Tham gia các chương trình khuyến mãi thông thường</li>
+                                        <li>Nhận thông báo về sản phẩm mới và ưu đãi qua email</li>
+                                        <li>Tích lũy điểm thưởng với mỗi lần mua hàng</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="benefit-item active" id="silverMember">
+                                <div class="benefit-header">
+                                    <h5><i class="fas fa-gem me-2 silverMember"></i>Thành viên Bạc (100-300 điểm)</h5>
+                                </div>
+                                <div class="benefit-content">
+                                    <ul>
+                                        <li>Giảm giá 10% trên tổng hóa đơn cho mỗi lần mua hàng</li>
+                                        <li>Ưu tiên tư vấn và hỗ trợ kỹ thuật</li>
+                                        <li>Quà tặng sinh nhật đặc biệt</li>
+                                        <li>Tất cả quyền lợi của thành viên thường</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="benefit-item" id="goldMember">
+                                <div class="benefit-header">
+                                    <h5><i class="fas fa-gem me-2 goldMember"></i>Thành viên Vàng (300-600 điểm)</h5>
+                                </div>
+                                <div class="benefit-content">
+                                    <ul>
+                                        <li>Giảm giá 15% trên tổng hóa đơn cho mỗi lần mua hàng</li>
+                                        <li>Miễn phí vận chuyển cho mọi đơn hàng</li>
+                                        <li>Tham gia các sự kiện đặc biệt dành riêng cho thành viên Vàng</li>
+                                        <li>Đổi điểm thưởng lấy sản phẩm với tỷ lệ ưu đãi</li>
+                                        <li>Tất cả quyền lợi của thành viên Bạc</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="benefit-item" id="platinumMember">
+                                <div class="benefit-header">
+                                    <h5><i class="fas fa-gem me-2 platinumMember"></i>Thành viên Bạch Kim (600-1000 điểm)</h5>
+                                </div>
+                                <div class="benefit-content">
+                                    <ul>
+                                        <li>Giảm giá 20% trên tổng hóa đơn cho mỗi lần mua hàng</li>
+                                        <li>Dịch vụ chăm sóc khách hàng VIP 24/7</li>
+                                        <li>Quà tặng đặc biệt hàng quý</li>
+                                        <li>Ưu tiên trải nghiệm sản phẩm mới trước khi ra mắt</li>
+                                        <li>Tham gia các sự kiện độc quyền</li>
+                                        <li>Tất cả quyền lợi của thành viên Vàng</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="benefit-item" id="diamondMember">
+                                <div class="benefit-header">
+                                    <h5><i class="fas fa-gem me-2 diamondMember"></i>Thành viên Kim Cương (1000+ điểm)</h5>
+                                </div>
+                                <div class="benefit-content">
+                                    <ul>
+                                        <li>Giảm giá 25% trên tổng hóa đơn cho mỗi lần mua hàng</li>
+                                        <li>Dịch vụ chăm sóc khách hàng VIP 24/7 với nhân viên riêng</li>
+                                        <li>Quà tặng đặc biệt hàng tháng</li>
+                                        <li>Ưu tiên cao nhất khi mua sản phẩm giới hạn</li>
+                                        <li>Tham gia các sự kiện độc quyền dành cho thành viên Kim Cương</li>
+                                        <li>Đổi điểm thưởng với tỷ lệ ưu đãi cao nhất</li>
+                                        <li>Tất cả quyền lợi của thành viên Bạch Kim</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

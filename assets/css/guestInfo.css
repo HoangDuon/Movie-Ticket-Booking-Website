@@ -69,6 +69,7 @@ body {
     border-radius: 10px;
     padding: 20px;
     color: #000;
+    margin-bottom: 20px;
 }
 
 .section-title {
@@ -146,4 +147,101 @@ label {
 
 .title {
     font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Member Section Styles */
+.points-info {
+    font-size: 16px;
+}
+
+.current-points, .member-rank, .points-to-next {
+    font-weight: bold;
+    color: #1a3b6d;
+}
+
+.points-progress .progress {
+    height: 15px;
+    border-radius: 10px;
+    background-color: #e9ecef;
+}
+
+.points-progress .progress-bar {
+    background-color: #f8e71c;
+}
+
+.points-note {
+    font-size: 14px;
+    color: #666;
+    font-style: italic;
+    text-align: center;
+}
+
+.member-benefits {
+    padding: 10px 0;
+}
+
+.benefit-item {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.benefit-header {
+    padding: 12px 15px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #eee;
+}
+
+.benefit-header h5 {
+    margin-bottom: 0;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.benefit-content {
+    padding: 15px;
+}
+
+.benefit-content ul {
+    margin-bottom: 0;
+    padding-left: 20px;
+}
+
+.benefit-content li {
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.benefit-item.active {
+    border-color: #f8e71c;
+    box-shadow: 0 0 10px rgba(248, 231, 28, 0.3);
+}
+
+.benefit-item.active .benefit-header {
+    background-color: rgba(248, 231, 28, 0.2);
+}
+
+/* Icons for member levels */
+#noneMember .noneMember {
+    color: #60717a;
+}
+
+#silverMember .silverMember {
+    color: #adb5bd;
+}
+
+#goldMember .goldMember {
+    color: #ffc107;
+}
+
+#platinumMember .platinumMember {
+    color: #37a2af;
+}
+
+#diamondMember .diamondMember {
+    color: #17a2b8;
 }
