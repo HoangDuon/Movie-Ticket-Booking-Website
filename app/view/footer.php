@@ -1,10 +1,9 @@
    
    <!-- -------------------------------------- FOOTER ---------------------------------------------------- -->
     <footer>
-        <div class="container container-fullwidth">
-            <div class="footer-body">
-
-                <div class="container text-center">
+        <div class="container-fullwidth">
+            <div class="footer-body">   
+                <div class="footer-inner text-center">
                     <div class="row align-items-start">
                         <div class="ft-body-item col-4">
                             <a href="#" class="ft-logo">
@@ -51,7 +50,7 @@
                             </div>
                         </div>
                         <div class="ft-body-item col-4">
-                            <div class="container text-center">
+                            <div class="footer-inner text-center">
                                 <div class="row ft-item-top">
                                     <div class="col-6 col">
                                         <div class="text">TÀI KHOẢN</div>

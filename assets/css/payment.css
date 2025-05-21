@@ -3,7 +3,6 @@ body {
     background: linear-gradient(to bottom, #0a1226, #1a237e);
     min-height: 100vh;
     font-family: Arial, sans-serif;
-    padding: 20px;
 }
 
 /* Progress Steps */

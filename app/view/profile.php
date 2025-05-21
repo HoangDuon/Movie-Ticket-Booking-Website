@@ -108,8 +108,8 @@
                         
                         <div class="points-info mb-3">
                             <div class="row align-items-center">
-                                <div class="col-md-6">
-                                    <p class="mb-1">Hạng thành viên: <span class="member-rank" id="memberRank"><?= ($_SESSION['user']['member']) ?></span></p>
+                                <div>
+                                    <p class="mb-1 ranking">HẠNG THÀNH VIÊN: <span class="member-rank" id="memberRank"><?= ($_SESSION['user']['member']) ?></span></p>
                                 </div>
                             </div>
                         </div>
@@ -129,14 +129,18 @@
                         ?>
                         <div class="member-benefits">
                             <?php foreach ($members as $member): ?>
-                            <div class="benefit-item active">
-                                <div class="benefit-header">
-                                    <h5><i class="fas fa-gem me-2 <?= $member['member_type'] ?>"></i><?= htmlspecialchars($member['member_type']) ?></h5>
+                                <?php
+                                    $isActive = strtolower($member['member_type']) === strtolower($_SESSION['user']['member']) ? 'active' : '';
+                                    $memberId = strtolower($member['member_type']) . 'Member';
+                                ?>
+                                <div class="benefit-item <?= $isActive ?>" id="<?= $memberId ?>">
+                                    <div class="benefit-header">
+                                        <h5><i class="fas fa-gem me-2 <?= htmlspecialchars($member['member_type']) ?>"></i><?= htmlspecialchars($member['member_type']) ?></h5>
+                                    </div>
+                                    <div class="benefit-content">
+                                        <?= $member['content'] ?>
+                                    </div>
                                 </div>
-                                <div class="benefit-content">
-                                    <?= $member['content'] ?>
-                                </div>
-                            </div>
                             <?php endforeach; ?>
                         </div>
                     </div>
