@@ -2,12 +2,12 @@ body {
     font-family: Arial, sans-serif;
     background-image: url("../img/BG-detail.jpg");
     min-height: 100vh;
-    padding: 20px;
     color: #fff;
 }
 
 /* Sidebar Styles */
 .sidebar {
+    position: sticky;
     background-color: rgba(85, 75, 175, 0.5);
     border-radius: 15px;
     padding: 20px;
@@ -244,4 +244,10 @@ label {
 
 .benefit-item  .Diamond {
     color: #17a2b8;
+}
+
+.ranking {
+    text-align: center;
+    font-size: 20px;    
+    font-weight: bold;
 }

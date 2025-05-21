@@ -1,4 +1,18 @@
 .container-fullwidth {
-    max-width: 100% !important;
-    width: 100% !important;
+    width: 100vw;
+    max-width: 100%;
+    color: white;
+    margin: 0;
+    padding: 40px 0 20px;
+    box-sizing: border-box;
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+footer {
+    width: 100%;
 }

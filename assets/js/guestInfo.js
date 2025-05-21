@@ -157,6 +157,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Giả lập điểm thành viên ban đầu
-    const initialPoints = 134;
+    const initialPoints = 341;
     updateMemberInfo(initialPoints);
 });

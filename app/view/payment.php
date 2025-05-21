@@ -72,84 +72,66 @@ $bookingData = json_decode($_POST['booking_data'], true);
             ?>
             <!-- Movie Information -->
             <div class="col-12 col-md-6 mb-4">
-                <div class="movie-info">
-                    <?php
-                    $Showtime=new cinemas_services();
-                    $ShowtimeInformation=$Showtime->GetCinemasByShowtimesID($bookingData['showtime_id']);
-                    ?>  
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-                        <h2 class="movie-title"><?=$ShowtimeInformation['movie_title']?></h2>
-                        <div class="timer-badge">
-                            THỜI GIAN GIỮ VÉ: <span id="countdown"></span>
-                        </div>
-                    </div>
-                    
-                    <p class="age-rating mb-3">Phim dành cho khán giả từ đủ 13 tuổi trở lên (13+)</p>
-                    
-                    <h3 class="cinema-name"><?=$ShowtimeInformation['cinema_name']?></h3>
-                    <p class="cinema-address mb-3"><?=$ShowtimeInformation['cinema_location']?></p>
-                    
-                    <div class="mb-3">
-                        <h4 class="info-title">Thời gian</h4>
-                        <p class="mb-0"><?=$ShowtimeInformation['start_time']?></p>
-                    </div>
-                    
-                    <div class="row mb-3">
-                        <div class="col-6">
-                            <h4 class="info-title">Phòng chiếu</h4>
-                            <p class="mb-0"><?=$ShowtimeInformation['room_name']?></p>
-                        </div>
-                        <div class="col-6">
-                            <h4 class="info-title">Giá vé</h4>
-                            <p class="mb-0"><?=$ShowtimeInformation['price']?></p>
-                        </div>
-                    </div>
-                    
-                    <?php foreach ($bookingData['seats'] as $seat): ?>
-                    <div class="row mb-3">
-                        <div class="col-4">
-                            <h4 class="info-title">Loại ghế</h4>
-                            <p class="mb-0"><?=$seat['type']?></p>
-                        </div>
-                        <div class="col-4">
-                            <h4 class="info-title">Số ghế</h4>
-                            <p class="mb-0"><?=$seat['seatNumber']?></p>
-                        </div>
-                        <div class="col-4">
-                            <h4 class="info-title">Giá ghế</h4>
-                            <p class="mb-0"><?=$seat['price']?></p>
-                        </div>
-                    </div>
-                    <?php endforeach; ?>
-
-                    <div class="mb-3">
-                        <h4 class="info-title">Bắp nước</h4>
-                        <p class="mb-0">--------------------------</p>
-                    </div>
-                    
-                    <?php foreach ($bookingData['concessions'] as $concession): 
-                        $concessionService= new concessions_services();
-                        $con = $concessionService->GetConcessionByID($concession['concession_id'])
-                        ?>
-                    <div class="row mb-3">
-                        <div class="col-4">
-                            <p class="mb-0"><?=$con['name']?></p>
-                        </div>
-                        <div class="col-4">
-                            <p class="mb-0"><?=$con['price']?></p>
-                        </div>
-                        <div class="col-4">
-                            <p class="mb-0"><?=$concession['quantity']?></p>
-                        </div>
-                    </div>
-                    <?php endforeach; ?>
-
-                    <div class="total-section">
-                        <h3 class="text-center mb-2">SỐ TIỀN CẦN THANH TOÁN</h3>
-                        <p class="total-price"><?=$bookingData['total_price']?> VND</p>
+                <div class="movie-info" style="background-color: #2e64c5; color: white; padding: 24px; border-radius: 12px; font-family: 'Arial', sans-serif;">
+                <?php
+                $Showtime = new cinemas_services();
+                $ShowtimeInformation = $Showtime->GetCinemasByShowtimesID($bookingData['showtime_id']);
+                ?>  
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <h2 style="font-size: 20px; font-weight: bold;">
+                        <?= $ShowtimeInformation['movie_title'] ?>
+                    </h2>
+                    <div style="background-color: yellow; color: black; padding: 4px 10px; border-radius: 4px; font-weight: bold;">
+                        THỜI GIAN GIỮ VÉ: <span id="countdown"></span>
                     </div>
                 </div>
+
+                <p class="age-rating mb-3">Phim dành cho khán giả từ đủ 13 tuổi trở lên (13+)</p>
+
+                <h3 style="color: yellow; font-weight: bold; margin: 8px 0 0;"><?= $ShowtimeInformation['cinema_name'] ?></h3>
+                <p style="margin-bottom: 16px;"><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i><?= $ShowtimeInformation['cinema_location'] ?></p>
+
+                <div style="margin-bottom: 8px;">
+                    <strong style="color: yellow;">Thời gian:</strong> <?= $ShowtimeInformation['start_time'] ?>
+                </div>
+
+                <div style="margin-bottom: 8px;">
+                    <strong style="color: yellow;">Phòng chiếu:</strong> <?= $ShowtimeInformation['room_name'] ?> | 
+                    <strong style="color: yellow;">Số vé:</strong> <?= count($bookingData['seats']) ?> |
+                    <strong style="color: yellow;">Giá vé:</strong> <?= number_format($ShowtimeInformation['price'], 0, ',', '.') ?> VND
+                </div>
+
+                <?php foreach ($bookingData['seats'] as $seat): ?>
+                <div style="margin-bottom: 8px;">
+                    <strong style="color: yellow;">Loại ghế:</strong> <?= $seat['type'] ?> | 
+                    <strong style="color: yellow;">Số ghế:</strong> <?= $seat['seatNumber'] ?>
+                </div>
+                <?php endforeach; ?>
+
+                <div style="margin-top: 12px;">
+                    <strong>Bắp nước:</strong>
+                </div>
+                <?php foreach ($bookingData['concessions'] as $concession): 
+                    $concessionService = new concessions_services();
+                    $con = $concessionService->GetConcessionByID($concession['concession_id']);
+                ?>
+                <div>
+                    <?= $con['name'] ?> x<?= $concession['quantity'] ?> |
+                    <strong style="color: yellow;">Giá:</strong> <?= number_format($con['price'], 0, ',', '.') ?> VND
+                </div>
+                <?php endforeach; ?>
+
+                <hr style="border-top: 2px dashed #ffee58; margin: 16px 0;">
+
+                <div style="text-align: right;">
+                    <h4 style="color: #ffee58; margin-bottom: 4px;">SỐ TIỀN CẦN THANH TOÁN</h4>
+                    <h2 style="font-size: 24px; font-weight: bold;">
+                        <?= number_format($bookingData['total_price'], 0, ',', '.') ?> VND
+                    </h2>
+                </div>
             </div>
+        </div>
+
         </div>
 
         <!-- Payment Section -->
