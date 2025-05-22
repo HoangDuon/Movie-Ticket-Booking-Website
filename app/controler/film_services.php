@@ -100,5 +100,33 @@ class film_services{
     //             WHERE release_date > NOW()"
     //     return pdo_query($sql);
     // }
+
+public function searchMovies($keyword) {
+    if (empty(trim($keyword))) {
+        return [];
+    }
+
+    $searchTerm = "%" . trim($keyword) . "%";
+
+    $sql = "SELECT 
+                movie_id, 
+                title, 
+                poster_url, 
+                description,
+                genre,
+                duration,
+                director,
+                release_date 
+            FROM movies 
+            WHERE (title LIKE ? 
+                   OR director LIKE ? 
+                   OR cast LIKE ? 
+                   OR description LIKE ?
+                   OR genre LIKE ?)
+              AND hide = 0
+            ORDER BY release_date DESC, title ASC";
+
+    return pdo_query($sql, $searchTerm, $searchTerm, $searchTerm, $searchTerm, $searchTerm);
+}
 }
 ?>  

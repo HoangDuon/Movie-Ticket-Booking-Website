@@ -156,10 +156,15 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
     <!-- NGƯỜI DÙNG -->
     <div id="page-users" style="display: none;">
         <h2>Quản lý người dùng</h2>
+        <div class="mb-3">
+            <input type="text" id="searchUserInput" class="form-control"
+                placeholder="Tìm kiếm theo họ và tên, email, số điện thoại..."
+                onkeyup="filterAdminTable('searchUserInput', 'showUserTable')">
+        </div>
         <a href="#" class="btn btn-success btn-sm" onclick="showAddUserForm()">
             <i class="bi bi-plus-circle"></i> Thêm
         </a>
-        <table class="table table-bordered mt-3">
+        <table id="showUserTable" class="table table-bordered mt-3">
             <thead class="table-dark">
                 <tr>
                     <th>STT</th>
@@ -288,10 +293,15 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
     <!-- PHIM -->
     <div id="page-movies" style="display: none;">
         <h2>Quản lý phim</h2>
+        <div class="mb-3">
+            <input type="text" id="searchMoviesInput" class="form-control"
+                placeholder="Tìm kiếm theo tên phim, thể loại, đạo diễn, diễn viên..."
+                onkeyup="filterAdminTable('searchMoviesInput', 'moviesTable')">
+        </div>
         <a href="#" class="btn btn-success btn-sm" onclick="showMovieAddForm()">
             <i class="bi bi-plus-circle"></i> Thêm
         </a>
-        <table class="table table-bordered mt-3">
+        <table id="moviesTable" class="table table-bordered mt-3">
             <thead class="table-dark">
                 <tr>
                     <th>STT</th>
@@ -439,8 +449,13 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
         <h2>Quản lý rạp</h2>
         <!-- <a href="#" class="btn btn-success btn-sm" onclick="showAddCinemasForm()">
             <i class="bi bi-plus-circle"></i> Thêm -->
-        </a>
-        <table class="table table-bordered mt-3">
+        <!-- </a> -->
+        <div class="mb-3">
+            <input type="text" id="searchCinemasInput" class="form-control"
+                placeholder="Tìm kiếm theo tên rạp, địa chỉ, thành phố..."
+                onkeyup="filterAdminTable('searchCinemasInput', 'cinemasTable')">
+        </div>
+        <table id="cinemasTable" class="table table-bordered mt-3">
             <thead class="table-dark">
                 <tr>
                     <th>STT</th>
@@ -638,10 +653,15 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
     <!-- BẮP NƯỚC -->
     <div id="page-concessions" style="display: none;">
         <h2>Quản lý đồ ăn</h2>
+        <div class="mb-3">
+            <input type="text" id="searchConcessionInput" class="form-control"
+                placeholder="Tìm kiếm theo tên đồ ăn, nước uống, giá cả..."
+                onkeyup="filterAdminTable('searchConcessionInput', 'showConcessionTable')">
+        </div>
         <a href="#" class="btn btn-success btn-sm" onclick="showAddConcessionsForm()">
             <i class="bi bi-plus-circle"></i> Thêm
         </a>
-        <table class="table table-bordered mt-3">
+        <table id="showConcessionTable" class="table table-bordered mt-3">
             <thead class="table-dark">
                 <tr>
                     <th>STT</th>
@@ -736,10 +756,15 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
     <!-- THÀNH VIÊN -->
     <div id="page-membership" style="display: none;">
         <h2>Quản lý Membership</h2>
+        <div class="mb-3">
+            <input type="text" id="searchMembershipInput" class="form-control"
+                placeholder="Tìm kiếm theo loại thành viên, nội dung..."
+                onkeyup="filterAdminTable('searchMembershipInput', 'showMembershipTable')">
+        </div>
         <!-- <a href="#" class="btn btn-success btn-sm" onclick="showAddMemberForm()"> 
             <i class="bi bi-plus-circle"></i> Thêm
         </a> -->
-        <table class="table table-bordered mt-3">
+        <table id="showMembershipTable" class="table table-bordered mt-3">
             <thead class="table-dark">
                 <tr>
                     <th>Loại</th>
@@ -817,10 +842,15 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
     <!-- XUẤT CHIẾU -->
     <div id="page-showtime" style="display: none;">
         <h2>Quản lý xuất chiếu</h2>
+        <div class="mb-3">
+            <input type="text" id="searchShowtimesInput" class="form-control"
+                placeholder="Tìm kiếm theo tên rạp, tên phim, tên phòng chiếu, thời gian chiếu..."
+                onkeyup="filterAdminTable('searchShowtimesInput', 'showtimesTable')">
+        </div>
         <a href="#" class="btn btn-success btn-sm" onclick="showAddShowtimeForm()">
             <i class="bi bi-plus-circle"></i> Thêm
         </a>
-        <table class="table table-bordered mt-3">
+        <table id="showtimesTable" class="table table-bordered mt-3">
             <thead class="table-dark">
                 <tr>
                     <th>STT</th>
@@ -976,10 +1006,15 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
     <!-- KHUYẾN MÃI -->
     <div id="page-promotions" style="display: none;">
         <h2>Quản lý khuyến mãi</h2>
+        <div class="mb-3">
+            <input type="text" id="searchPromotionsInput" class="form-control"
+                placeholder="Tìm kiếm theo tiêu đề, nội dung..."
+                onkeyup="filterAdminTable('searchPromotionsInput', 'showPromotionsTable')">
+        </div>
         <a href="#" class="btn btn-success btn-sm" onclick="showAddPromotionForm()">
             <i class="bi bi-plus-circle"></i> Thêm
         </a>
-        <table class="table table-bordered mt-3">
+        <table id="showPromotionsTable" class="table table-bordered mt-3">
             <thead class="table-dark">
                 <tr>
                     <th>STT</th>
