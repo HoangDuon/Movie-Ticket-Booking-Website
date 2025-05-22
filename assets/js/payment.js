@@ -3,6 +3,9 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Khởi tạo đếm ngược
   initCountdown(); //
+  console.log("Dữ liệu booking từ PHP:", window.bookingData);
+
+  console.log("Dữ liệu booking từ PHP VNPAY:", window.bookingDataVNPAY);
 
   // Kiểm tra xem có phải là redirect từ VNPAY về không
   const urlParams = new URLSearchParams(window.location.search);
@@ -18,6 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("ticket-section").style.display = "block"; //
       updateStepStatus(3); //
       
+      saveBookingToDatabase(window.bookingDataVNPAY);
+
       // Hiển thị thông tin vé sau khi VNPAY thành công
       displayTicketInfoAfterVnpay(localStorage.getItem("lastBookingId") || vnpayTxnRef); // Ưu tiên vnpayTxnRef nếu lastBookingId không có
     } else if (typeof vnpayMessage !== 'undefined') {
@@ -168,6 +173,7 @@ async function initiateVnpayPayment() {
         amount: amount,
         orderDescription: orderDescription,
         bankCode: bankCode,
+        bookingData: window.bookingData,
         // các thông tin khác nếu cần thiết cho backend
       }),
     });
@@ -293,4 +299,23 @@ function updateStepStatus(currentStep) { //
     document.getElementById("line2").className = "step-line completed"; //
     document.getElementById("step3").className = "step active"; //
   }
+}
+
+function saveBookingToDatabase(bookingData) {
+  // Thêm mã giao dịch VNPAY vào dữ liệu gửi
+
+  fetch("app/controler/save_booking.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(bookingData)
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Booking đã được lưu:", data);
+    })
+    .catch((err) => {
+      console.error("Lỗi khi lưu booking:", err);
+    });
 }

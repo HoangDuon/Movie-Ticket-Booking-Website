@@ -1,4 +1,5 @@
 <?php
+session_start();
 // vnpay_create_payment.php
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
@@ -8,6 +9,7 @@ header('Content-Type: application/json');
 // Nhận dữ liệu JSON từ request
 $json_param = file_get_contents('php://input');
 $param = json_decode($json_param);
+
 
 // --- CẤU HÌNH VNPAY ---
 // Thay thế bằng thông tin thật của bạn
@@ -25,6 +27,12 @@ $vnp_Amount = ($param->amount ?? 0) * 100; // Số tiền thanh toán (nhân 100
 $vnp_Locale = 'vn'; // Ngôn ngữ giao diện (vn hoặc en)
 // $vnp_BankCode = $param->bankCode ?? ''; // Mã ngân hàng (để trống nếu muốn khách chọn)
 $vnp_IpAddr = $_SERVER['REMOTE_ADDR']; // IP Khách hàng
+
+$bookingData = $param->bookingData;
+
+$bookingData->txnRef = $vnp_TxnRef;
+
+$_SESSION['bookingData'] = $bookingData;
 
 // --- TẠO DỮ LIỆU GỬI SANG VNPAY ---
 $inputData = array(

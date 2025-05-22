@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 20, 2025 lúc 01:44 PM
+-- Thời gian đã tạo: Th5 22, 2025 lúc 06:42 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -34,7 +34,6 @@ CREATE TABLE `bookings` (
   `user_id` int(11) NOT NULL,
   `showtime_id` int(11) NOT NULL,
   `booking_time` timestamp NOT NULL DEFAULT current_timestamp(),
-  `status` enum('Pending','Paid','Cancelled') DEFAULT 'Pending',
   `total_price` decimal(10,2) NOT NULL,
   `link` varchar(255) DEFAULT NULL,
   `hide` tinyint(1) DEFAULT 0,
@@ -162,6 +161,7 @@ CREATE TABLE `payments` (
   `user_id` int(11) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `payment_method` enum('Credit_card','Paypal','Momo','Zalopay') NOT NULL,
+  `transaction_code` varchar(255) NOT NULL,
   `payment_status` enum('Success','Failed','Pending') DEFAULT 'Pending',
   `payment_time` timestamp NOT NULL DEFAULT current_timestamp(),
   `link` varchar(255) DEFAULT NULL,

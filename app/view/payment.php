@@ -278,5 +278,9 @@ $tongtien_display = isset($bookingData['total_price']) ? number_format($bookingD
         </div>
     </div> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <?php echo $vnpay_success_script; // Chèn script báo trạng thái VNPAY ?>
+    <script>
+        window.bookingData = <?php echo json_encode($bookingData); ?>;
+        window.bookingDataVNPAY = <?php echo json_encode($_SESSION['bookingData'] ?? []); ?>;
+    </script>
     <script src="../LTW/assets/js/payment.js"></script> </body>
 </html>

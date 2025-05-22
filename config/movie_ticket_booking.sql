@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 20, 2025 lúc 01:44 PM
+-- Thời gian đã tạo: Th5 22, 2025 lúc 06:41 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -34,7 +34,6 @@ CREATE TABLE `bookings` (
   `user_id` int(11) NOT NULL,
   `showtime_id` int(11) NOT NULL,
   `booking_time` timestamp NOT NULL DEFAULT current_timestamp(),
-  `status` enum('Pending','Paid','Cancelled') DEFAULT 'Pending',
   `total_price` decimal(10,2) NOT NULL,
   `link` varchar(255) DEFAULT NULL,
   `hide` tinyint(1) DEFAULT 0,
@@ -45,17 +44,18 @@ CREATE TABLE `bookings` (
 -- Đang đổ dữ liệu cho bảng `bookings`
 --
 
-INSERT INTO `bookings` (`booking_id`, `user_id`, `showtime_id`, `booking_time`, `status`, `total_price`, `link`, `hide`, `order_index`) VALUES
-(1, 1, 1, '2025-04-23 12:23:40', 'Pending', 300000.00, 'https://link.example.com', 0, 1),
-(2, 2, 2, '2025-04-23 12:23:40', 'Pending', 240000.00, 'https://link.example.com', 0, 2),
-(3, 3, 3, '2025-04-23 12:23:40', 'Pending', 220000.00, 'https://link.example.com', 0, 3),
-(4, 4, 4, '2025-04-23 12:23:40', 'Pending', 260000.00, 'https://link.example.com', 0, 4),
-(5, 5, 5, '2025-04-23 12:23:40', 'Pending', 230000.00, 'https://link.example.com', 0, 5),
-(6, 6, 6, '2025-04-23 12:23:40', 'Pending', 280000.00, 'https://link.example.com', 0, 6),
-(7, 7, 7, '2025-04-23 12:23:40', 'Pending', 310000.00, 'https://link.example.com', 0, 7),
-(8, 8, 8, '2025-04-23 12:23:40', 'Pending', 270000.00, 'https://link.example.com', 0, 8),
-(9, 9, 9, '2025-04-23 12:23:40', 'Pending', 250000.00, 'https://link.example.com', 0, 9),
-(10, 10, 10, '2025-04-23 12:23:40', 'Pending', 320000.00, 'https://link.example.com', 0, 10);
+INSERT INTO `bookings` (`booking_id`, `user_id`, `showtime_id`, `booking_time`, `total_price`, `link`, `hide`, `order_index`) VALUES
+(1, 1, 1, '2025-04-23 12:23:40', 300000.00, 'https://link.example.com', 0, 1),
+(2, 2, 2, '2025-04-23 12:23:40', 240000.00, 'https://link.example.com', 0, 2),
+(3, 3, 3, '2025-04-23 12:23:40', 220000.00, 'https://link.example.com', 0, 3),
+(4, 4, 4, '2025-04-23 12:23:40', 260000.00, 'https://link.example.com', 0, 4),
+(5, 5, 5, '2025-04-23 12:23:40', 230000.00, 'https://link.example.com', 0, 5),
+(6, 6, 6, '2025-04-23 12:23:40', 280000.00, 'https://link.example.com', 0, 6),
+(7, 7, 7, '2025-04-23 12:23:40', 310000.00, 'https://link.example.com', 0, 7),
+(8, 8, 8, '2025-04-23 12:23:40', 270000.00, 'https://link.example.com', 0, 8),
+(9, 9, 9, '2025-04-23 12:23:40', 250000.00, 'https://link.example.com', 0, 9),
+(10, 10, 10, '2025-04-23 12:23:40', 320000.00, 'https://link.example.com', 0, 10),
+(11, 13, 1, '2025-05-22 16:31:05', 2835000.00, NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -89,7 +89,15 @@ INSERT INTO `booking_concessions` (`id`, `booking_id`, `concession_id`, `quantit
 (7, 7, 7, 2, 60000.00, 'https://link.example.com', 0, 7, '2025-04-23 12:23:40'),
 (8, 8, 8, 3, 90000.00, 'https://link.example.com', 0, 8, '2025-04-23 12:23:40'),
 (9, 9, 9, 1, 15000.00, 'https://link.example.com', 0, 9, '2025-04-23 12:23:40'),
-(10, 10, 10, 5, 175000.00, 'https://link.example.com', 0, 10, '2025-04-23 12:23:40');
+(10, 10, 10, 5, 175000.00, 'https://link.example.com', 0, 10, '2025-04-23 12:23:40'),
+(11, 11, 1, 2, 60000.00, NULL, 0, NULL, '2025-05-22 16:31:06'),
+(12, 11, 2, 3, 60000.00, NULL, 0, NULL, '2025-05-22 16:31:06'),
+(13, 11, 3, 3, 75000.00, NULL, 0, NULL, '2025-05-22 16:31:06'),
+(14, 11, 4, 2, 30000.00, NULL, 0, NULL, '2025-05-22 16:31:06'),
+(15, 11, 5, 3, 30000.00, NULL, 0, NULL, '2025-05-22 16:31:06'),
+(16, 11, 6, 2, 70000.00, NULL, 0, NULL, '2025-05-22 16:31:06'),
+(17, 11, 7, 2, 50000.00, NULL, 0, NULL, '2025-05-22 16:31:06'),
+(18, 11, 8, 2, 40000.00, NULL, 0, NULL, '2025-05-22 16:31:06');
 
 -- --------------------------------------------------------
 
@@ -119,7 +127,21 @@ INSERT INTO `booking_details` (`detail_id`, `booking_id`, `seat_id`, `link`, `hi
 (7, 7, 7, 'https://link.example.com', 0, 7, '2025-04-23 12:23:40'),
 (8, 8, 8, 'https://link.example.com', 0, 8, '2025-04-23 12:23:40'),
 (9, 9, 9, 'https://link.example.com', 0, 9, '2025-04-23 12:23:40'),
-(10, 10, 10, 'https://link.example.com', 0, 10, '2025-04-23 12:23:40');
+(10, 10, 10, 'https://link.example.com', 0, 10, '2025-04-23 12:23:40'),
+(11, 11, 99, NULL, 0, NULL, '2025-05-22 16:31:05'),
+(12, 11, 100, NULL, 0, NULL, '2025-05-22 16:31:05'),
+(13, 11, 101, NULL, 0, NULL, '2025-05-22 16:31:05'),
+(14, 11, 104, NULL, 0, NULL, '2025-05-22 16:31:05'),
+(15, 11, 102, NULL, 0, NULL, '2025-05-22 16:31:06'),
+(16, 11, 103, NULL, 0, NULL, '2025-05-22 16:31:06'),
+(17, 11, 105, NULL, 0, NULL, '2025-05-22 16:31:06'),
+(18, 11, 106, NULL, 0, NULL, '2025-05-22 16:31:06'),
+(19, 11, 108, NULL, 0, NULL, '2025-05-22 16:31:06'),
+(20, 11, 107, NULL, 0, NULL, '2025-05-22 16:31:06'),
+(21, 11, 98, NULL, 0, NULL, '2025-05-22 16:31:06'),
+(22, 11, 97, NULL, 0, NULL, '2025-05-22 16:31:06'),
+(23, 11, 96, NULL, 0, NULL, '2025-05-22 16:31:06'),
+(24, 11, 95, NULL, 0, NULL, '2025-05-22 16:31:06');
 
 -- --------------------------------------------------------
 
@@ -176,14 +198,14 @@ CREATE TABLE `concessions` (
 --
 
 INSERT INTO `concessions` (`concession_id`, `name`, `price`, `picture_link`, `link`, `hide`, `order_index`, `created_at`) VALUES
-(1, 'Popcorn', 30000.00, 'https://link.example.com', 'https://link.example.com', 0, 1, '2025-04-23 12:23:40'),
+(1, 'Popcorn', 30000.00, 'assets/img/air-fryer-popcorn-9.jpg', 'https://link.example.com', 0, 1, '2025-04-23 12:23:40'),
 (2, 'Soda', 20000.00, 'assets/img/soda.jpg', 'https://link.example.com', 0, 2, '2025-04-23 12:23:40'),
-(3, 'Nachos', 25000.00, 'https://link.example.com', 'https://link.example.com', 0, 3, '2025-04-23 12:23:40'),
-(4, 'Candy', 15000.00, 'https://link.example.com', 'https://link.example.com', 0, 4, '2025-04-23 12:23:40'),
-(5, 'Water', 10000.00, 'https://link.example.com', 'https://link.example.com', 0, 5, '2025-04-23 12:23:40'),
-(6, 'Ice Cream', 35000.00, 'https://link.example.com', 'https://link.example.com', 0, 6, '2025-04-23 12:23:40'),
+(3, 'Nachos', 25000.00, 'assets/img/nachos.webp', 'https://link.example.com', 0, 3, '2025-04-23 12:23:40'),
+(4, 'Candy', 15000.00, 'assets/img/candy.jpg', 'https://link.example.com', 0, 4, '2025-04-23 12:23:40'),
+(5, 'Water', 10000.00, 'assets/img/frostvictoria.webp', 'https://link.example.com', 0, 5, '2025-04-23 12:23:40'),
+(6, 'Ice Cream', 35000.00, 'assets/img/kem.png', 'https://link.example.com', 0, 6, '2025-04-23 12:23:40'),
 (7, 'Hot Dog', 25000.00, 'assets/img/HotDog.jpg', 'https://link.example.com', 0, 7, '2025-04-23 12:23:40'),
-(8, 'Chocolate', 20000.00, 'https://link.example.com', 'https://link.example.com', 0, 8, '2025-04-23 12:23:40'),
+(8, 'Chocolate', 20000.00, 'assets/img/Feastabke.webp', 'https://link.example.com', 0, 8, '2025-04-23 12:23:40'),
 (9, 'Tea', 15000.00, 'assets/img/tea.jpg', 'https://link.example.com', 1, 9, '2025-04-23 12:23:40'),
 (10, 'Juice', 18000.00, 'https://link.example.com', 'https://link.example.com', 1, 10, '2025-04-23 12:23:40'),
 (11, 'Coca', 20000.00, 'assets/img/coca.jpg', NULL, 1, NULL, '2025-04-24 17:45:00');
@@ -270,6 +292,7 @@ CREATE TABLE `payments` (
   `user_id` int(11) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `payment_method` enum('Credit_card','Paypal','Momo','Zalopay') NOT NULL,
+  `transaction_code` varchar(255) NOT NULL,
   `payment_status` enum('Success','Failed','Pending') DEFAULT 'Pending',
   `payment_time` timestamp NOT NULL DEFAULT current_timestamp(),
   `link` varchar(255) DEFAULT NULL,
@@ -281,17 +304,18 @@ CREATE TABLE `payments` (
 -- Đang đổ dữ liệu cho bảng `payments`
 --
 
-INSERT INTO `payments` (`payment_id`, `booking_id`, `user_id`, `price`, `payment_method`, `payment_status`, `payment_time`, `link`, `hide`, `order_index`) VALUES
-(1, 1, 1, 360000.00, 'Credit_card', 'Success', '2025-04-23 12:23:40', 'https://link.example.com', 0, 1),
-(2, 2, 2, 300000.00, 'Paypal', 'Pending', '2025-04-23 12:23:40', 'https://link.example.com', 0, 2),
-(3, 3, 3, 330000.00, 'Credit_card', 'Success', '2025-04-23 12:23:40', 'https://link.example.com', 0, 3),
-(4, 4, 4, 360000.00, 'Paypal', 'Failed', '2025-04-23 12:23:40', 'https://link.example.com', 0, 4),
-(5, 5, 5, 320000.00, 'Credit_card', 'Pending', '2025-04-23 12:23:40', 'https://link.example.com', 0, 5),
-(6, 6, 6, 380000.00, 'Credit_card', 'Success', '2025-04-23 12:23:40', 'https://link.example.com', 0, 6),
-(7, 7, 7, 400000.00, 'Paypal', 'Success', '2025-04-23 12:23:40', 'https://link.example.com', 0, 7),
-(8, 8, 8, 370000.00, 'Credit_card', 'Failed', '2025-04-23 12:23:40', 'https://link.example.com', 0, 8),
-(9, 9, 9, 380000.00, 'Paypal', 'Success', '2025-04-23 12:23:40', 'https://link.example.com', 0, 9),
-(10, 10, 10, 420000.00, 'Credit_card', 'Pending', '2025-04-23 12:23:40', 'https://link.example.com', 0, 10);
+INSERT INTO `payments` (`payment_id`, `booking_id`, `user_id`, `price`, `payment_method`, `transaction_code`, `payment_status`, `payment_time`, `link`, `hide`, `order_index`) VALUES
+(1, 1, 1, 360000.00, 'Credit_card', '', 'Success', '2025-04-23 12:23:40', 'https://link.example.com', 0, 1),
+(2, 2, 2, 300000.00, 'Paypal', '', 'Pending', '2025-04-23 12:23:40', 'https://link.example.com', 0, 2),
+(3, 3, 3, 330000.00, 'Credit_card', '', 'Success', '2025-04-23 12:23:40', 'https://link.example.com', 0, 3),
+(4, 4, 4, 360000.00, 'Paypal', '', 'Failed', '2025-04-23 12:23:40', 'https://link.example.com', 0, 4),
+(5, 5, 5, 320000.00, 'Credit_card', '', 'Pending', '2025-04-23 12:23:40', 'https://link.example.com', 0, 5),
+(6, 6, 6, 380000.00, 'Credit_card', '', 'Success', '2025-04-23 12:23:40', 'https://link.example.com', 0, 6),
+(7, 7, 7, 400000.00, 'Paypal', '', 'Success', '2025-04-23 12:23:40', 'https://link.example.com', 0, 7),
+(8, 8, 8, 370000.00, 'Credit_card', '', 'Failed', '2025-04-23 12:23:40', 'https://link.example.com', 0, 8),
+(9, 9, 9, 380000.00, 'Paypal', '', 'Success', '2025-04-23 12:23:40', 'https://link.example.com', 0, 9),
+(10, 10, 10, 420000.00, 'Credit_card', '', 'Pending', '2025-04-23 12:23:40', 'https://link.example.com', 0, 10),
+(11, 11, 13, 2835000.00, '', 'CS788115279', 'Success', '2025-05-22 16:31:06', NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -316,13 +340,13 @@ CREATE TABLE `promotions` (
 
 INSERT INTO `promotions` (`promotion_id`, `title`, `content`, `banner_url`, `created_at`, `link`, `hide`, `order_index`) VALUES
 (1, 'Giảm giá mùa hè 2025', '<p>Tận hưởng m&ugrave;a h&egrave; rực rỡ với ưu đ&atilde;i giảm gi&aacute; 30% cho mọi suất chiếu từ 1/6 đến 30/6.</p>\r\n', '/LTW/assets/img/sales-2.webp', '2025-05-05 15:41:28', NULL, 0, 1),
-(2, 'Combo bắp nước siêu rẻ', 'Chỉ với 49K, nhận ngay 1 bắp + 1 nước. Áp dụng tại tất cả các rạp toàn quốc.', '/LTW/assets/img/combo_deal.jpg', '2025-05-05 15:41:28', NULL, 0, 2),
-(3, 'Ngày hội thành viên', 'Thành viên Silver trở lên được giảm 15% mọi hóa đơn trong ngày 10 hàng tháng.', 'assets/img/member_day.jpg', '2025-05-05 15:41:28', NULL, 0, 3),
-(4, 'Ưu đãi học sinh - sinh viên', 'Xuất trình thẻ HSSV để được giảm 25% vé xem phim từ thứ 2 đến thứ 5.', 'assets/img/student_offer.jpg', '2025-05-05 15:41:28', NULL, 0, 4),
-(5, 'Khuyến mãi cuối tuần này', '<p><strong>Mua v&eacute; thứ 7</strong>, chủ nhật nhận ngay 1 combo bắp nước miễn ph&iacute;.</p>\r\n', 'assets/img/sales-1.webp', '2025-05-05 15:41:28', NULL, 0, 5),
-(6, 'KM1', '<p><strong><s><em>APDAKADSKAJSDIASD</em></s></strong></p>\r\n', 'assets/img/sales-2.webp', '2025-05-05 17:06:38', NULL, 0, NULL),
-(7, '123', '<p>123</p>\r\n', '/LTW/assets/img/sales-2.webp', '2025-05-20 09:00:41', NULL, 0, NULL),
-(8, 's', '<p><s><em>dasd</em></s></p>\r\n', '/LTW/assets/img/sales-3.webp', '2025-05-20 09:01:25', NULL, 0, NULL);
+(2, 'Combo bắp nước siêu rẻ', '<p>Chỉ với 49K, nhận ngay 1 bắp + 1 nước. &Aacute;p dụng tại tất cả c&aacute;c rạp to&agrave;n quốc.</p>\r\n', '/LTW/assets/img/sales-2.webp', '2025-05-05 15:41:28', NULL, 0, 2),
+(3, 'Ngày hội thành viên', '<p>Th&agrave;nh vi&ecirc;n Silver trở l&ecirc;n được giảm 15% mọi h&oacute;a đơn trong ng&agrave;y 10 h&agrave;ng th&aacute;ng.</p>\r\n', '/LTW/assets/img/sales-3.webp', '2025-05-05 15:41:28', NULL, 0, 3),
+(4, 'Ưu đãi học sinh - sinh viên', '<p>Xuất tr&igrave;nh thẻ HSSV để được giảm 25% v&eacute; xem phim từ thứ 2 đến thứ 5.</p>\r\n', '/LTW/assets/img/Loreal_advertisement-examples-1024x616.webp', '2025-05-05 15:41:28', NULL, 0, 4),
+(5, 'Khuyến mãi cuối tuần này', '<p><strong>Mua v&eacute; thứ 7</strong>, chủ nhật nhận ngay 1 combo bắp nước miễn ph&iacute;.</p>\r\n', '/LTW/assets/img/sales-1.webp', '2025-05-05 15:41:28', NULL, 0, 5),
+(6, 'KM1', '<p><strong><s><em>APDAKADSKAJSDIASD</em></s></strong></p>\r\n', '/LTW/assets/img/Loreal_advertisement-examples-1024x616.webp', '2025-05-05 17:06:38', NULL, 1, NULL),
+(7, '123', '<p>123</p>\r\n', '/LTW/assets/img/sales-2.webp', '2025-05-20 09:00:41', NULL, 1, NULL),
+(8, 's', '<p><s><em>dasd</em></s></p>\r\n', '/LTW/assets/img/sales-3.webp', '2025-05-20 09:01:25', NULL, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -621,7 +645,7 @@ INSERT INTO `showtimes` (`showtime_id`, `movie_id`, `room_id`, `start_time`, `en
 (7, 7, 7, '2025-05-04 16:00:00', '2025-05-04 20:00:00', 150000.00, 'https://link.example.com', 1, 7, '2025-04-23 12:23:00'),
 (8, 8, 8, '2025-05-04 18:30:00', '2025-05-04 21:00:00', 120000.00, 'https://link.example.com', 1, 8, '2025-04-23 12:23:00'),
 (9, 9, 9, '2025-05-05 10:00:00', '2025-05-05 13:00:00', 110000.00, 'https://link.example.com', 1, 9, '2025-04-23 12:23:00'),
-(10, 10, 10, '2025-05-05 13:00:00', '2025-05-05 17:00:00', 210000.00, 'https://link.example.com', 1, 10, '2025-04-23 12:23:00'),
+(10, 10, 10, '2025-05-05 13:00:00', '2025-05-05 17:00:00', 0.00, 'https://link.example.com', 1, 10, '2025-04-23 12:23:00'),
 (29, 8, 7, '2025-04-29 21:30:00', '2025-04-30 21:30:00', 30000.00, NULL, 1, NULL, '2025-04-30 14:30:12'),
 (30, 8, 7, '2025-04-29 22:15:00', '2025-04-29 23:15:00', 30000.00, NULL, 1, NULL, '2025-05-06 15:16:03');
 
@@ -656,7 +680,7 @@ INSERT INTO `users` (`user_id`, `full_name`, `email`, `password`, `phone`, `birt
 (3, 'Le Thi Lan', 'lan@example.com', '$2y$10$LXi.46cdyKkFSOg52ZBcrev..p.IdvvFVETUepLeSlMRM1arN0vwG', '0912345678', '1988-01-20', 'Customer', 'Silver', '2025-04-23 12:20:54', 'https://link.example.com', 0, 3),
 (4, 'Hoang Minh Hieu', 'hieu@example.com', '$2y$10$SLCvX3D3Ad3wdkj7vW8iPeJU0qJSVIKMELfMxo1ErcgdHHr9Pnydi', '0945678901', '1992-10-05', 'Customer', 'Gold', '2025-04-23 12:20:54', 'https://link.example.com', 0, 4),
 (5, 'Nguyen Hoang Nam', 'nam@example.com', '$2y$10$JQNWSLRgLXJ8auHaFZgoAuV1stgpS8VDy8LrvpAC0U1.s/UrqwlFy', '09123456782', '1994-02-11', 'Admin', 'None', '2025-04-23 12:20:54', 'https://link.example.com', 0, 5),
-(6, 'Pham Minh Hoang', 'hoang@example.com', '$2y$10$mJQEWw7gu95Z2S507LU/f.fEgo9SMAWMTJftltOQHJphq8bM7bn4W', '0971234567', '1991-06-30', 'Customer', 'Diamond', '2025-04-23 12:20:54', 'https://link.example.com', 0, 6),
+(6, 'Pham Minh Hoang', 'boty1402@gmail.com', '$2y$10$2H00xy1AexD9dSG5cpOabekqF5bFzf7OZ65Qj0gUYl1ls2EalNBvi', '0971234567', '1991-06-30', 'Customer', 'Diamond', '2025-04-23 12:20:54', 'https://link.example.com', 0, 6),
 (7, 'Tran Thi Thanh', 'thanh@example.com', '$2y$10$K8lMnZC7F.4rNEGhshXIu.aN9RngQoVCKtJQrNFX55.UN65/yIKUW', '0903456789', '1993-03-25', 'Customer', 'Silver', '2025-04-23 12:20:54', 'https://link.example.com', 0, 7),
 (8, 'Le Thi Mai', 'mai2@example.com', '$2y$10$hQiqcoVKxeP2jJvy2o2DiOOyS9LEk1w68/wqTWINmNAMkp508I8MO', '0967654321', '1995-11-15', 'Customer', 'Gold', '2025-04-23 12:20:54', 'https://link.example.com', 0, 8),
 (9, 'Nguyen Bao Han', 'han@example.com', '$2y$10$UyynL5cbCpw9vjMK9Lukw.i3dsi7e9D8Mnj.h3/lAWWKY/yBG4S9e', '0982345678', '1990-07-22', 'Customer', 'Gold', '2025-04-23 12:20:54', 'https://link.example.com', 0, 9),
@@ -769,19 +793,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT cho bảng `booking_concessions`
 --
 ALTER TABLE `booking_concessions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT cho bảng `booking_details`
 --
 ALTER TABLE `booking_details`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT cho bảng `cinemas`
@@ -805,7 +829,7 @@ ALTER TABLE `movies`
 -- AUTO_INCREMENT cho bảng `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT cho bảng `promotions`

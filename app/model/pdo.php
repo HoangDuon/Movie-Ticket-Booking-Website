@@ -100,3 +100,29 @@ function pdo_query_value($sql){
         unset($conn);
     }
 }
+
+function pdo_lastInsertId(){
+    try {
+        $conn = pdo_get_connection();
+        return $conn->lastInsertId();
+    } catch (PDOException $e) {
+        throw $e;
+    } finally {
+        unset($conn);
+    }
+}
+
+function pdo_execute_return_last_id($sql){
+    $sql_args = array_slice(func_get_args(), 1);
+    try {
+        $conn = pdo_get_connection();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($sql_args);
+        $lastId = $conn->lastInsertId();  // lấy ID sau khi INSERT
+        return $lastId;
+    } catch (PDOException $e) {
+        throw $e;
+    } finally {
+        unset($conn);
+    }
+}
