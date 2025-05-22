@@ -38,7 +38,7 @@
                 <div class="container-fluid">
                     <div class="filter-film">
                         <div class="filter-heading">
-                            <h1>ĐẶT VÉ NHANH</h1>
+                            <h1 id="fast-booking">ĐẶT VÉ NHANH</h1>
                         </div>
                         <div class="filter-group">
                             <div class="container mt-5">
@@ -70,7 +70,7 @@
                     </div>
                 </div>
         
-                <div class="heading-phim dang-chieu">
+                <div id="now-showing" class="heading-phim dang-chieu">
                     <h1>PHIM ĐANG CHIẾU</h1>
                 </div>
         
@@ -176,7 +176,7 @@
                 </div>
         
                 <div class="heading-phim sap-chieu">
-                    <h1>PHIM SẮP CHIẾU</h1>
+                    <h1 id="will-show"> PHIM SẮP CHIẾU</h1>
                 </div>
 
                 <div class="slide-phimsapchieu">
@@ -300,7 +300,7 @@
                 </div>
                 
                 <div class="heading-phim khuyen-mai">
-                    <h1>KHUYẾN MÃI</h1>
+                    <h1 id="showkhuyenmai">KHUYẾN MÃI</h1>
                 </div>
         
                 <div class="sales">

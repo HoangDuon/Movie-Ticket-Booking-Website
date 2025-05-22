@@ -6,13 +6,31 @@
     include "app/controler/promotions_services.php";
     include "app/controler/concessions_services.php";
     include "app/controler/cinemas_services.php";
-    include "app/controler/membership.php"
+    include "app/controler/membership.php";
+
+    $filmService = new film_services();
 ?>
 
 <div id="main-content">
     <?php
         $page = $_GET['page'] ?? 'home';
-
+        $search_query_movie = trim($_GET['query_movie'] ?? ''); // Lấy từ khóa tìm kiếm phim
+        if (!empty($search_query_movie) && $page === 'search_results_movies') {
+            // Đây là trường hợp người dùng thực hiện tìm kiếm phim
+            $searchResults = $filmService->searchMovies($search_query_movie); // Gọi hàm chỉ tìm phim
+            
+            // Chuẩn bị các biến cho view kết quả tìm kiếm
+            $search_query = $search_query_movie; // Biến này sẽ được dùng trong search_results_movies_view.php
+            
+            // Include view hiển thị kết quả tìm kiếm phim
+            // Đảm bảo đường dẫn này đúng
+            if (file_exists("app/view/search_result_movies_view.php")) {
+                include "app/view/search_result_movies_view.php";
+                
+            } else {
+                echo "<h2>Lỗi: Không tìm thấy trang hiển thị kết quả tìm kiếm.</h2>";
+            }
+        } else {
         switch ($page) {
             case 'home':
                 include("../LTW/app/view/homepages.php");
@@ -43,6 +61,7 @@
             default:
                 echo "<h2>404 - Page not found</h2>";
         }
+    }
     ?>
 </div>
 <?php include("app/view/footer.php"); ?>

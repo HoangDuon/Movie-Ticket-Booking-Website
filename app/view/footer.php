@@ -1,193 +1,65 @@
-   
-   <!-- -------------------------------------- FOOTER ---------------------------------------------------- -->
-    <footer>
-        <div class="container-fullwidth">
-            <div class="footer-body">   
-                <div class="footer-inner text-center">
-                    <div class="row align-items-start">
-                        <div class="ft-body-item col-4">
-                            <a href="#" class="ft-logo">
-                                <img loading="lazy" height="180" src="/LTW/assets/img/logo.png" alt="">
-                            </a>
-                            <div class="ft-text">
-                                <p class="txt">BE HAPPY, BE A STAR</p>
-                            </div>
-                            <div class="ft-btn">
-                                <a href="#" id="dat-ve">
-                                    ĐẶT VÉ
-                                </a>
-                                <a href="#" id="dat-bapnuoc">
-                                    ĐẶT BẮP NƯỚC
-                                </a>
-                            </div>
-                            <div class="ft-hotline-socials">
-                                <ul class="list" style="padding-left: 0;">
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa-brands fa-facebook" style="color: #ffffff;"></i>
-                                            <!-- <img src="https://cinestar.com.vn/assets/images/footer-facebook.svg" alt=""> -->
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa-brands fa-youtube" style="color: #ffffff;"></i>
-                                            <!-- <img src="https://cinestar.com.vn/assets/images/footer-youtube.svg" alt=""> -->
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa-brands fa-tiktok" style="color: #ffffff;"></i>
-                                            <!-- <img src="https://api-website.cinestar.com.vn/media/wysiwyg/CMSPage/Icon/ic-tittok.svg" alt=""> -->
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <!-- <i class="fa-brands fa-zalo"></i> -->
-                                            <img src="https://cinestar.com.vn/assets/images/ic-zl-white.svg" alt="">
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+<footer>
+    <div class="container-fluid"> <div class="footer-body py-5"> <div class="container"> <div class="row justify-content-between align-items-start"> <div class="ft-body-item col-lg-4 col-md-5 col-sm-12 text-center text-md-start mb-4 mb-md-0">
+                        <a href="#" class="ft-logo mb-3 d-inline-block">
+                            <img loading="lazy" height="100" src="/LTW/assets/img/logo.png" alt="CineWave Logo"> </a>
+                        <div class="ft-text mb-3">
+                            <p class="txt-tagline">BE HAPPY, BE A STAR</p>
                         </div>
-                        <div class="ft-body-item col-4">
-                            <div class="footer-inner text-center">
-                                <div class="row ft-item-top">
-                                    <div class="col-6 col">
-                                        <div class="text">TÀI KHOẢN</div>
-                                        <ul class="menu-list">
-                                            <li class="menu-item">
-                                                <a href="#">Đăng nhập</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="#">Đăng ký</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="#">Membership</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-6 col">
-                                        <div class="text">THUÊ SỰ KIỆN</div>
-                                        <ul class="menu-list">
-                                            <li class="menu-item">
-                                                <a href="#">Thuê rạp</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="#">Các loại hình cho thuê khác</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="row ft-item-bot">
-                                    <div class="col-6 col">
-                                        <div class="text">XEM PHIM</div>
-                                        <ul class="menu-list">
-                                            <li class="menu-item">
-                                                <a href="#">Phim đang chiếu</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="#">Phim sắp chiếu</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="#">Suất chiếu đặc biệt</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-6 col">
-                                        <div class="text">CINESTAR</div>
-                                        <ul class="menu-list">
-                                            <li class="menu-item">
-                                                <a href="#">Giới thiệu</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="#">Liên hệ</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="#">Tuyển dụng</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="ft-btn mb-4">
+                            <a href="#" class="btn btn-footer-primary me-2" id="dat-ve">ĐẶT VÉ</a>
+                            <a href="#" class="btn btn-footer-secondary" id="dat-bapnuoc">ĐẶT BẮP NƯỚC</a>
                         </div>
-                        <div class="ft-body-item col-2" style="gap: 0 0;">
-                            <div class="text">DỊCH VỤ KHÁC</div>
-                            <ul class="menu-list">
-                                <li class="menu-item">
-                                    <a href="#">Nhà hàng</a>
+                        <div class="ft-hotline-socials">
+                            <p class="mb-2 social-heading">Kết nối với chúng tôi:</p>
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <a href="https://facebook.com" aria-label="Facebook"><i class="fab fa-facebook-f fa-lg"></i></a> </li>
+                                <li class="list-inline-item">
+                                    <a href="https://youtube.com" aria-label="YouTube"><i class="fab fa-youtube fa-lg"></i></a>
                                 </li>
-                                <li class="menu-item">
-                                    <a href="#">Kidzone</a>
+                                <li class="list-inline-item">
+                                    <a href="https://tiktok.com" aria-label="TikTok"><i class="fab fa-tiktok fa-lg"></i></a>
                                 </li>
-                                <li class="menu-item">
-                                    <a href="#">Bowling</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#">Billiards</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#">Gym</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#">Nhà hát Opera</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#">Coffee</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="ft-body-item col-2" style="gap: 0 0;">
-                            <div class="text">HỆ THỐNG RẠP</div>
-                            <ul class="menu-list">
-                                <li class="menu-item">
-                                    <a href="#">Cinestar Quốc Thanh (TP. HCM)</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#">Cinestar Hai Bà Trưng (TP.HCM)</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#">Cinestar Sinh Viên (Bình Dương)</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#">Cinestar Mỹ Tho (Tiền Giang)</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#">Cinestar Kiên Giang (Rạch Sỏi)</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#">Cinestar Lâm Đồng (Đức Trọng)</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#">Cinestar Đà Lạt (TP. Đà Lạt)</a>
+                                <li class="list-inline-item">
+                                    <a href="https://zalo.me/pc" aria-label="Zalo"><img src="https://cinestar.com.vn/assets/images/ic-zl-white.svg" alt="Zalo" class="social-svg-icon"></a>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                </div>
 
-                <div class="ft-bottom">
-                    <div class="ft-bottom-left">
-                        © 2023 Cinestar. All rights reserved.
+                    <div class="ft-body-item col-lg-2 col-md-3 col-sm-6 col-6 mb-4 mb-md-0 text-center" id="tai-khoan-footer">
+                        <h5 class="footer-heading">Tài Khoản</h5>
+                        <ul class="menu-list list-unstyled">
+                            <li class="menu-item"><a href="index.php?page=login">Đăng nhập</a></li>
+                            <li class="menu-item"><a href="index.php?page=login">Đăng ký</a></li>
+                        </ul>
                     </div>
-                    <ul class="menu-list">
-                        <li class="menu-item">
-                            <a href="#">Chính sách bảo mật</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#">Tin điện ảnh</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="#">Hỏi và đáp</a>
-                        </li>
-                    </ul>
+
+                    <div class="ft-body-item col-lg-2 col-md-3 col-sm-6 col-6 mb-4 mb-md-0 text-center" id="xem-phim-footer">
+                        <h5 class="footer-heading">Xem Phim</h5>
+                        <ul class="menu-list list-unstyled">
+                            <li class="menu-item"><a href="#now-showing">Phim đang chiếu</a></li>
+                            <li class="menu-item"><a href="#will-show">Phim sắp chiếu</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="ft-body-item col-lg-3 col-md-12 col-sm-12 text-center mt-4 mt-lg-0" id="sinh-vien-footer">
+                         <h5 class="footer-heading">Thông Tin Sinh Viên</h5>
+                         <ul class="menu-list list-unstyled">
+                            <li class="menu-item"><a href="https://www.facebook.com/dhoang142">52300025 - Dương Nguyễn Minh Hoàng</a></li>
+                            <li class="menu-item"><a href="https://www.facebook.com/haole.2412">52300032 - Bùi Duy Kha</a></li>
+                            <li class="menu-item"><a href="https://www.facebook.com/bdkha985/">52300025 - Lê Đoàn Anh Hào</a></li>
+                         </ul>
+                    </div>
+
                 </div>
             </div>
 
-            <div class="footer-author">
-
+            <div class="ft-bottom text-center mt-5 pt-4">
+                <p>© <?php echo date("Y"); ?> CineWave. All rights reserved.</p>
             </div>
         </div>
-    </footer>
-    <!-- --------------------------------------------------------------------------------------------------- -->
+        </div>
+</footer>
 </body>
 </html>

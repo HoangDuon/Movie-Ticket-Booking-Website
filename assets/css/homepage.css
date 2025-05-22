@@ -43,7 +43,7 @@ body {
 }
 
 header {
-    background-color: #0f172a
+    background: linear-gradient(to bottom, #222222, #1a1a1a); /* Gradient tối màu */
 }
 
 .header-top {
@@ -51,7 +51,7 @@ header {
     align-items: center;
     /* justify-content: center; */
     margin-bottom: 10px;
-    padding: 15px;
+    padding: 0px 15px;
     border-bottom: #cfcfcf 1px solid;
 }
 
@@ -149,6 +149,7 @@ header {
     display: flex;
     align-items: center;
     gap: 1rem;
+    margin-right: 1rem;
 }
 
 .hd-log a {
@@ -161,8 +162,46 @@ header {
     color:#fff700;
 }
 
-.hd-log a i {
-    font-size: 3rem;
+.fa-regular, .far {
+    font-weight: 400;
+    font-size: 2rem;
+}
+
+.input-icon-container {
+    position: relative;
+    display: flex; /* Giúp input chiếm toàn bộ chiều rộng nếu cần */
+    width: 100%; /* Hoặc chiều rộng cụ thể bạn muốn cho thanh tìm kiếm */
+}
+
+.input-icon-container .form-control {
+    flex-grow: 1;
+}
+
+.btn-icon-inside {
+    position: absolute;
+    top: 0;
+    right: 0; /* Đặt nút ở rìa phải của container */
+    height: 100%; /* Chiều cao bằng với input */
+    width: 3rem;   /* Chiều rộng của nút, nên khớp với padding-right của input */
+    border: none;
+    background: transparent; /* Nền trong suốt */
+    padding: 5px;
+    margin-right: 2px;
+    display: flex;
+    align-items: center; /* Căn giữa icon theo chiều dọc */
+    justify-content: center; /* Căn giữa icon theo chiều ngang */
+    cursor: pointer;
+}
+
+.btn-icon-inside:focus,
+.btn-icon-inside:active {
+    outline: none; /* Bỏ viền focus mặc định */
+    box-shadow: none; /* Bỏ bóng đổ mặc định */
+}
+
+.btn-icon-inside i {
+    color: #8c8e91; /* Màu của icon, có thể thay đổi */
+    font-size: 1.6rem; /* Kích thước icon, có thể điều chỉnh */
 }
 
 .hd-searchbar {

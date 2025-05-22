@@ -1,18 +1,162 @@
-.container-fullwidth {
-    width: 100vw;
-    max-width: 100%;
-    color: white;
-    margin: 0;
-    padding: 40px 0 20px;
-    box-sizing: border-box;
-}
-
-.footer-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-}
-
 footer {
-    width: 100%;
+    background: linear-gradient(to bottom, #222222, #1a1a1a);
+    color: #adb5bd;
+    line-height: 1.6;
+}
+
+.footer-body .container {
+    max-width: 1200px;
+}
+
+.ft-logo img {
+    transition: transform 0.3s ease-in-out;
+}
+
+.ft-logo:hover img {
+    transform: scale(1.05);
+}
+
+.txt-tagline {
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.5px;
+    text-shadow: 0px 1px 3px rgba(0,0,0,0.2);
+}
+
+.ft-btn .btn {
+    border-radius: 50px;
+    padding: 12px 28px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-size: 1.4rem;
+}
+
+.social-heading {
+    color: #e0e0e0;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.ft-hotline-socials .list-inline-item a {
+    color: #ffffff;
+    font-size: 1.6rem; 
+    margin: 0 12px;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+.ft-hotline-socials .list-inline-item a:hover {
+    color: #e74c3c;
+    transform: rotate(10deg) scale(1.2);
+}
+.social-svg-icon { 
+    height: 24px;
+    width: auto;
+    vertical-align: middle;
+    filter: brightness(0) invert(1);
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+.ft-hotline-socials .list-inline-item a:hover .social-svg-icon {
+     transform: rotate(10deg) scale(1.2);
+}
+
+
+.footer-heading {
+    color: #ffffff;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 10px;
+}
+.footer-heading::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 3px;
+    background-color: #e74c3c; /* Màu accent */
+}
+.text-md-start .footer-heading::after, .text-lg-start .footer-heading::after {
+    left: 0;
+}
+.text-center .footer-heading::after {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.menu-list li.menu-item {
+    margin-bottom: 12px;
+}
+
+.menu-list li.menu-item a {
+    color: #adb5bd;
+    text-decoration: none;
+    transition: color 0.3s ease, padding-left 0.3s ease;
+    font-size: 0.95rem;
+    display: inline-block; 
+}
+
+.menu-list li.menu-item a:hover {
+    color: #ffffff;
+    padding-left: 8px;
+}
+
+.ft-bottom {
+    border-top: 1px solid #383838;
+    color: #888;
+    font-size: 2rem;
+    text-align: center;
+}
+.ft-bottom p {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center; /* Đảm bảo chữ bên trong cũng ở giữa */
+}
+.ft-bottom:hover {
+    color: #e74c3c; /* Màu accent khi hover */
+}
+
+#tai-khoan-footer .menu-list .menu-item a,
+#xem-phim-footer .menu-list .menu-item a {
+    font-size: 1.6rem;
+}
+
+#sinh-vien-footer .menu-list .menu-item a {
+    font-size: 1.6rem;
+    color: #adb5bd;
+    transition: color 0.3s ease, padding-left 0.3s ease;
+    padding-left: 0;
+}
+
+#sinh-vien-footer .menu-list .menu-item a:hover {
+    color: #ffffff;
+    padding-left: 8px; 
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 767.98px) {
+    .ft-body-item {
+        text-align: center !important; /* Căn giữa toàn bộ nội dung trên màn hình nhỏ */
+        margin-bottom: 35px;
+    }
+    .footer-heading::after { /* Căn giữa gạch chân cho heading trên mobile */
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .ft-btn .btn {
+        margin-bottom: 15px;
+    }
+    .ft-hotline-socials .list-inline-item a {
+        margin: 0 10px; /* Giảm khoảng cách icon social */
+    }
+
 }

@@ -815,3 +815,34 @@ document.getElementById('editPromotionForm').addEventListener('submit', function
         }
     }
 });
+
+function filterAdminTable(inputId, tableId) {
+    const input = document.getElementById(inputId);
+    const filter = input.value.toUpperCase().trim(); // Lấy từ khóa, chuyển thành chữ hoa, bỏ khoảng trắng thừa
+    const table = document.getElementById(tableId);
+    
+    const tbody = table.getElementsByTagName("tbody")[0]; // Lấy phần tbody của bảng
+    const rows = tbody.getElementsByTagName("tr"); // Lấy tất cả các hàng trong tbody
+
+    // Lặp qua tất cả các hàng dữ liệu
+    for (let i = 0; i < rows.length; i++) {
+        const currentRow = rows[i];
+        let textContentOfRow = "";
+
+        // Lấy nội dung text từ tất cả các ô <td> trong hàng hiện tại
+        // Bỏ qua cột cuối cùng (thường là cột "Chức năng" chứa các nút)
+        const cells = currentRow.getElementsByTagName("td");
+        for (let j = 0; j < cells.length - 1; j++) { // Bỏ qua ô cuối cùng
+            if (cells[j]) {
+                textContentOfRow += (cells[j].textContent || cells[j].innerText) + " ";
+            }
+        }
+        
+        // So sánh với từ khóa tìm kiếm
+        if (textContentOfRow.toUpperCase().indexOf(filter) > -1) {
+            currentRow.style.display = ""; // Hiện hàng nếu khớp
+        } else {
+            currentRow.style.display = "none"; // Ẩn hàng nếu không khớp
+        }
+    }
+}

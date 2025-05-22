@@ -1,0 +1,29 @@
+.search-view {
+    height: 100vh;
+}
+
+.movie-search-result-card .card-img-top,
+.movie-search-result-card .card-img-top-placeholder {
+    height: 450px; /* Điều chỉnh chiều cao ảnh poster cho đồng đều */
+    object-fit: cover; /* Cho ảnh poster */
+}
+.movie-search-result-card .card-img-top-placeholder {
+    font-size: 3.9rem;
+}
+.movie-search-result-card .card-title a {
+    color: #82baf3; /* Màu tiêu đề */
+    font-size: 1.9rem;
+    font-weight: bold;
+}
+.movie-search-result-card .card-title a:hover {
+    color: var(--bs-primary); /* Hoặc màu bạn muốn */
+}
+.movie-search-result-card .movie-description-search {
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.card-search-mota {
+    color: #fff !important;
+    font-size: 1.6rem;
+}
