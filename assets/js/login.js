@@ -1,3 +1,6 @@
+const specialCharRegex = /[!@#$%^&*]/;
+const phoneRegex = /^(0[3|5|7|8|9])[0-9]{8}$/;
+const digitRegex = /\d/;
 document.addEventListener('DOMContentLoaded', function () {
     // Toggle hiển thị mật khẩu
     const toggleMappings = [
@@ -261,5 +264,141 @@ document.addEventListener('DOMContentLoaded', function () {
                 resendOtpBtn.disabled = false;
             }
         }, 1000);
+    }
+});
+
+//Validate form đăng kí
+document.getElementById('registerForm').addEventListener('submit', function (e) {
+
+  const regName = document.getElementById("fullName").value.trim();
+  const regEmail = document.getElementById("email").value.trim();
+  const regPhone = document.getElementById("phone").value.trim();
+  const regDOB = document.getElementById("dob").value.trim();
+  const regPassword = document.getElementById("passwordReg").value.trim();
+  const regConPassword = document.getElementById("passwordCon").value.trim();
+
+  // 1. Tên người dùng
+  if (!regName) {
+      alert("Tên người dùng bắt buộc không được để trống!");
+      document.getElementById('fullName').focus();
+      e.preventDefault(); return;
+  }
+  if (regName.length < 3) {
+    alert("Tên người dùng phải có tối thiểu 3 kí tự.");
+    document.getElementById('fullName').focus();
+    e.preventDefault(); return;
+  }
+  if (regName.length > 100) {
+    alert("Tên người dùng chỉ tối đa là 100 ký tự");
+    document.getElementById('fullName').focus();
+    e.preventDefault(); return;
+  }
+
+  if (specialCharRegex.test(regName)) {
+      alert("Tên người dùng không được chứa ký tự đặc biệt (!@#$%^&*).");
+      document.getElementById('fullName').focus();
+      e.preventDefault(); return;
+  }
+
+  if (digitRegex.test(regName)) {
+      alert("Tên người dùng không được chứa số.");
+      document.getElementById('fullName').focus();
+      e.preventDefault(); return;
+  }
+  // 2. Email người dùng
+  const emailRegex = /^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,}$/;
+    if (regEmail === '') {
+        alert("Email không được để trống!");
+        document.getElementById('email').focus();
+        e.preventDefault(); return;
+    }
+    if (!emailRegex.test(regEmail)) {
+        alert("Email không hợp lệ. Vui lòng nhập địa chỉ email đúng định dạng.");
+        document.getElementById('email').focus();
+        e.preventDefault(); return;
+    }
+    // Kiểm tra email phải kết thúc bằng @gmail.com nếu bạn muốn giới hạn cụ thể
+    if (!regEmail.toLowerCase().endsWith('@gmail.com')) {
+        alert('Hiện tại hệ thống chỉ hỗ trợ đăng ký bằng email có đuôi @gmail.com!');
+        document.getElementById('email').focus();
+        e.preventDefault(); return;
+    }
+
+  // 3. Số điện thoại
+  if (!regPhone) {
+      alert("Số điện thoại không được để trống");
+      document.getElementById('phone').focus();
+      e.preventDefault(); return;
+  }
+
+  if (regPhone.length < 10) {
+      alert("Số điện thoại phải gồm 10 chữ số");
+      document.getElementById('phone').focus();
+      e.preventDefault(); return;
+  }
+
+  if (!phoneRegex.test(regPhone)) {
+      alert("Số điện thoại phải bắt đầu bằng với số 0[3|5|7|8|9]");
+      document.getElementById('phone').focus();
+      e.preventDefault(); return;
+  }
+
+  // 4. Ngày sinh
+  if (regDOB === '') {
+      alert('Ngày sinh không được để trống!');
+      document.getElementById('dob').focus();
+      e.preventDefault();
+      return;
+  } else {
+      const birthDate = new Date(regDOB);
+      const today = new Date();
+      birthDate.setHours(0, 0, 0, 0);
+      today.setHours(0, 0, 0, 0);
+
+      if (birthDate >= today) {
+          alert('Ngày sinh phải là một ngày trong quá khứ!');
+          document.getElementById('dob').focus();
+          e.preventDefault();
+          return;
+      }
+
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+      }
+
+      if (age < 13) {
+          alert('Phải đủ 13 tuổi trở lên!');
+          document.getElementById('dob').focus();
+          e.preventDefault();
+          return;
+      }
+  }
+
+    // 5. Kiểm tra Mật khẩu
+    if (regPassword === '') {
+        alert("Mật khẩu không được để trống!");
+        regPassword.focus();
+        e.preventDefault();
+        return;
+    }
+    if (regPassword.length < 6) { // Yêu cầu mật khẩu tối thiểu 6 ký tự
+        alert("Mật khẩu phải có ít nhất 6 ký tự.");
+        document.getElementById('phone').focus();
+        e.preventDefault(); return;
+    }
+
+    // 6. Kiểm tra Nhập lại mật khẩu
+    if (regConPassword === '') {
+        alert("Vui lòng nhập lại mật khẩu!");
+        document.getElementById('phone').focus();
+        e.preventDefault(); return;
+    }
+    if (regPassword !== regConPassword) {
+        alert("Mật khẩu nhập lại không khớp!");
+        document.getElementById('phone').focus();
+        e.preventDefault(); return;
+        // document.getElementById('confirmPasswordError').style.display = 'block'; // Hiện span lỗi
     }
 });

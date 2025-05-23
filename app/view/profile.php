@@ -40,7 +40,7 @@
                     <div class="content-box">
                         <h3 class="section-title">Thông tin cá nhân</h3>
                         <button class="btn btn-secondary" id="edit-button" type="button">
-                            <i class="bi bi-wrench"></i>
+                            <i class="bi bi-wrench"> Sửa</i>
                         </button>
 
                         <div class="row mb-3">
@@ -67,8 +67,7 @@
                             </div>
                         </div>
                         
-                        <div class="text">
-                            <button class="btn btn-save" type="submit">LƯU THÔNG TIN</button>
+                        <div class="text-end"> <button class="btn btn-primary" id="save-info-button" type="submit" style="display: none;">LƯU THÔNG TIN</button>
                         </div>
                     </div>
                     </form>
@@ -76,7 +75,7 @@
                     <!-- Password Change Section -->
                     <div class="content-box mt-4">
                         <h3 class="section-title">Đổi mật khẩu</h3>
-                        <form method="POST" action="app/controler/change_password.php">
+                        <form method="POST" action="app/controler/change_password.php" id="changePasswordForm">
                         <div class="mb-3">
                             <label for="current-password">Mật khẩu cũ <span class="text-danger">*</span></label>
                             <input type="password" class="form-control" id="current-password" name="current_password" require>
@@ -93,7 +92,7 @@
                         </div>
                         
                         <div class="text">
-                            <button type="submit" class="btn btn-save">ĐỔI MẬT KHẨU</button>
+                            <button type="submit" class="btn btn-primary" id="change-password-button">ĐỔI MẬT KHẨU</button>
                         </div>
                         </form>
                     </div>
@@ -156,17 +155,52 @@
                                 <thead>
                                     <tr class="table-header">
                                         <th>Mã đơn</th>
-                                        <th>Hoạt động</th>
+                                        <th>Mã giao dịch</th>
+                                        <th>Tên phim</th>
                                         <th>Chi nhánh</th>
                                         <th>Ngày</th>
                                         <th>Tổng cộng</th>
-                                        <th>Điểm</th>
+                                        <th>Hành động</th>
                                     </tr>
                                 </thead>
-                                <tbody id="purchase-history-data">
-                                    <tr>
-                                        <td colspan="6" class="text-center py-4">Không có dữ liệu lịch sử mua hàng</td>
-                                    </tr>
+                                <tbody id="purchase-history-data" class="text-center">
+                                    <?php
+                                        require_once 'app/controler/get_purchase_history.php'; // Đường dẫn đến file class của bạn
+
+                                        $current_user_id_from_session = $_SESSION['user']['id'] ?? null;
+
+                                        if ($current_user_id_from_session) {
+                                            $historyFetcher = new get_purchase_history(); // Tạo đối tượng
+                                            $purchase_items = $historyFetcher->getHistoryForUser($current_user_id_from_session); // Gọi phương thức
+
+                                            if (empty($purchase_items)) {
+                                                echo '<tr><td colspan="6" class="text-center py-4">Không có dữ liệu lịch sử mua hàng</td></tr>';
+                                            } else {
+                                                foreach ($purchase_items as $item) {
+                                                    // Kiểm tra key trước khi sử dụng để tránh lỗi Notice
+                                                    $booking_id_val = htmlspecialchars($item['booking_id'] ?? 'N/A');
+                                                    $transaction_code_val = htmlspecialchars($item['transaction_code'] ?? 'N/A'); 
+                                                    $movie_title_val = htmlspecialchars($item['movie_title'] ?? 'N/A');
+                                                    $cinema_name_val = htmlspecialchars($item['cinema_name'] ?? 'N/A');
+                                                    $booking_time_val = $item['booking_time'] ? date("d/m/Y H:i", strtotime($item['booking_time'])) : 'N/A';
+                                                    $total_price_val = isset($item['total_price']) ? number_format($item['total_price'], 0, ',', '.') . ' VNĐ' : 'N/A';
+                                                    $points_val = "-"; // Placeholder
+
+                                                    echo "<tr>";
+                                                    echo "<td>" . $booking_id_val . "</td>";
+                                                    echo "<td>" . $transaction_code_val . "</td>";
+                                                    echo "<td>" . $movie_title_val . "</td>";
+                                                    echo "<td>" . $cinema_name_val . "</td>";
+                                                    echo "<td>" . $booking_time_val . "</td>";
+                                                    echo "<td>" . $total_price_val . "</td>";
+                                                    echo "<td><a href='index.php?page=purchase-detail&booking_id=" . $booking_id_val . "' class='btn btn-sm btn-outline-primary'>Xem chi tiết</a></td>";
+                                                    echo "</tr>";
+                                                }
+                                            }
+                                        } else {
+                                            echo '<tr><td colspan="6" class="text-center py-4">Lỗi: Không xác định được người dùng.</td></tr>';
+                                        }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>

@@ -30,7 +30,8 @@ $_SESSION['user'] = [
     'email' => $user['email'],
     'role' => $user['role'],
     'birthday' => $user['birthday'],
-    'phone' => $user['phone']
+    'phone' => $user['phone'],
+    'member' => $user['member']
 ];
 
 header("Location: ../../index.php?page=profile");

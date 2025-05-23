@@ -9,7 +9,7 @@ if (isset($_POST['id'])) {
     $newHide = $currentHide == 1 ? 0 : 1;
 
     pdo_execute("UPDATE showtimes SET hide = ? WHERE showtime_id = ?", $newHide,$id);
-    header("Location: ../view/admin.php");
+    header("Location: ../view/admin.php#showtime");
     exit;
 }
 ?>

@@ -1,6 +1,6 @@
 <footer>
     <div class="container-fluid"> <div class="footer-body py-5"> <div class="container"> <div class="row justify-content-between align-items-start"> <div class="ft-body-item col-lg-4 col-md-5 col-sm-12 text-center text-md-start mb-4 mb-md-0">
-                        <a href="#" class="ft-logo mb-3 d-inline-block">
+                        <a href="index.php?page=home" class="ft-logo mb-3 d-inline-block">
                             <img loading="lazy" height="100" src="/LTW/assets/img/logo.png" alt="CineWave Logo"> </a>
                         <div class="ft-text mb-3">
                             <p class="txt-tagline">BE HAPPY, BE A STAR</p>
@@ -38,8 +38,8 @@
                     <div class="ft-body-item col-lg-2 col-md-3 col-sm-6 col-6 mb-4 mb-md-0 text-center" id="xem-phim-footer">
                         <h5 class="footer-heading">Xem Phim</h5>
                         <ul class="menu-list list-unstyled">
-                            <li class="menu-item"><a href="#now-showing">Phim đang chiếu</a></li>
-                            <li class="menu-item"><a href="#will-show">Phim sắp chiếu</a></li>
+                            <li class="menu-item"><a href="index.php?page=home#now-showing">Phim đang chiếu</a></li>
+                            <li class="menu-item"><a href="index.php?page=home#will-show">Phim sắp chiếu</a></li>
                         </ul>
                     </div>
                     

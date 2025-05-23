@@ -44,11 +44,11 @@
                         </div>
                 
                         <div class="hd-action">
-                            <a href="#" id="dat-ve">
+                            <a href="index.php?page=home#fast-booking" id="dat-ve">
                                 <img src="https://cinestar.com.vn/assets/images/ic-ticket.svg" alt="">
                                 ĐẶT VÉ NGAY
                             </a>
-                            <a href="#" id="dat-bapnuoc">
+                            <a href="index.php?page=home#fast-booking" id="dat-bapnuoc">
                                 <img src="https://cinestar.com.vn/assets/images/ic-cor.svg" alt="">
                                 ĐẶT BẮP NƯỚC
                             </a>

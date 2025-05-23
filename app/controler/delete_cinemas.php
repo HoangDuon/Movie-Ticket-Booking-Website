@@ -9,7 +9,7 @@ if (isset($_POST['id'])) {
     $newHide = $currentHide == 1 ? 0 : 1;
 
     pdo_execute("UPDATE cinemas SET hide = ? WHERE cinema_id = ?", $newHide,$id);
-    header("Location: ../view/admin.php");
+    header("Location: ../view/admin.php#cinemas");
     exit;
 }
 ?>
