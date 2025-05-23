@@ -38,8 +38,10 @@ $booking_id = pdo_execute_return_last_id($sql_booking, $user_id, $showtime_id, $
 
 // 3. Lưu seats vào `booking_details`
 $sql_detail = "INSERT INTO booking_details (booking_id, seat_id) VALUES (?, ?)";
+$sql_booked = "UPDATE seats SET status='Booked' Where seat_id=?";
 foreach ($seats as $seat) {
     pdo_execute($sql_detail, $booking_id, $seat['id']);
+    pdo_execute($sql_booked, $seat['id']);
 }
 
 // 4. Lưu bắp nước vào `booking_concessions`
