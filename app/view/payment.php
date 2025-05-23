@@ -205,6 +205,7 @@ $tongtien_display = isset($bookingData['total_price']) ? number_format($bookingD
                     <hr style="border-top: 2px dashed #ffee58; margin: 16px 0;">
 
                     <div style="text-align: right;">
+                        <h5 style="color:rgb(252, 252, 252); margin-bottom: 4px;">GIẢM GIÁ HẠNG THÀNH VIÊN: <?php echo $bookingData['discount']; ?>%</h5>
                         <h4 style="color: #ffee58; margin-bottom: 4px;">SỐ TIỀN CẦN THANH TOÁN</h4>
                         <h2 style="font-size: 24px; font-weight: bold;">
                             <p class="total-price"><?php echo $tongtien_display; ?></p>

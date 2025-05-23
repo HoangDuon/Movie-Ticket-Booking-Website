@@ -19,5 +19,13 @@ class promotions_services{
         $sql = "SELECT * FROM promotions WHERE hide=0 and promotion_id=?";
         return pdo_query_one($sql,$promotion_id);
     }
+
+    public function GetMemberDiscountByName($member){
+        $sql = "SELECT discount_percent 
+        FROM membership_discounts 
+        WHERE hide = 0 AND member_type = ? 
+        LIMIT 1";
+    return pdo_query_value($sql, $member);
+    }
 }
 ?>  

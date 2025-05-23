@@ -112,7 +112,10 @@
             </div>
         </div>
     </div>
-    
+    <?php
+        $userService= new promotions_services();
+        $discount = $userService->GetMemberDiscountByName($_SESSION['user']['member']);                   
+    ?>
     <!-- Fixed booking bar -->
     <div class="fixed-bar" style="display: none;">
         <div class="fixed-bar-left">
@@ -139,6 +142,7 @@
     window.presetCinemaId = "5";
     window.presetShowtimeId = "10";
     window.presetShowDate = "2025-05-20";
+    window.discountPercent = parseFloat("<?= $discount ?>");
     console.log(window.presetMovieId, window.presetCinemaId,window.presetShowDate)
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

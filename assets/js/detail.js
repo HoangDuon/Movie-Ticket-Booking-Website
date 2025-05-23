@@ -355,6 +355,11 @@ function initializeBookingButton() {
         return
       }
 
+        lastTotal= Number.parseInt(document.getElementById("booking-total").textContent.replace(/[^\d]/g, ""));
+        const discountAmount = lastTotal *  (window.discountPercent/100);
+        console.log(lastTotal);
+        lastTotal = lastTotal - discountAmount;
+
       // Prepare booking data
       const bookingData = {
         showtime_id: document.querySelector(".time-slot.selected").getAttribute("data-showtime-id"),
@@ -363,7 +368,8 @@ function initializeBookingButton() {
           concession_id: id,
           quantity: item.quantity,
         })),
-        total_price: Number.parseInt(document.getElementById("booking-total").textContent.replace(/[^\d]/g, "")),
+        total_price: lastTotal,
+        discount: window.discountPercent,
       }
 
       console.log("Booking data:", JSON.stringify(bookingData))
