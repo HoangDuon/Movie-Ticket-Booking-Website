@@ -2,6 +2,7 @@ footer {
     background: linear-gradient(to bottom, #222222, #1a1a1a);
     color: #adb5bd;
     line-height: 1.6;
+    margin-top: auto;
 }
 
 .footer-body .container {

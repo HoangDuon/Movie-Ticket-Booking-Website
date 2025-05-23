@@ -59,7 +59,7 @@
                 <p>© <?php echo date("Y"); ?> CineWave. All rights reserved.</p>
             </div>
         </div>
-        </div>
+    </div>
 </footer>
 </body>
 </html>

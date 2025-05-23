@@ -60,13 +60,13 @@ $tongtien_display = isset($bookingData['total_price']) ? number_format($bookingD
 ?>
 <!DOCTYPE html> 
 <body>
-    <div class="container-fluid payment-page">
+    <div class="payment-page">
         <header class="py-4">
             <h1 class="text-white fw-bold">TRANG THANH TOÁN</h1>
         </header>
 
         <!-- Progress Steps -->
-        <div class="row justify-content-center mb-4">
+        <div class="container-fluid row justify-content-center mb-4 mt-4">
             <div class="col-12 col-md-10">
                 <div class="progress-steps">
                     <div id="step1" class="step active">
@@ -87,10 +87,10 @@ $tongtien_display = isset($bookingData['total_price']) ? number_format($bookingD
             </div>
         </div>
 
-        <div class="row justify-content-center mb-4">
+        <div class="container-fluid row justify-content-center mb-4">
             </div>
 
-        <div id="customer-section" class="row" <?php if (isset($_GET['vnp_Amount'])) echo 'style="display:none;"'; ?>> <div class="col-12 col-md-6 mb-4">
+        <div id="customer-section" class="container-fluid row" <?php if (isset($_GET['vnp_Amount'])) echo 'style="display:none;"'; ?>> <div class="col-12 col-md-6 mb-4">
                 <form id="customerForm">
                     <!-- <pre><?php print_r($bookingData); ?></pre> -->
             <h4 class="text-white mb-3">Thông tin người nhận vé</h4>
@@ -214,35 +214,14 @@ $tongtien_display = isset($bookingData['total_price']) ? number_format($bookingD
             </div>
         </div>
 
-        <div id="payment-section" style="display: none;" <?php if (isset($_GET['vnp_Amount'])) echo 'style="display:none;"'; ?>> <div>
+        <div id="payment-section" style="display: none;" class="container-fluid " <?php if (isset($_GET['vnp_Amount'])) echo 'style="display:none;"'; ?>> <div>
                 <div class="payment-section">
                     <h2 class="payment-title">THANH TOÁN</h2>
                     
                     <div class="payment-methods">
                         <div class="payment-method">
-                            <input type="radio" id="creditCard" name="paymentMethod" checked>
-                            <label for="creditCard">
-                                <i class="fas fa-credit-card"></i> Thẻ tín dụng/ghi nợ
-                            </label>
-                        </div>
-                        
-                        <div class="payment-method">
                             <input type="radio" id="bankTransfer" name="paymentMethod"> <label for="bankTransfer">
                                 <i class="fas fa-university"></i> Thanh toán qua VNPAY </label>
-                        </div>
-                        
-                        <div class="payment-method">
-                            <input type="radio" id="momo" name="paymentMethod">
-                            <label for="momo">
-                                <i class="fas fa-wallet"></i> Ví MoMo
-                            </label>
-                        </div>
-                        
-                        <div class="payment-method">
-                            <input type="radio" id="zalopay" name="paymentMethod">
-                            <label for="zalopay">
-                                <i class="fas fa-wallet"></i> ZaloPay
-                            </label>
                         </div>
                     </div>
                     <button type="button" id="paymentBtn" class="payment-button">THANH TOÁN</button>
@@ -250,7 +229,7 @@ $tongtien_display = isset($bookingData['total_price']) ? number_format($bookingD
             </div>
         </div>
 
-        <div id="ticket-section" class="row" style="display: none;">
+        <div id="ticket-section" class="container-fluid row" style="display: none;">
             <div class="col-12">
                 <div class="ticket-info-box">
                     <div class="row justify-content-center">
@@ -275,6 +254,10 @@ $tongtien_display = isset($bookingData['total_price']) ? number_format($bookingD
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div>
+            <h1></h1>
         </div>
     </div> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <?php echo $vnpay_success_script; // Chèn script báo trạng thái VNPAY ?>
