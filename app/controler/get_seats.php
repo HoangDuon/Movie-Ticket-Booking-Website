@@ -21,7 +21,25 @@ if (!$roomResult || count($roomResult) === 0) {
 $room_id = $roomResult[0]['room_id'];
 
 // Lấy danh sách ghế trong phòng
-$sqlSeats = "SELECT seat_id,seat_number, status, seat_type, extra_price FROM seats WHERE room_id = ?";
-$seats = pdo_query($sqlSeats, $room_id);
+$sqlSeats = "
+    SELECT 
+        s.seat_id,
+        s.seat_number,
+        s.seat_type,
+        s.extra_price,
+        CASE 
+            WHEN EXISTS (
+                SELECT 1 FROM booking_details bd
+                JOIN bookings b ON bd.booking_id = b.booking_id
+                WHERE bd.seat_id = s.seat_id AND b.showtime_id = ?
+            ) THEN 'Booked'
+            ELSE 'Available'
+        END AS status
+    FROM seats s
+    WHERE s.room_id = ?
+";
+
+$seats = pdo_query($sqlSeats, $showtime_id, $room_id);
+
 
 echo json_encode(['seats' => $seats]);

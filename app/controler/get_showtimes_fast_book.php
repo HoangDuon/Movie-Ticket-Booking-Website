@@ -8,7 +8,7 @@ $sql = "
     SELECT s.showtime_id, s.start_time
     FROM showtimes s
     JOIN rooms r ON s.room_id = r.room_id
-    WHERE r.cinema_id = ? AND s.movie_id = ?  
+    WHERE r.cinema_id = ? AND s.movie_id = ?  and s.hide=0
     ORDER BY s.start_time ASC
 "; // AND s.hide = 0
 

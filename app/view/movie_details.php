@@ -67,11 +67,11 @@
                             <span>Ghế Thường</span>
                         </div>
                         <div class="legend-item">
-                            <div class="legend-color" style="background-color: #fff;"></div>
+                            <div class="legend-color" style="  border-color: #fbd35a; background-color: #d97706;"></div>
                             <span>Ghế Vip</span>
                         </div>
                         <div class="legend-item">
-                            <div class="legend-color" style="background-color: #fff; width: 40px;"></div>
+                            <div class="legend-color" style="  border-color: rgb(252, 126, 189); background-color: #be185d;; width: 40px;"></div>
                             <span>Ghế Đôi (2 Người)</span>
                         </div>
                         

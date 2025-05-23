@@ -13,9 +13,11 @@
                             $isFirst = true;
                             foreach($films as $film):
                         ?>
-                            <div class="carousel-item  <?= $isFirst ? 'active' : '' ?>">
-                                <img id="banner-movie" src="<?= $film['banner_url']?>" class="d-block w-100" alt="banner-<?= $film['title']?>">
-                            </div>
+                            <?php if (!empty($film['banner_url'])): ?>
+                                <div class="carousel-item <?= $isFirst ? 'active' : '' ?>">
+                                    <img id="banner-movie" src="<?= $film['banner_url'] ?>" class="d-block w-100" alt="banner-<?= htmlspecialchars($film['title']) ?>">
+                                </div>
+                            <?php endif; ?>
                         <?php 
                         $isFirst = false;
                     	endforeach; ?>

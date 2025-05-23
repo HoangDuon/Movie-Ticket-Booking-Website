@@ -8,7 +8,7 @@ $roomId=$_POST['roomid'];
 $seatName=$_POST['seatname'];
 $price=$_POST['price'];
 $type=$_POST['type'];
-$seatStatus=$_POST['seatstatus'];
+$seatStatus='Available';
 $seatHide=$_POST['seathide'];
 $seatId=$_POST['seatid'];
 
@@ -16,13 +16,13 @@ $sql = "UPDATE rooms SET name=?,hide=? WHERE room_id=?";
     pdo_execute($sql, $roomName,$roomStatus,$roomId);
 
 if(!empty($seatId) && !empty($seatName)){
-    $sql = "UPDATE seats SET seat_number=?,seat_type=?,extra_price=?,status=?,hide=? WHERE seat_id=?";
-    pdo_execute($sql, $seatName,$type,$price,$seatStatus,$seatHide,$seatId);
+    $sql = "UPDATE seats SET seat_number=?,seat_type=?,extra_price=?,hide=? WHERE seat_id=?";
+    pdo_execute($sql, $seatName,$type,$price,$seatHide,$seatId);
 }
 
 header("Location: ../view/admin.php");
 // echo '<pre>';
-// print_r($_FILES);
+// print_r($seatHide);
 // echo '</pre>';
 exit;
 

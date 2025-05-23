@@ -29,7 +29,7 @@ try {
         FROM showtimes s
         JOIN rooms r ON s.room_id = r.room_id
         JOIN cinemas c ON r.cinema_id = c.cinema_id
-        WHERE s.movie_id = ? AND DATE(s.start_time) = ?
+        WHERE s.movie_id = ? AND DATE(s.start_time) = ? AND s.hide=0
         ORDER BY c.cinema_id, r.room_id, s.start_time
     ";
 

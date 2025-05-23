@@ -3,7 +3,7 @@
                         <a href="#" class="ft-logo mb-3 d-inline-block">
                             <img loading="lazy" height="100" src="/LTW/assets/img/logo.png" alt="CineWave Logo"> </a>
                         <div class="ft-text mb-3">
-                            <p class="txt-tagline">BE HAPPY, BE A STAR</p>
+                            <p class="txt-tagline">BE HAPPY, BE A WAVE</p>
                         </div>
                         <div class="ft-btn mb-4">
                             <a href="#" class="btn btn-footer-primary me-2" id="dat-ve">ĐẶT VÉ</a>

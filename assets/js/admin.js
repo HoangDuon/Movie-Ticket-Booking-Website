@@ -423,6 +423,7 @@ function showEditCinemasForm(button, cinemaId) {
   document.getElementById('editCinemasRooms').value = button.dataset.rooms;
   document.getElementById('editCinemasShowtimes').value = button.dataset.showtimes;
 
+  document.querySelector('.seat-container').innerHTML = '';
   // Hiện form nổi
   document.getElementById('editCinemasFormPanel').style.display = 'flex';
 
@@ -464,7 +465,7 @@ function showSeatMap(roomId) {
       seatContainer.innerHTML = ''; // Clear seats cũ
       data.seats.forEach(seat => {
           const seatDiv = document.createElement('div');
-          seatDiv.className = `seat ${seat.status === 'Booked' ? 'booked' : 'available'} ${seat.seat_type.toLowerCase()}`;
+          seatDiv.className = `seat ${seat.hide == 1 ? 'booked' : 'available'} ${seat.seat_type.toLowerCase()}`;
           seatDiv.textContent = seat.seat_number;
           seatDiv.onclick = function() {
             handleSeatClick(seat);};
@@ -485,8 +486,8 @@ function handleSeatClick(seat) {
   document.getElementById('editSeatName').value = seat.seat_number;
   document.getElementById('editSeatPrice').value = seat.extra_price;
   document.getElementById('editSeatType').value = seat.seat_type;
-  document.getElementById('editSeatStatus').value = seat.status;
-  document.getElementById('editSeatHide').value = seat.hide;
+  // document.getElementById('editSeatStatus').value = seat.status;
+  document.getElementById('editSeatHide').value = seat.hide;  
   document.getElementById('editSeatId').value = seat.seat_id;
 }
 
@@ -709,8 +710,8 @@ function showDeleteShowtimeConfirm(movieId,hide) {
 
   const title = document.getElementById('titleShowtime');
   title.textContent = hide === 0
-      ? "Bạn có chắc muốn ẩn rạp này không?"
-      : "Bạn có chắc muốn hiện rạp này không?";
+      ? "Bạn có chắc muốn ẩn xuất chiếu này không?"
+      : "Bạn có chắc muốn hiện xuất chiếu này không?";
 
 
   document.getElementById('deleteShowtimeConfirmPanel').style.display = 'flex';

@@ -36,14 +36,6 @@ if (pdo_query_value($sql_check, $txnRef) > 0) {
 $sql_booking = "INSERT INTO bookings (user_id, showtime_id, total_price) VALUES (?, ?, ?)";
 $booking_id = pdo_execute_return_last_id($sql_booking, $user_id, $showtime_id, $total_price);
 
-// 3. Lưu seats vào `booking_details`
-$sql_detail = "INSERT INTO booking_details (booking_id, seat_id) VALUES (?, ?)";
-$sql_booked = "UPDATE seats SET status='Booked' Where seat_id=?";
-foreach ($seats as $seat) {
-    pdo_execute($sql_detail, $booking_id, $seat['id']);
-    pdo_execute($sql_booked, $seat['id']);
-}
-
 // 4. Lưu bắp nước vào `booking_concessions`
 $sql_con = "INSERT INTO booking_concessions (booking_id, concession_id, quantity, total_price) VALUES (?, ?, ?, ?)";
 foreach ($concessions as $item) {

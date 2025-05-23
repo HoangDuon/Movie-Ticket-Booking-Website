@@ -607,13 +607,13 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
                                 <option value="Couple">Couple</option>
                             </select>
                         </div>
-                        <div class="form-group" style="flex: 1;">
+                        <!-- <div class="form-group" style="flex: 1;">
                             <label>Tình trạng:</label>
                             <select id="editSeatStatus" name="seatstatus" class="select-hide">
                                 <option value="Available">Chưa đặt</option>
                                 <option value="Booked">Đã đặt</option>
                             </select>
-                        </div>
+                        </div> -->
                         <div class="form-group" style="flex: 1;">
                             <label>Trạng thái:</label>
                             <select id="editSeatHide" name="seathide" class="select-hide">
@@ -866,7 +866,8 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
             <tbody>
                 <?php foreach ($showtimes as $showtime): ?>
                 <tr>
-                    <td><?= $showtime['showtime_id'] ?><?php if ($showtime['hide'] == 1 || $showtime['movie_hide'] == 1||$showtime['room_hide'] == 1 ||$showtime['cinema_hide'] == 1): ?>
+                    <!-- ẩn hiện xuất chiếu -->
+                    <td><?= $showtime['showtime_id'] ?><?php if ($showtime['hide'] == 1): ?>
                         <i class="bi bi-eye-slash" style="color: gray;" title="Đang ẩn"></i>    
                         <?php else: ?>
                             <i class="bi bi-eye" style="color: green;" title="Đang hiển thị"></i>

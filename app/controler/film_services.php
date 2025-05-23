@@ -17,6 +17,12 @@ class film_services{
             WHERE end_time < NOW() AND hide = 0"; // Kiểm tra những suất chiếu chưa bị ẩn và đã kết thúc
         pdo_execute($sql);
 
+        // // Cập nhật tất cả các ghế đã booked
+        // $sql = "UPDATE seats
+        //     SET status = 'Available'
+        //     WHERE end_time < NOW() AND hide = 0"; // Kiểm tra những suất chiếu chưa bị ẩn và đã kết thúc
+        // pdo_execute($sql);
+
         $sql = "SELECT 
                 s.showtime_id, 
                 m.title AS movie_title, 
@@ -78,6 +84,10 @@ class film_services{
     }
 
     public function getMovieInfo() {
+        $sql = "UPDATE showtimes
+            SET hide = 1
+            WHERE end_time < NOW() AND hide = 0"; // Kiểm tra những suất chiếu chưa bị ẩn và đã kết thúc
+        pdo_execute($sql);
         $sql = "SELECT *
                 FROM movies
                 WHERE release_date < NOW() and hide=0

@@ -23,23 +23,6 @@ SET time_zone = "+00:00";
 CREATE DATABASE IF NOT EXISTS `movie_ticket_booking` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `movie_ticket_booking`;
 
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `bookings`
---
-
-CREATE TABLE `bookings` (
-  `booking_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `showtime_id` int(11) NOT NULL,
-  `booking_time` timestamp NOT NULL DEFAULT current_timestamp(),
-  `total_price` decimal(10,2) NOT NULL,
-  `link` varchar(255) DEFAULT NULL,
-  `hide` tinyint(1) DEFAULT 0,
-  `order_index` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 --
 -- Đang đổ dữ liệu cho bảng `bookings`
 --
@@ -56,24 +39,6 @@ INSERT INTO `bookings` (`booking_id`, `user_id`, `showtime_id`, `booking_time`, 
 (9, 9, 9, '2025-04-23 12:23:40', 250000.00, 'https://link.example.com', 0, 9),
 (10, 10, 10, '2025-04-23 12:23:40', 320000.00, 'https://link.example.com', 0, 10),
 (16, 13, 1, '2025-05-23 09:52:12', 670000.00, NULL, 0, NULL);
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `booking_concessions`
---
-
-CREATE TABLE `booking_concessions` (
-  `id` int(11) NOT NULL,
-  `booking_id` int(11) NOT NULL,
-  `concession_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL CHECK (`quantity` > 0),
-  `total_price` decimal(10,2) NOT NULL,
-  `link` varchar(255) DEFAULT NULL,
-  `hide` tinyint(1) DEFAULT 0,
-  `order_index` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `booking_concessions`
@@ -94,22 +59,6 @@ INSERT INTO `booking_concessions` (`id`, `booking_id`, `concession_id`, `quantit
 (25, 16, 6, 1, 35000.00, NULL, 0, NULL, '2025-05-23 09:52:12'),
 (26, 16, 7, 1, 25000.00, NULL, 0, NULL, '2025-05-23 09:52:12');
 
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `booking_details`
---
-
-CREATE TABLE `booking_details` (
-  `detail_id` int(11) NOT NULL,
-  `booking_id` int(11) NOT NULL,
-  `seat_id` int(11) NOT NULL,
-  `link` varchar(255) DEFAULT NULL,
-  `hide` tinyint(1) DEFAULT 0,
-  `order_index` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 --
 -- Đang đổ dữ liệu cho bảng `booking_details`
 --
@@ -127,23 +76,6 @@ INSERT INTO `booking_details` (`detail_id`, `booking_id`, `seat_id`, `link`, `hi
 (34, 16, 171, NULL, 0, NULL, '2025-05-23 09:52:12'),
 (35, 16, 172, NULL, 0, NULL, '2025-05-23 09:52:12');
 
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `cinemas`
---
-
-CREATE TABLE `cinemas` (
-  `cinema_id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `location` varchar(255) NOT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `link` varchar(255) DEFAULT NULL,
-  `hide` tinyint(1) DEFAULT 0,
-  `order_index` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 --
 -- Đang đổ dữ liệu cho bảng `cinemas`
 --
@@ -159,23 +91,6 @@ INSERT INTO `cinemas` (`cinema_id`, `name`, `location`, `phone`, `created_at`, `
 (8, 'Galaxy Mega', 'Ho Chi Minh City, Vietnam', '0289988776', '2025-04-23 12:20:54', 'https://link.example.com', 0, 8),
 (9, 'CGV Landmark', 'Ho Chi Minh City, Vietnam', '0289988777', '2025-04-23 12:20:54', 'https://link.example.com', 0, 9),
 (10, 'Lotte Cinema Bitexco', 'Ho Chi Minh City, Vietnam', '0289977665', '2025-04-23 12:20:54', 'https://link.example.com', 0, 10);
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `concessions`
---
-
-CREATE TABLE `concessions` (
-  `concession_id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `price` decimal(10,2) NOT NULL,
-  `picture_link` varchar(255) DEFAULT NULL,
-  `link` varchar(255) DEFAULT NULL,
-  `hide` tinyint(1) DEFAULT 0,
-  `order_index` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `concessions`
@@ -194,22 +109,6 @@ INSERT INTO `concessions` (`concession_id`, `name`, `price`, `picture_link`, `li
 (10, 'Juice', 18000.00, 'https://link.example.com', 'https://link.example.com', 1, 10, '2025-04-23 12:23:40'),
 (11, 'Coca', 20000.00, 'assets/img/coca.jpg', NULL, 1, NULL, '2025-04-24 17:45:00');
 
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `membership_discounts`
---
-
-CREATE TABLE `membership_discounts` (
-  `member_type` enum('None','Silver','Gold','Diamond') NOT NULL,
-  `discount_percent` decimal(5,2) NOT NULL CHECK (`discount_percent` between 0 and 100),
-  `content` text DEFAULT NULL,
-  `link` varchar(255) DEFAULT NULL,
-  `hide` tinyint(1) DEFAULT 0,
-  `order_index` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 --
 -- Đang đổ dữ liệu cho bảng `membership_discounts`
 --
@@ -219,31 +118,6 @@ INSERT INTO `membership_discounts` (`member_type`, `discount_percent`, `content`
 ('Silver', 10.00, '<ul>\r\n	<li>Giảm gi&aacute; 10% tr&ecirc;n tổng h&oacute;a đơn cho mỗi lần mua h&agrave;ng</li>\r\n	<li>Ưu ti&ecirc;n tư vấn v&agrave; hỗ trợ kỹ thuật</li>\r\n	<li>Qu&agrave; tặng sinh nhật đặc biệt</li>\r\n	<li>Tất cả quyền lợi của th&agrave;nh vi&ecirc;n thường</li>\r\n</ul>\r\n', 'https://link.example.com', 0, 2, '2025-04-23 12:20:54'),
 ('Gold', 15.00, '<ul>\r\n	<li>Giảm gi&aacute; 15% tr&ecirc;n tổng h&oacute;a đơn cho mỗi lần mua h&agrave;ng</li>\r\n	<li>Miễn ph&iacute; vận chuyển cho mọi đơn h&agrave;ng</li>\r\n	<li>Tham gia c&aacute;c sự kiện đặc biệt d&agrave;nh ri&ecirc;ng cho th&agrave;nh vi&ecirc;n V&agrave;ng</li>\r\n	<li>Đổi điểm thưởng lấy sản phẩm với tỷ lệ ưu đ&atilde;i</li>\r\n	<li>Tất cả quyền lợi của th&agrave;nh vi&ecirc;n Bạc</li>\r\n</ul>\r\n', 'https://link.example.com', 0, 3, '2025-04-23 12:20:54'),
 ('Diamond', 20.00, '<ul>\r\n	<li>Giảm gi&aacute; 20% tr&ecirc;n tổng h&oacute;a đơn cho mỗi lần mua h&agrave;ng</li>\r\n	<li>Dịch vụ chăm s&oacute;c kh&aacute;ch h&agrave;ng VIP 24/7</li>\r\n	<li>Qu&agrave; tặng đặc biệt h&agrave;ng qu&yacute;</li>\r\n	<li>Ưu ti&ecirc;n trải nghiệm sản phẩm mới trước khi ra mắt</li>\r\n	<li>Tham gia c&aacute;c sự kiện độc quyền</li>\r\n	<li>Tất cả quyền lợi của th&agrave;nh vi&ecirc;n V&agrave;ng</li>\r\n</ul>\r\n', 'https://link.example.com', 0, 4, '2025-04-23 12:20:54');
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `movies`
---
-
-CREATE TABLE `movies` (
-  `movie_id` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `genre` varchar(100) DEFAULT NULL,
-  `duration` int(11) NOT NULL,
-  `director` varchar(255) DEFAULT NULL,
-  `cast` text DEFAULT NULL,
-  `language` varchar(50) DEFAULT NULL,
-  `release_date` date DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `poster_url` varchar(255) DEFAULT NULL,
-  `trailer_url` varchar(255) DEFAULT NULL,
-  `banner_url` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `link` varchar(255) DEFAULT NULL,
-  `hide` tinyint(1) DEFAULT 0,
-  `order_index` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `movies`
@@ -264,26 +138,6 @@ INSERT INTO `movies` (`movie_id`, `title`, `genre`, `duration`, `director`, `cas
 (12, 'Chiếm đoạt', 'Chính Kịch, Huyền Thoại', 190, 'Thắng Vũ', 'Miu Lê, KaZik', 'Tiếng Việt', '2023-11-24', 'Chuyện tình giữa My và Hoàng không liên quan nhiều đến tổng thể kịch bản. Ban đầu, My lợi dụng Hoàng như một quân cờ để giúp công việc của Sơn được thuận lợi. Về sau, phát hiện kế hoạch trả thù của My, anh vẫn đem lòng yêu cô, muốn sống chung dưới một mái nhà. Đạo diễn dàn dựng nhiều khoảnh khắc lãng mạn giữa My và Hoàng để dung hòa, giúp tác phẩm bớt màu u tối. Song, cách sắp xếp chưa mượt mà khiến tình tiết này lệch ra khỏi tổng thể phim.', 'assets/img/Chiemdoat.PNG', 'https://www.youtube.com/watch?v=vFJpPawJWjw', 'assets/img/chiemdoat banner.PNG', '2025-04-26 15:25:45', NULL, 0, NULL),
 (13, 'MA DA', 'Kinh thánh', 95, 'Nguyễn Hữu Hoàng', 'Việt Hương, đứa bé con gái giả tưởng, đứa bé con gái không phải người việt, thằng béo oscar 10/10', 'Tiếng Việt', '2024-08-16', '<p><strong>&quot;Ma da&quot;</strong> kể về cuộc sống của b&agrave; Lệ (do Việt Hương thủ vai), một phụ nữ l&agrave;m nghề vớt x&aacute;c tr&ecirc;n s&ocirc;ng. C&ocirc;ng việc của b&agrave; l&agrave; đưa những người đ&atilde; mất trở về với gia đ&igrave;nh họ, gi&uacute;p họ c&oacute; một nơi an nghỉ cuối c&ugrave;ng. Một ng&agrave;y nọ, b&agrave; Lệ vớt được x&aacute;c của một thanh ni&ecirc;n b&iacute; ẩn. Từ đ&oacute;, b&agrave; bắt đầu gặp phải nhiều hiện tượng kỳ lạ v&agrave; những dấu hiệu tai ương.</p>\r\n', 'assets/img/madaposter.jpg', 'https://youtu.be/vC-KNlLNIso?si=DrJkPJXnR3demkmQ', 'assets/img/mada.jpg', '2025-04-29 16:25:28', NULL, 0, NULL);
 
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `payments`
---
-
-CREATE TABLE `payments` (
-  `payment_id` int(11) NOT NULL,
-  `booking_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `price` decimal(10,2) NOT NULL,
-  `payment_method` enum('Credit_card','Paypal','Momo','Zalopay') NOT NULL,
-  `transaction_code` varchar(255) NOT NULL,
-  `payment_status` enum('Success','Failed','Pending') DEFAULT 'Pending',
-  `payment_time` timestamp NOT NULL DEFAULT current_timestamp(),
-  `link` varchar(255) DEFAULT NULL,
-  `hide` tinyint(1) DEFAULT 0,
-  `order_index` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 --
 -- Đang đổ dữ liệu cho bảng `payments`
 --
@@ -301,23 +155,6 @@ INSERT INTO `payments` (`payment_id`, `booking_id`, `user_id`, `price`, `payment
 (10, 10, 10, 420000.00, 'Credit_card', '', 'Pending', '2025-04-23 12:23:40', 'https://link.example.com', 0, 10),
 (14, 16, 13, 670000.00, '', 'CS708929870', 'Success', '2025-05-23 09:52:12', NULL, 0, NULL);
 
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `promotions`
---
-
-CREATE TABLE `promotions` (
-  `promotion_id` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `content` text DEFAULT NULL,
-  `banner_url` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `link` varchar(255) DEFAULT NULL,
-  `hide` tinyint(1) DEFAULT 0,
-  `order_index` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 --
 -- Đang đổ dữ liệu cho bảng `promotions`
 --
@@ -331,22 +168,6 @@ INSERT INTO `promotions` (`promotion_id`, `title`, `content`, `banner_url`, `cre
 (6, 'KM1', '<p><strong><s><em>APDAKADSKAJSDIASD</em></s></strong></p>\r\n', '/LTW/assets/img/Loreal_advertisement-examples-1024x616.webp', '2025-05-05 17:06:38', NULL, 1, NULL),
 (7, '123', '<p>123</p>\r\n', '/LTW/assets/img/sales-2.webp', '2025-05-20 09:00:41', NULL, 1, NULL),
 (8, 's', '<p><s><em>dasd</em></s></p>\r\n', '/LTW/assets/img/sales-3.webp', '2025-05-20 09:01:25', NULL, 1, NULL);
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `rooms`
---
-
-CREATE TABLE `rooms` (
-  `room_id` int(11) NOT NULL,
-  `cinema_id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `link` varchar(255) DEFAULT NULL,
-  `hide` tinyint(1) DEFAULT 0,
-  `order_index` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `rooms`
@@ -366,25 +187,6 @@ INSERT INTO `rooms` (`room_id`, `cinema_id`, `name`, `link`, `hide`, `order_inde
 (11, 8, 'Room 8', 'https://link.example.com', 0, 8, '2025-04-23 12:20:54'),
 (12, 9, 'Room 9', 'https://link.example.com', 0, 9, '2025-04-23 12:20:54'),
 (13, 10, 'Room 10', 'https://link.example.com', 0, 10, '2025-04-23 12:20:54');
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `seats`
---
-
-CREATE TABLE `seats` (
-  `seat_id` int(11) NOT NULL,
-  `room_id` int(11) NOT NULL,
-  `seat_number` varchar(10) NOT NULL,
-  `seat_type` enum('Standard','Vip','Couple') DEFAULT 'Standard',
-  `extra_price` decimal(10,2) DEFAULT 0.00,
-  `status` enum('Available','Booked') DEFAULT 'Available',
-  `link` varchar(255) DEFAULT NULL,
-  `hide` tinyint(1) DEFAULT 0,
-  `order_index` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `seats`
@@ -596,25 +398,6 @@ INSERT INTO `seats` (`seat_id`, `room_id`, `seat_number`, `seat_type`, `extra_pr
 (205, 1, 'N13', 'Couple', 50000.00, 'Available', NULL, 0, NULL, '2025-04-26 10:50:34'),
 (206, 1, 'N14', 'Couple', 50000.00, 'Available', NULL, 0, NULL, '2025-04-26 10:50:34');
 
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `showtimes`
---
-
-CREATE TABLE `showtimes` (
-  `showtime_id` int(11) NOT NULL,
-  `movie_id` int(11) NOT NULL,
-  `room_id` int(11) NOT NULL,
-  `start_time` datetime NOT NULL,
-  `end_time` datetime NOT NULL,
-  `price` decimal(10,2) NOT NULL,
-  `link` varchar(255) DEFAULT NULL,
-  `hide` tinyint(1) DEFAULT 0,
-  `order_index` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 --
 -- Đang đổ dữ liệu cho bảng `showtimes`
 --
@@ -634,27 +417,6 @@ INSERT INTO `showtimes` (`showtime_id`, `movie_id`, `room_id`, `start_time`, `en
 (30, 8, 1, '2025-06-30 16:46:00', '2025-06-30 20:00:00', 150000.00, NULL, 0, NULL, '2025-05-06 15:16:03'),
 (31, 1, 1, '2025-06-30 18:00:00', '2025-06-30 20:00:00', 150000.00, NULL, 0, NULL, '2025-05-23 09:49:49');
 
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `users`
---
-
-CREATE TABLE `users` (
-  `user_id` int(11) NOT NULL,
-  `full_name` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `phone` varchar(20) NOT NULL,
-  `birthday` date NOT NULL,
-  `role` enum('Customer','Admin') DEFAULT 'Customer',
-  `member` enum('None','Silver','Gold','Diamond') DEFAULT 'None',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `link` varchar(255) DEFAULT NULL,
-  `hide` tinyint(1) DEFAULT 0,
-  `order_index` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 --
 -- Đang đổ dữ liệu cho bảng `users`
 --
@@ -673,229 +435,6 @@ INSERT INTO `users` (`user_id`, `full_name`, `email`, `password`, `phone`, `birt
 (13, 'Duong Hoang', 'hd34227@gmail.com', '$2y$10$pA5OuBgyQWcUa0EtYHN1l.pgO4ek9Tf8z2BQP/DkczzHVk2qwWTvi', '0928051366', '2025-04-07', 'Customer', 'Diamond', '2025-04-24 13:52:20', NULL, 0, NULL),
 (15, 'ADMIN', 'ADMIN@gmail.com', '$2y$10$FuTrTxDRLbrPRmSJ/Cdbd.YZmgaWfj6iZmeNuTQlub3xUyG0n3wz6', '0', '2025-04-01', 'Admin', 'Diamond', '2025-04-24 14:03:36', NULL, 0, NULL),
 (16, 'Hoàng', 'kophailamdau@gmail.com', '$2y$10$7zpErqUIhZ4q3JcBcw4FoepPL2twdP7h35r8j1vZjjioy9VuO8IpW', '0928051332', '2025-05-05', 'Customer', 'None', '2025-05-19 10:45:11', NULL, 0, NULL);
-
---
--- Chỉ mục cho các bảng đã đổ
---
-
---
--- Chỉ mục cho bảng `bookings`
---
-ALTER TABLE `bookings`
-  ADD PRIMARY KEY (`booking_id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `showtime_id` (`showtime_id`);
-
---
--- Chỉ mục cho bảng `booking_concessions`
---
-ALTER TABLE `booking_concessions`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `booking_id` (`booking_id`),
-  ADD KEY `concession_id` (`concession_id`);
-
---
--- Chỉ mục cho bảng `booking_details`
---
-ALTER TABLE `booking_details`
-  ADD PRIMARY KEY (`detail_id`),
-  ADD KEY `booking_id` (`booking_id`),
-  ADD KEY `seat_id` (`seat_id`);
-
---
--- Chỉ mục cho bảng `cinemas`
---
-ALTER TABLE `cinemas`
-  ADD PRIMARY KEY (`cinema_id`);
-
---
--- Chỉ mục cho bảng `concessions`
---
-ALTER TABLE `concessions`
-  ADD PRIMARY KEY (`concession_id`);
-
---
--- Chỉ mục cho bảng `membership_discounts`
---
-ALTER TABLE `membership_discounts`
-  ADD PRIMARY KEY (`member_type`);
-
---
--- Chỉ mục cho bảng `movies`
---
-ALTER TABLE `movies`
-  ADD PRIMARY KEY (`movie_id`);
-
---
--- Chỉ mục cho bảng `payments`
---
-ALTER TABLE `payments`
-  ADD PRIMARY KEY (`payment_id`),
-  ADD KEY `booking_id` (`booking_id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Chỉ mục cho bảng `promotions`
---
-ALTER TABLE `promotions`
-  ADD PRIMARY KEY (`promotion_id`);
-
---
--- Chỉ mục cho bảng `rooms`
---
-ALTER TABLE `rooms`
-  ADD PRIMARY KEY (`room_id`),
-  ADD KEY `cinema_id` (`cinema_id`);
-
---
--- Chỉ mục cho bảng `seats`
---
-ALTER TABLE `seats`
-  ADD PRIMARY KEY (`seat_id`),
-  ADD KEY `room_id` (`room_id`);
-
---
--- Chỉ mục cho bảng `showtimes`
---
-ALTER TABLE `showtimes`
-  ADD PRIMARY KEY (`showtime_id`),
-  ADD KEY `movie_id` (`movie_id`),
-  ADD KEY `room_id` (`room_id`);
-
---
--- Chỉ mục cho bảng `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`user_id`),
-  ADD UNIQUE KEY `email` (`email`),
-  ADD UNIQUE KEY `phone` (`phone`);
-
---
--- AUTO_INCREMENT cho các bảng đã đổ
---
-
---
--- AUTO_INCREMENT cho bảng `bookings`
---
-ALTER TABLE `bookings`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT cho bảng `booking_concessions`
---
-ALTER TABLE `booking_concessions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
-
---
--- AUTO_INCREMENT cho bảng `booking_details`
---
-ALTER TABLE `booking_details`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
-
---
--- AUTO_INCREMENT cho bảng `cinemas`
---
-ALTER TABLE `cinemas`
-  MODIFY `cinema_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT cho bảng `concessions`
---
-ALTER TABLE `concessions`
-  MODIFY `concession_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT cho bảng `movies`
---
-ALTER TABLE `movies`
-  MODIFY `movie_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT cho bảng `payments`
---
-ALTER TABLE `payments`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- AUTO_INCREMENT cho bảng `promotions`
---
-ALTER TABLE `promotions`
-  MODIFY `promotion_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT cho bảng `rooms`
---
-ALTER TABLE `rooms`
-  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT cho bảng `seats`
---
-ALTER TABLE `seats`
-  MODIFY `seat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=207;
-
---
--- AUTO_INCREMENT cho bảng `showtimes`
---
-ALTER TABLE `showtimes`
-  MODIFY `showtime_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
-
---
--- AUTO_INCREMENT cho bảng `users`
---
-ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- Các ràng buộc cho các bảng đã đổ
---
-
---
--- Các ràng buộc cho bảng `bookings`
---
-ALTER TABLE `bookings`
-  ADD CONSTRAINT `bookings_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `bookings_ibfk_2` FOREIGN KEY (`showtime_id`) REFERENCES `showtimes` (`showtime_id`) ON DELETE CASCADE;
-
---
--- Các ràng buộc cho bảng `booking_concessions`
---
-ALTER TABLE `booking_concessions`
-  ADD CONSTRAINT `booking_concessions_ibfk_1` FOREIGN KEY (`booking_id`) REFERENCES `bookings` (`booking_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `booking_concessions_ibfk_2` FOREIGN KEY (`concession_id`) REFERENCES `concessions` (`concession_id`) ON DELETE CASCADE;
-
---
--- Các ràng buộc cho bảng `booking_details`
---
-ALTER TABLE `booking_details`
-  ADD CONSTRAINT `booking_details_ibfk_1` FOREIGN KEY (`booking_id`) REFERENCES `bookings` (`booking_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `booking_details_ibfk_2` FOREIGN KEY (`seat_id`) REFERENCES `seats` (`seat_id`) ON DELETE CASCADE;
-
---
--- Các ràng buộc cho bảng `payments`
---
-ALTER TABLE `payments`
-  ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`booking_id`) REFERENCES `bookings` (`booking_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `payments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
-
---
--- Các ràng buộc cho bảng `rooms`
---
-ALTER TABLE `rooms`
-  ADD CONSTRAINT `rooms_ibfk_1` FOREIGN KEY (`cinema_id`) REFERENCES `cinemas` (`cinema_id`) ON DELETE CASCADE;
-
---
--- Các ràng buộc cho bảng `seats`
---
-ALTER TABLE `seats`
-  ADD CONSTRAINT `seats_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`room_id`) ON DELETE CASCADE;
-
---
--- Các ràng buộc cho bảng `showtimes`
---
-ALTER TABLE `showtimes`
-  ADD CONSTRAINT `showtimes_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`movie_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `showtimes_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`room_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

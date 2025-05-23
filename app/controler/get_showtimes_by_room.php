@@ -23,7 +23,7 @@ $sql = "SELECT
         JOIN rooms r ON s.room_id = r.room_id
         JOIN movies m ON s.movie_id = m.movie_id
         WHERE s.room_id = ?
-          AND s.hide = 0 and  s.end_time > NOW()
+        AND s.hide = 0 and  s.end_time > NOW()
         ORDER BY s.start_time";
 
 
