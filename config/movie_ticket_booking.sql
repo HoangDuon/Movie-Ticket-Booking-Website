@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 23, 2025 lúc 07:41 PM
+-- Thời gian đã tạo: Th5 23, 2025 lúc 07:43 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -300,9 +300,9 @@ INSERT INTO `payments` (`payment_id`, `booking_id`, `user_id`, `price`, `payment
 (8, 8, 8, 370000.00, 'Credit_card', '', 'Failed', '2025-04-23 12:23:40', 'https://link.example.com', 0, 8),
 (9, 9, 9, 380000.00, 'Paypal', '', 'Success', '2025-04-23 12:23:40', 'https://link.example.com', 0, 9),
 (10, 10, 10, 420000.00, 'Credit_card', '', 'Pending', '2025-04-23 12:23:40', 'https://link.example.com', 0, 10),
-(14, 16, 13, 670000.00, '', 'CS708929870', 'Success', '2025-05-23 09:52:12', NULL, 0, NULL),
-(15, 17, 13, 320000.00, '', 'CS853733292', 'Success', '2025-05-23 17:35:15', NULL, 0, NULL),
-(16, 18, 13, 456000.00, '', 'CS804052435', 'Success', '2025-05-23 17:38:05', NULL, 0, NULL);
+(14, 16, 13, 670000.00, 'VNPAY', 'CS708929870', 'Success', '2025-05-23 09:52:12', NULL, 0, NULL),
+(15, 17, 13, 320000.00, 'VNPAY', 'CS853733292', 'Success', '2025-05-23 17:35:15', NULL, 0, NULL),
+(16, 18, 13, 456000.00, 'VNPAY', 'CS804052435', 'Success', '2025-05-23 17:38:05', NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
