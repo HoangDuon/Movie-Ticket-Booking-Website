@@ -5,12 +5,26 @@ body {
     font-family: Arial, sans-serif;
 }
 
+#main-content {
+    flex: 1;          /* lấy toàn bộ không gian còn lại */
+    min-height: 0;
+}
+
 /* Progress Steps */
 .progress-steps {
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
+}
+
+#ticket-section .ticket-info-box {
+    border: 2px solid #ffc107;       /* viền vàng */
+    border-radius: 10px;             /* bo góc */
+    padding: 20px;                   /* khoảng cách trong */
+    background-color: rgba(255, 255, 255, 0.05); /* nền nhẹ nổi bật */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);   /* đổ bóng */
+    margin-top: 30px;                /* khoảng cách phía trên */
 }
 
 .step {

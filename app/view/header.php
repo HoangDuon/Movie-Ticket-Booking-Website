@@ -6,6 +6,7 @@
     <title>CineWave Cinema</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="icon" type="image/x-icon" href="../LTW/assets/img/favicon.ico">
+    <link rel="stylesheet" href="/LTW/assets/css/common.css">
     <link rel="stylesheet" href="../LTW/assets/css/slide.css">
     <link rel="stylesheet" href="../LTW/assets/css/homepage.css">
     <link rel="stylesheet" href="../LTW/assets/css/footer.css">
@@ -26,15 +27,7 @@
     
 </head>
 <body>
-
-        <div class="row">
-
-            <div class="col-1">
-
-            </div>
-            <div class="col-12">
-
-                <!-- ------------------- HEADER ----------------------------- -->
+<div class="page-wrapper">
                 <header>
                     <div class="header-top">
                         <div class="hd-logo">
@@ -75,13 +68,15 @@
                         <?php
                         if (isset($_SESSION['user']) && $_SESSION['user']['role'] === 'Customer') {
                             // Khi người dùng đã đăng nhập
-                            echo '<div class="login user-dropdown-container">  
-                                    <a href="javascript:void(0);" class="user-name-link"> ' . htmlspecialchars($_SESSION['user']['full_name']) . '
+                            echo '<div class="login user-dropdown-container">
+                                    <a href="javascript:void(0);" class="user-name-link">' .
+                                        htmlspecialchars($_SESSION['user']['full_name']) .
+                                    '</a>
                                     <ul class="user-options-dropdown"> 
                                         <li><a href="index.php?page=profile">Thông tin cá nhân</a></li>
                                         <li><a class="logout" href="app/controler/logout.php">Đăng xuất</a></li>
                                     </ul>
-                                  </div>';
+                                </div>';
                         } else {
                             // Khi người dùng chưa đăng nhập
                             echo '<div class="login">    

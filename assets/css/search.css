@@ -1,5 +1,6 @@
 .search-view {
-    height: 100vh;
+    flex: 1;          /* lấy toàn bộ không gian còn lại */
+    min-height: 0;
 }
 
 .movie-search-result-card .card-img-top,
