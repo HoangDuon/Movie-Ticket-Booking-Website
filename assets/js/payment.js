@@ -57,10 +57,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (selectedMethodId === "bankTransfer") {
-          // Người dùng chọn "Chuyển khoản ngân hàng" -> VNPAY
           initiateVnpayPayment();
         } else {
-          goToTicketStep(); //
+          alert("Vui lòng chọn phương thức thanh toán");
+          return;
         }
       });
     }

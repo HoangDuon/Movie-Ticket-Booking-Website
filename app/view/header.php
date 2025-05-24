@@ -47,18 +47,18 @@
                             </a>
                         </div>
             
-<div class="hd-searchbar">
-    <form class="search-form-wrapper" method="GET" action="index.php">
-        <input type="hidden" name="page" value="search_results_movies">
-        <div class="input-icon-container">
-            <input class="form-control" type="search" name="query_movie" placeholder="Tìm kiếm tên phim..." aria-label="Search"
-                   style="padding: 1rem 3rem 1rem 2rem;" value="<?php echo isset($_GET['query_movie']) ? htmlspecialchars($_GET['query_movie']) : ''; ?>">
-            <button class="btn-icon-inside" type="submit" aria-label="Tìm kiếm">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-        </div>
-    </form>
-</div>
+                    <div class="hd-searchbar">
+                        <form class="search-form-wrapper" method="GET" action="index.php">
+                            <input type="hidden" name="page" value="search_results_movies">
+                            <div class="input-icon-container">
+                                <input class="form-control" type="search" name="query_movie" placeholder="Tìm kiếm tên phim..." aria-label="Search"
+                                    style="padding: 1rem 3rem 1rem 2rem;" value="<?php echo isset($_GET['query_movie']) ? htmlspecialchars($_GET['query_movie']) : ''; ?>">
+                                <button class="btn-icon-inside" type="submit" aria-label="Tìm kiếm">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
             
                     <div class="hd-log">
                         <div class="login-ic">
@@ -84,10 +84,7 @@
                                         Đăng nhập
                                     </a>                          
                                   </div>';
-                        }
-                            // echo '<pre>';
-                            // var_dump($_SESSION);
-                            // echo '</pre>';            
+                        }          
                             ?>
                         </div>
                     </div>                    
@@ -114,7 +111,7 @@
                                     <a href="#showkhuyenmai">Khuyến mãi</a>
                                 </li>
                                 <li>
-                                    <a href="#">Giới thiệu</a>
+                                    <a href="#sinh-vien-footer">Giới thiệu</a>
                                 </li>
                             </ul>
                         </div>

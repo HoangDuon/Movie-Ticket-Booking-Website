@@ -1,8 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
-// Kết nối database
-require_once '../model/pdo.php'; // hoặc đường dẫn file kết nối CSDL
+require_once '../model/pdo.php';
 
 $movie_id = $_GET['movie_id'] ?? null;
 $show_date = $_GET['show_date'] ?? null;
@@ -14,7 +13,6 @@ if (!$movie_id || !$show_date) {
 }
 
 try {
-    // Lấy danh sách suất chiếu theo phim và ngày
     $sql = "
         SELECT 
             c.cinema_id,

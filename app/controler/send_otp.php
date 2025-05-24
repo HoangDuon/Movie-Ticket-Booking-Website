@@ -2,7 +2,6 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// require 'vendor/autoload.php'; // Nếu dùng Composer
 require '../../config/PHPMailer-master/src/PHPMailer.php'; require '../../config/PHPMailer-master/src/SMTP.php'; require '../../config/PHPMailer-master/src/Exception.php';
 
 header('Content-Type: application/json');
@@ -11,13 +10,6 @@ header('Content-Type: application/json');
 $data = json_decode(file_get_contents('php://input'), true);
 $emailOrPhone = trim($data['emailOrPhone'] ?? '');
 
-// echo json_encode([
-//     'success' => false,
-//     'message' => 'Email không hợp lệ',
-//     'Email' => $emailOrPhone,
-//     'debug_raw_data' => $data
-// ]);
-// exit;
 
 if (empty($emailOrPhone) || !filter_var($emailOrPhone, FILTER_VALIDATE_EMAIL)) {
     echo json_encode(['success' => false, 'message' => 'Email không hợp lệ','Email'=> $emailOrPhone]);
@@ -37,12 +29,11 @@ try {
     $mail->isSMTP();
     $mail->Host       = 'smtp.gmail.com';
     $mail->SMTPAuth   = true;
-    $mail->Username   = 'hd34227@gmail.com';       // Email Gmail của bạn
-    $mail->Password   = 'sorctpcevisgwwfc';          // App password (KHÔNG phải mật khẩu Gmail)
+    $mail->Username   = 'hd34227@gmail.com';  
+    $mail->Password   = 'sorctpcevisgwwfc';     
     $mail->SMTPSecure = 'tls';
     $mail->Port       = 587;
 
-    // Gửi từ đâu và đến đâu
     $mail->setFrom('hd34227@gmail.com', 'CINEWAVE');
     $mail->addAddress($emailOrPhone);
 

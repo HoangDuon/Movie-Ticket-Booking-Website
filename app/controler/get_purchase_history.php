@@ -1,5 +1,4 @@
 <?php
-// session_start();
 require_once __DIR__ . '/../model/pdo.php';
 
 // Kiểm tra người dùng đã đăng nhập hay chưa
@@ -31,17 +30,14 @@ class get_purchase_history {
                 ORDER BY b.booking_time DESC";
 
         try {
-            // Truyền $userId vào cho pdo_query
             return pdo_query($sql, $userId);
         } catch (PDOException $e) {
-            // Ghi log lỗi thay vì echo trực tiếp
             error_log("Lỗi khi lấy lịch sử mua hàng cho user $userId: " . $e->getMessage());
-            return []; // Trả về mảng rỗng nếu có lỗi
+            return [];
         }
     }
 
     public function getDetailByBookingID($booking_id) {
-        // Lấy thông tin chính
         $sql = "
             SELECT 
                 p.transaction_code,
@@ -62,7 +58,6 @@ class get_purchase_history {
         ";
         $bookingInfo = pdo_query_one($sql, $booking_id);
 
-        // Lấy danh sách ghế đã đặt
         $sqlSeats = "
             SELECT seats.seat_number
             FROM booking_details
@@ -87,7 +82,6 @@ class get_purchase_history {
     }
 
 public function getFullBookingDetailsForEmail($booking_id) {
-        // Lấy thông tin chính và bổ sung thông tin người dùng, poster phim
         $sql = "
             SELECT 
                 p.transaction_code,
@@ -115,7 +109,6 @@ public function getFullBookingDetailsForEmail($booking_id) {
             ORDER BY p.payment_time DESC -- Lấy thông tin payment thành công mới nhất
             LIMIT 1
         ";
-        // Hàm pdo_query_one được định nghĩa trong file pdo.php
         $bookingInfo = pdo_query_one($sql, $booking_id); 
 
         if (!$bookingInfo) {
@@ -123,21 +116,18 @@ public function getFullBookingDetailsForEmail($booking_id) {
             return null;
         }
 
-        // Lấy danh sách ghế đã đặt
         $sqlSeats = "
             SELECT seats.seat_number, seats.seat_type
             FROM booking_details
             JOIN seats ON booking_details.seat_id = seats.seat_id
             WHERE booking_details.booking_id = ?
         ";
-        // Hàm pdo_query được định nghĩa trong file pdo.php
         $seatRows = pdo_query($sqlSeats, $booking_id); 
 
         $seatList = array_column($seatRows, 'seat_number');
         $bookingInfo['seats_display'] = implode(', ', $seatList);
         $bookingInfo['seat_count'] = count($seatList);
 
-        // Lấy danh sách đồ ăn kèm
         $sqlConcessions = "
             SELECT c.name as concession_name, bc.quantity, bc.total_price as concession_item_total_price 
             FROM booking_concessions bc

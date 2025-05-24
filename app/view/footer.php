@@ -6,8 +6,8 @@
                             <p class="txt-tagline">BE HAPPY, BE A WAVE</p>
                         </div>
                         <div class="ft-btn mb-4">
-                            <a href="#" class="btn btn-footer-primary me-2" id="dat-ve">ĐẶT VÉ</a>
-                            <a href="#" class="btn btn-footer-secondary" id="dat-bapnuoc">ĐẶT BẮP NƯỚC</a>
+                            <a href="index.php?page=home#fast-booking" class="btn btn-footer-primary me-2" id="dat-ve">ĐẶT VÉ</a>
+                            <a href="index.php?page=home#fast-booking" class="btn btn-footer-secondary" id="dat-bapnuoc">ĐẶT BẮP NƯỚC</a>
                         </div>
                         <div class="ft-hotline-socials">
                             <p class="mb-2 social-heading">Kết nối với chúng tôi:</p>
@@ -29,7 +29,7 @@
 
                     <div class="ft-body-item col-lg-2 col-md-3 col-sm-6 col-6 mb-4 mb-md-0 text-center" id="tai-khoan-footer">
                         <h5 class="footer-heading">Tài Khoản</h5>
-                        <ul class="menu-list list-unstyled">
+                        <ul class="menu-list list-unstyled" style="align-items: center;">
                             <li class="menu-item"><a href="index.php?page=login">Đăng nhập</a></li>
                             <li class="menu-item"><a href="index.php?page=login">Đăng ký</a></li>
                         </ul>
@@ -37,7 +37,7 @@
 
                     <div class="ft-body-item col-lg-2 col-md-3 col-sm-6 col-6 mb-4 mb-md-0 text-center" id="xem-phim-footer">
                         <h5 class="footer-heading">Xem Phim</h5>
-                        <ul class="menu-list list-unstyled">
+                        <ul class="menu-list list-unstyled" style="align-items: center;">
                             <li class="menu-item"><a href="index.php?page=home#now-showing">Phim đang chiếu</a></li>
                             <li class="menu-item"><a href="index.php?page=home#will-show">Phim sắp chiếu</a></li>
                         </ul>

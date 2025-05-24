@@ -119,7 +119,7 @@ $tongtien_display = isset($bookingData['total_price']) ? number_format($bookingD
                            value="<?= $loggedInUserEmail ?>" readonly>
                            </div>
             <?php else: // Trường hợp người dùng chưa đăng nhập ?>
-                <p class="text-white mb-3">Vui lòng <a href="index.php?page=login&return_url=<?= urlencode($_SERVER['REQUEST_URI']) ?>" class="text-warning">đăng nhập</a> để tự động điền thông tin, hoặc nhập thông tin của bạn dưới đây.</p>
+                <p class="text-white mb-3" style="font-size: 2rem;">Vui lòng <a href="index.php?page=login&return_url=<?= urlencode($_SERVER['REQUEST_URI']) ?>" class="text-warning">đăng nhập</a> để tiếp tục đặt vé.</p>
                 <div class="mb-3">
                     <label for="fullName" class="form-label text-white">Họ và tên <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="fullName" placeholder="Họ và tên" required disabled>

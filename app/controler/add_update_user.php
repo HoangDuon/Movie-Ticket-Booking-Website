@@ -1,5 +1,5 @@
 <?php
-require_once "../model/pdo.php"; // hoặc đường dẫn tới file DAO
+require_once "../model/pdo.php";
 include "user_services.php";
 $users = new user_services();
 

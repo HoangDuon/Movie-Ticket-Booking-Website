@@ -1,5 +1,5 @@
 <?php
-require_once "../model/pdo.php"; // hoặc đường dẫn tới file DAO
+require_once "../model/pdo.php";
 
 // Lấy dữ liệu từ POST
 $discount = $_POST['discount'];

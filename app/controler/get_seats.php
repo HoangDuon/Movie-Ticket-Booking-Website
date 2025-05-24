@@ -1,5 +1,5 @@
 <?php
-require_once '../model/pdo.php'; // Trong đó có $pdo và pdo_query()
+require_once '../model/pdo.php';
 
 if (!isset($_GET['showtime_id'])) {
     http_response_code(400);
@@ -9,7 +9,6 @@ if (!isset($_GET['showtime_id'])) {
 
 $showtime_id = intval($_GET['showtime_id']);
 
-// Lấy room_id từ suất chiếu
 $sqlRoom = "SELECT room_id FROM showtimes WHERE showtime_id = ?";
 $roomResult = pdo_query($sqlRoom, $showtime_id);
 
@@ -20,7 +19,6 @@ if (!$roomResult || count($roomResult) === 0) {
 
 $room_id = $roomResult[0]['room_id'];
 
-// Lấy danh sách ghế trong phòng
 $sqlSeats = "
     SELECT 
         s.seat_id,

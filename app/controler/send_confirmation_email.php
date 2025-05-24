@@ -1,14 +1,8 @@
 <?php
-// File: app/controler/send_confirmation_email.php
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// Đường dẫn này cần chính xác từ vị trí file send_confirmation_email.php
-// đến thư mục PHPMailer của bạn.
-// Ví dụ nếu send_confirmation_email.php và config/ nằm cùng cấp trong app/controler/
-// thì có thể là: require_once __DIR__ . '/../../config/PHPMailer-master/src/Exception.php';
-// Dựa trên code gửi OTP của bạn, có vẻ PHPMailer nằm trong thư mục config.
 require_once __DIR__ . '/../../config/PHPMailer-master/src/Exception.php'; //
 require_once __DIR__ . '/../../config/PHPMailer-master/src/PHPMailer.php'; //
 require_once __DIR__ . '/../../config/PHPMailer-master/src/SMTP.php'; //
@@ -16,8 +10,8 @@ require_once __DIR__ . '/../../config/PHPMailer-master/src/SMTP.php'; //
 /**
  * Gửi email xác nhận đặt vé.
  *
- * @param array $bookingDetails Mảng chứa đầy đủ thông tin chi tiết đơn hàng.
- * @return bool True nếu gửi thành công, false nếu thất bại.
+ * @param array $bookingDetails
+ * @return bool
  */
 function sendBookingConfirmationEmail(array $bookingDetails): bool {
     if (empty($bookingDetails) || !isset($bookingDetails['user_email']) || !filter_var($bookingDetails['user_email'], FILTER_VALIDATE_EMAIL)) {
@@ -28,15 +22,14 @@ function sendBookingConfirmationEmail(array $bookingDetails): bool {
     $mail = new PHPMailer(true);
 
     try {
-        // Cấu hình Server SMTP (giống như file gửi OTP của bạn)
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'hd34227@gmail.com';      // Email Gmail của bạn
-        $mail->Password   = 'sorctpcevisgwwfc';     // App Password của bạn đã tạo cho Gmail
+        $mail->Username   = 'hd34227@gmail.com'; 
+        $mail->Password   = 'sorctpcevisgwwfc'; 
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
-        $mail->CharSet    = 'UTF-8'; // Rất quan trọng để hiển thị tiếng Việt
+        $mail->CharSet    = 'UTF-8';
 
         // Người gửi và người nhận
         $mail->setFrom('hd34227@gmail.com', 'CineWave'); // Tên và email người gửi
@@ -44,20 +37,17 @@ function sendBookingConfirmationEmail(array $bookingDetails): bool {
 
         // Nội dung Email
         $mail->isHTML(true);
-        // Tiêu đề email (UTF-8 encoded)
         $mail->Subject = '=?UTF-8?B?' . base64_encode('CineWave - Xác nhận đặt vé thành công ĐH #' . $bookingDetails['booking_id']) . '?=';
 
         // Xây dựng nội dung HTML cho email
-        $logoUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]/LTW/assets/img/logo.png"; // Cập nhật đường dẫn logo của bạn
+        $logoUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]/LTW/assets/img/logo.png";
         $posterBaseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]/LTW/";
         
         $full_poster_url = '';
         if (!empty($bookingDetails['poster_url'])) {
-             // Kiểm tra xem poster_url đã là URL đầy đủ chưa
             if (strpos($bookingDetails['poster_url'], 'http://') === 0 || strpos($bookingDetails['poster_url'], 'https://') === 0) {
                 $full_poster_url = $bookingDetails['poster_url'];
             } else {
-                // Nếu là đường dẫn tương đối, nối với base URL
                 $full_poster_url = $posterBaseUrl . ltrim($bookingDetails['poster_url'], '/');
             }
         }
@@ -69,7 +59,6 @@ function sendBookingConfirmationEmail(array $bookingDetails): bool {
             return false;
         }
         
-        // Thay thế các placeholder trong template
         $emailBody = str_replace('{{LOGO_URL}}', htmlspecialchars($logoUrl), $emailBody);
         $emailBody = str_replace('{{USER_FULL_NAME}}', htmlspecialchars($bookingDetails['user_full_name']), $emailBody);
         $emailBody = str_replace('{{BOOKING_ID}}', htmlspecialchars($bookingDetails['booking_id']), $emailBody);

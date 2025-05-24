@@ -275,41 +275,29 @@ function populateEditUserForm(userData) {
         return;
     }
 
-    // Điền các giá trị vào input fields
-    // Sử dụng userData.id thay vì userData.id_user nếu key trong dataset là 'id'
     document.getElementById('editUserName').value = userData.name || '';
     document.getElementById('editUserEmail').value = userData.email || '';
     document.getElementById('editUserPhone').value = userData.phone || '';
     document.getElementById('editUserBirthday').value = userData.birthday || '';
     document.getElementById('editUserPassword').value = ""; // Để trống mật khẩu khi sửa, chỉ nhập nếu muốn đổi
 
-    // Lưu email và SĐT gốc vào dataset của form
     form.dataset.originalEmail = userData.email ? userData.email.toLowerCase() : '';
     form.dataset.originalPhone = userData.phone || '';
 
-    // Debug để kiểm tra giá trị dataset đã được set
     console.log("Dataset sau khi populate:", form.dataset.originalEmail, form.dataset.originalPhone);
-
-    // Thêm logic để hiển thị form/modal sửa ở đây nếu nó đang bị ẩn
-    // Ví dụ:
-    // const editFormPanel = document.getElementById('yourEditUserFormPanelId'); // ID của div/modal chứa form
-    // if (editFormPanel) {
-    //     editFormPanel.style.display = 'block'; // Hoặc 'flex', tùy theo cách bạn ẩn/hiện
-    // }
 }
+
 //JS phần thêm xóa sửa người dùng
 function showEditUserForm(button) {
     const form = document.getElementById('editUserForm'); 
-    // 1. Lấy dữ liệu từ các data-* attributes của nút được click
     const userId = button.dataset.id;
     const userName = button.dataset.name;
-    const userEmail = button.dataset.email; // Email gốc
-    const userPhone = button.dataset.phone; // Số điện thoại gốc
+    const userEmail = button.dataset.email;
+    const userPhone = button.dataset.phone;
     const userBirthday = button.dataset.birthday;
     const userRole = button.dataset.role;
     const userMember = button.dataset.member;
-    // Không nên lấy và điền data-password vào trường mật khẩu.
-    // Trường mật khẩu khi sửa nên để trống, chỉ nhập khi muốn thay đổi.
+    const userPassword = button.dataset.password;
 
     // 2. Điền các giá trị vào input fields của form
     document.getElementById('editUserId').value = userId || '';
@@ -317,9 +305,9 @@ function showEditUserForm(button) {
     document.getElementById('editUserEmail').value = userEmail || '';
     document.getElementById('editUserPhone').value = userPhone || '';
     document.getElementById('editUserBirthday').value = userBirthday || '';
-    document.getElementById('editUserRole').value = userRole || ''; // Đảm bảo có input/select với ID này
-    document.getElementById('editUserMember').value = userMember || ''; // Đảm bảo có input/select với ID này
-    document.getElementById('editUserPassword').value = ""; // Luôn để trống mật khẩu khi sửa
+    document.getElementById('editUserRole').value = userRole || '';
+    document.getElementById('editUserMember').value = userMember || '';
+    document.getElementById('editUserPassword').value = userPassword ||"";
 
     // 3. Lưu email và SĐT gốc (lấy từ button.dataset) vào dataset của FORM
     // Đây là bước quan trọng để logic kiểm tra trùng lặp khi submit hoạt động đúng

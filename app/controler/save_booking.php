@@ -22,7 +22,7 @@ $concessions = $data['concessions'] ?? [];
 $total_price = $data['total_price'];
 $txnRef = $data['txnRef'];
 
-// user_id giả định đã đăng nhập (bạn thay bằng session khi có auth)
+// user_id giả định đã đăng nhập
 $user_id = $_SESSION['user']['id'];
 
 // 1. Kiểm tra txnRef đã tồn tại trong bảng payments chưa (tránh trùng)
@@ -38,7 +38,6 @@ $booking_id = pdo_execute_return_last_id($sql_booking, $user_id, $showtime_id, $
 
 $sql_details = "INSERT INTO booking_details (booking_id, seat_id) VALUES (?, ?)";
 foreach ($seats as $seat) {
-    // (Giả định mỗi item có `concession_id`, `quantity`)
     $seat_id = $seat['id'];
 
     pdo_execute($sql_details, $booking_id,$seat_id);
@@ -47,11 +46,10 @@ foreach ($seats as $seat) {
 // 4. Lưu bắp nước vào `booking_concessions`
 $sql_con = "INSERT INTO booking_concessions (booking_id, concession_id, quantity, total_price) VALUES (?, ?, ?, ?)";
 foreach ($concessions as $item) {
-    // (Giả định mỗi item có `concession_id`, `quantity`)
     $concession_id = $item['concession_id'];
     $quantity = $item['quantity'];
 
-    // Lấy giá từ bảng `concessions` (nếu cần)
+    // Lấy giá từ bảng `concessions`
     $concession = pdo_query_one("SELECT price FROM concessions WHERE concession_id = ?", $concession_id);
     $unit_price = $concession ? $concession['price'] : 0;
     $total = $unit_price * $quantity;

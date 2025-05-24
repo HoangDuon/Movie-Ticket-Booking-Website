@@ -1,32 +1,29 @@
 <?php
 session_start();
-// vnpay_create_payment.php
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
 
 header('Content-Type: application/json');
 
-// Nhận dữ liệu JSON từ request
 $json_param = file_get_contents('php://input');
 $param = json_decode($json_param);
 
 
 // --- CẤU HÌNH VNPAY ---
-// Thay thế bằng thông tin thật của bạn
-$vnp_TmnCode = "6F05EVIZ"; // Mã website tại VNPAY
-$vnp_HashSecret = "6HMGVY19V4IKB4YMA6MPL4W1RDD6NOOI"; // Chuỗi bí mật
-$vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html"; // URL Giao diện thanh toán VNPAY (sandbox)
+$vnp_TmnCode = "6F05EVIZ";
+$vnp_HashSecret = "6HMGVY19V4IKB4YMA6MPL4W1RDD6NOOI";
+$vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
 // $vnp_Url = "https://vnpayment.vn/paymentv2/vpcpay.html"; // URL Production
-$vnp_Returnurl = "http://localhost/LTW/index.php?page=payment"; // URL trả về sau khi thanh toán
+$vnp_Returnurl = "http://localhost/LTW/index.php?page=payment";
 
 // --- LẤY THÔNG TIN TỪ REQUEST ---
-$vnp_TxnRef = $param->orderId ?? ('CS' . time()); // Mã đơn hàng. Nên đảm bảo tính duy nhất.
+$vnp_TxnRef = $param->orderId ?? ('CS' . time());
 $vnp_OrderInfo = $param->orderDescription ?? "Thanh toan don hang";
-$vnp_OrderType = "billpayment"; // Loại hàng hóa (theo tài liệu VNPAY)
-$vnp_Amount = ($param->amount ?? 0) * 100; // Số tiền thanh toán (nhân 100 theo yêu cầu VNPAY)
-$vnp_Locale = 'vn'; // Ngôn ngữ giao diện (vn hoặc en)
+$vnp_OrderType = "billpayment";
+$vnp_Amount = ($param->amount ?? 0) * 100;
+$vnp_Locale = 'vn';
 // $vnp_BankCode = $param->bankCode ?? ''; // Mã ngân hàng (để trống nếu muốn khách chọn)
-$vnp_IpAddr = $_SERVER['REMOTE_ADDR']; // IP Khách hàng
+$vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
 
 $bookingData = $param->bookingData;
 
@@ -55,7 +52,7 @@ if (isset($vnp_BankCode) && $vnp_BankCode != "") {
     $inputData['vnp_BankCode'] = $vnp_BankCode;
 }
 
-ksort($inputData); // Sắp xếp các tham số theo thứ tự alphabet
+ksort($inputData);
 $query = "";
 $i = 0;
 $hashdata = "";

@@ -1,0 +1,464 @@
+
+:root {
+    --primary-color-detail: #007bff; 
+    --secondary-color-detail: #6c757d;
+    --accent-color-detail: #ff4081;
+    --text-dark-detail: #212529;
+    --text-light-detail: #f8f9fa;
+    --background-page-detail: #f0f2f5;
+    --card-bg-detail: #ffffff;
+    --card-shadow-detail: 0 8px 25px rgba(0, 0, 0, 0.08);
+    --border-radius-detail: 12px;
+    --font-family-detail: 'Poppins', sans-serif;
+}
+
+body.movie-detail-page {
+    font-family: var(--font-family-detail);
+    background-color: var(--background-page-detail);
+    color: #333;
+    line-height: 1.65;
+}
+
+.movie-detail-container {
+    background-color: var(--card-bg-detail);
+    border-radius: var(--border-radius-detail);
+    box-shadow: var(--card-shadow-detail);
+    padding: 2.5rem;
+}
+
+/* Movie Info Section */
+.poster-wrapper {
+    padding: 10px;
+    background-color: #fff;
+    border-radius: var(--border-radius-detail);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.movie-poster-main {
+    width: 100%;
+    border-radius: calc(var(--border-radius-detail) - 5px);
+    object-fit: cover;
+}
+
+.movie-info-content .movie-title-main {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-dark-detail);
+    margin-bottom: 0.75rem;
+}
+
+.movie-info-content .movie-meta {
+    font-size: 0.95rem;
+    color: var(--secondary-color-detail);
+    margin-bottom: 1.5rem;
+}
+.movie-info-content .movie-meta span {
+    margin-right: 15px;
+    display: inline-flex;
+    align-items: center;
+}
+.movie-info-content .movie-meta i {
+    color: var(--primary-color-detail);
+    margin-right: 6px;
+}
+
+.section-heading {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--text-dark-detail);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-color-detail);
+    display: inline-block;
+}
+
+.movie-description {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 2rem !important;
+}
+.movie-description p {
+    margin-bottom: 0.8rem;
+}
+
+.btn-watch-trailer {
+    background-color: var(--accent-color-detail);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-weight: 600;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+.btn-watch-trailer:hover {
+    background-color: #d81b60;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Schedule Section */
+.booking-flow-section {
+    margin-top: 3rem !important;
+}
+.schedule-selector-panel.card {
+    border: none;
+    border-radius: var(--border-radius-detail);
+    margin-bottom: 2rem;
+}
+.schedule-selector-panel .card-header {
+    background-color: transparent;
+    border-bottom: 1px solid #eee;
+    padding: 1.25rem;
+}
+.schedule-selector-panel .card-header .section-heading {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    font-size: 1.4rem;
+}
+.schedule-selector-panel .card-body {
+    padding: 1.5rem;
+}
+
+.date-buttons-container {
+    margin-bottom: 2rem !important;
+}
+.date-btn-custom {
+    font-size: 0.9rem;
+    padding: 0.6rem 0.9rem;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 1px solid var(--primary-color-detail);
+    color: var(--primary-color-detail);
+    background-color: transparent;
+    min-width: 80px; /* Chiều rộng tối thiểu */
+    text-align: center;
+}
+.date-btn-custom:hover,
+.date-btn-custom.active {
+    background-color: var(--primary-color-detail);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+.date-btn-custom small {
+    font-size: 0.75rem;
+    display: block;
+    margin-top: 2px;
+}
+
+#cinema-list-container .sub-section-heading {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-dark-detail);
+    margin-bottom: 1rem;
+}
+/* CSS cho các cinema-item và time-slot bên trong #cinema-lisT */
+.cinema-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #e9ecef;
+}
+.cinema-item h5 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-color-detail);
+    margin-bottom: 10px;
+}
+.time-slots-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.time-slot-btn { /* Class cho các nút giờ chiếu */
+    background-color: #fff;
+    border: 1px solid var(--secondary-color-detail);
+    color: var(--secondary-color-detail);
+    padding: 8px 15px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+.time-slot-btn:hover,
+.time-slot-btn.selected { /* Class .selected sẽ được thêm bằng JS */
+    background-color: var(--secondary-color-detail);
+    color: white;
+    border-color: var(--secondary-color-detail);
+}
+
+/* Additional Booking Content (Ghế, Bắp nước) */
+.additional-booking-content .card {
+    border: none;
+    border-radius: var(--border-radius-detail);
+    margin-bottom: 2rem !important;
+}
+.additional-booking-content .card-header {
+    background-color: transparent;
+    border-bottom: 1px solid #eee;
+    padding: 1.25rem;
+}
+.additional-booking-content .card-header .section-heading {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    font-size: 1.4rem;
+}
+.additional-booking-content .card-body {
+    padding: 1.5rem;
+}
+.additional-booking-content .card-footer.seat-legend-container {
+    background-color: #f8f9fa;
+    border-top: 1px solid #eee;
+    padding: 1rem 1.5rem;
+}
+
+/* Seat Legend (giữ nguyên HTML, CSS sẽ làm đẹp hơn) */
+.seat-legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px; /* Khoảng cách giữa các mục chú thích */
+    font-size: 0.85rem;
+}
+.legend-item {
+    display: flex;
+    align-items: center;
+}
+.legend-color {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    border-radius: 3px;
+    border: 1px solid rgba(0,0,0,0.2);
+}
+/* Các màu ghế mẫu trong chú thích */
+.seat-example.standard { background-color: #A9A9A9; border-color: #808080;} /* Thường (xám nhạt) */
+.seat-example.vip { background-color: #FFD700; border-color: #DAA520;} /* Vip (vàng) */
+.seat-example.couple { width: 30px !important; background-color: #FF69B4; border-color: #FF1493;} /* Đôi (hồng) */
+.seat-example.selected { background-color: var(--primary-color-detail); border-color: #0056b3; } /* Chọn (xanh) */
+.seat-example.booked { background-color: #6c757d; border-color: #545b62;} /* Đã đặt (xám đậm) */
+
+
+/* Food/Concession Section */
+.food-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Điều chỉnh minmax cho kích thước card */
+    gap: 20px;
+}
+.food-item-card {
+    background-color: #fff;
+    border-radius: var(--border-radius-detail);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.food-item-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+.food-item-img {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: contain;
+    margin: 0 auto 15px auto;
+    border-radius: 6px;
+}
+.food-item-details .food-item-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark-detail);
+    margin-bottom: 5px;
+}
+.food-item-details .food-item-price {
+    font-size: 1rem;
+    color: var(--accent-color-detail);
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+.quantity-control-custom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto; /* Đẩy xuống dưới cùng */
+}
+.quantity-btn-custom {
+    width: 32px;
+    height: 32px;
+    background-color: var(--primary-color-detail);
+    color: white;
+    border: none;
+    border-radius: 50%; /* Nút tròn */
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+    line-height: 30px; /* Căn giữa dấu +/- */
+}
+.quantity-btn-custom:hover {
+    background-color: #0056b3; /* Màu đậm hơn */
+}
+.quantity-input-custom {
+    width: 45px;
+    height: 32px;
+    text-align: center;
+    margin: 0 8px;
+    background-color: #fff;
+    color: var(--text-dark-detail);
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+
+/* Fixed Booking Bar */
+.fixed-booking-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(20, 20, 20, 0.95); /* Nền tối hơn, hơi trong */
+    backdrop-filter: blur(5px); /* Hiệu ứng mờ kính */
+    padding: 15px 0; /* Padding cho container bên trong */
+    /* display: none; */ /* JS sẽ điều khiển */
+    box-shadow: 0 -3px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1030; /* Cao hơn hầu hết các phần tử */
+    color: var(--text-light-detail);
+    transition: transform 0.3s ease-in-out; /* Hiệu ứng trượt lên */
+    transform: translateY(100%); /* Ban đầu ẩn xuống */
+}
+.fixed-booking-bar.visible { /* Class này sẽ được JS thêm vào */
+    transform: translateY(0%);
+}
+
+
+.fixed-bar-timer-wrapper {
+    background-color: rgba(255,255,255,0.1);
+    color: var(--text-light-detail);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: 500;
+    text-align: center;
+    font-size: 0.9rem;
+}
+.fixed-bar-timer-wrapper .timer-label {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+.timer-time {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.booking-summary-text {
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+.booking-total-amount {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color); /* Màu vàng của bạn cho giá */
+}
+
+.btn-booking-proceed {
+    background-color: var(--accent-color-detail);
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+.btn-booking-proceed:hover:not(:disabled) {
+    background-color: #d81b60; /* Đậm hơn màu accent */
+    transform: scale(1.05);
+}
+.btn-booking-proceed:disabled {
+    background-color: #555;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* CSS cho Sơ đồ ghế (nếu bạn dùng class .seat-grid từ gợi ý trước) */
+.seat-grid {
+  margin-top: 20px;
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(30, 30, 30, 0.9); /* Nền tối cho khu vực ghế */
+  border-radius: 10px;
+}
+.screen {
+  height: 30px; /* Mỏng hơn */
+  background: #333; /* Màu tối hơn cho màn hình */
+  margin: 0 auto 25px auto; /* Tăng margin dưới */
+  width: 70%;
+  max-width: 400px;
+  border-radius: 3px;
+  color: #ccc;
+  text-align: center;
+  line-height: 30px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Responsive */
+@media (max-width: 767.98px) {
+    body.movie-detail-page {
+        padding-bottom: 160px; /* Không gian cho fixed bar trên mobile */
+    }
+    .movie-detail-container {
+        margin: 1.5rem auto;
+        padding: 1.5rem;
+    }
+    .movie-info-content .movie-title-main {
+        font-size: 1.8rem;
+    }
+    .section-heading, 
+    .additional-booking-content .card-header .section-heading {
+        font-size: 1.3rem;
+    }
+    .concessions-section h4 {
+        font-size: 1.4rem;
+    }
+    .food-grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+    .food-item-img { max-width: 80px; max-height: 80px;}
+    .food-item-title { font-size: 0.95rem;}
+    .food-item-price { font-size: 0.9rem;}
+    .quantity-btn-custom { width: 28px; height: 28px; font-size: 1rem; line-height: 26px;}
+    .quantity-input-custom { width: 40px; height: 28px;}
+
+    .fixed-booking-bar {
+        padding: 10px;
+    }
+    .fixed-booking-bar .container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .fixed-bar-left-content {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .fixed-bar-timer-wrapper {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+    }
+    .timer-time { font-size: 1rem; }
+    .booking-summary-text { font-size: 0.85rem; text-align: center; width: 100%; }
+    .fixed-bar-right-content { width: 100%; justify-content: space-between;}
+    .booking-total-amount { font-size: 1.2rem; }
+    .btn-booking-proceed { padding: 10px 20px; font-size: 0.9rem; width: auto; flex-grow: 1; }
+}

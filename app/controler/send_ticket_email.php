@@ -5,12 +5,10 @@ include "concessions_services.php";
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// require 'vendor/autoload.php'; // Nếu dùng Composer
 require '../../config/PHPMailer-master/src/PHPMailer.php'; require '../../config/PHPMailer-master/src/SMTP.php'; require '../../config/PHPMailer-master/src/Exception.php';
 
 header('Content-Type: application/json');
 
-// Lấy dữ liệu từ JavaScript
 $data = json_decode(file_get_contents('php://input'), true);
 $emailOrPhone = trim($data['email'] ?? '');
 $showtime_id = $data['showtime_id'] ?? '';
@@ -24,7 +22,6 @@ if (empty($emailOrPhone) || !filter_var($emailOrPhone, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-// Ví dụ tạm lấy thông tin showtime theo ID
 $Showtime = new cinemas_services();
 $ShowtimeInformation = $Showtime->GetCinemasByShowtimesID($showtime_id );
 
@@ -80,16 +77,14 @@ $html .= '</div>';
 
 $mail = new PHPMailer(true);
 try {
-    // Cấu hình SMTP Gmail
     $mail->isSMTP();
     $mail->Host       = 'smtp.gmail.com';
     $mail->SMTPAuth   = true;
-    $mail->Username   = 'hd34227@gmail.com';       // Email Gmail của bạn
-    $mail->Password   = 'sorctpcevisgwwfc';          // App password (KHÔNG phải mật khẩu Gmail)
+    $mail->Username   = 'hd34227@gmail.com'; 
+    $mail->Password   = 'sorctpcevisgwwfc';
     $mail->SMTPSecure = 'tls';
     $mail->Port       = 587;
 
-    // Gửi từ đâu và đến đâu
     $mail->setFrom('hd34227@gmail.com', 'CINEWAVE');
     $mail->addAddress($emailOrPhone);
 

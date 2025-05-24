@@ -1,5 +1,5 @@
 <?php
-include_once '../model/pdo.php'; // file kết nối PDO
+include_once '../model/pdo.php';
 
 if (isset($_GET['cinema_id'])) {
     $cinemaId = intval($_GET['cinema_id']);

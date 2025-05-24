@@ -1,15 +1,13 @@
 <?php
 session_start();
-require_once "../model/pdo.php"; // hoặc đường dẫn tới file DAO
+require_once "../model/pdo.php";
 
-// Lấy dữ liệu từ POST
 $userId = $_SESSION['user']['id'];
 $fullname = trim($_POST['fullname']);
 $birthdate = $_POST['birthdate'];
 $phone = trim($_POST['phone']);
 $email = trim($_POST['email']);
 
-// Cập nhật
 $sql = "UPDATE users SET
     full_name = ?,
     email = ?,
@@ -21,7 +19,6 @@ WHERE
 
 pdo_execute($sql, $fullname,$email,$phone,$birthdate,$userId);
 
-// Lấy lại thông tin mới và cập nhật vào session
 $sqlGet = "SELECT * FROM users WHERE user_id = ?";
 $user = pdo_query_one($sqlGet, $userId);
 $_SESSION['user'] = [

@@ -1,11 +1,10 @@
 <?php
-// File: app/controler/check_seat_number.php
 header('Content-Type: application/json');
 require_once "../model/pdo.php";
 
 $roomId = isset($_GET['room_id']) ? (int)$_GET['room_id'] : 0;
 $seatNumber = isset($_GET['seat_number']) ? trim($_GET['seat_number']) : '';
-$seatId = isset($_GET['seat_id']) && !empty($_GET['seat_id']) ? (int)$_GET['seat_id'] : 0; // ID của ghế đang sửa (nếu có)
+$seatId = isset($_GET['seat_id']) && !empty($_GET['seat_id']) ? (int)$_GET['seat_id'] : 0;
 
 if (empty($roomId) || empty($seatNumber)) {
     echo json_encode(['error' => 'Thiếu thông tin phòng hoặc số ghế.']);
@@ -13,7 +12,7 @@ if (empty($roomId) || empty($seatNumber)) {
 }
 
 try {
-    $pdo = pdo_get_connection(); // Lấy kết nối CSDL
+    $pdo = pdo_get_connection();
     
     $sql = "SELECT COUNT(*) FROM seats WHERE room_id = :roomId AND seat_number = :seatNumber";
     $params = [':roomId' => $roomId, ':seatNumber' => $seatNumber];

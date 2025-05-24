@@ -18,7 +18,7 @@
             </div>
             <div class="col-md-8">
                 <h2><?= $film['title']?></h2>
-                <p><i class="fas fa-film"></i> <?= $film['genre']?> | <?= $film['duration']?>' | <?= $film['language']?></p>
+                <p><i class="fas fa-film"></i> <?= $film['genre']?> | <i class="fas fa-clock me-1"></i> <?= $film['duration']?>' | <i class="fas fa-language me-1"></i><?= $film['language']?></p>
                 <h4>Mô Tả</h4>
                 <p><?= $film['description']?></p>
                 <a href="<?= $film['trailer_url'] ?>" target="_blank">
