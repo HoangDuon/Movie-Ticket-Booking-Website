@@ -20,7 +20,7 @@ if(!empty($seatId) && !empty($seatName)){
     pdo_execute($sql, $seatName,$type,$price,$seatHide,$seatId);
 }
 
-header("Location: ../view/admin.php");
+header("Location: ../view/admin.php#cinemas");
 // echo '<pre>';
 // print_r($seatHide);
 // echo '</pre>';

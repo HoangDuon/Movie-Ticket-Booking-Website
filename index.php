@@ -7,6 +7,7 @@
     include "app/controler/concessions_services.php";
     include "app/controler/cinemas_services.php";
     include "app/controler/membership.php";
+    include "app/controler/get_purchase_history.php";
 
     $filmService = new film_services();
 ?>
@@ -14,16 +15,12 @@
 <div id="main-content">
     <?php
         $page = $_GET['page'] ?? 'home';
-        $search_query_movie = trim($_GET['query_movie'] ?? ''); // Lấy từ khóa tìm kiếm phim
+        $search_query_movie = trim($_GET['query_movie'] ?? ''); 
         if (!empty($search_query_movie) && $page === 'search_results_movies') {
-            // Đây là trường hợp người dùng thực hiện tìm kiếm phim
-            $searchResults = $filmService->searchMovies($search_query_movie); // Gọi hàm chỉ tìm phim
+            $searchResults = $filmService->searchMovies($search_query_movie);
             
-            // Chuẩn bị các biến cho view kết quả tìm kiếm
-            $search_query = $search_query_movie; // Biến này sẽ được dùng trong search_results_movies_view.php
+            $search_query = $search_query_movie;
             
-            // Include view hiển thị kết quả tìm kiếm phim
-            // Đảm bảo đường dẫn này đúng
             if (file_exists("app/view/search_result_movies_view.php")) {
                 include "app/view/search_result_movies_view.php";
                 
@@ -57,6 +54,12 @@
                 $film = $filmservices->getMoviebyID($movie_id)[0];
                 
                 include "../LTW/app/view/movie_details.php";
+                break;
+            case 'purchase-detail':
+                $booking_id = $_GET['booking_id'] ?? null;
+                $historyFetcher = new get_purchase_history();
+                $detail = $historyFetcher->getDetailByBookingID($booking_id);
+                include("../LTW/app/view/purchase_detail.php");
                 break;
             default:
                 echo "<h2>404 - Page not found</h2>";

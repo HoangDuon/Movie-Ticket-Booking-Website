@@ -4,5 +4,5 @@ session_unset();
 session_destroy();
 
 // Chuyển hướng về trang đăng nhập (hoặc homepage nếu bạn muốn)
-header("Location: http://localhost/LTW/index.php?page=login");
+header("Location: http://localhost/LTW/index.php?page=home");
 exit();

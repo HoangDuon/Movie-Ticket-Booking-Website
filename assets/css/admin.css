@@ -523,3 +523,9 @@ button[type="submit"]:hover {
 .cke_notification_warning{
   display: none !important;
 }
+
+#timeDisplay {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    color: #007bff;
+}

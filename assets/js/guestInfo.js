@@ -1,3 +1,6 @@
+const specialCharRegex = /[!@#$%^&*]/;
+const phoneRegex = /^(0[3|5|7|8|9])[0-9]{8}$/;
+const digitRegex = /\d/;
 document.addEventListener('DOMContentLoaded', function() {
     console.log("File JS đã được load thành công!");
 
@@ -89,24 +92,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function simulateLoadPurchaseHistory() {
-        const tableBody = document.getElementById('purchase-history-data');
-        const loadingSpinner = document.getElementById('loading-spinner');
+    // function simulateLoadPurchaseHistory() {
+    //     const tableBody = document.getElementById('purchase-history-data');
+    //     const loadingSpinner = document.getElementById('loading-spinner');
 
-        tableBody.style.display = 'none';
-        loadingSpinner.style.display = 'block';
+    //     tableBody.style.display = 'none';
+    //     loadingSpinner.style.display = 'block';
 
-        setTimeout(() => {
-            loadingSpinner.style.display = 'none';
-            tableBody.style.display = 'table-row-group';
+    //     setTimeout(() => {
+    //         loadingSpinner.style.display = 'none';
+    //         tableBody.style.display = 'table-row-group';
             
-            tableBody.innerHTML = `
-                <tr>
-                    <td colspan="6" class="text-center py-4">Không có dữ liệu lịch sử mua hàng</td>
-                </tr>
-            `;
-        }, 1000);
-    }
+    //         tableBody.innerHTML = `
+    //             <tr>
+    //                 <td colspan="6" class="text-center py-4">Không có dữ liệu lịch sử mua hàng</td>
+    //             </tr>
+    //         `;
+    //     }, 1000);
+    // }
 
     // Hàm cập nhật thông tin thành viên dựa trên điểm
     function updateMemberInfo(points) {
@@ -159,4 +162,201 @@ document.addEventListener('DOMContentLoaded', function() {
     // Giả lập điểm thành viên ban đầu
     const initialPoints = 341;
     updateMemberInfo(initialPoints);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    // --- Phần xử lý Thông tin cá nhân ---
+    const editInfoButton = document.getElementById('edit-button');
+    const saveInfoButton = document.getElementById('save-info-button');
+   // Lấy form chứa nút "LƯU THÔNG TIN"
+    const personalInfoForm = document.querySelector('form[action="app/controler/update_profile.php"]');
+
+    const fullnameInput = document.getElementById('fullname');
+    const birthdateInput = document.getElementById('birthdate');
+    const phoneInput = document.getElementById('phone');
+    const emailInput = document.getElementById('email');
+
+    const infoInputs = [fullnameInput, birthdateInput, phoneInput, emailInput];
+    const originalValues = {}; // Object để lưu giá trị gốc
+    
+    let isEditMode = false; // Biến cờ để theo dõi trạng thái chỉnh sửa
+
+    if (editInfoButton) {
+        editInfoButton.addEventListener('click', function() {
+            isEditMode = !isEditMode; // Đảo trạng thái
+            if (isEditMode) {
+                // Chế độ Sửa
+                this.innerHTML = '<i class="bi bi-x-circle"></i> Hủy'; // Đổi thành nút Hủy
+                this.classList.remove('btn-secondary');
+                this.classList.add('btn-dark');
+
+                infoInputs.forEach(input => {
+                    if (input) {
+                        originalValues[input.id] = input.value; // << LƯU GIÁ TRỊ GỐC
+                        input.removeAttribute('disabled');
+                    }
+                });
+                // Không hiển thị nút "LƯU THÔNG TIN" ngay, chờ người dùng nhập liệu
+            } else {
+                this.innerHTML = '<i class="bi bi-wrench"></i> Sửa';
+                this.classList.remove('btn-warning');
+                this.classList.add('btn-secondary');
+
+                infoInputs.forEach(input => {
+                    if (input) {
+                        input.value = originalValues[input.id]; // << KHÔI PHỤC GIÁ TRỊ GỐC
+                        input.setAttribute('disabled', 'disabled');
+                    }
+                });
+                if (saveInfoButton) saveInfoButton.style.display = 'none'
+            }
+        });
+    }
+
+    infoInputs.forEach(input => {
+        if (input) {
+            input.addEventListener('input', function() {
+                if (isEditMode && saveInfoButton) {
+                    saveInfoButton.style.display = 'inline-block';
+                }
+            });
+        }
+    });
+
+    if (personalInfoForm) {
+        personalInfoForm.addEventListener('submit', function(e) {
+            // Kiểm tra khi form được submit (người dùng nhấn nút "LƯU THÔNG TIN")
+            if (isEditMode) { // Chỉ kiểm tra nếu đang ở chế độ sửa
+                const fullnameValue = fullnameInput ? fullnameInput.value.trim() : '';
+                const birthdateValue = birthdateInput ? birthdateInput.value : '';
+                const phoneValue = phoneInput ? phoneInput.value.trim() : '';
+                const emailValue = emailInput ? emailInput.value.trim() : '';
+
+                // 1. Kiểm tra Họ và tên
+                if (fullnameValue === '') {
+                    alert('Họ và tên không được để trống!');
+                    fullnameInput.focus();
+                    e.preventDefault();
+                    return;
+                }
+                if (specialCharRegex.test(fullnameValue)) {
+                    alert('Họ và tên không được chứa ký tự đặc biệt!');
+                    fullnameInput.focus();
+                    e.preventDefault();
+                    return;
+                }
+                if (digitRegex.test(fullnameValue)) {
+                    alert('Họ và tên không được chứa số!');
+                    fullnameInput.focus();
+                    e.preventDefault();
+                    return;
+                }
+                // 2. Kiểm tra Ngày sinh
+                if (birthdateValue === '') {
+                    alert('Ngày sinh không được để trống!');
+                    birthdateInput.focus();
+                    e.preventDefault();
+                    return;
+                } else {
+                    const birthDate = new Date(birthdateValue);
+                    const today = new Date();
+                    // Đặt giờ, phút, giây, ms về 0 để so sánh ngày chính xác
+                    birthDate.setHours(0, 0, 0, 0);
+                    today.setHours(0, 0, 0, 0);
+
+                    if (birthDate >= today) {
+                        alert('Ngày sinh phải là một ngày trong quá khứ!');
+                        birthdateInput.focus();
+                        e.preventDefault();
+                        return;
+                    }
+
+                    let age = today.getFullYear() - birthDate.getFullYear();
+                    const monthDiff = today.getMonth() - birthDate.getMonth();
+                    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                        age--;
+                    }
+
+                    if (age < 13) {
+                        alert('Bạn phải đủ 13 tuổi trở lên!');
+                        birthdateInput.focus();
+                        e.preventDefault();
+                        return;
+                    }
+                }
+                // 3. Kiểm tra Số điện thoại
+                if (phoneValue === '') {
+                    alert('Số điện thoại không được để trống!');
+                    phoneInput.focus();
+                    e.preventDefault();
+                    return;
+                }
+                if (!phoneRegex.test(phoneValue)) {
+                    alert('Số điện thoại không hợp lệ. Vui lòng kiểm tra lại (VD: 09xxxxxxxx, 03xxxxxxxx, ...)!');
+                    phoneInput.focus();
+                    e.preventDefault();
+                    return;
+                }
+                if (phoneValue.length < 10) {
+                    alert("Số điện thoại phải gồm 10 chữ số");
+                    phoneInput.focus();
+                    e.preventDefault(); return;
+                }
+
+                // 4. Kiểm tra Email
+                if (emailValue === '') {
+                    alert('Email không được để trống!');
+                    emailInput.focus();
+                    e.preventDefault();
+                    return;
+                }
+                // Kiểm tra email phải kết thúc bằng @gmail.com (không phân biệt chữ hoa/thường)
+                if (!emailValue.toLowerCase().endsWith('@gmail.com')) {
+                    alert('Email phải có định dạng là ...@gmail.com!');
+                    emailInput.focus();
+                    e.preventDefault();
+                    return;
+                }
+            }
+        });
+    }
+
+
+    // --- Phần xử lý Đổi mật khẩu ---
+    const changePasswordButton = document.getElementById('change-password-button');
+    const changePasswordForm = document.getElementById('changePasswordForm');
+
+    if (changePasswordForm && changePasswordButton) {
+        changePasswordForm.addEventListener('submit', function(e) {
+            const currentPassword = document.getElementById('current-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            let isValid = true;
+
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                alert('Vui lòng điền đầy đủ thông tin mật khẩu!');
+                isValid = false;
+            }
+
+            if (isValid && newPassword !== confirmPassword) {
+                alert('Mật khẩu mới và xác nhận mật khẩu không khớp!');
+                isValid = false;
+            }
+            
+            if (!isValid) {
+                e.preventDefault(); // Ngăn form submit nếu có lỗi validation
+            } else {
+                // Nếu validation phía client OK, cho phép form submit
+                // Không cần alert ở đây, PHP (change_password.php) sẽ xử lý và thông báo kết quả
+                // Ví dụ: alert('Yêu cầu đổi mật khẩu đã được gửi!');
+                // Các trường input sẽ tự động được giữ lại hoặc xóa bởi trình duyệt khi submit,
+                // hoặc bạn có thể xóa sau khi nhận phản hồi thành công từ server (nếu dùng AJAX).
+                // Vì không dùng AJAX, không cần xóa ở đây.
+                // document.getElementById('current-password').value = '';
+                // document.getElementById('new-password').value = '';
+                // document.getElementById('confirm-password').value = '';
+            }
+        });
+    }
 });

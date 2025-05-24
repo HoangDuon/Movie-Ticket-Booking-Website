@@ -1,0 +1,190 @@
+/* assets/css/purchase_detail_style.css */
+
+:root {
+    --primary-color-detail: #007bff; 
+    --secondary-color-detail: #6c757d; 
+    --accent-color-detail: #e74c3c; 
+    --text-dark-detail: #212529;
+    --text-light-detail: #f8f9fa;
+    --background-light-detail: #f4f7fc; 
+    --card-shadow-detail: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --border-radius-detail: 10px;
+    --base-body-font-size-detail: 1.6rem;
+}
+
+body.purchase-detail-page {
+    font-family: 'Nunito Sans', 'Segoe UI', Roboto, Arial, sans-serif;
+    background-color: var(--background-light-detail);
+    color: #3a3f45;
+    line-height: 1.7;
+    font-size: var(--base-body-font-size-detail);
+}
+
+.purchase-main-container {
+    max-width: 850px;
+    margin: 3rem auto;
+    padding: 2.5rem;
+    background-color: #ffffff;
+    border-radius: var(--border-radius-detail);
+    box-shadow: var(--card-shadow-detail);
+}
+
+.purchase-detail-header h2 {
+    color: var(--text-dark-detail);
+    font-weight: 700;
+    font-size: 2.4rem;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid #e0e0e0;
+    position: relative;
+}
+
+.purchase-detail-header h2::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background-color: var(--primary-color-detail);
+}
+
+.booking-info-card {
+    border: none;
+    border-radius: var(--border-radius-detail);
+    margin-bottom: 3rem;
+    background-color: #fff;
+    padding: 2rem;
+}
+
+.booking-details-list dt {
+    margin-top: 1.5rem;
+    font-weight: 600;
+    color: #5a6268;
+    margin-bottom: 0.6rem; 
+    font-size: 2rem;
+    padding-right: 10px;
+}
+
+.booking-details-list dd {
+    color: var(--text-dark-detail);
+    margin-bottom: 1.1rem; 
+    font-size: 1.6rem;
+    background-color: #f8f9fa;
+    padding: 12px 15px;
+    border-radius: 6px;
+    word-break: break-word;
+    border-left: 3px solid var(--primary-color-detail);
+}
+
+.booking-details-list .selected-seats {
+    font-family: 'Consolas', 'Courier New', Courier, monospace;
+    background-color: #e9ecef !important;
+    color: #343a40 !important;
+    padding: 12px 15px;
+    font-size: 1.6rem;
+    border-left-color: var(--accent-color-detail);
+}
+
+.booking-details-list .total-price-label {
+    color: var(--accent-color-detail);
+    font-weight: 700 !important;
+    font-size: 2rem !important;
+}
+
+.booking-details-list .total-price-value {
+    color: var(--accent-color-detail);
+    font-weight: 800 !important;
+    font-size: 2.3rem !important; 
+    background-color: transparent !important;
+    padding-left: 0 !important;
+    border-left: none !important;
+}
+
+.concessions-section h4 {
+    color: var(--text-dark-detail);
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-top: 3rem;
+    margin-bottom: 1.75rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid #e9ecef;
+    text-align: center;
+}
+
+.concessions-table {
+    margin-top: 1rem;
+    border-radius: var(--border-radius-detail);
+    overflow: hidden; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.concessions-table thead {
+    background-color: var(--primary-color-detail);
+    color: var(--text-light-detail);
+    font-weight: 600;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.concessions-table th, 
+.concessions-table td {
+    padding: 1rem 1.25rem;
+    vertical-align: middle;
+    border-color: #f1f1f1;
+    font-size: 1.6rem;
+}
+
+.concessions-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+.concessions-table tbody tr:hover {
+    background-color: #eef2f7; 
+}
+
+.no-concessions-message {
+    font-style: italic;
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: var(--border-radius-detail);
+    text-align: center;
+    color: var(--secondary-color-detail);
+    border: 1px dashed #ced4da;
+    font-size: 2rem;
+}
+
+.back-button-container {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.btn-custom-secondary {
+    background-color: var(--secondary-color-detail);
+    border: none;
+    color: white;
+    padding: 14px 35px;
+    font-weight: 600;
+    font-size: 1.6rem;
+    border-radius: 50px; 
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex; 
+    align-items: center;
+}
+
+.btn-custom-secondary:hover {
+    background-color: #545b62;
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-custom-secondary i.fa-arrow-left {
+    margin-right: 10px;
+    font-size: 1rem;
+}

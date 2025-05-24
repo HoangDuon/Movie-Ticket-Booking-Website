@@ -8,12 +8,16 @@ include "../controler/film_services.php";
 include "../controler/concessions_services.php";
 include "../controler/cinemas_services.php";
 include "../controler/promotions_services.php";
+include "../controler/dashboard_admin_service.php";
 
 $concessionssevices = new concessions_services();
 $userservice = new user_services();
 $filmservice = new film_services();
 $cinemaservice = new cinemas_services();
 $promotionsservice = new promotions_services();
+$dashboardService = new dashboard_admin_service();
+
+$todayRevenue = $dashboardService->getTodayRevenue();
 $concessions = $concessionssevices->ShowConcessionsAdmin();
 $users = $userservice->ShowUser();
 $memberships = $userservice->ShowMembership();
@@ -31,14 +35,21 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../../assets/css/admin.css">
+    <link rel="stylesheet" href="../../assets/css/admin_new.css">
 </head>
 <body>
 <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
 
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
-    <div class="container-fluid">
+    <div class="container-fluid d-flex justify-content-between">
         <a class="navbar-brand ms-2" href="#">ADMIN SITE</a>
+
+        <div class="d-flex align-items-center position-absolute start-50 translate-middle-x"> 
+            <a class="navbar-brand d-flex align-items-center" href="#"> <img src="../../assets/img/logo.png" alt="CineWave Logo" height="30" class="me-2">
+                <span style="color: white; font-weight: bold;">CineWave 2025</span>
+            </a>
+        </div>
+
         <div class="d-flex me-3">
             <a class="logout" href="../controler/logout.php"><i class="bi bi-box-arrow-right"></i> Đăng xuất</a>
         </div>
@@ -133,14 +144,10 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Xuất chiếu hôm nay</div>
+                                DOANH THU HÔM NAY</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                 <?php 
-                                    // Phần này cần logic PHP để đếm xuất chiếu hôm nay
-                                    $todayShowtimes = 0;
-                                    // foreach($showtimes as $st) { if (date('Y-m-d', strtotime($st['start_time'])) == date('Y-m-d')) $todayShowtimes++; }
-                                    // echo $todayShowtimes;
-                                    echo "N/A"; // Placeholder, bạn cần tự code logic này
+                                    echo number_format($todayRevenue, 0, ',', '.') . " VND";
                                 ?>
                             </div>
                         </div>
@@ -152,7 +159,54 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
             </div>
         </div>
     </div>
+
+    <div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h6 class="m-0 font-weight-bold text-primary">BIỂU ĐỒ THỐNG KÊ</h6>
     </div>
+    <div class="card-body">
+        <form id="chart-filter-form" class="row g-3 mb-4">
+            <div class="col-md-3">
+                <label for="cinemaSelect" class="form-label">Chọn Rạp</label>
+                <select class="form-select" id="cinemaSelect" name="cinema_id">
+                    <option value="">Tất cả rạp</option>
+                    <?php foreach ($cinemas as $cinema): ?>
+                        <option value="<?= $cinema['cinema_id'] ?>"><?= htmlspecialchars($cinema['name']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="filmSelect" class="form-label">Chọn Phim</label>
+                <select class="form-select" id="filmSelect" name="film_id">
+                    <option value="">Tất cả phim</option>
+                    <?php foreach ($films as $film): ?>
+                        <option value="<?= $film['movie_id'] ?>"><?= htmlspecialchars($film['title']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="timeRange" class="form-label">Thời gian</label>
+                <select class="form-select" id="timeRange" name="range">
+                    <option value="day">Theo ngày</option>
+                    <option value="week">Theo tuần</option>
+                    <option value="month">Theo tháng</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="dateSelect" class="form-label">Chọn ngày</label>
+                <input type="date" class="form-control" id="dateSelect" name="date" value="<?= date('Y-m-d') ?>">
+            </div>
+            <div class="col-md-1 d-flex align-items-end">
+                <button type="button" class="btn btn-primary w-100" id="viewChartBtn">XEM</button>
+            </div>
+        </form>
+
+        <canvas id="statsChart" height="100"></canvas>
+        <div id="timeDisplay" class="mb-3 text-primary fw-bold fs-5 text-center"></div>
+    </div>
+</div>
+
+</div>
     <!-- NGƯỜI DÙNG -->
     <div id="page-users" style="display: none;">
         <h2>Quản lý người dùng</h2>
@@ -191,7 +245,7 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
                     <td><?= $user['birthday'] ?></td>
                     <td><?= $user['member'] ?></td>
                     <td>
-                        <a href="#" class="btn btn-warning btn-sm"
+                        <a id="btn-sua-user" href="#" class="btn btn-warning btn-sm"
                             onclick="showEditUserForm(this)"
                             data-id="<?= $user['user_id'] ?>"
                             data-name="<?= htmlspecialchars($user['full_name'], ENT_QUOTES) ?>"
@@ -389,8 +443,8 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
                 <input type="text" id="editDirector" name="director">
             </div>
             <div class="form-group">
-                <label>Thời lượng:</label>
-                <input type="number" id="editDuration" name="duration">
+                <label>Thời lượng: (Phút)</label>
+                <input type="text" id="editDuration" name="duration">
             </div>
             </div>
 
@@ -725,7 +779,7 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
                 <input type="text" id="editConcessionsName" name="name">
             </div>
             <div class="form-group">
-                <label>Giá:</label>
+                <label>Giá: (VND)</label>
                 <input type="text" id="editConcessionsPrice" name="price">
             </div>
         </div>
@@ -924,26 +978,53 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
                     <h2>Quản lý xuất chiếu</h2>
                     <label>Phim:</label>
                     <select id="editShowtimeMovie" name="movie">
-                    <option value="">-- Chọn phim --</option> 
-                    <?php foreach ($showtimes as $option): ?>
-                        <?php if ($option['movie_hide'] == 0): ?>
-                            <option value="<?php echo $option['movie_id']; ?>">
-                                <?php echo $option['movie_title']; ?>
-                            </option>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
+                        <option value="">-- Chọn phim --</option> 
+                        <?php 
+                            if (isset($films) && is_array($films)): 
+                                foreach ($films as $film_option): 
+                                    $isHidden = isset($film_option['hide']) ? $film_option['hide'] : (isset($film_option['movie_hide']) ? $film_option['movie_hide'] : 0);
+                                    
+                                    if ($isHidden == 0): 
+                                        $movieId = htmlspecialchars($film_option['movie_id'] ?? '');
+                                        $movieTitle = htmlspecialchars($film_option['title'] ?? ($film_option['movie_title'] ?? 'Không có tên'));
+                                        $movieDuration = htmlspecialchars($film_option['duration'] ?? ($film_option['movie_duration_in_minutes'] ?? '0'));
+                        ?>
+                                <option value="<?php echo $movieId; ?>" 
+                                        data-duration="<?php echo $movieDuration; ?>">
+                                    <?php echo $movieTitle; ?>
+                                </option>
+                        <?php 
+                                endif; 
+                            endforeach; 
+                        else:
+                        ?>
+                            <option value="" disabled>Không có dữ liệu phim</option>
+                        <?php 
+                        endif; 
+                        ?>
                     </select>
                     <label>Rạp:</label>
                     <select id="editShowtimeCinemas" name="cinemas" onchange="getRoomsForCinema()">
-                    <option value="">-- Chọn rạp --</option> 
-                    <?php foreach ($showtimes as $option): ?>
-                        <option value="<?php echo $option['cinemas_id'] ?>"><?php echo $option['cinema_name'];?></option>
-                    <?php endforeach; ?>
+                        <option value="">-- Chọn rạp --</option> 
+                        <?php 
+                        if (isset($cinemas) && is_array($cinemas)): 
+                            foreach ($cinemas as $cinema_item): 
+                                $cinemaId = htmlspecialchars($cinema_item['cinema_id'] ?? '');
+                                $cinemaName = htmlspecialchars($cinema_item['name'] ?? 'Không có tên rạp');
+                        ?>
+                                <option value="<?php echo $cinemaId; ?>"><?php echo $cinemaName; ?></option>
+                        <?php 
+                            endforeach; 
+                        else:
+                        ?>
+                            <option value="" disabled>Không có dữ liệu rạp chiếu</option>
+                        <?php 
+                        endif; 
+                        ?>
                     </select>
                     <label>Phòng chiếu:</label>
                     <select id="editShowtimeRooms" name="rooms" onchange="getShowtimeForRoom()">
                     <option value="">-- Chọn phòng --</option> 
-                    <!-- Các phòng chiếu sẽ được thêm vào đây sau khi chọn rạp -->
                     </select>
                     <div id="CostAndTime" style="display: none;">
                         <div class="form-row" style="display: flex; gap: 10px;">
@@ -1106,6 +1187,7 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
     </div>
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="../../assets/js/admin.js"></script>
 </body>
 </html>

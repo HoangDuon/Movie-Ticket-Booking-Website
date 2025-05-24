@@ -11,7 +11,7 @@ if (isset($_POST['id'])) {
     pdo_execute("UPDATE users SET hide = ? WHERE user_id = ?", $newHide, $id);
 
     // Quay lại trang quản lý
-    header("Location: ../view/admin.php");
+    header("Location: ../view/admin.php#users");
     exit;
 }
 ?>
