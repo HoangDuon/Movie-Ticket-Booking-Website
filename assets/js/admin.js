@@ -297,7 +297,6 @@ function showEditUserForm(button) {
     const userBirthday = button.dataset.birthday;
     const userRole = button.dataset.role;
     const userMember = button.dataset.member;
-    const userPassword = button.dataset.password;
 
     // 2. Điền các giá trị vào input fields của form
     document.getElementById('editUserId').value = userId || '';
@@ -307,14 +306,24 @@ function showEditUserForm(button) {
     document.getElementById('editUserBirthday').value = userBirthday || '';
     document.getElementById('editUserRole').value = userRole || '';
     document.getElementById('editUserMember').value = userMember || '';
-    document.getElementById('editUserPassword').value = userPassword ||"";
+
+    // --- ẨN TRƯỜNG MẬT KHẨU KHI SỬA ---
+    const passwordInput = document.getElementById('editUserPassword');
+    const passwordLabel = document.querySelector("label[for='editUserPassword']");
+
+    if (passwordInput) {
+        passwordInput.style.display = 'none';
+        passwordInput.value = '';
+    }
+    if (passwordLabel) {
+        passwordLabel.style.display = 'none';
+    }
+    // --- KẾT THÚC ẨN TRƯỜNG MẬT KHẨU ---
 
     // 3. Lưu email và SĐT gốc (lấy từ button.dataset) vào dataset của FORM
-    // Đây là bước quan trọng để logic kiểm tra trùng lặp khi submit hoạt động đúng
     form.dataset.originalEmail = userEmail ? userEmail.toLowerCase() : '';
     form.dataset.originalPhone = userPhone || '';
 
-    // Debug để kiểm tra giá trị dataset đã được set chính xác
     console.log("Form được điền. UserID:", userId);
     console.log("Dataset originalEmail được set:", form.dataset.originalEmail);
     console.log("Dataset originalPhone được set:", form.dataset.originalPhone);
