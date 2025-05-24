@@ -334,12 +334,36 @@ function showEditUserForm(button) {
 
 function hideEditUserForm() {
   document.getElementById('editUserFormPanel').style.display = 'none';
+  // --- HIỂN THỊ LẠI TRƯỜNG MẬT KHẨU KHI ĐÓNG FORM SỬA ---
+    const passwordInput = document.getElementById('editUserPassword');
+    const passwordLabel = document.querySelector("label[for='editUserPassword']");
+    if (passwordInput) {
+        passwordInput.style.display = 'block';
+    }
+    if (passwordLabel) {
+        passwordLabel.style.display = 'block';
+    }
+    // --- KẾT THÚC HIỂN THỊ LẠI ---
 }
 
 function showAddUserForm() {
   document.getElementById('editUserForm').reset();
 
   document.getElementById('editUserId').value = "";
+
+      // --- HIỂN THỊ TRƯỜNG MẬT KHẨU KHI THÊM MỚI ---
+    const passwordInput = document.getElementById('editUserPassword');
+    const passwordLabel = document.querySelector("label[for='editUserPassword']");
+
+    if (passwordInput) {
+        passwordInput.style.display = 'block'; // Hoặc 'inline-block' tùy theo CSS mặc định của bạn
+        passwordInput.disabled = false; // Đảm bảo không bị disable
+        passwordInput.placeholder = ""; // Xóa placeholder "Không thể sửa" nếu có
+    }
+    if (passwordLabel) {
+        passwordLabel.style.display = 'block'; // Hoặc 'inline-block'
+    }
+    // --- KẾT THÚC HIỂN THỊ TRƯỜNG MẬT KHẨU ---
 
   document.getElementById('editUserFormPanel').style.display = 'flex';
 }
@@ -647,8 +671,8 @@ document.getElementById("editMemberForm").addEventListener("submit", function (e
       e.preventDefault(); return;
     }
 
-    // 3. Ảnh (bắt buộc khi thêm mới)
-    if (!description) {
+    // 3. Mô tả (bắt buộc khi thêm mới)
+    if (description = "") {
       alert("Nội dung không được để trống");
       document.getElementById('editMemberContent').focus();
       e.preventDefault(); return;
@@ -968,7 +992,7 @@ document.getElementById("editSeatsForm").addEventListener("submit", async functi
   }
 
   const price = parseFloat(seatPrice);
-  if (price <= 0) {
+  if (price < 0) {
     alert("Giá ghế phải lớn hơn 0.");
     document.getElementById("editSeatPrice").focus();
     return;
@@ -1417,15 +1441,15 @@ document.getElementById('editPromotionForm').addEventListener('submit', function
       e.preventDefault(); return;
   }
   if (PromotionContent.length > 255) {
-      alert("Tiêu đề khuyến mãi không vượt quá 255 ký tự.");
-      document.getElementById('editPromotionTitle').focus();
+      alert("Nội dung khuyến mãi không vượt quá 255 ký tự.");
+      document.getElementById('editPromotionContent').focus();
       e.preventDefault(); return;
   }
-  if (specialCharRegex.test(PromotionContent)) {
-      alert("Nội dung không được chứa ký tự đặc biệt (!@#$%^&*).");
-      document.getElementById('editConcessionsName').focus();
-      e.preventDefault(); return;
-    }
+//   if (specialCharRegex.test(PromotionContent)) {
+//       alert("Nội dung không được chứa ký tự đặc biệt (!@#$%^&*).");
+//       document.getElementById('editConcessionsName').focus();
+//       e.preventDefault(); return;
+//     }
 
   // 3. Hình ảnh
       const isAddMode = document.getElementById("editId").value === "";
@@ -1440,21 +1464,19 @@ document.getElementById('editPromotionForm').addEventListener('submit', function
 
 function filterAdminTable(inputId, tableId) {
     const input = document.getElementById(inputId);
-    const filter = input.value.toUpperCase().trim(); // Lấy từ khóa, chuyển thành chữ hoa, bỏ khoảng trắng thừa
+    const filter = input.value.toUpperCase().trim();
     const table = document.getElementById(tableId);
     
-    const tbody = table.getElementsByTagName("tbody")[0]; // Lấy phần tbody của bảng
-    const rows = tbody.getElementsByTagName("tr"); // Lấy tất cả các hàng trong tbody
+    const tbody = table.getElementsByTagName("tbody")[0];
+    const rows = tbody.getElementsByTagName("tr"); 
 
     // Lặp qua tất cả các hàng dữ liệu
     for (let i = 0; i < rows.length; i++) {
         const currentRow = rows[i];
         let textContentOfRow = "";
 
-        // Lấy nội dung text từ tất cả các ô <td> trong hàng hiện tại
-        // Bỏ qua cột cuối cùng (thường là cột "Chức năng" chứa các nút)
         const cells = currentRow.getElementsByTagName("td");
-        for (let j = 0; j < cells.length - 1; j++) { // Bỏ qua ô cuối cùng
+        for (let j = 0; j < cells.length - 1; j++) { 
             if (cells[j]) {
                 textContentOfRow += (cells[j].textContent || cells[j].innerText) + " ";
             }
@@ -1494,14 +1516,14 @@ document.getElementById('viewChartBtn').addEventListener('click', function () {
     const cinemaId = document.getElementById('cinemaSelect').value;
     const movieId = document.getElementById('filmSelect').value;
     const range = document.getElementById('timeRange').value;
-    const date = document.getElementById('dateSelect').value || new Date().toISOString().slice(0, 10); // lấy từ input
+    const date = document.getElementById('dateSelect').value || new Date().toISOString().slice(0, 10);
     const timeDisplayText = `Biểu đồ doanh thu theo ${formatDateDisplay(date, range)}`;
     document.getElementById('timeDisplay').innerText = timeDisplayText;
 
     fetch(`../../app/controler/get_chart_data.php?cinema_id=${cinemaId}&film_id=${movieId}&range=${range}&date=${date}`)
         .then(res => res.json())
         .then(response => {
-            if (chart) chart.destroy(); // destroy chart cũ
+            if (chart) chart.destroy();
             chart = new Chart(ctx, {
                 type: 'bar',
                 data: {
