@@ -71,7 +71,7 @@ class film_services{
     function getShowDatesByMovieID($movie_id) {
         $sql = "SELECT DISTINCT DATE(start_time) AS show_date 
                 FROM showtimes 
-                WHERE movie_id = ? 
+                WHERE movie_id = ? and hide=0
                 ORDER BY show_date ASC";
         return pdo_query($sql, $movie_id);
     }
@@ -99,7 +99,7 @@ class film_services{
         $sql = "SELECT *
                 FROM movies
                 WHERE release_date > NOW()
-                -- AND hide = 0
+                AND hide = 0
                 ORDER BY release_date ASC";
         return pdo_query($sql);
     }
