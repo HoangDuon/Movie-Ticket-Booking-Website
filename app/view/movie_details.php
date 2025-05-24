@@ -114,7 +114,11 @@
     </div>
     <?php
         $userService= new promotions_services();
-        $discount = $userService->GetMemberDiscountByName($_SESSION['user']['member']);                   
+        
+        $discount = 0; // Giá trị mặc định
+        if (isset($_SESSION['user']['member'])) {
+            $discount = $userService->GetMemberDiscountByName($_SESSION['user']['member']);
+        }               
     ?>
     <!-- Fixed booking bar -->
     <div class="fixed-bar" style="display: none;">

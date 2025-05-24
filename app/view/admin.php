@@ -322,8 +322,8 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
                     </div>
                 </div>
 
-                <label>Mật khẩu:</label>
-                <input type="text" id="editUserPassword" name="password">
+                <label style="display: none;">Mật khẩu:</label>
+                <input type="text" id="editUserPassword" name="password" style="display: none;">
 
                 <input type="hidden" id="editUserId" name="id">
                 <button type="submit">Lưu thay đổi</button>

@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
       updateStepStatus(3); //
       
       saveBookingToDatabase(window.bookingDataVNPAY);
+      sendTicketEmail(window.bookingDataVNPAY);
 
       // Hiển thị thông tin vé sau khi VNPAY thành công
       displayTicketInfoAfterVnpay(localStorage.getItem("lastBookingId") || vnpayTxnRef); // Ưu tiên vnpayTxnRef nếu lastBookingId không có
@@ -318,4 +319,23 @@ function saveBookingToDatabase(bookingData) {
     .catch((err) => {
       console.error("Lỗi khi lưu booking:", err);
     });
+}
+
+function sendTicketEmail(bookingData) {
+  fetch('../LTW/app/controler/send_ticket_email.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(bookingData)
+  })
+  .then(response => response.json())
+  .then(data => {
+      if (data.success) {
+          alert('Thông tin vé đã được gửi đến email. Vui lòng kiểm tra');
+      } else {
+          alert('Không thể gửi Thông tin vé. ' + data.message);
+      }
+  })
+  .catch(error => {
+      console.error('Lỗi gửi Thông tin vé:', error);
+  });
 }

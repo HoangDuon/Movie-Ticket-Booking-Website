@@ -195,10 +195,11 @@ $tongtien_display = isset($bookingData['total_price']) ? number_format($bookingD
                     <?php foreach ($bookingData['concessions'] as $concession): 
                         $concessionService = new concessions_services();
                         $con = $concessionService->GetConcessionByID($concession['concession_id']);
+                        $tongGia = $con['price'] * $concession['quantity']; 
                     ?>
                     <div>
                         <?= $con['name'] ?> x<?= $concession['quantity'] ?> |
-                        <strong style="color: yellow;">Giá:</strong> <?= number_format($con['price'], 0, ',', '.') ?> VND
+                        <strong style="color: yellow;">Giá:</strong> <?= number_format($tongGia, 0, ',', '.') ?> VND
                     </div>
                     <?php endforeach; ?>
                     

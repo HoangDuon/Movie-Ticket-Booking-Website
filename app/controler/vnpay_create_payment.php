@@ -31,6 +31,7 @@ $vnp_IpAddr = $_SERVER['REMOTE_ADDR']; // IP Khách hàng
 $bookingData = $param->bookingData;
 
 $bookingData->txnRef = $vnp_TxnRef;
+$bookingData->email = $_SESSION['user']['email'];
 
 $_SESSION['bookingData'] = $bookingData;
 
