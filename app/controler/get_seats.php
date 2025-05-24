@@ -36,7 +36,7 @@ $sqlSeats = "
             ELSE 'Available'
         END AS status
     FROM seats s
-    WHERE s.room_id = ?
+    WHERE s.room_id = ? and s.hide=0
 ";
 
 $seats = pdo_query($sqlSeats, $showtime_id, $room_id);
