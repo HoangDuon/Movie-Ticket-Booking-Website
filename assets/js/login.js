@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^0\d{9}$/;
         if (!emailRegex.test(value) && !phoneRegex.test(value)) {
-            return Promise.resolve(false);  // trả Promise.resolve để đồng bộ với phần gọi
+            return Promise.resolve(false);
         }
 
         return fetch('../LTW/app/controler/get_all_emails_phones.php')
@@ -317,7 +317,6 @@ document.getElementById('registerForm').addEventListener('submit', function (e) 
         document.getElementById('email').focus();
         e.preventDefault(); return;
     }
-    // Kiểm tra email phải kết thúc bằng @gmail.com nếu bạn muốn giới hạn cụ thể
     if (!regEmail.toLowerCase().endsWith('@gmail.com')) {
         alert('Hiện tại hệ thống chỉ hỗ trợ đăng ký bằng email có đuôi @gmail.com!');
         document.getElementById('email').focus();
@@ -383,7 +382,7 @@ document.getElementById('registerForm').addEventListener('submit', function (e) 
         e.preventDefault();
         return;
     }
-    if (regPassword.length < 6) { // Yêu cầu mật khẩu tối thiểu 6 ký tự
+    if (regPassword.length < 6) { 
         alert("Mật khẩu phải có ít nhất 6 ký tự.");
         document.getElementById('phone').focus();
         e.preventDefault(); return;
@@ -399,6 +398,5 @@ document.getElementById('registerForm').addEventListener('submit', function (e) 
         alert("Mật khẩu nhập lại không khớp!");
         document.getElementById('phone').focus();
         e.preventDefault(); return;
-        // document.getElementById('confirmPasswordError').style.display = 'block'; // Hiện span lỗi
     }
 });

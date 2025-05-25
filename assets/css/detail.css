@@ -1,5 +1,3 @@
-/* Detail.css - PHP Compatible Version */
-
 /* CSS Variables */
 :root {
   --primary-color: #ffc107;
@@ -287,7 +285,6 @@ body {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Important: This ensures the fixed bar stays on this page only */
 body.detail-page .fixed-bar {
   position: fixed !important;
   bottom: 0 !important;

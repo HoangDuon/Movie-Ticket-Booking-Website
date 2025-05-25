@@ -1,11 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Lấy tham chiếu đến các select box
     const cinemaSelect = document.getElementById("cinema-select");
     const movieSelect = document.getElementById("movie-select");
     const showtimeSelect = document.getElementById("showtime-select");
-    // const dateSelect = document.getElementById("date-select"); // Ví dụ nếu có
 
-    // --- HÀM HỖ TRỢ: Cập nhật giao diện (màu sắc) cho select box ---
     function updateSelectAppearance(selectElement) {
         if (!selectElement) {
             return;
@@ -17,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // --- KHỞI TẠO GIAO DIỆN BAN ĐẦU ---
     [cinemaSelect, movieSelect, showtimeSelect /*, dateSelect*/].filter(Boolean).forEach(updateSelectAppearance);
 
     // --- SỰ KIỆN CHO CINEMA SELECT (Chọn Rạp) ---
@@ -36,9 +32,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 showtimeSelect.disabled = true;
                 updateSelectAppearance(showtimeSelect);
             }
-            // Reset dateSelect nếu có
 
-            if (cinemaId) { // Nếu đã chọn rạp (không phải placeholder)
+            if (cinemaId) {
                 fetch(`app/controler/get_movies_fast_book.php?cinema_id=${cinemaId}`)
                     .then(res => {
                         if (!res.ok) {
@@ -51,11 +46,9 @@ document.addEventListener("DOMContentLoaded", function () {
                             movieSelect.innerHTML += `<option value="${movie.movie_id}">${movie.title}</option>`;
                         });
                         movieSelect.disabled = false;
-                        // === THAY ĐỔI MỚI: TỰ ĐỘNG CHUYỂN FOCUS ===
-                        if (movieSelect) { // Kiểm tra lại movieSelect tồn tại và được enable
-                           movieSelect.focus(); // Chuyển focus đến ô chọn phim
+                        if (movieSelect) {
+                           movieSelect.focus();
                         }
-                        // ========================================
                     })
                     .catch(error => {
                         console.error('Lỗi khi lấy danh sách phim:', error);
@@ -76,9 +69,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 showtimeSelect.disabled = true;
                 updateSelectAppearance(showtimeSelect);
             }
-            // Reset dateSelect nếu có
 
-            if (movieId && cinemaId) { // Nếu đã chọn phim (không phải placeholder)
+            if (movieId && cinemaId) { 
                 fetch(`app/controler/get_showtimes_fast_book.php?cinema_id=${cinemaId}&movie_id=${movieId}`)
                     .then(res => {
                         if (!res.ok) {
@@ -91,11 +83,9 @@ document.addEventListener("DOMContentLoaded", function () {
                             showtimeSelect.innerHTML += `<option value="${show.showtime_id}">${show.start_time}</option>`;
                         });
                         showtimeSelect.disabled = false;
-                        // === THAY ĐỔI MỚI: TỰ ĐỘNG CHUYỂN FOCUS ===
-                        if (showtimeSelect) { // Kiểm tra lại showtimeSelect tồn tại và được enable
-                           showtimeSelect.focus(); // Chuyển focus đến ô chọn suất chiếu
+                        if (showtimeSelect) {
+                           showtimeSelect.focus();
                         }
-                        // ========================================
                     })
                     .catch(error => {
                         console.error('Lỗi khi lấy danh sách suất chiếu:', error);
@@ -108,13 +98,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (showtimeSelect) {
         showtimeSelect.addEventListener("change", function () {
             updateSelectAppearance(showtimeSelect);
-            // Nếu có mục chọn ngày (dateSelect) và nó được enable sau khi chọn suất,
-            // bạn có thể thêm dateSelect.focus() ở đây sau khi fetch ngày (nếu có AJAX cho ngày)
         });
     }
 
     document.getElementById("order-now").addEventListener("click", function (e) {
-        e.preventDefault(); // Ngăn chuyển trang nếu có thẻ <a>
+        e.preventDefault();
 
         const cinemaId = document.getElementById("cinema-select").value;
         const movieId = document.getElementById("movie-select").value;

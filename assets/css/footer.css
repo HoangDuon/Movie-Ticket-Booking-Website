@@ -84,7 +84,7 @@ footer {
     bottom: 0;
     width: 40px;
     height: 3px;
-    background-color: #e74c3c; /* Màu accent */
+    background-color: #e74c3c;
 }
 .text-md-start .footer-heading::after, .text-lg-start .footer-heading::after {
     left: 0;
@@ -120,10 +120,10 @@ footer {
 .ft-bottom p {
     margin-left: auto;
     margin-right: auto;
-    text-align: center; /* Đảm bảo chữ bên trong cũng ở giữa */
+    text-align: center;
 }
 .ft-bottom:hover {
-    color: #e74c3c; /* Màu accent khi hover */
+    color: #e74c3c;
 }
 
 #tai-khoan-footer .menu-list .menu-item a,
@@ -146,10 +146,10 @@ footer {
 /* --- Responsive Adjustments --- */
 @media (max-width: 767.98px) {
     .ft-body-item {
-        text-align: center !important; /* Căn giữa toàn bộ nội dung trên màn hình nhỏ */
+        text-align: center !important;
         margin-bottom: 35px;
     }
-    .footer-heading::after { /* Căn giữa gạch chân cho heading trên mobile */
+    .footer-heading::after {
         left: 50%;
         transform: translateX(-50%);
     }
@@ -157,7 +157,7 @@ footer {
         margin-bottom: 15px;
     }
     .ft-hotline-socials .list-inline-item a {
-        margin: 0 10px; /* Giảm khoảng cách icon social */
+        margin: 0 10px;
     }
 
 }

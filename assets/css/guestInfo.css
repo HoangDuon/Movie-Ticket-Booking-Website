@@ -47,7 +47,7 @@ body {
 
 .menu-item {
     display: flex;
-    justify-content: flex-start; /* ép nội dung canh trái */
+    justify-content: flex-start;
     text-align: left;
     padding: 10px 0;
     color: #ccc;

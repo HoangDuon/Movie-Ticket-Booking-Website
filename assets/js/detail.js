@@ -16,7 +16,6 @@ console.log(presetCinemaId,presetMovieId,presetShowDate)
 
 document.addEventListener("DOMContentLoaded", () => {
   if (presetMovieId && presetShowDate) {
-    // Gọi hàm showSchedule (giả sử đã được định nghĩa ở file khác)
     showSchedule(presetMovieId, presetShowDate);
   }
 });
@@ -32,22 +31,17 @@ function autoSelectShowtime(showtimeId) {
 }
 
 
-// Initialize event listeners when document is ready
 document.addEventListener("DOMContentLoaded", () => {
-  // Initialize quantity controls for concessions
   initializeQuantityControls()
 
-  // Initialize booking button
   initializeBookingButton()
 })
 
 function showSchedule(movieId, date) {
-  // Update date button states
   document.querySelectorAll(".date-btn").forEach((btn) => {
     btn.classList.remove("selected")
   })
 
-  // Mark selected date button
   const selectedBtn = document.querySelector(`[data-date="${date}"]`)
   if (selectedBtn) {
     selectedBtn.classList.add("selected")
@@ -94,43 +88,33 @@ function showSchedule(movieId, date) {
               showtimeButton.innerHTML = `${showtime.start_time} - ${showtime.end_time} | Giá: ${Number.parseInt(showtime.price)} VNĐ`
 
               showtimeButton.onclick = () => {
-                // Update time slot states
                 document.querySelectorAll(".time-slot").forEach((slot) => {
                   slot.classList.remove("selected")
                 })
 
-                // Mark selected time slot
                 showtimeButton.classList.add("selected")
 
-                // Set base price
                 basePrice = Number.parseInt(showtime.price)
 
-                // Reset selections
                 selectedSeats = []
                 selectedConcessions = {}
 
-                // Show fixed bar
                 const fixedBar = document.querySelector(".fixed-bar")
                 fixedBar.style.display = "flex"
 
-                // Update booking display
                 updateBookingTotal()
                 document.getElementById("book-btn").disabled = true
 
-                // Start timer
                 startTimer()
 
-                // Show additional content
                 const additionalContent = document.getElementById("addtional")
                 additionalContent.style.display = "block"
 
-                // Update booking summary with cinema and time only
                 const summaryElement = document.getElementById("booking-summary")
                 if (summaryElement) {
                   summaryElement.textContent = `${cinema.cinema_name} | ${showtime.start_time}`
                 }
 
-                // Load seat map
                 showSeatMap(showtime.showtime_id)
               }
 
@@ -280,7 +264,6 @@ function initializeQuantityControls() {
 
       input.value = value
 
-      // Update concessions
       if (!selectedConcessions[concessionId]) {
         const priceText = this.closest(".card-body").querySelector(".card-text").textContent
         const price = Number.parseInt(priceText.replace(/[^\d]/g, ""))
@@ -299,23 +282,17 @@ function initializeQuantityControls() {
 }
 
 function updateBookingTotal() {
-  // Calculate totals
   const seatTotal = selectedSeats.reduce((sum, seat) => sum + Number.parseInt(seat.price), 0)
   const concessionTotal = Object.values(selectedConcessions).reduce((sum, item) => sum + item.price * item.quantity, 0)
 
-  // Calculate total price (base price per seat + seat extras + concessions)
   const total = basePrice * selectedSeats.length + seatTotal + concessionTotal
 
-  // Update total display
   document.getElementById("booking-total").innerText = `${total.toLocaleString()} VND`
 
-  // Update summary - keep only cinema and time
   const summaryElement = document.getElementById("booking-summary")
   if (summaryElement) {
     const currentText = summaryElement.textContent
-    // Only keep the cinema and time information
     if (currentText.includes("|")) {
-      // Extract just the cinema and time part (first two segments)
       const parts = currentText.split("|")
       if (parts.length >= 2) {
         const cinemaTime = parts[0] + "|" + parts[1]
@@ -360,7 +337,6 @@ function initializeBookingButton() {
         console.log(lastTotal);
         lastTotal = lastTotal - discountAmount;
 
-      // Prepare booking data
       const bookingData = {
         showtime_id: document.querySelector(".time-slot.selected").getAttribute("data-showtime-id"),
         seats: selectedSeats,

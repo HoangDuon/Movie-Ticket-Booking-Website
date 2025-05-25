@@ -1,5 +1,3 @@
-// payment.js
-
 document.addEventListener("DOMContentLoaded", () => {
   // Khởi tạo đếm ngược
   initCountdown(); //
@@ -7,12 +5,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   console.log("Dữ liệu booking từ PHP VNPAY:", window.bookingDataVNPAY);
 
-  // Kiểm tra xem có phải là redirect từ VNPAY về không
   const urlParams = new URLSearchParams(window.location.search);
   const vnpayResponseCode = urlParams.get('vnp_ResponseCode');
-  const vnpayTxnRef = urlParams.get('vnp_TxnRef'); // Lấy mã giao dịch từ VNPAY return
+  const vnpayTxnRef = urlParams.get('vnp_TxnRef');
 
-  if (vnpayResponseCode && typeof vnpaySuccess !== 'undefined') { // vnpaySuccess sẽ được set từ payment.php
+  if (vnpayResponseCode && typeof vnpaySuccess !== 'undefined') {
     if (vnpaySuccess && vnpayTxnRef) {
       // Thanh toán VNPAY thành công
       // Ẩn các section không cần thiết
@@ -25,29 +22,23 @@ document.addEventListener("DOMContentLoaded", () => {
       sendTicketEmail(window.bookingDataVNPAY);
 
       // Hiển thị thông tin vé sau khi VNPAY thành công
-      displayTicketInfoAfterVnpay(localStorage.getItem("lastBookingId") || vnpayTxnRef); // Ưu tiên vnpayTxnRef nếu lastBookingId không có
+      displayTicketInfoAfterVnpay(localStorage.getItem("lastBookingId") || vnpayTxnRef);
     } else if (typeof vnpayMessage !== 'undefined') {
       // Thanh toán VNPAY thất bại hoặc có lỗi
       alert("Lỗi thanh toán VNPAY: " + vnpayMessage);
-      // Có thể reset về bước thông tin khách hàng hoặc thanh toán
-      // updateStepStatus(1); // Quay về bước 1 chẳng hạn
-      // document.getElementById("customer-section").style.display = "block";
-      // document.getElementById("payment-section").style.display = "none";
-      // document.getElementById("ticket-section").style.display = "none";
     }
   } else {
-    // Luồng bình thường, không phải redirect từ VNPAY
-    const continueBtn = document.getElementById("continueBtn"); //
+    const continueBtn = document.getElementById("continueBtn");
     if (continueBtn) {
       continueBtn.addEventListener("click", () => {
-        goToPaymentStep(); //
+        goToPaymentStep();
       });
     }
 
-    const paymentBtn = document.getElementById("paymentBtn"); //
+    const paymentBtn = document.getElementById("paymentBtn");
     if (paymentBtn) {
       paymentBtn.addEventListener("click", () => {
-        const paymentMethods = document.getElementsByName("paymentMethod"); //
+        const paymentMethods = document.getElementsByName("paymentMethod");
         let selectedMethodId = "";
         for (const method of paymentMethods) {
           if (method.checked) {
@@ -67,59 +58,54 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-function initCountdown() { //
+function initCountdown() {
   let timeLeft = 300; // 5 phút
-  const countdownElements = document.querySelectorAll("#countdown, #countdown2"); //
+  const countdownElements = document.querySelectorAll("#countdown, #countdown2");
 
-  function updateCountdown() { //
-    const minutes = Math.floor(timeLeft / 60); //
+  function updateCountdown() {
+    const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60; //
-    const formattedMinutes = String(minutes).padStart(2, "0"); //
-    const formattedSeconds = String(seconds).padStart(2, "0"); //
+    const formattedMinutes = String(minutes).padStart(2, "0");
+    const formattedSeconds = String(seconds).padStart(2, "0");
 
-    countdownElements.forEach((element) => { //
+    countdownElements.forEach((element) => {
       if (element) {
-        element.textContent = `${formattedMinutes}:${formattedSeconds}`; //
+        element.textContent = `${formattedMinutes}:${formattedSeconds}`; 
       }
     });
 
-    if (timeLeft <= 0) { //
-      clearInterval(timerInterval); //
-      alert("Thời gian giữ vé đã hết."); //
+    if (timeLeft <= 0) { 
+      clearInterval(timerInterval); 
+      alert("Thời gian giữ vé đã hết."); 
     } else {
-      timeLeft--; //
+      timeLeft--; 
     }
   }
-  updateCountdown(); //
-  const timerInterval = setInterval(updateCountdown, 1000); //
+  updateCountdown(); 
+  const timerInterval = setInterval(updateCountdown, 1000); 
 }
 
-function goToPaymentStep() { //
-  const ageCheck = document.getElementById("ageCheck").checked; //
-  const termsCheck = document.getElementById("termsCheck").checked; //
+function goToPaymentStep() {
+  const ageCheck = document.getElementById("ageCheck").checked; 
+  const termsCheck = document.getElementById("termsCheck").checked; 
 
-    // Lấy lại giá trị từ các input (giờ đây có thể đã được điền sẵn từ PHP nếu đăng nhập)
   const fullNameValue = document.getElementById("fullName").value.trim();
   const phoneValue = document.getElementById("phone").value.trim();
   const emailValue = document.getElementById("email").value.trim();
 
-  // Kiểm tra các trường thông tin khách hàng nếu chúng không readonly (tức là cho phép nhập)
   const fullNameInput = document.getElementById("fullName");
-  if (!fullNameInput.readOnly && fullNameValue === "") { // Chỉ kiểm tra trống nếu trường không phải readonly
+  if (!fullNameInput.readOnly && fullNameValue === "") {
     alert("Vui lòng nhập họ và tên.");
     return;
   }
-  // Kiểm tra email chỉ khi không readonly và đã nhập
   if (!document.getElementById("email").readOnly && emailValue !== "" && !/\S+@\S+\.\S+/.test(emailValue)) {
       alert("Vui lòng nhập địa chỉ email hợp lệ.");
       return;
   }
-  // Kiểm tra SĐT chỉ khi không readonly và đã nhập (regex cơ bản, bạn có thể cần regex chặt hơn)
   if (!document.getElementById("phone").readOnly && phoneValue !== "" && !/^\d{10,11}$/.test(phoneValue)) {
       alert("Vui lòng nhập số điện thoại hợp lệ (10-11 số).");
       return;
   }
-  // Bắt buộc nhập nếu trường không readonly
   if (!document.getElementById("phone").readOnly && phoneValue === "") {
     alert("Vui lòng nhập số điện thoại.");
     return;
@@ -129,42 +115,37 @@ function goToPaymentStep() { //
     return;
   }
 
-  if (!ageCheck || !termsCheck) { //
-    alert("Vui lòng điền đầy đủ thông tin và đồng ý với các điều khoản."); //
-    return; //
+  if (!ageCheck || !termsCheck) { 
+    alert("Vui lòng điền đầy đủ thông tin và đồng ý với các điều khoản."); 
+    return; 
   }
 
-  // Lưu thông tin khách hàng (nếu cần thiết, vì bạn đã comment out phần này)
   localStorage.setItem("customerName", document.getElementById("fullName").value);
   localStorage.setItem("customerPhone", document.getElementById("phone").value);
   localStorage.setItem("customerEmail", document.getElementById("email").value);
 
-  document.getElementById("customer-section").style.display = "none"; //
-  document.getElementById("payment-section").style.display = "block"; //
-  updateStepStatus(2); //
+  document.getElementById("customer-section").style.display = "none"; 
+  document.getElementById("payment-section").style.display = "block"; 
+  updateStepStatus(2); 
 }
 
 async function initiateVnpayPayment() {
-  // Lấy số tiền từ phần tử hiển thị trên trang
-  // Giả sử #totalPriceDisplay là ID của phần tử chứa số tiền thuần túy (ví dụ 45000)
-  // Hoặc bạn lấy từ `document.querySelector(".total-price").textContent` và xử lý nó
-  const amountText = document.querySelector(".total-price").textContent; // Ví dụ: "45,000VND"
-  const amount = parseInt(amountText.replace(/[^0-9]/g, ""), 10); // Chuyển thành số 45000
+  const amountText = document.querySelector(".total-price").textContent;
+  const amount = parseInt(amountText.replace(/[^0-9]/g, ""), 10);
 
   if (isNaN(amount) || amount <= 0) {
     alert("Số tiền không hợp lệ. Vui lòng kiểm tra lại.");
     return;
   }
 
-  const orderId = "CS" + Math.floor(Math.random() * 1000000000); //
-  // Lưu orderId này lại để đối chiếu khi VNPAY trả về, hoặc hiển thị trên trang vé
+  const orderId = "CS" + Math.floor(Math.random() * 1000000000); 
   localStorage.setItem("lastBookingId", orderId); 
 
   const orderDescription = "Thanh toán đơn hàng đặt vé xem phim";
-  const bankCode = ""; // Để trống để VNPAY hiển thị danh sách ngân hàng
+  const bankCode = "";
 
   try {
-    const response = await fetch('app/controler/vnpay_create_payment.php', { // Gọi file PHP mới để tạo URL VNPAY
+    const response = await fetch('app/controler/vnpay_create_payment.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -175,7 +156,6 @@ async function initiateVnpayPayment() {
         orderDescription: orderDescription,
         bankCode: bankCode,
         bookingData: window.bookingData,
-        // các thông tin khác nếu cần thiết cho backend
       }),
     });
 
@@ -187,7 +167,7 @@ async function initiateVnpayPayment() {
     const data = await response.json();
 
     if (data.vnpayUrl) {
-      window.location.href = data.vnpayUrl; // Chuyển hướng đến VNPAY
+      window.location.href = data.vnpayUrl;
     } else {
       alert(data.message || 'Không nhận được URL thanh toán VNPAY.');
     }
@@ -197,17 +177,15 @@ async function initiateVnpayPayment() {
   }
 }
 
-// Hàm này sẽ được gọi khi thanh toán (không phải VNPAY) thành công hoặc VNPAY trả về thành công
 function goToTicketStep(bookingIdFromVnpay = null) { //
-  document.getElementById("payment-section").style.display = "none"; //
-  document.getElementById("ticket-section").style.display = "block"; //
-  updateStepStatus(3); //
+  document.getElementById("payment-section").style.display = "none";
+  document.getElementById("ticket-section").style.display = "block";
+  updateStepStatus(3); 
 
-  const finalBookingId = bookingIdFromVnpay || localStorage.getItem("lastBookingId") || ("CS" + Math.floor(Math.random() * 1000000000)); //
-  document.getElementById("booking-id").textContent = finalBookingId; //
-  localStorage.removeItem("lastBookingId"); // Xóa ID đã dùng
+  const finalBookingId = bookingIdFromVnpay || localStorage.getItem("lastBookingId") || ("CS" + Math.floor(Math.random() * 1000000000)); 
+  document.getElementById("booking-id").textContent = finalBookingId; 
+  localStorage.removeItem("lastBookingId");
 
-  // Hiển thị thông tin khách hàng đã lưu (nếu có)
   const customerName = localStorage.getItem("customerNameForTicket");
   const customerPhone = localStorage.getItem("customerPhoneForTicket");
   const customerEmail = localStorage.getItem("customerEmailForTicket");
@@ -217,57 +195,53 @@ function goToTicketStep(bookingIdFromVnpay = null) { //
   if (customerEmail && document.getElementById("customer-email")) document.getElementById("customer-email").textContent = customerEmail;
   
   // Hiển thị phương thức thanh toán đã chọn
-  const paymentMethods = document.getElementsByName("paymentMethod"); //
-  let selectedMethodText = "Thẻ tín dụng/ghi nợ"; // Mặc định
+  const paymentMethods = document.getElementsByName("paymentMethod"); 
+  let selectedMethodText = "Thẻ tín dụng/ghi nợ";
   let selectedMethodId = "";
 
-   for (const method of paymentMethods) { //
-    if (method.checked) { //
-      selectedMethodId = method.id; //
+   for (const method of paymentMethods) {
+    if (method.checked) {
+      selectedMethodId = method.id;
       break;
     }
   }
   
   // Nếu là VNPAY trả về, selectedMethodId có thể không được check, nên ta dựa vào bookingIdFromVnpay
-  if (bookingIdFromVnpay) { // hoặc một cờ khác báo hiệu là VNPAY
+  if (bookingIdFromVnpay) {
       selectedMethodText = "Thanh toán qua VNPAY";
   } else {
-      switch (selectedMethodId) { //
-        case "creditCard": //
-          selectedMethodText = "Thẻ tín dụng/ghi nợ"; //
+      switch (selectedMethodId) { 
+        case "creditCard": 
+          selectedMethodText = "Thẻ tín dụng/ghi nợ";
           break;
         case "bankTransfer": //
-          selectedMethodText = "Thanh toán qua VNPAY"; // Đã đổi tên
+          selectedMethodText = "Thanh toán qua VNPAY";
           break;
-        case "momo": //
-          selectedMethodText = "Ví MoMo"; //
+        case "momo": 
+          selectedMethodText = "Ví MoMo"; 
           break;
         case "zalopay": //
-          selectedMethodText = "ZaloPay"; //
+          selectedMethodText = "ZaloPay"; 
           break;
       }
   }
-  document.getElementById("payment-method").textContent = selectedMethodText; //
+  document.getElementById("payment-method").textContent = selectedMethodText; 
 }
 
 // Hàm riêng để hiển thị thông tin vé sau khi VNPAY thành công
 function displayTicketInfoAfterVnpay(bookingId) {
-  // Ẩn các section không cần thiết đã làm ở DOMContentLoaded
-  // document.getElementById("customer-section").style.display = "none";
-  // document.getElementById("payment-section").style.display = "none";
-  // document.getElementById("ticket-section").style.display = "block";
-  // updateStepStatus(3); // Đã gọi ở DOMContentLoaded
 
-  document.getElementById("booking-id").textContent = bookingId; //
+
+  document.getElementById("booking-id").textContent = bookingId; 
   
-  const customerName = localStorage.getItem("customerName"); //
-  const customerPhone = localStorage.getItem("customerPhone"); //
-  const customerEmail = localStorage.getItem("customerEmail"); //
+  const customerName = localStorage.getItem("customerName"); 
+  const customerPhone = localStorage.getItem("customerPhone"); 
+  const customerEmail = localStorage.getItem("customerEmail"); 
 
-  const ticketCustomerNameEl = document.getElementById("customer-name"); // Sử dụng ID đã có
-  const ticketCustomerPhoneEl = document.getElementById("customer-phone"); // Sử dụng ID đã có
-  const ticketCustomerEmailEl = document.getElementById("customer-email"); // Sử dụng ID đã có
-  const ticketPaymentMethodEl = document.getElementById("payment-method"); // Sử dụng ID đã có
+  const ticketCustomerNameEl = document.getElementById("customer-name"); 
+  const ticketCustomerPhoneEl = document.getElementById("customer-phone");
+  const ticketCustomerEmailEl = document.getElementById("customer-email");
+  const ticketPaymentMethodEl = document.getElementById("payment-method");
 
   if (ticketCustomerNameEl && customerName) ticketCustomerNameEl.textContent = customerName;
   if (ticketCustomerPhoneEl && customerPhone) ticketCustomerPhoneEl.textContent = customerPhone;
@@ -277,28 +251,27 @@ function displayTicketInfoAfterVnpay(bookingId) {
 }
 
 
-function updateStepStatus(currentStep) { //
-  document.getElementById("step1").className = "step"; //
-  document.getElementById("step2").className = "step"; //
-  document.getElementById("step3").className = "step"; //
-  document.getElementById("line1").className = "step-line"; //
-  document.getElementById("line2").className = "step-line"; //
+function updateStepStatus(currentStep) { 
+  document.getElementById("step1").className = "step"; 
+  document.getElementById("step2").className = "step"; 
+  document.getElementById("step3").className = "step"; 
+  document.getElementById("line1").className = "step-line"; 
+  document.getElementById("line2").className = "step-line"; 
 
-  if (currentStep >= 1) { //
-    document.getElementById("step1").className = "step completed"; //
+  if (currentStep >= 1) { 
+    document.getElementById("step1").className = "step completed"; 
   }
-  if (currentStep >= 2) { //
-    document.getElementById("line1").className = "step-line completed"; //
-    document.getElementById("step2").className = "step active"; //
-    // Nếu đã qua bước 2 (thanh toán) và đang ở bước 3, thì bước 2 cũng là completed
+  if (currentStep >= 2) { 
+    document.getElementById("line1").className = "step-line completed"; 
+    document.getElementById("step2").className = "step active"; 
     if (currentStep > 2) {
-        document.getElementById("step2").className = "step completed"; //
+        document.getElementById("step2").className = "step completed"; 
     }
   }
   if (currentStep >= 3) { //
-    document.getElementById("step2").className = "step completed"; // Mark step 2 as completed if we are at step 3
-    document.getElementById("line2").className = "step-line completed"; //
-    document.getElementById("step3").className = "step active"; //
+    document.getElementById("step2").className = "step completed";
+    document.getElementById("line2").className = "step-line completed"; 
+    document.getElementById("step3").className = "step active"; 
   }
 }
 

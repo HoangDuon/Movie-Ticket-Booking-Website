@@ -1,87 +1,83 @@
-
-/* Đảm bảo carousel full width nhưng nội dung căn giữa */
 .showing-movie-slide {
     width: 100%;
-    overflow: hidden; /* Đảm bảo không tràn nội dung */
+    overflow: hidden;
 }
 
-/* Điều chỉnh container để căn giữa và giới hạn chiều rộng */
 .carousel-inner .container {
-    max-width: 1200px; /* Giới hạn chiều rộng tối đa */
-    margin: 0 auto; /* Căn giữa */
-    padding: 0 15px; /* Padding mặc định của Bootstrap */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
 }
 
 /* Căn chỉnh row chứa các cột phim */
 .carousel-inner .row {
     display: flex;
-    justify-content: center; /* Căn giữa các cột */
-    flex-wrap: nowrap; /* Giữ các cột trên cùng một hàng */
-    margin: 0 -15px; /* Offset padding của container */
+    justify-content: center;
+    flex-wrap: nowrap;
+    margin: 0 -15px;
 }
 
 /* Điều chỉnh mỗi cột phim */
 .carousel-inner .col {
-    flex: 0 0 25%; /* Mỗi cột chiếm 25% (4 cột) */
+    flex: 0 0 25%;
     max-width: 25%;
-    padding: 0 15px; /* Khoảng cách giữa các cột */
+    padding: 0 15px;
 }
 
 /* Style cho card phim */
 #movie-poster.card {
     width: 100%;
-    border: none; /* Bỏ viền mặc định nếu muốn */
-    background: transparent; /* Nền trong suốt nếu cần */
+    border: none;
+    background: transparent;
 }
 
 /* Đảm bảo hình ảnh poster responsive */
 #movie-poster.card img {
     width: 100%;
-    /* height: auto; */
     object-fit: cover;
 }
 
 /* Điều chỉnh nút prev/next */
 .carousel-control-prev,
 .carousel-control-next {
-    width: 5%; /* Giới hạn chiều rộng nút */
-    z-index: 1; /* Đảm bảo nút nằm trên nội dung */
-    opacity: 0.8; /* Mờ nhẹ khi không hover */
+    width: 5%;
+    z-index: 1;
+    opacity: 0.8;
     transition: opacity 0.3s ease;
 }
 
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
-    opacity: 1; /* Đậm hơn khi hover */
+    opacity: 1;
 }
 
 /* Icon của nút prev/next */
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-    background-size: 50%; /* Thu nhỏ icon cho đẹp */
+    background-size: 50%; 
 }
 
 /* Responsive cho mobile */
 @media (max-width: 768px) {
     .carousel-inner .col {
-        flex: 0 0 50%; /* 2 cột trên mobile */
+        flex: 0 0 50%;
         max-width: 50%;
     }
 }
 
 @media (max-width: 576px) {
     .carousel-inner .col {
-        flex: 0 0 100%; /* 1 cột trên màn nhỏ */
+        flex: 0 0 100%;
         max-width: 100%;
     }
 
     .carousel-inner .row {
-        flex-wrap: wrap; /* Cho phép xuống dòng */
+        flex-wrap: wrap;
     }
 
     .carousel-control-prev,
     .carousel-control-next {
-        width: 10%; /* Tăng chiều rộng nút trên mobile */
+        width: 10%;
     }
 }
 
@@ -126,7 +122,6 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    /* Đẩy nút ra ngoài lề phải của #carouselExample */
     right: -50px;
     width: 40px;
     height: 40px;

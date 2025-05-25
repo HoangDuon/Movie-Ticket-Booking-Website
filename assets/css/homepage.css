@@ -43,7 +43,7 @@ body {
 }
 
 header {
-    background: linear-gradient(to bottom, #222222, #1a1a1a); /* Gradient tối màu */
+    background: linear-gradient(to bottom, #222222, #1a1a1a);
 }
 
 .header-top {
@@ -73,76 +73,76 @@ header {
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: #000; /* Màu chữ trên nền vàng cho dễ đọc */
-    background: #f3ea28; /* Màu nền mặc định */
+    color: #000; 
+    background: #f3ea28;
     padding: 1rem 1.4rem;
     border-radius: 5px;
     font-weight: bold;
     position: relative;
     overflow: hidden;
-    z-index: 1; /* Đảm bảo nút nằm trên */
+    z-index: 1;
 }
 
 #dat-ve::after {
     content: '';
     position: absolute;
     top: 0;
-    left: -100%; /* Gradient bắt đầu từ ngoài trái */
+    left: -100%; 
     width: 100%;
     height: 100%;
     background: linear-gradient(106deg, #639, #36c 102.69%);
-    transition: left 0.5s ease; /* Chuyển động mượt mà */
-    z-index: -1; /* Gradient nằm dưới chữ */
+    transition: left 0.5s ease; 
+    z-index: -1;
 }
 
 #dat-ve:hover::after {
-    left: 0; /* Gradient di chuyển vào */
+    left: 0;
 }
 
 #dat-ve:hover {
-    color: #fff; /* Màu chữ khi hover */
+    color: #fff;
 }
 
 #dat-ve img {
-    margin-right: 10px; /* Khoảng cách icon và text */
+    margin-right: 10px;
 }
 /* ---------------------------------------------------------------- */
 #dat-bapnuoc {
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: #fff; /* Màu chữ trên nền vàng cho dễ đọc */
-    background: #639; /* Màu nền mặc định */
+    color: #fff;
+    background: #639;
     padding: 1rem 1.4rem;
     border-radius: 5px;
     font-weight: bold;
     position: relative;
     overflow: hidden;
-    z-index: 1; /* Đảm bảo nút nằm trên */
+    z-index: 1; 
 }
 
 #dat-bapnuoc::after {
     content: '';
     position: absolute;
     top: 0;
-    left: -100%; /* Gradient bắt đầu từ ngoài trái */
+    left: -100%;
     width: 100%;
     height: 100%;
     background: linear-gradient(90deg,#ff6d00,#ffc107);
-    transition: left 0.5s ease; /* Chuyển động mượt mà */
-    z-index: -1; /* Gradient nằm dưới chữ */
+    transition: left 0.5s ease;
+    z-index: -1;
 }
 
 #dat-bapnuoc:hover::after {
-    left: 0; /* Gradient di chuyển vào */
+    left: 0;
 }
 
 #dat-bapnuoc:hover {
-    color: #fff; /* Màu chữ khi hover */
+    color: #fff;
 }
 
 #dat-bapnuoc img {
-    margin-right: 10px; /* Khoảng cách icon và text */
+    margin-right: 10px;
 }
 /* ---------------------------------------------------------------- */
 .hd-log {
@@ -169,8 +169,8 @@ header {
 
 .input-icon-container {
     position: relative;
-    display: flex; /* Giúp input chiếm toàn bộ chiều rộng nếu cần */
-    width: 100%; /* Hoặc chiều rộng cụ thể bạn muốn cho thanh tìm kiếm */
+    display: flex; 
+    width: 100%; 
 }
 
 .input-icon-container .form-control {
@@ -180,28 +180,28 @@ header {
 .btn-icon-inside {
     position: absolute;
     top: 0;
-    right: 0; /* Đặt nút ở rìa phải của container */
-    height: 100%; /* Chiều cao bằng với input */
-    width: 3rem;   /* Chiều rộng của nút, nên khớp với padding-right của input */
+    right: 0; 
+    height: 100%;
+    width: 3rem; 
     border: none;
-    background: transparent; /* Nền trong suốt */
+    background: transparent;
     padding: 5px;
     margin-right: 2px;
     display: flex;
-    align-items: center; /* Căn giữa icon theo chiều dọc */
-    justify-content: center; /* Căn giữa icon theo chiều ngang */
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
 }
 
 .btn-icon-inside:focus,
 .btn-icon-inside:active {
-    outline: none; /* Bỏ viền focus mặc định */
-    box-shadow: none; /* Bỏ bóng đổ mặc định */
+    outline: none;
+    box-shadow: none;
 }
 
 .btn-icon-inside i {
-    color: #8c8e91; /* Màu của icon, có thể thay đổi */
-    font-size: 1.6rem; /* Kích thước icon, có thể điều chỉnh */
+    color: #8c8e91;
+    font-size: 1.6rem;
 }
 
 .hd-searchbar {
@@ -378,8 +378,8 @@ header {
 }
 
 #movie-poster .card-img-top {
-    width: 100%; /* Chiều rộng bằng với khung chứa */
-    height: 40rem; /* Chiều cao cố định cho khung */
+    width: 100%;
+    height: 40rem;
     object-fit: cover;
     object-position: center;
     background-color: rgb(255, 255, 255);
@@ -433,12 +433,12 @@ header {
     content: '';
     position: absolute;
     top: 0;
-    left: -100%; /* Gradient bắt đầu từ ngoài trái */
+    left: -100%;
     width: 100%;
     height: 100%;
     background: linear-gradient(106deg, #639, #36c 102.69%);
-    transition: left 0.5s ease; /* Chuyển động mượt mà */
-    z-index: -1; /* Gradient nằm dưới chữ */
+    transition: left 0.5s ease;
+    z-index: -1;
 }
 
 .movie-title {
@@ -531,11 +531,11 @@ footer {
     padding: 1.4rem 2rem;
     border-radius: 1rem;
     text-decoration: none;
-    display: inline-flex; /* Đảm bảo nội dung bên trong căn giữa */
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 150px; /* Chiều rộng cố định để hai nút bằng nhau */
-    height: 40px; /* Chiều cao cố định */
+    width: 150px;
+    height: 40px;
     font-size: 14px;
 }
 

@@ -31,14 +31,12 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             document.getElementById(`${sectionToShow}-content`).style.display = 'block';
 
-            // If purchase history is selected, simulate loading data
             if (sectionToShow === 'purchase-history') {
                 simulateLoadPurchaseHistory();
             }
         });
     });
 
-    // Edit button handler
     document.getElementById("edit-button").addEventListener("click", function () {
         console.log("active");
         const inputs = document.querySelectorAll("#customer-info-content input");
@@ -49,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Password change handler
     const changePasswordBtn = document.querySelectorAll('.btn-save')[2];
     if (changePasswordBtn) {
         changePasswordBtn.addEventListener('click', function(e) {
@@ -75,7 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Save info button handler
     const saveInfoBtn = document.querySelectorAll('.btn-save')[1];
     if (saveInfoBtn) {
         saveInfoBtn.addEventListener('click', function(e) {
@@ -179,20 +175,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const infoInputs = [fullnameInput, birthdateInput, phoneInput, emailInput];
     const originalValues = {};
     
-    let isEditMode = false; // Biến cờ để theo dõi trạng thái chỉnh sửa
+    let isEditMode = false;
 
     if (editInfoButton) {
         editInfoButton.addEventListener('click', function() {
             isEditMode = !isEditMode;
             if (isEditMode) {
                 // Chế độ Sửa
-                this.innerHTML = '<i class="bi bi-x-circle"></i> Hủy'; // Đổi thành nút Hủy
+                this.innerHTML = '<i class="bi bi-x-circle"></i> Hủy';
                 this.classList.remove('btn-secondary');
                 this.classList.add('btn-dark');
 
                 infoInputs.forEach(input => {
                     if (input) {
-                        originalValues[input.id] = input.value; // << LƯU GIÁ TRỊ GỐC
+                        originalValues[input.id] = input.value;
                         input.removeAttribute('disabled');
                     }
                 });
@@ -204,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 infoInputs.forEach(input => {
                     if (input) {
-                        input.value = originalValues[input.id]; // << KHÔI PHỤC GIÁ TRỊ GỐC
+                        input.value = originalValues[input.id];
                         input.setAttribute('disabled', 'disabled');
                     }
                 });
@@ -244,12 +240,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Gọi hàm này khi trang/phần quản lý người dùng được tải
     fetchExistingCredentials();
 
     if (personalInfoForm) {
         personalInfoForm.addEventListener('submit', function(e) {
-            // Kiểm tra khi form được submit (người dùng nhấn nút "LƯU THÔNG TIN")
             if (isEditMode) {
                 const fullnameValue = fullnameInput ? fullnameInput.value.trim() : '';
                 const birthdateValue = birthdateInput ? birthdateInput.value : '';
@@ -284,7 +278,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     const birthDate = new Date(birthdateValue);
                     const today = new Date();
-                    // Đặt giờ, phút, giây, ms về 0 để so sánh ngày chính xác
                     birthDate.setHours(0, 0, 0, 0);
                     today.setHours(0, 0, 0, 0);
 

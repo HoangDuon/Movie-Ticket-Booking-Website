@@ -1,23 +1,23 @@
 .search-view {
-    flex: 1;          /* lấy toàn bộ không gian còn lại */
+    flex: 1; 
     min-height: 0;
 }
 
 .movie-search-result-card .card-img-top,
 .movie-search-result-card .card-img-top-placeholder {
-    height: 450px; /* Điều chỉnh chiều cao ảnh poster cho đồng đều */
-    object-fit: cover; /* Cho ảnh poster */
+    height: 450px;
+    object-fit: cover; 
 }
 .movie-search-result-card .card-img-top-placeholder {
     font-size: 3.9rem;
 }
 .movie-search-result-card .card-title a {
-    color: #82baf3; /* Màu tiêu đề */
+    color: #82baf3;
     font-size: 1.9rem;
     font-weight: bold;
 }
 .movie-search-result-card .card-title a:hover {
-    color: var(--bs-primary); /* Hoặc màu bạn muốn */
+    color: var(--bs-primary);
 }
 .movie-search-result-card .movie-description-search {
     font-size: 0.85rem;

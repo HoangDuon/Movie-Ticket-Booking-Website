@@ -19,14 +19,13 @@ document.querySelectorAll(".menu-item").forEach(item => {
         document.getElementById("page-" + page).style.display = "block";
     });
 });
-// Sửa xong vẫn ở tab đó
 document.addEventListener("DOMContentLoaded", function () {
     const hash = window.location.hash;
     if (hash) {
         const tab = hash.replace('#', '');
         const targetTab = document.querySelector(`[data-page="${tab}"]`);
         if (targetTab) {
-            targetTab.click(); // Kích hoạt tab bằng cách click vào menu
+            targetTab.click();
         }
     }
 });
@@ -261,10 +260,6 @@ document.getElementById('editMovieForm').addEventListener('submit', function (e)
             alert("Poster là bắt buộc khi thêm mới!");
             e.preventDefault(); return;
         }
-        // if (banner.files.length === 0) {
-        //     alert("Banner là bắt buộc khi thêm mới!");
-        //     e.preventDefault(); return;
-        // }
     }
 });
 
@@ -279,7 +274,7 @@ function populateEditUserForm(userData) {
     document.getElementById('editUserEmail').value = userData.email || '';
     document.getElementById('editUserPhone').value = userData.phone || '';
     document.getElementById('editUserBirthday').value = userData.birthday || '';
-    document.getElementById('editUserPassword').value = ""; // Để trống mật khẩu khi sửa, chỉ nhập nếu muốn đổi
+    document.getElementById('editUserPassword').value = "";
 
     form.dataset.originalEmail = userData.email ? userData.email.toLowerCase() : '';
     form.dataset.originalPhone = userData.phone || '';
@@ -356,12 +351,12 @@ function showAddUserForm() {
     const passwordLabel = document.querySelector("label[for='editUserPassword']");
 
     if (passwordInput) {
-        passwordInput.style.display = 'block'; // Hoặc 'inline-block' tùy theo CSS mặc định của bạn
-        passwordInput.disabled = false; // Đảm bảo không bị disable
-        passwordInput.placeholder = ""; // Xóa placeholder "Không thể sửa" nếu có
+        passwordInput.style.display = 'block';
+        passwordInput.disabled = false;
+        passwordInput.placeholder = "";
     }
     if (passwordLabel) {
-        passwordLabel.style.display = 'block'; // Hoặc 'inline-block'
+        passwordLabel.style.display = 'block';
     }
     // --- KẾT THÚC HIỂN THỊ TRƯỜNG MẬT KHẨU ---
 
@@ -410,7 +405,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Gọi hàm này khi trang/phần quản lý người dùng được tải
     fetchExistingCredentials();
 
     // Sự kiện submit cho form thêm/sửa người dùng
@@ -430,17 +424,15 @@ document.addEventListener('DOMContentLoaded', function() {
             const userEmail = userEmailInput.value.trim();
             const userPhone = userPhoneInput.value.trim();
             const userDOB = userDOBInput.value.trim();
-            const userPassword = userPasswordInput.value; // Không trim mật khẩu
-            const userId = userIdInput.value.trim(); // ID của user đang sửa, hoặc rỗng nếu thêm mới
+            const userPassword = userPasswordInput.value; 
+            const userId = userIdInput.value.trim();
 
-            const isAdd = (userId === "" || userId === "0" || !userId); // Xác định đang Thêm hay Sửa
+            const isAdd = (userId === "" || userId === "0" || !userId);
 
-            // Lấy email/SĐT gốc từ dataset của form (đã được set khi load form sửa)
             const originalEmail = (editUserForm.dataset.originalEmail || '').toLowerCase();
             const originalPhone = editUserForm.dataset.originalPhone || '';
             const userEmailLower = userEmail.toLowerCase();
 
-            // --- VALIDATION CƠ BẢN (giữ nguyên và bổ sung) ---
             // 1. Tên người dùng
             if (!userName) {
                 alert("Tên người dùng không được để trống!");
@@ -488,12 +480,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 userPhoneInput.focus();
                 e.preventDefault(); return;
             }
-            if (userPhone.length !== 10) { // Sửa: chính xác 10 chữ số
+            if (userPhone.length !== 10) {
                 alert("Số điện thoại phải gồm 10 chữ số.");
                 userPhoneInput.focus();
                 e.preventDefault(); return;
             }
-            if (!phoneRegex.test(userPhone)) { // Đảm bảo phoneRegex đã được định nghĩa
+            if (!phoneRegex.test(userPhone)) {
                 alert("Số điện thoại không hợp lệ (VD: 09xxxxxxxx, 03xxxxxxxx...).");
                 userPhoneInput.focus();
                 e.preventDefault(); return;
@@ -507,16 +499,16 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log("SĐT gốc (dataset):", originalPhone);
             console.log("Danh sách hiện có (existingCredentials, lowercase):", existingCredentials);
             console.log("-------------------------------------------");
-          // --- KIỂM TRA TRÙNG LẶP EMAIL (ĐÃ CẬP NHẬT LOGIC) ---
-            if (isAdd) { // Nếu là THÊM MỚI người dùng
+          // --- KIỂM TRA TRÙNG LẶP EMAIL ---
+            if (isAdd) {
                 if (existingCredentials.includes(userEmailLower)) {
                     alert("Địa chỉ email này đã được sử dụng. Vui lòng chọn email khác.");
                     userEmailInput.focus();
                     e.preventDefault();
                     return;
                 }
-            } else { // Nếu là SỬA người dùng hiện tại
-                if (userEmailLower !== originalEmail) { // Chỉ kiểm tra nếu email đã bị THAY ĐỔI
+            } else {
+                if (userEmailLower !== originalEmail) {
                     if (existingCredentials.includes(userEmailLower)) {
                         alert("Địa chỉ email mới này đã được sử dụng bởi người dùng khác. Vui lòng chọn email khác.");
                         userEmailInput.focus();
@@ -524,19 +516,18 @@ document.addEventListener('DOMContentLoaded', function() {
                         return;
                     }
                 }
-                // Nếu email không thay đổi (userEmailLower === originalEmail), bỏ qua kiểm tra trùng lặp cho email này.
             }
 
-            // --- KIỂM TRA TRÙNG LẶP SỐ ĐIỆN THOẠI (ĐÃ CẬP NHẬT LOGIC) ---
-            if (isAdd) { // Nếu là THÊM MỚI người dùng
+            // --- KIỂM TRA TRÙNG LẶP SỐ ĐIỆN THOẠI ---
+            if (isAdd) {
                 if (existingCredentials.includes(userPhone)) {
                     alert("Số điện thoại này đã được sử dụng. Vui lòng chọn số khác.");
                     userPhoneInput.focus();
                     e.preventDefault();
                     return;
                 }
-            } else { // Nếu là SỬA người dùng hiện tại
-                if (userPhone !== originalPhone) { // Chỉ kiểm tra nếu SĐT đã bị THAY ĐỔI
+            } else {
+                if (userPhone !== originalPhone) {
                     if (existingCredentials.includes(userPhone)) {
                         alert("Số điện thoại mới này đã được sử dụng bởi người dùng khác. Vui lòng chọn số khác.");
                         userPhoneInput.focus();
@@ -558,7 +549,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 birthDate.setHours(0, 0, 0, 0);
                 today.setHours(0, 0, 0, 0);
 
-                if (isNaN(birthDate.getTime())) { // Kiểm tra ngày hợp lệ
+                if (isNaN(birthDate.getTime())) {
                     alert('Ngày sinh không hợp lệ.');
                     userDOBInput.focus();
                     e.preventDefault(); return;
@@ -592,18 +583,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     userPasswordInput.focus();
                     e.preventDefault(); return;
                 }
-            } else { // Khi sửa người dùng
+            } else {
                 if (userPassword !== "" && userPassword.length < 6) {
-                    // Nếu admin nhập mật khẩu mới (khác rỗng) thì phải đủ dài
                     alert("Nếu thay đổi, mật khẩu mới phải có ít nhất 6 kí tự.");
                     userPasswordInput.focus();
                     e.preventDefault(); return;
                 }
-                // Nếu userPassword rỗng khi sửa, nghĩa là không muốn đổi mật khẩu -> server sẽ không cập nhật.
             }
-
-            // Nếu không có lỗi nào, form sẽ submit
-            // alert("Dữ liệu hợp lệ!");
         });
     }
 });
@@ -814,7 +800,7 @@ function showSeatMap(roomId) {
   .then(data => { 
       const seatContainer = document.querySelector('.seat-container');
       document.getElementById('seatMapContainer').style.display = 'block';
-      seatContainer.innerHTML = ''; // Clear seats cũ
+      seatContainer.innerHTML = '';
       data.seats.forEach(seat => {
           const seatDiv = document.createElement('div');
           seatDiv.className = `seat ${seat.hide == 1 ? 'booked' : 'available'} ${seat.seat_type.toLowerCase()}`;
@@ -1051,7 +1037,6 @@ function showEditShowtimeForm(button) {
   const selectedRoomId = button.dataset.roomid;
   const roomsSelect = document.getElementById("editShowtimeRooms");
 
-  // Gọi lại getRoomsForCinema và set phòng sau khi fetch xong
   fetch("../controler/get_rooms.php?cinema_id=" + encodeURIComponent(cinemaId))
     .then(response => {
       if (!response.ok) throw new Error("Lỗi khi lấy phòng chiếu");
@@ -1076,7 +1061,6 @@ function showEditShowtimeForm(button) {
 
       getShowtimeForRoom();
 
-      // Hiện các vùng thông tin bổ sung
       document.getElementById('CostAndTime').style.display = 'block';
       document.getElementById('ShowtimeList').style.display = 'block';
     })
@@ -1130,8 +1114,8 @@ function getRoomsForCinema() {
                 } else {
                     rooms.forEach(room => {
                         const option = document.createElement("option");
-                        option.value = room.room_id; // room_id từ PHP
-                        option.textContent = room.name;  // SỬA Ở ĐÂY: dùng room.name từ PHP
+                        option.value = room.room_id;
+                        option.textContent = room.name;
                         roomsSelect.appendChild(option);
                     });
                 }
@@ -1221,8 +1205,8 @@ document.getElementById("editShowtimeForm").addEventListener("submit", function 
     if (movieSelect.value === "") {
         alert("Vui lòng chọn phim.");
         movieSelect.focus();
-        e.preventDefault(); // Ngăn form submit
-        return; // Dừng các kiểm tra khác
+        e.preventDefault();
+        return;
     }
     // 2. Kiểm tra Rạp
     if (cinemaSelect.value === "") {
@@ -1239,7 +1223,6 @@ document.getElementById("editShowtimeForm").addEventListener("submit", function 
         e.preventDefault();
         return;
     }
-    // Kiểm tra xem phần Giờ và Giá có hiển thị không.
     const isCostAndTimeVisible = costAndTimeSection && costAndTimeSection.style.display !== 'none';
 
     if (isCostAndTimeVisible) {
@@ -1361,7 +1344,7 @@ document.getElementById("editShowtimeForm").addEventListener("submit", function 
         // --- KẾT THÚC KIỂM TRA TRÙNG GIỜ CHIẾU ---
     }
       // --- KẾT THÚC LOGIC KIỂM TRA THỜI LƯỢNG PHIM ---
-      // 1. Giá
+      // Giá
       if (!priceShowTimes) {
           alert("Giá xuất chiếu không được để trống.");
           document.getElementById('editConcessionsPrice').focus();
