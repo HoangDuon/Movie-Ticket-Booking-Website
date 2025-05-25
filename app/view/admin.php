@@ -73,7 +73,7 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
     <a class="menu-item active" data-page="dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a>
     <a class="menu-item" data-page="movies"><i class="bi bi-film"></i> Quản lý phim</a>
     <a class="menu-item" data-page="cinemas"><i class="bi bi-building"></i> Quản lý rạp</a>
-    <a class="menu-item" data-page="showtime"><i class="bi bi-calendar-event"></i> Quản lý xuất chiếu</a>
+    <a class="menu-item" data-page="showtime"><i class="bi bi-calendar-event"></i> Quản lý suất chiếu</a>
     <a class="menu-item" data-page="users"><i class="bi bi-people"></i> Quản lý người dùng</a>
     <a class="menu-item" data-page="membership"><i class="bi bi-gem"></i> Quản lý Membership</a>
     <a class="menu-item" data-page="concessions"><i class="bi bi-basket"></i> Quản lý đồ ăn</a>
@@ -517,7 +517,7 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
                     <th>Vị trí</th>
                     <th>SDT</th>
                     <th>Số phòng</th>
-                    <th>Số xuất chiếu</th>
+                    <th>Số suất chiếu</th>
                     <th>Chức năng</th>
                 </tr>
             </thead>
@@ -598,7 +598,7 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
                 <input type="text" id="editCinemasRooms" name="room" readonly>
                 </div>
                 <div class="form-group" style="flex: 1;">
-                <label>Xuất chiếu:</label>
+                <label>Suất chiếu:</label>
                 <input type="text" id="editCinemasShowtimes" name="showtime" readonly>
                 </div>
             </div>
@@ -893,9 +893,9 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
         </div>
     </div>
 
-    <!-- XUẤT CHIẾU -->
+    <!-- SUẤT CHIẾU -->
     <div id="page-showtime" style="display: none;">
-        <h2>Quản lý xuất chiếu</h2>
+        <h2>Quản lý suất chiếu</h2>
         <div class="mb-3">
             <input type="text" id="searchShowtimesInput" class="form-control"
                 placeholder="Tìm kiếm theo tên rạp, tên phim, tên phòng chiếu, thời gian chiếu..."
@@ -920,7 +920,7 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
             <tbody>
                 <?php foreach ($showtimes as $showtime): ?>
                 <tr>
-                    <!-- ẩn hiện xuất chiếu -->
+                    <!-- ẩn hiện suất chiếu -->
                     <td><?= $showtime['showtime_id'] ?><?php if ($showtime['hide'] == 1): ?>
                         <i class="bi bi-eye-slash" style="color: gray;" title="Đang ẩn"></i>    
                         <?php else: ?>
@@ -975,7 +975,7 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
             <div style="flex: 4;">
                 <span class="close-button" onclick="hideEditShowtimeForm()">&times;</span>
                 <form id="editShowtimeForm" action="../controler/add_update_showtime.php" method="post">
-                    <h2>Quản lý xuất chiếu</h2>
+                    <h2>Quản lý suất chiếu</h2>
                     <label>Phim:</label>
                     <select id="editShowtimeMovie" name="movie">
                         <option value="">-- Chọn phim --</option> 
@@ -1036,12 +1036,10 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
                                 <label>Giờ kết thúc:</label>
                                 <input type="datetime-local" id="EndTime" name="end">
                             </div>
-                            <div class="form-group" style="flex: 1;">
-                                <label>Giá:</label>
-                                <input type="text" id="Price" name="price">
-                            </div>
                         </div>
                     </div>
+                    <label>Giá:</label>
+                    <input type="text" id="Price" name="price">
                     <input type="hidden" id="editShowtimeId" name="id"> 
                     <input type="hidden" id="editCinemasHidden" name="cinemasid">
                     <input type="hidden" id="editRoomsId" name="roomsid"> 
@@ -1051,7 +1049,7 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
 
             <!-- Cột phải: Danh sách phim đang chiếu -->
             <div style="flex: 6; display: none;" id="ShowtimeList">
-            <h3>Các xuất chiếu hoạt động</h3>
+            <h3>Các suất chiếu hoạt động</h3>
             <table style="width: 100%; border-collapse: collapse;">
                 <thead>
                     <tr style="background-color: #eee;">
@@ -1076,7 +1074,7 @@ $promotions = $promotionsservice->ShowPromotionsAdmin();
     <div id="deleteShowtimeConfirmPanel" class="modal-overlay" style="display: none;">
         <div class="modal-content delete-modal delete-showtime-modal" style="text-align: center;">
             <span class="close-button" onclick="hideDeleteShowtimeConfirm()">&times;</span>
-            <h3 id="titleShowtime">Bạn có chắc muốn ẩn xuất chiếu này không?</h3>
+            <h3 id="titleShowtime">Bạn có chắc muốn ẩn suất chiếu này không?</h3>
             <form id="deleteShowtimeForm" action="../controler/delete_showtime.php" method="post">
                 <input type="hidden" name="id" id="deleteShowtimeId">
                 <button type="submit" style="background-color:rgb(24, 181, 63); margin-right: 10px;">Xác nhận</button>

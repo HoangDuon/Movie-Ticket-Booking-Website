@@ -306,6 +306,16 @@ body {
     flex: 1;
 }
 
+.form-group input[type="datetime-local"]{
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    color: #333;
+    width: 100%;
+    box-sizing: border-box;
+}
+
 .modal-content button[type="submit"] {
     background-color: var(--primary-color);
     color: white !important;
