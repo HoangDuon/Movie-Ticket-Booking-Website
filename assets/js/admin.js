@@ -384,28 +384,22 @@ function hideDeleteUserConfirm() {
 
 // Validate sửa người dùng
 document.addEventListener('DOMContentLoaded', function() {
-    // --- Các hằng số Regex bạn đã cung cấp hoặc đã chuẩn hóa ---
     const specialCharRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/;
     const phoneRegex = /^(0[3|5|7|8|9])[0-9]{8}$/;
     const digitRegex = /\d/;
-    const emailRegex = /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/; // Regex email tổng quát
+    const emailRegex = /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-    let existingCredentials = []; // Mảng chứa danh sách [email1, phone1, email2, phone2, ...]
+    let existingCredentials = [];
 
-    // Hàm để tải danh sách email và số điện thoại hiện có từ server
     async function fetchExistingCredentials() {
         try {
-            // Đảm bảo đường dẫn này chính xác đến file PHP của bạn
             const response = await fetch('../controler/get_all_emails_phones.php');
             if (!response.ok) {
                 throw new Error('Lỗi mạng khi tải danh sách email/SĐT: ' + response.status);
             }
             const data = await response.json();
             if (data.success && Array.isArray(data.list)) {
-                // Chuyển tất cả về chữ thường để so sánh không phân biệt hoa/thường (đặc biệt quan trọng cho email)
-                // và loại bỏ các giá trị null/undefined nếu có từ PHP
                 existingCredentials = data.list.filter(item => item != null).map(item => String(item).toLowerCase());
-                // console.log('Danh sách email/SĐT đã tải:', existingCredentials);
             } else {
                 console.error('Dữ liệu email/SĐT từ server không hợp lệ:', data);
                 alert('Không thể tải danh sách email/SĐT để kiểm tra trùng lặp.');
@@ -504,7 +498,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 userPhoneInput.focus();
                 e.preventDefault(); return;
             }
-console.log("--- DEBUG TRƯỚC KHI KIỂM TRA TRÙNG LẶP ---");
+            console.log("--- DEBUG TRƯỚC KHI KIỂM TRA TRÙNG LẶP ---");
             console.log("ID Người dùng đang sửa (userId):", userId);
             console.log("Chế độ Thêm mới (isAdd):", isAdd);
             console.log("Email nhập vào (form, lowercase):", userEmailLower);
@@ -550,7 +544,6 @@ console.log("--- DEBUG TRƯỚC KHI KIỂM TRA TRÙNG LẶP ---");
                         return;
                     }
                 }
-                // Nếu SĐT không thay đổi (userPhone === originalPhone), bỏ qua kiểm tra trùng lặp cho SĐT này.
             }
             // --- KẾT THÚC KIỂM TRA TRÙNG LẶP ---
 
@@ -610,7 +603,7 @@ console.log("--- DEBUG TRƯỚC KHI KIỂM TRA TRÙNG LẶP ---");
             }
 
             // Nếu không có lỗi nào, form sẽ submit
-            // alert("Dữ liệu hợp lệ!"); // Cho mục đích debug
+            // alert("Dữ liệu hợp lệ!");
         });
     }
 });
@@ -1129,7 +1122,6 @@ function getRoomsForCinema() {
                 const rooms = data.rooms;
                 if (rooms.length === 0) {
                     // console.log("Không có phòng nào cho rạp đã chọn.");
-                    // Bạn có thể thêm một option thông báo không có phòng nếu muốn
                     const noRoomOption = document.createElement("option");
                     noRoomOption.value = "";
                     noRoomOption.textContent = "-- Không có phòng --";
@@ -1160,7 +1152,6 @@ function getShowtimeForRoom() {
   document.getElementById('ShowtimeList').style.display = 'block';
   document.getElementById('CostAndTime').style.display = 'block';
 
-  // Gửi AJAX đến server để lấy danh sách suất chiếu
   fetch(`../controler/get_showtimes_by_room.php?room_id=${roomId}`)
       .then(response => response.json())
       .then(data => {
@@ -1249,7 +1240,6 @@ document.getElementById("editShowtimeForm").addEventListener("submit", function 
         return;
     }
     // Kiểm tra xem phần Giờ và Giá có hiển thị không.
-    // Chỉ kiểm tra các trường này nếu phần tử cha của chúng (#CostAndTime) đang hiển thị.
     const isCostAndTimeVisible = costAndTimeSection && costAndTimeSection.style.display !== 'none';
 
     if (isCostAndTimeVisible) {
@@ -1331,6 +1321,45 @@ document.getElementById("editShowtimeForm").addEventListener("submit", function 
           e.preventDefault();
           return;
       }
+    // --- BẮT ĐẦU KIỂM TRA TRÙNG GIỜ CHIẾU ---
+    const roomId = roomSelect.value;
+    if (!roomId) return;
+
+    const startTimeStr = startTimeInput.value;
+    const endTimeStr = endTimeInput.value;
+    const startTimeDate = new Date(startTimeStr);
+    const endTimeDate = new Date(endTimeStr);
+
+    e.preventDefault();
+
+    fetch(`../controler/get_showtimes_by_room.php?room_id=${roomId}`)
+        .then(response => response.json())
+        .then(data => {
+            const isOverlap = data.some(showtime => {
+                const existingStart = new Date(showtime.start_time);
+                const existingEnd = new Date(showtime.end_time);
+
+                return !(
+                    endTimeDate <= existingStart || 
+                    startTimeDate >= existingEnd
+                );
+            });
+
+            if (isOverlap) {
+                alert("Xuất chiếu bị trùng giờ với một xuất khác trong phòng này. Vui lòng chọn giờ khác.");
+                startTimeInput.focus();
+            } else {
+                document.getElementById("editShowtimeForm").submit();
+            }
+        })
+        .catch(error => {
+            console.error("Lỗi khi kiểm tra trùng giờ chiếu:", error);
+            alert("Đã xảy ra lỗi khi kiểm tra trùng giờ chiếu. Vui lòng thử lại.");
+        });
+
+        return;
+        // --- KẾT THÚC KIỂM TRA TRÙNG GIỜ CHIẾU ---
+    }
       // --- KẾT THÚC LOGIC KIỂM TRA THỜI LƯỢNG PHIM ---
       // 1. Giá
       if (!priceShowTimes) {
@@ -1349,7 +1378,6 @@ document.getElementById("editShowtimeForm").addEventListener("submit", function 
         document.getElementById('editConcessionsPrice').focus();
         e.preventDefault(); return;
       }
-    }
 });
 //JS phần thêm xóa sửa khuyến mãi
 function showPromotionEditForm(button) {

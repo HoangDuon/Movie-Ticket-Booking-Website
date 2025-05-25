@@ -177,13 +177,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const emailInput = document.getElementById('email');
 
     const infoInputs = [fullnameInput, birthdateInput, phoneInput, emailInput];
-    const originalValues = {}; // Object để lưu giá trị gốc
+    const originalValues = {};
     
     let isEditMode = false; // Biến cờ để theo dõi trạng thái chỉnh sửa
 
     if (editInfoButton) {
         editInfoButton.addEventListener('click', function() {
-            isEditMode = !isEditMode; // Đảo trạng thái
+            isEditMode = !isEditMode;
             if (isEditMode) {
                 // Chế độ Sửa
                 this.innerHTML = '<i class="bi bi-x-circle"></i> Hủy'; // Đổi thành nút Hủy
@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         input.removeAttribute('disabled');
                     }
                 });
-                // Không hiển thị nút "LƯU THÔNG TIN" ngay, chờ người dùng nhập liệu
+
             } else {
                 this.innerHTML = '<i class="bi bi-wrench"></i> Sửa';
                 this.classList.remove('btn-warning');
@@ -223,10 +223,34 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    let existingCredentials = [];
+
+    async function fetchExistingCredentials() {
+        try {
+            const response = await fetch('app/controler/get_all_emails_phones.php');
+            if (!response.ok) {
+                throw new Error('Lỗi mạng khi tải danh sách email/SĐT: ' + response.status);
+            }
+            const data = await response.json();
+            if (data.success && Array.isArray(data.list)) {
+                existingCredentials = data.list.filter(item => item != null).map(item => String(item).toLowerCase());
+            } else {
+                console.error('Dữ liệu email/SĐT từ server không hợp lệ:', data);
+                alert('Không thể tải danh sách email/SĐT để kiểm tra trùng lặp.');
+            }
+        } catch (error) {
+            console.error('Lỗi khi fetchExistingCredentials:', error);
+            alert('Xảy ra lỗi khi kết nối để lấy danh sách email/SĐT: ' + error.message);
+        }
+    }
+
+    // Gọi hàm này khi trang/phần quản lý người dùng được tải
+    fetchExistingCredentials();
+
     if (personalInfoForm) {
         personalInfoForm.addEventListener('submit', function(e) {
             // Kiểm tra khi form được submit (người dùng nhấn nút "LƯU THÔNG TIN")
-            if (isEditMode) { // Chỉ kiểm tra nếu đang ở chế độ sửa
+            if (isEditMode) {
                 const fullnameValue = fullnameInput ? fullnameInput.value.trim() : '';
                 const birthdateValue = birthdateInput ? birthdateInput.value : '';
                 const phoneValue = phoneInput ? phoneInput.value.trim() : '';
@@ -303,6 +327,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     e.preventDefault(); return;
                 }
 
+                if (phoneValue !== originalValues['phone'] && existingCredentials.includes(phoneValue)) {
+                    alert("Số điện thoại này đã được sử dụng. Vui lòng chọn số khác.");
+                    phoneInput.focus();
+                    e.preventDefault();
+                    return;
+                }
+
                 // 4. Kiểm tra Email
                 if (emailValue === '') {
                     alert('Email không được để trống!');
@@ -310,6 +341,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     e.preventDefault();
                     return;
                 }
+                if (emailValue.toLowerCase() !== originalValues['email'].toLowerCase() &&
+                    existingCredentials.includes(emailValue.toLowerCase())) {
+                    alert("Địa chỉ email này đã được sử dụng. Vui lòng chọn email khác.");
+                    emailInput.focus();
+                    e.preventDefault();
+                    return;
+                }
+
                 // Kiểm tra email phải kết thúc bằng @gmail.com (không phân biệt chữ hoa/thường)
                 if (!emailValue.toLowerCase().endsWith('@gmail.com')) {
                     alert('Email phải có định dạng là ...@gmail.com!');
@@ -345,7 +384,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             if (!isValid) {
-                e.preventDefault(); // Ngăn form submit nếu có lỗi validation
+                e.preventDefault();
             } else {
                 // Nếu validation phía client OK, cho phép form submit
                 // Không cần alert ở đây, PHP (change_password.php) sẽ xử lý và thông báo kết quả
